@@ -50,7 +50,7 @@
     "layout-primitives",
     "theming"
   ],
-  "author": "Joshua Briley",
+  "author": "Rudy Vincent",
   "license": "MIT",
   "type": "module",
   "bugs": {

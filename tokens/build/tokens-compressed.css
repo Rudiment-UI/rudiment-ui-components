@@ -202,7 +202,6 @@
   --rudi-component-radio-group-label-font-size: var(--rudi-font-size-sm);
   --rudi-component-radio-group-description-font-size: var(--rudi-font-size-xs);
   --rudi-component-radio-group-error-font-size: var(--rudi-font-size-xs);
-  --rudi-component-switch-track-bg: var(--rudi-color-neutral-300);
   --rudi-component-switch-track-radius: var(--rudi-radius-full);
   --rudi-component-switch-gap: var(--rudi-spacing-2);
   --rudi-component-switch-label-font-size: var(--rudi-font-size-sm);
@@ -560,6 +559,7 @@
   --rudi-component-radio-group-label-color: var(--rudi-color-text-default);
   --rudi-component-radio-group-description-color: var(--rudi-color-text-subtle);
   --rudi-component-radio-group-error-color: var(--rudi-color-feedback-error-text);
+  --rudi-component-switch-track-bg: var(--rudi-color-border-control);
   --rudi-component-switch-track-bg-on: var(--rudi-color-brand-primary);
   --rudi-component-switch-focus-outline-color: var(--rudi-color-border-focus);
   --rudi-component-switch-label-color: var(--rudi-color-text-default);

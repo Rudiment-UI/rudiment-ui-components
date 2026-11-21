@@ -152,7 +152,7 @@
     "switch": {
       "track-width": { "$value": "2.75rem" },
       "track-height": { "$value": "1.5rem" },
-      "track-bg": { "$value": "{color.neutral.300}" },
+      "track-bg": { "$value": "{color.border.control}" },
       "track-bg-on": { "$value": "{color.brand.primary}" },
       "track-radius": { "$value": "{radius.full}" },
       "track-padding": { "$value": "0.125rem" },

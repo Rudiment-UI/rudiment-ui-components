@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **`RudiForm`:** passes `onSubmit` the form's `FormData` without reloading, and when `errors` is non-empty shows an error summary ("2 problems to fix") at the top and moves focus to it.
 - **`RudiLineChart` reference lines, y-domain and unit:** `referenceLines` (`{ y, label, tone? }`, dashed and labelled, in feedback colors), `yDomain` and `unit`. `useChartTheme` now also returns `tones`. `RudiChartReferenceLine` is exported.
 - **`RudiDialog.Footer`:** an action row after the body (primary action last). Dismissable dialogs now show a close button, and tall content scrolls inside the body while the title and footer stay visible.
 - **`RudiCover.Centered`:** marks the child that sits in the vertical middle of a `RudiCover`. Previously consumers had to add the internal `rudi-cover__centered` class by hand.

@@ -287,6 +287,7 @@ const [isOpen, setIsOpen] = useState(false)
 
 | Component           | Key props |
 | ------------------- | --------- |
+| `RudiForm`          | `onSubmit?: (data: FormData, event) => void`, `errors?: string[]` (shows and focuses a summary), `errorTitle?` |
 | `RudiAppShell`      | `isSidebarOpen?`, `onSidebarOpenChange?`, `defaultSidebarOpen?`; parts `.Sidebar` (`width?`, `aria-label?`), `.Content`, `.Main` (`maxWidth?`, `padding?`), `.MenuButton` |
 | `RudiTopBar`        | `start?`, `end?`, `children` (center), `announcement?`, `sticky?` (`true`), `as?` (`'header'`) |
 | `RudiPageHeader`    | `title` **(required)**, `subtitle?`, `actions?`, `headingLevel?` (`1`) |

@@ -115,6 +115,12 @@ These two components look similar but serve different purposes:
 - **Don't** use icons without text labels for critical actions unless the icon meaning is universally understood
 - **Don't** override the `color` prop when the icon should inherit its color from the parent text. The default `currentColor` behavior keeps icons in sync.
 
+## Form
+
+- **Do** validate on submit, pass the problems as `errors`, and also set `errorMessage` on each field. The summary lists them and takes focus; the fields show where.
+- **Do** write each error as a fix ("Choose a pickup date"), not a code
+- **Don't** clear `errors` while the user is still typing. Recompute them on the next submit.
+
 ## IconButton
 
 - **Do** provide a descriptive `aria-label` (for example, `aria-label="Close dialog"`)

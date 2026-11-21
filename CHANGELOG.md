@@ -34,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- `RudiBadge` keeps its own width inside `RudiStack` and other stretching parents. It no longer becomes a full-width bar.
 - `RudiKanbanBoard` columns share the board width equally, with `column-min-width` as the floor. Before, each column grew to its longest unwrapped line, so three columns with real card text overflowed a 1200px page.
 - `RudiBarChart` `layout="horizontal"`: the category axis is sized to the longest label (up to 220px) instead of clipping at Recharts' 60px default. Grid lines now run across the value axis only in both layouts; before, they were inverted for horizontal bars.
 - Chart legends (`RudiBarChart`, `RudiDonutChart`, `RudiLineChart`): label text now uses `component.chart.legend-color`. Only the swatch carries the series color; before, Recharts painted the text in series hues such as amber, which fall well under 4.5:1 contrast.

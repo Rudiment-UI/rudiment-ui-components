@@ -15,6 +15,17 @@ export interface RudiInputProps {
   value?: string
   defaultValue?: string
   onChange?: (value: string) => void
+  /** Called when the field loses focus, e.g. to validate on blur. */
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void
+  /** Form field name, for native form submission and password managers. */
+  name?: string
+  /** Autofill hint, e.g. `email`, `one-time-code`, `current-password`. */
+  autoComplete?: string
+  /** Virtual-keyboard hint, e.g. `numeric` for a one-time code. */
+  inputMode?: 'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search'
+  maxLength?: number
+  isReadOnly?: boolean
+  autoFocus?: boolean
   className?: string
 }
 
@@ -31,6 +42,13 @@ export const RudiInput = React.forwardRef<HTMLInputElement, RudiInputProps>(
       value,
       defaultValue,
       onChange,
+      onBlur,
+      name,
+      autoComplete,
+      inputMode,
+      maxLength,
+      isReadOnly,
+      autoFocus,
       className,
     },
     forwardedRef,
@@ -54,6 +72,13 @@ export const RudiInput = React.forwardRef<HTMLInputElement, RudiInputProps>(
         value,
         defaultValue,
         onChange,
+        onBlur,
+        name,
+        autoComplete,
+        inputMode,
+        maxLength,
+        isReadOnly,
+        autoFocus,
         isInvalid: !!errorMessage,
       },
       ref,

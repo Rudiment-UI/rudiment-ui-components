@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **`RudiSidebar side="right"` no longer always wraps.** The sidebar (last child) kept the content's `contentMin` minimum from the base rule, so both columns needed it and they never sat side by side.
 - **`RudiCheckboxGroup` now drives its checkboxes.** The group's `value`, `defaultValue` and `onChange` never reached the `RudiCheckbox` children (no shared state), so groups only worked as a label. Checkboxes inside a group now use the group's state (give each a `value`).
 - **Group errors are announced.** `RudiRadioGroup` and `RudiCheckboxGroup` mark themselves invalid and link `errorMessage` to the group when it's set.
 - **`RudiForm` moves focus to the summary only after a submit,** not whenever `errors` changes, so live validation no longer pulls focus away from the field being edited.

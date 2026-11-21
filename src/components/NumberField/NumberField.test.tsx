@@ -161,4 +161,10 @@ describe('RudiNumberField', () => {
     const { container } = render(<RudiNumberField label="Distance" errorMessage="Required" />)
     expect(await axe(container)).toHaveNoViolations()
   })
+  it('keeps a hidden label as the accessible name', async () => {
+    const { container } = render(<RudiNumberField label="Rate per mile" labelHidden />)
+    expect(screen.getByRole('textbox', { name: 'Rate per mile' })).toBeInTheDocument()
+    expect(container.querySelector('.rudi-number-field__label')).toBeNull()
+    expect(await axe(container)).toHaveNoViolations()
+  })
 })

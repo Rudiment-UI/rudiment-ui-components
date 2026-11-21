@@ -1,4 +1,5 @@
 import React from 'react'
+import { VisuallyHidden } from 'react-aria'
 import {
   Button,
   FieldError,
@@ -14,6 +15,11 @@ import './number-field.css'
 
 export interface RudiNumberFieldProps {
   label: string
+  /**
+   * Keep the label for assistive tech but hide it visually, e.g. inside a table
+   * cell whose column header already says what the field is.
+   */
+  labelHidden?: boolean
   /** Controlled value. `null` renders an empty field. */
   value?: number | null
   defaultValue?: number | null
@@ -49,6 +55,7 @@ export const RudiNumberField = React.forwardRef<HTMLInputElement, RudiNumberFiel
   function RudiNumberField(
     {
       label,
+      labelHidden = false,
       value,
       defaultValue,
       onChange,
@@ -87,15 +94,21 @@ export const RudiNumberField = React.forwardRef<HTMLInputElement, RudiNumberFiel
       >
         {({ isInvalid }) => (
           <>
-            <Label className="rudi-number-field__label">
-              {label}
-              {isRequired && (
-                <span className="rudi-number-field__required" aria-hidden="true">
-                  {' '}
-                  *
-                </span>
-              )}
-            </Label>
+            {labelHidden ? (
+              <VisuallyHidden>
+                <Label>{label}</Label>
+              </VisuallyHidden>
+            ) : (
+              <Label className="rudi-number-field__label">
+                {label}
+                {isRequired && (
+                  <span className="rudi-number-field__required" aria-hidden="true">
+                    {' '}
+                    *
+                  </span>
+                )}
+              </Label>
+            )}
             <Group className="rudi-number-field__field">
               <Input
                 ref={ref}

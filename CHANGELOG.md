@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `RudiNumberField`: `labelHidden` keeps the label as the accessible name but hides it visually, for fields inside table cells.
 - `RudiSwitch`: `aria-label` and `aria-labelledby` props, and `children` is now optional when one of them names the switch. Use it for switches repeated per table row.
 - **`RudiCheckbox` `errorMessage`:** a standalone checkbox (an agreement, say) can show and announce an error.
 - **`RudiBox` `sticky`:** keeps a box in view while its container scrolls; pass a string for the top offset (`sticky="1rem"`).

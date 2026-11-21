@@ -9,7 +9,24 @@ export interface RudiCoverProps extends React.HTMLAttributes<HTMLElement> {
   children?: React.ReactNode
 }
 
-export const RudiCover = forwardRef<HTMLElement, RudiCoverProps>(function RudiCover(
+export interface RudiCoverCenteredProps extends React.HTMLAttributes<HTMLElement> {
+  as?: React.ElementType
+  children?: React.ReactNode
+}
+
+/** The child that sits in the vertical middle of the cover. Use at most one per cover. */
+const CoverCentered = forwardRef<HTMLElement, RudiCoverCenteredProps>(function RudiCoverCentered(
+  { as: Element = 'div', className, children, ...props },
+  ref,
+) {
+  return (
+    <Element ref={ref} className={cn('rudi-cover__centered', className)} {...props}>
+      {children}
+    </Element>
+  )
+})
+
+const CoverRoot = forwardRef<HTMLElement, RudiCoverProps>(function RudiCover(
   {
     minHeight,
     space,
@@ -36,3 +53,5 @@ export const RudiCover = forwardRef<HTMLElement, RudiCoverProps>(function RudiCo
     </Element>
   )
 })
+
+export const RudiCover = Object.assign(CoverRoot, { Centered: CoverCentered })

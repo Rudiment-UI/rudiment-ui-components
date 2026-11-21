@@ -198,7 +198,7 @@ export { RudiCenter } from './layouts/Center/Center'
 export type { RudiCenterProps } from './layouts/Center/Center'
 
 export { RudiCover } from './layouts/Cover/Cover'
-export type { RudiCoverProps } from './layouts/Cover/Cover'
+export type { RudiCoverProps, RudiCoverCenteredProps } from './layouts/Cover/Cover'
 
 export { RudiSwitcher } from './layouts/Switcher/Switcher'
 export type { RudiSwitcherProps } from './layouts/Switcher/Switcher'

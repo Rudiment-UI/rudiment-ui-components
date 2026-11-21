@@ -272,4 +272,31 @@ describe('Table', () => {
     expect(header.style.width).toBe('120px')
     expect(header.style.minWidth).toBe('8rem')
   })
+
+  it('leaves caret keys to a text field inside a cell', async () => {
+    const user = userEvent.setup()
+    render(
+      <RudiTable aria-label="Tiers">
+        <RudiTableHeader>
+          <RudiTableColumn isRowHeader>Tier</RudiTableColumn>
+          <RudiTableColumn>Miles</RudiTableColumn>
+        </RudiTableHeader>
+        <RudiTableBody>
+          <RudiTableRow id="1">
+            <RudiTableCell>1</RudiTableCell>
+            <RudiTableCell>
+              <input aria-label="Miles" defaultValue="" />
+            </RudiTableCell>
+          </RudiTableRow>
+        </RudiTableBody>
+      </RudiTable>,
+    )
+    const field = screen.getByRole('textbox', { name: 'Miles' })
+    await user.click(field)
+    await user.keyboard('12{ArrowLeft}3{Home}9')
+    expect(field).toHaveFocus()
+    expect(field).toHaveValue('9132')
+    await user.tab({ shift: true })
+    expect(field).not.toHaveFocus()
+  })
 })

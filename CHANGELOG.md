@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `RudiKanbanCard` `label` names the drag handle ("Move REF-1042"; was "Drag handle for card <id>"). `RudiKanbanBoard` `getCardLabel` names cards in announcements.
 - `RudiNumberField`: `labelHidden` keeps the label as the accessible name but hides it visually, for fields inside table cells.
 - `RudiSwitch`: `aria-label` and `aria-labelledby` props, and `children` is now optional when one of them names the switch. Use it for switches repeated per table row.
 - **`RudiCheckbox` `errorMessage`:** a standalone checkbox (an agreement, say) can show and announce an error.
@@ -33,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- `RudiKanbanBoard` announced every drag twice: once from its own live region and again from dnd-kit's default messages, which used raw ids. Announcements now go only through dnd-kit's `accessibility.announcements`, naming the card and its position ("REF-1042 is over Active, position 2 of 3"), and cancelling is announced.
 - `RudiButton` and `RudiIconButton` with `isDisabled` now look disabled. The dimmed style and the hover guard only matched `aria-disabled` (set while loading), but `isDisabled` renders the native `disabled` attribute.
 - Field hint and error text no longer carry the browser's paragraph margin. `RudiInput`, `RudiTextarea`, `RudiSelect`, `RudiComboBox`, `RudiRadioGroup`, `RudiCheckbox` and `RudiCheckboxGroup` sat their hints 12px further from the field than `RudiNumberField` did.
 - `RudiTableCell`: a text field inside a cell keeps its arrow keys, Home/End and typing. Focusing it puts the grid in React Aria's edit mode, so the caret moves instead of focus jumping to another cell or a type-ahead row match. Tab still leaves the field.

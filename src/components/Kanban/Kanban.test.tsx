@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { axe } from 'vitest-axe'
 import { describe, it, expect, vi } from 'vitest'
 import { RudiKanbanBoard } from './KanbanBoard'
@@ -79,7 +80,7 @@ describe('KanbanBoard', () => {
         renderCard={renderCard}
       />,
     )
-    const handles = screen.getAllByRole('button', { name: /Drag handle/ })
+    const handles = screen.getAllByRole('button', { name: /^Move card-/ })
     expect(handles).toHaveLength(3)
   })
 
@@ -128,5 +129,28 @@ describe('KanbanBoard', () => {
       />,
     )
     expect(await axe(container)).toHaveNoViolations()
+  })
+
+  it('names handles and announcements with the card label', async () => {
+    const user = userEvent.setup()
+    render(
+      <RudiKanbanBoard
+        columns={sampleColumns}
+        onCardMove={vi.fn()}
+        getCardLabel={(item) => String(item.title)}
+        renderCard={(item) => (
+          <RudiKanbanCard key={item.id} id={item.id} label={String(item.title)}>
+            <span>{String(item.title)}</span>
+          </RudiKanbanCard>
+        )}
+      />,
+    )
+    const handle = screen.getByRole('button', { name: 'Move Design homepage' })
+    handle.focus()
+    await user.keyboard(' ')
+    // dnd-kit reports the starting position straight after pick-up, replacing the pick-up message.
+    expect(await screen.findByText('Design homepage is over To Do, position 1 of 2.')).toBeInTheDocument()
+    await user.keyboard('{Escape}')
+    expect(await screen.findByText('Cancelled. Design homepage was not moved.')).toBeInTheDocument()
   })
 })

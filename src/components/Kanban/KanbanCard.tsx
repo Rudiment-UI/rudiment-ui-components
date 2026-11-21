@@ -4,11 +4,16 @@ import { cn } from '@/utils/cn'
 
 export interface RudiKanbanCardProps {
   id: string
+  /**
+   * Human name for the card (e.g. its title or reference). Names the drag handle
+   * ("Move REF-1042") so screen-reader users hear which card they're on. Falls back to `id`.
+   */
+  label?: string
   children: React.ReactNode
   className?: string
 }
 
-export function RudiKanbanCard({ id, children, className }: RudiKanbanCardProps) {
+export function RudiKanbanCard({ id, label, children, className }: RudiKanbanCardProps) {
   const {
     attributes,
     listeners,
@@ -36,7 +41,7 @@ export function RudiKanbanCard({ id, children, className }: RudiKanbanCardProps)
       <button
         type="button"
         className="rudi-kanban__card-handle"
-        aria-label={`Drag handle for card ${id}`}
+        aria-label={`Move ${label ?? id}`}
         {...attributes}
         {...listeners}
         // After the spread so it wins — `attributes` also carries

@@ -109,14 +109,9 @@ function applyTheme(theme: Theme) {
 
 Themes are scoped by attribute rather than element, so you can theme a subtree — a dark sidebar inside a light page — by putting `data-theme` on any wrapper.
 
-No `prefers-color-scheme` query ships with the package. If you want OS-driven dark mode, wire it up yourself:
+For OS-driven dark mode, set `data-theme="auto"`: it applies the dark tokens when the system prefers dark and the default tokens otherwise, in pure CSS.
 
-```tsx
-const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-applyTheme(prefersDark ? 'dark' : 'default')
-```
-
-Charts follow theme changes automatically — `useChartTheme` watches `data-theme` on `<html>` with a `MutationObserver` and re-resolves its colors.
+Charts follow theme changes automatically: `useChartTheme` re-resolves its colors when `data-theme` on `<html>` changes or the OS color scheme flips.
 
 ## Tokens
 

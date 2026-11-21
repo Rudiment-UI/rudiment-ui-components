@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **`data-theme="auto"`:** follows the OS color scheme in pure CSS, using the dark tokens under `prefers-color-scheme: dark` and the defaults otherwise. `useChartTheme` now also re-resolves when the OS scheme changes. Built from the dark config as `tokens/build/tokens-auto-dark.css`.
 - **`RudiBrand`:** a logo lockup (mark + name, `sm` / `md` / `lg`), optionally a home link. The mark is decorative and the name is always the accessible name, visible unless `hideName`. New `component.brand.*` tokens.
 - **`RudiRouterProvider`:** connects Rudi links to your router (pass `navigate`, and optionally `useHref`) so `RudiLink`, `RudiNavItem` and `RudiBreadcrumb` navigate client-side instead of reloading the page. It re-exports React Aria's `RouterProvider`, so apps don't import `react-aria` directly.
 - **App chrome is now exported:** `RudiAppShell` (with `.Sidebar`, `.Content`, `.Main`, `.MenuButton`), `RudiTopBar`, `RudiPageHeader` and `RudiSectionHeader`, plus their Props types. Before export, the shell's mobile drawer gained `aria-expanded` / `aria-controls` on the menu button, closes on Escape (returning focus to the menu button), and is hidden from keyboard and assistive tech while off-canvas. `RudiFooter` stays internal.

@@ -63,6 +63,7 @@ const preview: Preview = {
           { value: 'soft-dark', title: 'Soft Dark', icon: 'moon' },
           { value: 'compressed', title: 'Compressed Light', icon: 'sun' },
           { value: 'compressed-dark', title: 'Compressed Dark', icon: 'moon' },
+          { value: 'auto', title: 'Auto (follows OS)', icon: 'mirror' },
         ],
         dynamicTitle: true,
       },

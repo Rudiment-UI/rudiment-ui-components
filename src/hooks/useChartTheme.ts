@@ -96,7 +96,15 @@ export function useChartTheme(): ChartTheme {
       attributeFilter: ['data-theme'],
     })
 
-    return () => observer.disconnect()
+    // data-theme="auto" follows the OS without any attribute change, so
+    // also re-resolve when the color-scheme preference flips.
+    const scheme = window.matchMedia?.('(prefers-color-scheme: dark)')
+    scheme?.addEventListener('change', updateTheme)
+
+    return () => {
+      observer.disconnect()
+      scheme?.removeEventListener('change', updateTheme)
+    }
   }, [updateTheme])
 
   return theme

@@ -90,6 +90,9 @@ export function RudiBarChart({
           {showLegend && (
             <Legend
               wrapperStyle={{ color: theme.legendColor }}
+              // Recharts colours each label like its series; keep the swatch coloured
+              // and the text readable (series hues can fall well under 4.5:1).
+              formatter={(value) => <span style={{ color: theme.legendColor }}>{value}</span>}
             />
           )}
           {dataKeys.map((key, i) => (

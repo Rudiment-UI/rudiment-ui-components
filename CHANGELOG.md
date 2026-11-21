@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- `RudiButton` and `RudiIconButton` with `isDisabled` now look disabled. The dimmed style and the hover guard only matched `aria-disabled` (set while loading), but `isDisabled` renders the native `disabled` attribute.
 - Field hint and error text no longer carry the browser's paragraph margin. `RudiInput`, `RudiTextarea`, `RudiSelect`, `RudiComboBox`, `RudiRadioGroup`, `RudiCheckbox` and `RudiCheckboxGroup` sat their hints 12px further from the field than `RudiNumberField` did.
 - `RudiTableCell`: a text field inside a cell keeps its arrow keys, Home/End and typing. Focusing it puts the grid in React Aria's edit mode, so the caret moves instead of focus jumping to another cell or a type-ahead row match. Tab still leaves the field.
 - `RudiTable`: hovered rows are now distinguishable from striped rows. `component.table.row-hover-bg` uses `surface-sunken` in light themes and `neutral.700` in dark themes (both previously matched the stripe color).

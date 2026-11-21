@@ -86,4 +86,11 @@ describe('Button', () => {
     )
     expect(await axe(container)).toHaveNoViolations()
   })
+
+  it('marks a disabled button with the native disabled attribute the styles target', () => {
+    render(<RudiButton isDisabled>Save</RudiButton>)
+    const button = screen.getByRole('button', { name: 'Save' })
+    expect(button).toBeDisabled()
+    expect(button.matches(":is(:disabled, [aria-disabled='true'])")).toBe(true)
+  })
 })

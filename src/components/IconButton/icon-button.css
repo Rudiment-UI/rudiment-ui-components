@@ -16,7 +16,7 @@
   outline-offset: 2px;
 }
 
-.rudi-icon-button[aria-disabled='true'] {
+.rudi-icon-button:is(:disabled, [aria-disabled='true']) {
   cursor: not-allowed;
   opacity: 0.5;
 }
@@ -43,7 +43,7 @@
   color: var(--rudi-component-icon-button-primary-text);
 }
 
-.rudi-icon-button--primary:hover:not([aria-disabled='true']) {
+.rudi-icon-button--primary:hover:not(:is(:disabled, [aria-disabled='true'])) {
   background-color: var(--rudi-component-icon-button-primary-hover-bg);
 }
 
@@ -53,7 +53,7 @@
   border-color: var(--rudi-component-icon-button-secondary-border);
 }
 
-.rudi-icon-button--secondary:hover:not([aria-disabled='true']) {
+.rudi-icon-button--secondary:hover:not(:is(:disabled, [aria-disabled='true'])) {
   background-color: var(--rudi-component-icon-button-secondary-hover-bg);
 }
 
@@ -67,6 +67,6 @@
   color: var(--rudi-component-icon-button-ghost-text);
 }
 
-.rudi-icon-button--ghost:hover:not([aria-disabled='true']) {
+.rudi-icon-button--ghost:hover:not(:is(:disabled, [aria-disabled='true'])) {
   background-color: var(--rudi-component-icon-button-ghost-hover-bg);
 }

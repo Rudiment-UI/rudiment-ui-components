@@ -77,13 +77,21 @@
     inset-inline-start: 0;
     block-size: 100%;
     transform: translateX(-100%);
+    /* Hidden from keyboard and assistive tech while off-canvas. Visibility
+       flips after the slide-out so the closing transition still shows. */
+    visibility: hidden;
     box-shadow: var(--rudi-component-app-shell-drawer-shadow);
-    transition: transform var(--rudi-motion-duration-base)
-      var(--rudi-motion-easing-standard);
+    transition:
+      transform var(--rudi-motion-duration-base) var(--rudi-motion-easing-standard),
+      visibility 0s linear var(--rudi-motion-duration-base);
   }
 
   .rudi-app-shell--sidebar-open .rudi-app-shell__sidebar {
     transform: translateX(0);
+    visibility: visible;
+    transition:
+      transform var(--rudi-motion-duration-base) var(--rudi-motion-easing-standard),
+      visibility 0s linear 0s;
   }
 
   .rudi-app-shell--sidebar-open .rudi-app-shell__backdrop {

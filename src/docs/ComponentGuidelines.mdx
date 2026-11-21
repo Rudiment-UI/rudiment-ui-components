@@ -13,6 +13,13 @@ Practical do/don't guidance for each interactive component. Following these patt
 - **Don't** use `variant="error"` for informational messages. It causes unnecessary alarm.
 - **Don't** overuse alerts. When everything is highlighted, nothing stands out.
 
+## AppShell (Sidebar, Content, Main, MenuButton)
+
+- **Do** render one `RudiAppShell` per page, with `RudiAppShell.Sidebar` for navigation and `RudiAppShell.Main` for the page body, so the page gets `aside` and `main` landmarks
+- **Do** put `RudiAppShell.MenuButton` in the top bar: it only shows below 900px, opens the sidebar as a drawer, and reports `aria-expanded`
+- **Do** control the drawer (`isSidebarOpen` / `onSidebarOpenChange`) when you need to close it after navigation
+- **Don't** nest `RudiAppShell`, or put page content in the sidebar
+
 ## Avatar
 
 - **Do** provide a `name` prop so the component can generate initials as a fallback when the image fails to load
@@ -154,6 +161,12 @@ These two components look similar but serve different purposes:
 - **Don't** provide both `href` and `onPress` for the same navigation action. Pick the appropriate mechanism.
 - **Don't** use NavItem outside of a sidebar or navigation context. For in-page actions, use **Button** instead.
 
+## PageHeader and SectionHeader
+
+- **Do** start every page with one `RudiPageHeader` (an `h1` by default) and put primary page actions in `actions`
+- **Do** use `RudiSectionHeader` (an `h2` by default) to title regions within a page; set `headingLevel` to keep the outline correct
+- **Don't** use more than one `RudiPageHeader` per page
+
 ## Pagination
 
 - **Do** use for navigating large, paged data sets (search results, tables, listings)
@@ -217,6 +230,11 @@ These two components look similar but serve different purposes:
 - **Do** use `errorMessage` to surface validation problems inline
 - **Don't** use Textarea for short single-line values. Use **Input** instead.
 - **Don't** disable resizing (`resize="none"`) when users may need to see long content while editing.
+
+## TopBar
+
+- **Do** use `start` for the menu button or brand, `children` for page-level titles or navigation, and `end` for account and global actions
+- **Don't** put more than a few actions in `end`. Move the rest into a `RudiMenu`.
 
 ## Tooltip
 

@@ -202,3 +202,21 @@ export type { RudiCoverProps } from './layouts/Cover/Cover'
 
 export { RudiSwitcher } from './layouts/Switcher/Switcher'
 export type { RudiSwitcherProps } from './layouts/Switcher/Switcher'
+
+export { RudiAppShell } from './components/AppShell/AppShell'
+export type {
+  RudiAppShellProps,
+  RudiAppShellSidebarProps,
+  RudiAppShellContentProps,
+  RudiAppShellMainProps,
+  RudiAppShellMenuButtonProps,
+} from './components/AppShell/AppShell'
+
+export { RudiTopBar } from './components/TopBar/TopBar'
+export type { RudiTopBarProps } from './components/TopBar/TopBar'
+
+export { RudiPageHeader } from './components/PageHeader/PageHeader'
+export type { RudiPageHeaderProps } from './components/PageHeader/PageHeader'
+
+export { RudiSectionHeader } from './components/SectionHeader/SectionHeader'
+export type { RudiSectionHeaderProps } from './components/SectionHeader/SectionHeader'

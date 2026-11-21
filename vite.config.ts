@@ -58,6 +58,9 @@ export default defineConfig({
           environment: 'jsdom',
           setupFiles: ['src/test-setup.ts'],
           include: ['src/**/*.test.{ts,tsx}'],
+          // jsdom tests share CPU with the Storybook browser project in a full run;
+          // the 5s default timed out cold first tests (Radio, DateRangePicker).
+          testTimeout: 15_000,
         },
       },
       {

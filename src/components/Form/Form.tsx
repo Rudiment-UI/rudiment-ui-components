@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useRef } from 'react'
+import React, { forwardRef, useEffect, useRef, useState } from 'react'
 import { useObjectRef } from '@react-aria/utils'
 import { cn } from '@/utils/cn'
 import { RudiAlert } from '@/components/Alert/Alert'
@@ -9,9 +9,9 @@ export interface RudiFormProps
   /** Called on submit with the form's data. The page never reloads. */
   onSubmit?: (data: FormData, event: React.FormEvent<HTMLFormElement>) => void
   /**
-   * Problems to fix. When this goes from empty to non-empty (usually right after
-   * a submit) the summary is shown at the top and receives focus, so keyboard and
-   * screen-reader users land on it.
+   * Problems to fix, shown as a summary at the top. After each submit that leaves
+   * problems, the summary receives focus so keyboard and screen-reader users land
+   * on it. Updating `errors` while the user edits never moves focus.
    */
   errors?: string[]
   /** Summary heading. Defaults to "1 problem to fix" / "N problems to fix". */
@@ -29,12 +29,13 @@ export const RudiForm = forwardRef<HTMLFormElement, RudiFormProps>(function Rudi
   const ref = useObjectRef(forwardedRef)
   const summaryRef = useRef<HTMLDivElement>(null)
   const hasErrors = errors.length > 0
-  const errorKey = errors.join('\n')
+  const [submits, setSubmits] = useState(0)
 
-  // Focus the summary whenever a new set of problems appears.
+  // Focus the summary after a submit that leaves problems (not while the user is editing).
   useEffect(() => {
-    if (hasErrors) summaryRef.current?.focus()
-  }, [hasErrors, errorKey])
+    if (submits > 0 && hasErrors) summaryRef.current?.focus()
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- run once per submit only
+  }, [submits])
 
   return (
     <form
@@ -45,6 +46,7 @@ export const RudiForm = forwardRef<HTMLFormElement, RudiFormProps>(function Rudi
       onSubmit={(event) => {
         event.preventDefault()
         onSubmit?.(new FormData(event.currentTarget), event)
+        setSubmits((n) => n + 1)
       }}
     >
       {hasErrors && (

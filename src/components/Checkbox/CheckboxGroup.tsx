@@ -1,6 +1,7 @@
 import { useCheckboxGroup } from 'react-aria'
 import { useCheckboxGroupState } from 'react-stately'
 import { cn } from '@/utils/cn'
+import { CheckboxGroupContext } from './CheckboxGroupContext'
 import './checkbox.css'
 
 export interface RudiCheckboxGroupProps {
@@ -16,11 +17,14 @@ export interface RudiCheckboxGroupProps {
 }
 
 export function RudiCheckboxGroup(props: RudiCheckboxGroupProps) {
-  const state = useCheckboxGroupState(props)
+  // isInvalid links the error message to the group and marks it invalid for assistive tech.
+  const ariaProps = { ...props, isInvalid: !!props.errorMessage }
+  const state = useCheckboxGroupState(ariaProps)
   const { groupProps, labelProps, descriptionProps, errorMessageProps } =
-    useCheckboxGroup(props, state)
+    useCheckboxGroup(ariaProps, state)
 
   return (
+    <CheckboxGroupContext.Provider value={state}>
     <div
       {...groupProps}
       className={cn('rudi-checkbox-group', props.className)}
@@ -43,5 +47,6 @@ export function RudiCheckboxGroup(props: RudiCheckboxGroupProps) {
         </p>
       )}
     </div>
+    </CheckboxGroupContext.Provider>
   )
 }

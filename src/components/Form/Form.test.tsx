@@ -72,4 +72,24 @@ describe('Form', () => {
     )
     expect(await axe(container)).toHaveNoViolations()
   })
+  it('does not steal focus when errors change while editing', async () => {
+    function Live() {
+      const [value, setValue] = useState('')
+      const [submitted, setSubmitted] = useState(false)
+      const errors = submitted && !value ? ['Reference is required.'] : submitted && value.length < 3 ? ['Too short.'] : []
+      return (
+        <RudiForm aria-label="Live" errors={errors} onSubmit={() => setSubmitted(true)}>
+          <RudiInput label="Reference" value={value} onChange={setValue} />
+          <button type="submit">Book</button>
+        </RudiForm>
+      )
+    }
+    render(<Live />)
+    await userEvent.click(screen.getByRole('button', { name: 'Book' }))
+    expect(screen.getByText('1 problem to fix').closest('.rudi-form__summary')).toHaveFocus()
+    await userEvent.click(screen.getByLabelText('Reference'))
+    await userEvent.keyboard('a')
+    expect(screen.getByText('Too short.')).toBeInTheDocument()
+    expect(screen.getByLabelText('Reference')).toHaveFocus()
+  })
 })

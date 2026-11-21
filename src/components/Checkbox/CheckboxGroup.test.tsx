@@ -1,6 +1,8 @@
+import userEvent from '@testing-library/user-event'
+import { useState } from 'react'
 import { render, screen } from '@testing-library/react'
 import { axe } from 'vitest-axe'
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { RudiCheckboxGroup } from './CheckboxGroup'
 import { RudiCheckbox } from './Checkbox'
 
@@ -111,5 +113,40 @@ describe('CheckboxGroup', () => {
       </RudiCheckboxGroup>,
     )
     expect(await axe(container)).toHaveNoViolations()
+  })
+  it('drives its checkboxes: value in, onChange out', async () => {
+    const onChange = vi.fn()
+    function Tissues() {
+      const [value, setValue] = useState(['embryos'])
+      return (
+        <RudiCheckboxGroup
+          label="Tissue"
+          value={value}
+          onChange={(next) => {
+            setValue(next)
+            onChange(next)
+          }}
+        >
+          <RudiCheckbox value="embryos">Embryos</RudiCheckbox>
+          <RudiCheckbox value="eggs">Eggs</RudiCheckbox>
+        </RudiCheckboxGroup>
+      )
+    }
+    render(<Tissues />)
+    expect(screen.getByRole('checkbox', { name: 'Embryos' })).toBeChecked()
+    expect(screen.getByRole('checkbox', { name: 'Eggs' })).not.toBeChecked()
+    await userEvent.click(screen.getByText('Eggs'))
+    expect(onChange).toHaveBeenLastCalledWith(['embryos', 'eggs'])
+    expect(screen.getByRole('checkbox', { name: 'Eggs' })).toBeChecked()
+  })
+
+  it('marks the group invalid and links its error message', () => {
+    render(
+      <RudiCheckboxGroup label="Tissue" errorMessage="Choose at least one.">
+        <RudiCheckbox value="embryos">Embryos</RudiCheckbox>
+      </RudiCheckboxGroup>,
+    )
+    const group = screen.getByRole('group', { name: 'Tissue' })
+    expect(group).toHaveAccessibleDescription('Choose at least one.')
   })
 })

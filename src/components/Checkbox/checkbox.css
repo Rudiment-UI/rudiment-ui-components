@@ -102,3 +102,16 @@
   font-size: var(--rudi-component-checkbox-group-error-font-size);
   line-height: var(--rudi-font-line-height-normal);
 }
+
+/* Standalone checkbox with an error message */
+.rudi-checkbox-field {
+  display: grid;
+  gap: var(--rudi-component-checkbox-group-gap);
+}
+
+.rudi-checkbox__error {
+  margin: 0;
+  color: var(--rudi-component-checkbox-group-error-color);
+  font-size: var(--rudi-component-checkbox-group-error-font-size);
+}
+

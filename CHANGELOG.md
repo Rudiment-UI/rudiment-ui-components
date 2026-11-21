@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **`RudiCheckbox` `errorMessage`:** a standalone checkbox (an agreement, say) can show and announce an error.
+- **`RudiBox` `sticky`:** keeps a box in view while its container scrolls; pass a string for the top offset (`sticky="1rem"`).
 - **`RudiDatePicker`, `RudiDateRangePicker`:** a segmented date field with a calendar popover. Values are plain ISO strings (`YYYY-MM-DD`, or `YYYY-MM-DDTHH:mm` with `granularity="minute"`), with `minValue`/`maxValue` and `isDateUnavailable(date: string)`; ranges are `{ start, end }`. Consumers never import `@internationalized/date`.
 - **`RudiNumberField`:** a locale-aware number input with − / + steppers and `formatOptions` (currency, percent). It clamps to `minValue`/`maxValue` on blur, and `onChange` gets a number or `null`.
 - **`RudiTable`, `RudiTableHeader`, `RudiTableColumn`, `RudiTableBody`, `RudiTableRow`, `RudiTableCell`:** an accessible data table (React Aria) with controlled sorting, row links (`href`) and `onRowAction`, checkbox selection, `renderEmptyState`, horizontal scrolling, `stickyHeader` with `maxHeight`, `compact` density, optional striping, and per-column `align` / `width`.
@@ -29,6 +31,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **`RudiCheckboxGroup` now drives its checkboxes.** The group's `value`, `defaultValue` and `onChange` never reached the `RudiCheckbox` children (no shared state), so groups only worked as a label. Checkboxes inside a group now use the group's state (give each a `value`).
+- **Group errors are announced.** `RudiRadioGroup` and `RudiCheckboxGroup` mark themselves invalid and link `errorMessage` to the group when it's set.
+- **`RudiForm` moves focus to the summary only after a submit,** not whenever `errors` changes, so live validation no longer pulls focus away from the field being edited.
 - **Layout primitives rendered as lists drop browser list styling.** `RudiStack`, `RudiCluster` and `RudiGrid` with `as="ul"` / `"ol"` keep list semantics without bullets or indent. `RudiEmptyState` also accepts `headingLevel={1}`, for not-found pages.
 - **`RudiNavItem` announces the current page.** An active item now sets `aria-current` (`page` on links, `true` on buttons); before, "active" was visual only.
 - **`RudiLink` and `RudiBreadcrumb` links now honor a router.** They rendered plain anchors, so every click was a full page load in a single-page app. They now use React Aria's `useLink`, like `RudiNavItem`.

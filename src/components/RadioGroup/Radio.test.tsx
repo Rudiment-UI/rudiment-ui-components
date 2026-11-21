@@ -107,4 +107,12 @@ describe('Radio', () => {
     const { container } = render(<Shipping defaultValue="standard" />)
     expect(await axe(container)).toHaveNoViolations()
   })
+  it('links the group error message', () => {
+    render(
+      <RudiRadioGroup label="Coverage" errorMessage="Choose coverage.">
+        <RudiRadio value="none">None</RudiRadio>
+      </RudiRadioGroup>,
+    )
+    expect(screen.getByRole('radiogroup', { name: 'Coverage' })).toHaveAccessibleDescription('Choose coverage.')
+  })
 })

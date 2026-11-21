@@ -54,6 +54,7 @@ const NavItemLink = forwardRef<HTMLAnchorElement, RudiNavItemProps>(
         {...linkProps}
         ref={ref}
         href={href}
+        aria-current={isActive ? 'page' : undefined}
         className={getClasses(isActive, className)}
       >
         {renderContent(icon, label, badge)}
@@ -77,6 +78,7 @@ const NavItemButton = forwardRef<HTMLButtonElement, RudiNavItemProps>(
       <button
         {...buttonProps}
         ref={ref}
+        aria-current={isActive ? 'true' : undefined}
         className={getClasses(isActive, className)}
       >
         {renderContent(icon, label, badge)}

@@ -1,6 +1,10 @@
 /* Form */
 .rudi-form {
   display: grid;
+  /* One column that can shrink below its content's min-content width, so a wide
+     child (a scrolling tab list, a table) scrolls inside the form instead of
+     widening the page. */
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--rudi-component-form-gap);
 }
 

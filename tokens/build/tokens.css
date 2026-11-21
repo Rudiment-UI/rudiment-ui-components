@@ -238,11 +238,13 @@
   --rudi-component-button-font-size-md: var(--rudi-font-size-sm);
   --rudi-component-button-font-size-lg: var(--rudi-font-size-base);
   --rudi-component-button-destructive-bg: var(--rudi-color-red-600);
+  --rudi-component-button-destructive-text: var(--rudi-color-neutral-0);
   --rudi-component-icon-button-radius: var(--rudi-radius-sm);
   --rudi-component-icon-button-font-size-sm: var(--rudi-font-size-sm);
   --rudi-component-icon-button-font-size-md: var(--rudi-font-size-base);
   --rudi-component-icon-button-font-size-lg: var(--rudi-font-size-lg);
   --rudi-component-icon-button-destructive-bg: var(--rudi-color-red-600);
+  --rudi-component-icon-button-destructive-text: var(--rudi-color-neutral-0);
   --rudi-component-input-padding-x: var(--rudi-spacing-3);
   --rudi-component-input-radius: var(--rudi-radius-sm);
   --rudi-component-input-font-size: var(--rudi-font-size-sm);
@@ -586,7 +588,6 @@
   --rudi-component-button-secondary-text: var(--rudi-color-text-default);
   --rudi-component-button-secondary-border: var(--rudi-color-border-default);
   --rudi-component-button-secondary-hover-bg: var(--rudi-color-background-surface-raised);
-  --rudi-component-button-destructive-text: var(--rudi-color-text-on-brand);
   --rudi-component-button-ghost-text: var(--rudi-color-text-default);
   --rudi-component-button-ghost-hover-bg: var(--rudi-color-background-surface-raised);
   --rudi-component-icon-button-focus-outline-color: var(--rudi-color-border-focus);
@@ -596,7 +597,6 @@
   --rudi-component-icon-button-secondary-text: var(--rudi-color-text-default);
   --rudi-component-icon-button-secondary-border: var(--rudi-color-border-default);
   --rudi-component-icon-button-secondary-hover-bg: var(--rudi-color-background-surface-raised);
-  --rudi-component-icon-button-destructive-text: var(--rudi-color-text-on-brand);
   --rudi-component-icon-button-ghost-text: var(--rudi-color-text-default);
   --rudi-component-icon-button-ghost-hover-bg: var(--rudi-color-background-surface-raised);
   --rudi-component-input-text: var(--rudi-color-text-default);

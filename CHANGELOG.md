@@ -39,7 +39,7 @@ Built out while rebuilding the IVFCryo shipping app on Rudiment UI. See Part 6 o
 ### Fixed
 
 - Contrast (WCAG 1.4.3), from an axe pass over the IVFCryo app:
-  - Destructive `RudiButton` / `RudiIconButton`: white on `red.500` was 3.76:1. They now use `red.600` (4.83:1).
+  - Destructive `RudiButton` / `RudiIconButton`: white on `red.500` was 3.76:1. They now use `red.600` with text fixed to white in every theme (4.83:1). Dark themes used `text.on-brand`, which is near-black.
   - Empty `RudiDatePicker` segments ("mm/dd/yyyy"): `text.disabled` was 2.52:1. They now use `text.subtle`.
 - `RudiDot` contains its visually hidden label. The label was positioned against the page, so a dot inside a horizontally scrolling container (a `RudiKanbanBoard` on a phone) widened the whole page.
 - `RudiForm` no longer grows wider than its container. Its grid column was `auto`, so a wide child (e.g. a `RudiTabs` list with five tabs) pushed a 375px page out to about 600px instead of scrolling within the form.

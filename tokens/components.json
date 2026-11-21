@@ -22,7 +22,7 @@
       "secondary-border": { "$value": "{color.border.default}" },
       "secondary-hover-bg": { "$value": "{color.background.surface-raised}" },
       "destructive-bg": { "$value": "{color.red.600}" },
-      "destructive-text": { "$value": "{color.text.on-brand}" },
+      "destructive-text": { "$value": "{color.neutral.0}" },
       "ghost-text": { "$value": "{color.text.default}" },
       "ghost-hover-bg": { "$value": "{color.background.surface-raised}" }
     },
@@ -43,7 +43,7 @@
       "secondary-border": { "$value": "{color.border.default}" },
       "secondary-hover-bg": { "$value": "{color.background.surface-raised}" },
       "destructive-bg": { "$value": "{color.red.600}" },
-      "destructive-text": { "$value": "{color.text.on-brand}" },
+      "destructive-text": { "$value": "{color.neutral.0}" },
       "ghost-text": { "$value": "{color.text.default}" },
       "ghost-hover-bg": { "$value": "{color.background.surface-raised}" }
     },

@@ -534,6 +534,13 @@
       "focus-width": { "$value": "2px" },
       "focus-radius": { "$value": "{radius.sm}" }
     },
+    "form": {
+      "gap": { "$value": "{spacing.4}" },
+      "summary-indent": { "$value": "{spacing.6}" },
+      "focus-color": { "$value": "{color.border.focus}" },
+      "focus-width": { "$value": "2px" },
+      "focus-radius": { "$value": "{radius.md}" }
+    },
     "image": {
       "placeholder-bg": { "$value": "{color.background.surface-sunken}" }
     },

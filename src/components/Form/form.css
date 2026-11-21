@@ -1,0 +1,16 @@
+/* Form */
+.rudi-form {
+  display: grid;
+  gap: var(--rudi-component-form-gap);
+}
+
+.rudi-form__summary:focus-visible {
+  outline: var(--rudi-component-form-focus-width) solid var(--rudi-component-form-focus-color);
+  outline-offset: 2px;
+  border-radius: var(--rudi-component-form-focus-radius);
+}
+
+.rudi-form__summary-list {
+  margin: 0;
+  padding-inline-start: var(--rudi-component-form-summary-indent);
+}

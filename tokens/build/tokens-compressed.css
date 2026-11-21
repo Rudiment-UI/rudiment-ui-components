@@ -103,6 +103,7 @@
   --rudi-component-brand-mark-size-md: 1.75rem;
   --rudi-component-brand-mark-size-lg: 2.5rem;
   --rudi-component-brand-focus-width: 2px;
+  --rudi-component-form-focus-width: 2px;
   --rudi-component-rating-star-gap: 0.0625rem;
   --rudi-component-stepper-node-size-sm: 1.75rem;
   --rudi-component-stepper-node-size-md: 2.25rem;
@@ -333,6 +334,9 @@
   --rudi-component-brand-name-font-size-lg: var(--rudi-font-size-xl);
   --rudi-component-brand-name-font-weight: var(--rudi-font-weight-semibold);
   --rudi-component-brand-focus-radius: var(--rudi-radius-sm);
+  --rudi-component-form-gap: var(--rudi-spacing-4);
+  --rudi-component-form-summary-indent: var(--rudi-spacing-6);
+  --rudi-component-form-focus-radius: var(--rudi-radius-md);
   --rudi-component-rating-gap: var(--rudi-spacing-2);
   --rudi-component-rating-text-font-size: var(--rudi-font-size-sm);
   --rudi-component-stepper-number-font-size: var(--rudi-font-size-sm);
@@ -573,6 +577,7 @@
   --rudi-component-link-focus-color: var(--rudi-color-border-focus);
   --rudi-component-brand-name-color: var(--rudi-color-text-default);
   --rudi-component-brand-focus-color: var(--rudi-color-border-focus);
+  --rudi-component-form-focus-color: var(--rudi-color-border-focus);
   --rudi-component-image-placeholder-bg: var(--rudi-color-background-surface-sunken);
   --rudi-component-rating-active-color: var(--rudi-color-feedback-warning);
   --rudi-component-rating-empty-color: var(--rudi-color-text-subtle);

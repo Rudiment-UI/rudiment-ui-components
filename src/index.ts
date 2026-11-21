@@ -226,3 +226,6 @@ export type { RudiRouterProviderProps } from './components/RouterProvider/Router
 
 export { RudiBrand } from './components/Brand/Brand'
 export type { RudiBrandProps } from './components/Brand/Brand'
+
+export { RudiForm } from './components/Form/Form'
+export type { RudiFormProps } from './components/Form/Form'

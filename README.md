@@ -293,6 +293,11 @@ const [isOpen, setIsOpen] = useState(false)
 | `RudiPageHeader`    | `title` **(required)**, `subtitle?`, `actions?`, `headingLevel?` (`1`) |
 | `RudiBrand`         | `name` **(required)**, `mark?`, `hideName?`, `href?`, `size?: 'sm' \| 'md' \| 'lg'` (`'md'`) |
 | `RudiSectionHeader` | `title` **(required)**, `description?`, `action?`, `headingLevel?` (`2`) |
+| `RudiTabs`          | `selectedKey?`, `defaultSelectedKey?`, `onSelectionChange?`, `orientation?: 'horizontal' \| 'vertical'` (`'horizontal'`), `disabledKeys?`, `keyboardActivation?` |
+| `RudiTabList`       | `aria-label` **(required)**, `variant?: 'underline' \| 'pill'` (`'underline'`) |
+| `RudiTab`           | `id` **(required)**, `children` (label), `icon?`, `badge?`, `href?`, `isDisabled?` |
+| `RudiTabPanel`      | `id` **(required, matches its tab)**, `shouldForceMount?` |
+| `RudiEmptyState`    | `title` **(required)**, `icon?`, `description?`, `action?`, `headingLevel?: 2–6` (`3`), `size?: 'sm' \| 'md'` (`'md'`) |
 
 ```tsx
 <RudiAppShell>

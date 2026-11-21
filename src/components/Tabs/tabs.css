@@ -1,0 +1,165 @@
+/* Root */
+.rudi-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rudi-component-tabs-panel-gap);
+  min-width: 0;
+}
+
+.rudi-tabs--vertical {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+/* List */
+.rudi-tab-list {
+  display: flex;
+  gap: var(--rudi-component-tabs-list-gap);
+  outline: none;
+}
+
+/* Horizontal: never wrap; scroll on narrow screens. */
+.rudi-tab-list[data-orientation='horizontal'] {
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  max-width: 100%;
+}
+
+.rudi-tab-list[data-orientation='vertical'] {
+  flex-direction: column;
+  flex-shrink: 0;
+  min-width: var(--rudi-component-tabs-vertical-min-width);
+}
+
+/* Underline track drawn inside the box so overflow scrolling never clips it. */
+.rudi-tab-list--underline[data-orientation='horizontal'] {
+  box-shadow: inset 0 calc(-1 * var(--rudi-component-tabs-list-border-width)) 0
+    var(--rudi-component-tabs-list-border-color);
+}
+
+.rudi-tab-list--underline[data-orientation='vertical'] {
+  gap: 0;
+  box-shadow: inset calc(-1 * var(--rudi-component-tabs-list-border-width)) 0 0
+    var(--rudi-component-tabs-list-border-color);
+}
+
+/* Tab */
+.rudi-tab {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: var(--rudi-component-tabs-tab-gap);
+  padding: var(--rudi-component-tabs-tab-padding-y) var(--rudi-component-tabs-tab-padding-x);
+  border-radius: var(--rudi-component-tabs-tab-radius);
+  font-size: var(--rudi-component-tabs-tab-font-size);
+  font-weight: var(--rudi-component-tabs-tab-font-weight);
+  line-height: var(--rudi-component-tabs-tab-line-height);
+  color: var(--rudi-component-tabs-tab-text);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  outline: none;
+  transition:
+    background-color var(--rudi-motion-duration-base) var(--rudi-motion-easing-standard),
+    color var(--rudi-motion-duration-base) var(--rudi-motion-easing-standard),
+    box-shadow var(--rudi-motion-duration-base) var(--rudi-motion-easing-standard);
+}
+
+.rudi-tab[data-hovered]:not([data-selected]):not([data-disabled]) {
+  color: var(--rudi-component-tabs-tab-hover-text);
+  background-color: var(--rudi-component-tabs-tab-hover-bg);
+}
+
+.rudi-tab[data-selected] {
+  color: var(--rudi-component-tabs-tab-selected-text);
+}
+
+/* Inset outline so the scroll container does not clip it. */
+.rudi-tab[data-focus-visible] {
+  outline: 2px solid var(--rudi-component-tabs-focus-outline-color);
+  outline-offset: -2px;
+}
+
+.rudi-tab[data-disabled] {
+  color: var(--rudi-component-tabs-tab-disabled-text);
+  cursor: not-allowed;
+}
+
+/* Underline variant: selected indicator */
+.rudi-tab-list--underline .rudi-tab {
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
+}
+
+.rudi-tab-list--underline .rudi-tab[data-selected] {
+  box-shadow: inset 0 calc(-1 * var(--rudi-component-tabs-indicator-width)) 0
+    var(--rudi-component-tabs-indicator-color);
+}
+
+.rudi-tab-list--underline[data-orientation='vertical'] .rudi-tab {
+  border-radius: var(--rudi-component-tabs-tab-radius) 0 0 var(--rudi-component-tabs-tab-radius);
+}
+
+.rudi-tab-list--underline[data-orientation='vertical'] .rudi-tab[data-selected] {
+  box-shadow: inset calc(-1 * var(--rudi-component-tabs-indicator-width)) 0 0
+    var(--rudi-component-tabs-indicator-color);
+}
+
+/* Pill variant */
+.rudi-tab-list--pill .rudi-tab {
+  border-radius: var(--rudi-component-tabs-pill-radius);
+}
+
+.rudi-tab-list--pill .rudi-tab[data-selected] {
+  background-color: var(--rudi-component-tabs-pill-selected-bg);
+  color: var(--rudi-component-tabs-pill-selected-text);
+}
+
+.rudi-tab-list--pill .rudi-tab[data-selected] .rudi-tab__icon {
+  color: var(--rudi-component-tabs-pill-selected-text);
+}
+
+/* Parts */
+.rudi-tab .rudi-tab__icon {
+  flex-shrink: 0;
+  width: var(--rudi-component-tabs-icon-size);
+  height: var(--rudi-component-tabs-icon-size);
+  color: var(--rudi-component-tabs-icon-color);
+}
+
+.rudi-tab[data-selected] .rudi-tab__icon {
+  color: var(--rudi-component-tabs-selected-icon-color);
+}
+
+.rudi-tab[data-disabled] .rudi-tab__icon {
+  color: inherit;
+}
+
+.rudi-tab-list[data-orientation='vertical'] .rudi-tab__label {
+  flex: 1;
+}
+
+.rudi-tab__badge {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+/* Panel */
+.rudi-tab-panel {
+  min-width: 0;
+  flex: 1;
+  outline: none;
+}
+
+.rudi-tab-panel[data-focus-visible] {
+  outline: 2px solid var(--rudi-component-tabs-focus-outline-color);
+  outline-offset: 2px;
+}
+
+.rudi-tab-panel[data-inert] {
+  display: none;
+}

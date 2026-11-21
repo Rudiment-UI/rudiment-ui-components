@@ -229,3 +229,15 @@ export type { RudiBrandProps } from './components/Brand/Brand'
 
 export { RudiForm } from './components/Form/Form'
 export type { RudiFormProps } from './components/Form/Form'
+
+export { RudiTabs } from './components/Tabs/Tabs'
+export type { RudiTabsProps } from './components/Tabs/Tabs'
+export { RudiTabList } from './components/Tabs/TabList'
+export type { RudiTabListProps } from './components/Tabs/TabList'
+export { RudiTab } from './components/Tabs/Tab'
+export type { RudiTabProps } from './components/Tabs/Tab'
+export { RudiTabPanel } from './components/Tabs/TabPanel'
+export type { RudiTabPanelProps } from './components/Tabs/TabPanel'
+
+export { RudiEmptyState } from './components/EmptyState/EmptyState'
+export type { RudiEmptyStateProps } from './components/EmptyState/EmptyState'

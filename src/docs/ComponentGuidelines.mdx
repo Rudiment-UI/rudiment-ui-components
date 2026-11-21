@@ -108,6 +108,13 @@ These two components look similar but serve different purposes:
 - **Don't** rely on color alone. Pair the Dot with a text label so color-blind readers can tell states apart.
 - **Don't** use `pulse` for static states. Reserve the animation for live or active indicators.
 
+## EmptyState
+
+- **Do** say what is empty and what to do next, with at most one primary action
+- **Do** use `size="sm"` inside table cells and cards, and set `headingLevel` to fit the page outline
+- **Don't** use EmptyState for errors or loading. Use **Alert** or a progress indicator instead.
+- **Don't** put long prose in `description`. Keep it to one or two sentences.
+
 ## Icon
 
 - **Do** provide a `label` prop when the icon conveys meaning not present in surrounding text
@@ -231,6 +238,14 @@ These two components look similar but serve different purposes:
 - **Do** use `orientation="vertical"` for a timeline-style layout in narrow columns, and `horizontal` for wide headers
 - **Don't** use Stepper for navigation between unrelated pages. Use **Breadcrumb** for hierarchy or **NavItem** for navigation.
 - **Don't** mark more than one step as `current` at a time. The current step should be unambiguous.
+
+## Tabs
+
+- **Do** give every `RudiTabList` an `aria-label` that names the set, such as "Shipment status"
+- **Do** put counts in `badge` so they're read as part of the tab name ("Pending 7")
+- **Do** use `href` tabs with `selectedKey` taken from the current route when each tab is its own URL
+- **Don't** use tabs for steps in a sequence. Use **Stepper** instead.
+- **Don't** hide content users need to compare side by side behind separate tabs.
 
 ## Tag
 

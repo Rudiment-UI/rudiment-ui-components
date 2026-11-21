@@ -303,6 +303,8 @@
   --rudi-component-stat-card-value-font-weight: var(--rudi-font-weight-semibold);
   --rudi-component-stat-card-delta-font-size: var(--rudi-font-size-sm);
   --rudi-component-stat-card-delta-font-weight: var(--rudi-font-weight-medium);
+  --rudi-component-stat-card-delta-up-color: var(--rudi-color-green-400);
+  --rudi-component-stat-card-delta-down-color: var(--rudi-color-red-400);
   --rudi-component-nav-item-padding-y: var(--rudi-spacing-2);
   --rudi-component-nav-item-padding-x: var(--rudi-spacing-3);
   --rudi-component-nav-item-radius: var(--rudi-radius-sm);
@@ -655,8 +657,6 @@
   --rudi-component-avatar-text: var(--rudi-color-text-subtle);
   --rudi-component-stat-card-label-color: var(--rudi-color-text-subtle);
   --rudi-component-stat-card-value-color: var(--rudi-color-text-default);
-  --rudi-component-stat-card-delta-up-color: var(--rudi-color-feedback-success-text);
-  --rudi-component-stat-card-delta-down-color: var(--rudi-color-feedback-error-text);
   --rudi-component-stat-card-delta-neutral-color: var(--rudi-color-text-subtle);
   --rudi-component-nav-item-text-color: var(--rudi-color-text-subtle);
   --rudi-component-nav-item-hover-bg: var(--rudi-color-background-surface-raised);

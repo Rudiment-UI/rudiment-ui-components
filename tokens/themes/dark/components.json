@@ -17,6 +17,10 @@
       "card-shadow": { "$value": "0 1px 2px 0 rgb(0 0 0 / 0.2)" },
       "card-dragging-shadow": { "$value": "0 4px 12px 0 rgb(0 0 0 / 0.4)" }
     },
+    "stat-card": {
+      "delta-up-color": { "$value": "{color.green.400}" },
+      "delta-down-color": { "$value": "{color.red.400}" }
+    },
     "table": {
       "row-hover-bg": { "$value": "{color.neutral.700}" }
     },

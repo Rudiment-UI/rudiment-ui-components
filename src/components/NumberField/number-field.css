@@ -1,0 +1,110 @@
+/* Mirrors .rudi-input so number fields line up with text fields */
+
+.rudi-number-field {
+  display: grid;
+  gap: var(--rudi-component-number-field-gap);
+  font-size: var(--rudi-component-number-field-font-size);
+}
+
+.rudi-number-field__label {
+  font-weight: var(--rudi-component-number-field-label-font-weight);
+  color: var(--rudi-component-number-field-label-color);
+  line-height: var(--rudi-component-number-field-label-line-height);
+}
+
+.rudi-number-field__required {
+  color: var(--rudi-component-number-field-required-color);
+}
+
+.rudi-number-field__field {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  background-color: var(--rudi-component-number-field-field-bg);
+  color: var(--rudi-component-number-field-field-text);
+  border: 1px solid var(--rudi-component-number-field-field-border);
+  border-radius: var(--rudi-component-number-field-field-radius);
+  overflow: hidden;
+  transition: border-color var(--rudi-motion-duration-base) var(--rudi-motion-easing-standard);
+}
+
+.rudi-number-field__field[data-focus-within] {
+  outline: 2px solid var(--rudi-component-number-field-focus-outline-color);
+  outline-offset: 2px;
+}
+
+.rudi-number-field__field[data-invalid] {
+  border-color: var(--rudi-component-number-field-error-border);
+}
+
+.rudi-number-field__field[data-invalid][data-focus-within] {
+  outline-color: var(--rudi-component-number-field-error-border);
+}
+
+.rudi-number-field__field[data-disabled] {
+  background-color: var(--rudi-component-number-field-disabled-bg);
+  color: var(--rudi-component-number-field-disabled-text);
+  cursor: not-allowed;
+}
+
+.rudi-number-field__input {
+  flex: 1;
+  min-width: 0;
+  padding: var(--rudi-component-number-field-field-padding-y)
+    var(--rudi-component-number-field-field-padding-x);
+  background: none;
+  color: inherit;
+  border: 0;
+  font: inherit;
+  line-height: var(--rudi-component-number-field-field-line-height);
+  font-variant-numeric: tabular-nums;
+  outline: none;
+}
+
+.rudi-number-field__input::placeholder {
+  color: var(--rudi-component-number-field-placeholder-color);
+}
+
+.rudi-number-field__input[disabled] {
+  cursor: not-allowed;
+}
+
+.rudi-number-field__stepper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--rudi-component-number-field-stepper-width);
+  padding: 0;
+  background: none;
+  border: 0;
+  border-inline-start: 1px solid var(--rudi-component-number-field-stepper-border);
+  color: var(--rudi-component-number-field-stepper-color);
+  cursor: pointer;
+}
+
+.rudi-number-field__stepper[data-hovered] {
+  background-color: var(--rudi-component-number-field-stepper-hover-bg);
+}
+
+.rudi-number-field__stepper[data-pressed] {
+  background-color: var(--rudi-component-number-field-stepper-pressed-bg);
+}
+
+.rudi-number-field__stepper[data-disabled] {
+  background: none;
+  color: var(--rudi-component-number-field-stepper-disabled-text);
+  cursor: not-allowed;
+}
+
+.rudi-number-field__description {
+  color: var(--rudi-component-number-field-description-color);
+  font-size: var(--rudi-component-number-field-description-font-size);
+  line-height: var(--rudi-font-line-height-normal);
+}
+
+.rudi-number-field__error {
+  color: var(--rudi-component-number-field-error-text-color);
+  font-size: var(--rudi-component-number-field-error-font-size);
+  line-height: var(--rudi-font-line-height-normal);
+}

@@ -86,6 +86,20 @@ These two components look similar but serve different purposes:
 - **Don't** use CircularProgress for indeterminate loading, which requires a numeric `value`. Use a spinner instead.
 - **Don't** use both `showValueLabel` and `children` at the same time. The `children` slot overrides the value label.
 
+## ComboBox
+
+- **Do** use ComboBox instead of Select once a list is long enough that scrolling it is tedious (roughly 10+ options)
+- **Do** pass `textValue` on `RudiOption` when its content isn't plain text, so filtering still works
+- **Do** set `allowsCustomValue` only when free text is a valid answer
+- **Don't** use ComboBox for a handful of options. Use **Select** or **RadioGroup**.
+
+## DatePicker (DateRangePicker)
+
+- **Do** pass and read plain ISO strings; you never need `@internationalized/date`
+- **Do** use `isDateUnavailable` for business rules such as weekends and holidays; typed unavailable dates also mark the field invalid
+- **Do** use `granularity="minute"` when a time matters, instead of a separate time input
+- **Don't** use a date picker for distant known dates like a birthday; typing the segments is faster
+
 ## Dialog
 
 - **Do** use for confirmations that require user action (for example, "Are you sure you want to delete this?")
@@ -184,6 +198,13 @@ These two components look similar but serve different purposes:
 - **Don't** provide both `href` and `onPress` for the same navigation action. Pick the appropriate mechanism.
 - **Don't** use NavItem outside of a sidebar or navigation context. For in-page actions, use **Button** instead.
 
+## NumberField
+
+- **Do** use `formatOptions` for currency and percent instead of putting `$` or `%` in the label
+- **Do** pass percent values as fractions (`0.25` shows 25%)
+- **Do** set `minValue`, `maxValue` and `step` so the steppers and arrow keys stay in range
+- **Don't** use it for IDs, phone numbers or ZIP codes; use `RudiInput`
+
 ## PageHeader and SectionHeader
 
 - **Do** start every page with one `RudiPageHeader` (an `h1` by default) and put primary page actions in `actions`
@@ -239,6 +260,14 @@ These two components look similar but serve different purposes:
 - **Don't** use Stepper for navigation between unrelated pages. Use **Breadcrumb** for hierarchy or **NavItem** for navigation.
 - **Don't** mark more than one step as `current` at a time. The current step should be unambiguous.
 
+## Table
+
+- **Do** give every `RudiTable` an `aria-label` (or `aria-labelledby`) and mark one column `isRowHeader`
+- **Do** set `align="end"` on numeric columns so digits line up
+- **Do** use row `href` for navigation and `onRowAction` for in-place actions, not buttons in every row
+- **Don't** use a table for layout or for content without columns. Use **Grid** or **Stack** instead.
+- **Don't** expect `allowsSorting` to sort your data. Sorting is controlled, so reorder `items` in `onSortChange`.
+
 ## Tabs
 
 - **Do** give every `RudiTabList` an `aria-label` that names the set, such as "Shipment status"
@@ -261,6 +290,13 @@ These two components look similar but serve different purposes:
 - **Do** use `errorMessage` to surface validation problems inline
 - **Don't** use Textarea for short single-line values. Use **Input** instead.
 - **Don't** disable resizing (`resize="none"`) when users may need to see long content while editing.
+
+## Toast
+
+- **Do** mount exactly one `RudiToastRegion` near the app root
+- **Do** keep titles short and put the detail in `description`
+- **Don't** put the only path to a required action in a toast. It disappears, so use **Alert** or **Dialog**.
+- **Don't** use a toast for form validation errors. Show them inline next to the field.
 
 ## TopBar
 

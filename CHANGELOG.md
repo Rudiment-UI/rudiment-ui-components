@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **`RudiDatePicker`, `RudiDateRangePicker`:** a segmented date field with a calendar popover. Values are plain ISO strings (`YYYY-MM-DD`, or `YYYY-MM-DDTHH:mm` with `granularity="minute"`), with `minValue`/`maxValue` and `isDateUnavailable(date: string)`; ranges are `{ start, end }`. Consumers never import `@internationalized/date`.
+- **`RudiNumberField`:** a locale-aware number input with − / + steppers and `formatOptions` (currency, percent). It clamps to `minValue`/`maxValue` on blur, and `onChange` gets a number or `null`.
+- **`RudiTable`, `RudiTableHeader`, `RudiTableColumn`, `RudiTableBody`, `RudiTableRow`, `RudiTableCell`:** an accessible data table (React Aria) with controlled sorting, row links (`href`) and `onRowAction`, checkbox selection, `renderEmptyState`, horizontal scrolling, `stickyHeader` with `maxHeight`, `compact` density, optional striping, and per-column `align` / `width`.
+- **`RudiComboBox`:** a searchable select that filters `RudiOption` items as you type (case-insensitive "contains" on `textValue`), with `menuTrigger`, `allowsCustomValue`, `emptyMessage`, controlled or uncontrolled `selectedKey` and `inputValue`, and the same field states as `RudiSelect`.
+- **`RudiToastRegion` and `rudiToast`:** toasts in four variants, queued from anywhere with `rudiToast.success/info/warning/error/add` (each returns a key for `rudiToast.close(key)`). Screen readers announce them, errors stay until closed, and animation is skipped under reduced motion.
 - **`RudiTabs`, `RudiTabList`, `RudiTab`, `RudiTabPanel`:** accessible tabs (React Aria) with controlled or uncontrolled selection, underline and pill variants, vertical orientation, icons, count badges, link tabs via `RudiRouterProvider`, and tab lists that scroll horizontally instead of wrapping.
 - **`RudiEmptyState`:** a centered placeholder with icon, title, description and one action, sized for page sections (`md`) or table cells (`sm`).
 - **`RudiForm`:** passes `onSubmit` the form's `FormData` without reloading, and when `errors` is non-empty shows an error summary ("2 problems to fix") at the top and moves focus to it.

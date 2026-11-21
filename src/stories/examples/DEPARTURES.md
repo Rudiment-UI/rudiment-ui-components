@@ -47,7 +47,7 @@ Priority is driven by how many of the four domains hit the same wall.
 |---|---|---|---|
 | `RudiText` missing `weight` / `color`(tone) / `align` | API gap | biotech, ecommerce, crm, pm (4/4) | **Critical** |
 | `RudiHeading` missing `margin`/`noMargin`, `color`, display size | API gap | 4/4 | **Critical** |
-| Data table / DataGrid | Missing component | 4/4 | **Critical** |
+| ~~Data table / DataGrid~~ ✅ `RudiTable` | Missing component | 4/4 | ~~Critical~~ Done |
 | App chrome: header/footer + app-shell/sidebar/top-bar | Missing component | 4/4 | **Critical** |
 | No `className`/variant escape hatch on components | Systemic API gap | 4/4 | **High** |
 | ~~`RudiSelect` requires external `react-stately` `Item`~~ ✅ `RudiOption` re-exported | Leaky API | 4/4 | ~~High~~ Done |
@@ -75,7 +75,7 @@ Priority is driven by how many of the four domains hit the same wall.
 
 ### Cross-domain (multiple examples hit this)
 
-#### Data table / DataGrid — **4/4 domains**
+#### Data table / DataGrid — ✅ `RudiTable` shipped — **4/4 domains**
 No tabular primitive exists, so every data grid is hand-built:
 - pm — raw `<table><thead><tbody>` with module-level `cellHeader`/`cell` style objects:
   [Stories.stories.tsx:210-263](project-management/Stories.stories.tsx#L210-L263)
@@ -356,7 +356,7 @@ use a Rudi component anymore.
 1. ~~**Add typography props** — `weight`, `color`/`tone`, `align`, `noMargin` on `RudiText`/`RudiHeading`.
    Cheapest fix, removes the largest share of inline styling immediately.~~ ✅ Done — `weight`,
    `tone`, `align`, `noMargin` added to both components (semantic-token-backed BEM modifier classes).
-2. **Ship `RudiTable`** — every domain needs it.
+2. ~~**Ship `RudiTable`** — every domain needs it.~~ ✅ Done in 0.4.0.
 3. ~~**Ship app-chrome primitives** — `RudiAppShell`, header/nav/top-bar, footer, page/section header.~~ ✅ Done — `RudiAppShell` (`.Sidebar`/`.Content`/`.Main`/`.MenuButton` with a responsive drawer), `RudiTopBar` (start/center/end + announcement), `RudiFooter` (`.Columns`/`.Column`/`.BottomBar`), `RudiPageHeader`, and `RudiSectionHeader` added (semantic-token-backed BEM). Exported in 0.4.0 (except `RudiFooter`), after the IVFCryo app needed them. All four example domains migrated onto them — crm's injected `SHELL_CSS` and the per-domain `CrmShell`/`PmShell`/`BioHeader`/`StoreHeader`/`BioFooter`/`StoreFooter` chrome are gone.
 4. ~~**Close the leaky composed APIs** — re-export `RudiOption` and `RudiMenuSeparator`/label slot;
    stop requiring `react-stately`/`react-aria-components` imports; stop exposing internal BEM classes.~~ ✅ Done — `RudiOption` (re-exported `Item`) and `RudiMenuSeparator` added, and `RudiMenuItem` gained first-class `icon` / `label` / `description` / `shortcut` props. Every example domain, the Select story, and the canonical Menu story were migrated: no `src/stories` file imports `react-stately`/`react-aria-components` or hand-applies a `rudi-menu__*` class anymore.

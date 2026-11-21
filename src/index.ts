@@ -241,3 +241,32 @@ export type { RudiTabPanelProps } from './components/Tabs/TabPanel'
 
 export { RudiEmptyState } from './components/EmptyState/EmptyState'
 export type { RudiEmptyStateProps } from './components/EmptyState/EmptyState'
+
+export { RudiComboBox } from './components/ComboBox/ComboBox'
+export type { RudiComboBoxProps } from './components/ComboBox/ComboBox'
+
+export { RudiToastRegion } from './components/Toast/Toast'
+export type { RudiToastRegionProps } from './components/Toast/Toast'
+export { rudiToast } from './components/Toast/toastQueue'
+export type { RudiToastVariant, RudiToastOptions, RudiToastAddOptions } from './components/Toast/toastQueue'
+
+export { RudiTable } from './components/Table/Table'
+export type { RudiTableProps } from './components/Table/Table'
+export { RudiTableHeader } from './components/Table/TableHeader'
+export type { RudiTableHeaderProps } from './components/Table/TableHeader'
+export { RudiTableColumn } from './components/Table/TableColumn'
+export type { RudiTableColumnProps, RudiTableAlign } from './components/Table/TableColumn'
+export { RudiTableBody } from './components/Table/TableBody'
+export type { RudiTableBodyProps } from './components/Table/TableBody'
+export { RudiTableRow } from './components/Table/TableRow'
+export type { RudiTableRowProps } from './components/Table/TableRow'
+export { RudiTableCell } from './components/Table/TableCell'
+export type { RudiTableCellProps } from './components/Table/TableCell'
+
+export { RudiDatePicker } from './components/DatePicker/DatePicker'
+export type { RudiDatePickerProps } from './components/DatePicker/DatePicker'
+export { RudiDateRangePicker } from './components/DatePicker/DateRangePicker'
+export type { RudiDateRangePickerProps, RudiDateRange } from './components/DatePicker/DateRangePicker'
+
+export { RudiNumberField } from './components/NumberField/NumberField'
+export type { RudiNumberFieldProps } from './components/NumberField/NumberField'

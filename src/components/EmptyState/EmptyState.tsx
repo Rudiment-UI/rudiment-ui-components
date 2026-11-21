@@ -15,7 +15,7 @@ export interface RudiEmptyStateProps {
   /** Call to action, e.g. a `RudiButton`. */
   action?: ReactNode
   /** Semantic heading level for the title. Defaults to 3. */
-  headingLevel?: 2 | 3 | 4 | 5 | 6
+  headingLevel?: 1 | 2 | 3 | 4 | 5 | 6
   /** `sm` for table cells and cards, `md` for page sections. Defaults to `md`. */
   size?: 'sm' | 'md'
   className?: string

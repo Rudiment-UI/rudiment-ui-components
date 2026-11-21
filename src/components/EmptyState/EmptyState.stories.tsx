@@ -57,7 +57,7 @@ const meta = {
     },
     headingLevel: {
       control: 'select',
-      options: [2, 3, 4, 5, 6],
+      options: [1, 2, 3, 4, 5, 6],
       description: 'Semantic heading level for the title, chosen to fit the page outline. Visual size follows `size`.',
       table: { category: 'Content' },
     },

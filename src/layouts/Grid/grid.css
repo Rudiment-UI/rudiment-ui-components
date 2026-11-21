@@ -8,3 +8,10 @@
   );
   gap: var(--grid-space);
 }
+
+/* Rendered as a list (as="ul" / "ol"): keep list semantics, drop browser bullets and indent. */
+.rudi-grid:is(ul, ol) {
+  list-style: none;
+  margin-block: 0;
+  padding-inline-start: 0;
+}

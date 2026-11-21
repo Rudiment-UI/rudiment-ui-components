@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Layout primitives rendered as lists drop browser list styling.** `RudiStack`, `RudiCluster` and `RudiGrid` with `as="ul"` / `"ol"` keep list semantics without bullets or indent. `RudiEmptyState` also accepts `headingLevel={1}`, for not-found pages.
 - **`RudiNavItem` announces the current page.** An active item now sets `aria-current` (`page` on links, `true` on buttons); before, "active" was visual only.
 - **`RudiLink` and `RudiBreadcrumb` links now honor a router.** They rendered plain anchors, so every click was a full page load in a single-page app. They now use React Aria's `useLink`, like `RudiNavItem`.
 - **README uses the real export names.** Usage examples, prop tables and inline references now use the `Rudi`-prefixed names (`RudiButton`, not `Button`), and the Select example uses `RudiOption` instead of `react-stately`'s `Item`. The old examples did not compile.

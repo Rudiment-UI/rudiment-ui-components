@@ -150,3 +150,9 @@
   font-size: var(--rudi-component-combo-box-error-font-size);
   line-height: var(--rudi-font-line-height-normal);
 }
+
+/* Hint and error text render as <p>; drop the browser's paragraph margin. */
+.rudi-combo-box__description,
+.rudi-combo-box__error {
+  margin: 0;
+}

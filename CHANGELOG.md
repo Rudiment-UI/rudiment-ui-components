@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Field hint and error text no longer carry the browser's paragraph margin. `RudiInput`, `RudiTextarea`, `RudiSelect`, `RudiComboBox`, `RudiRadioGroup`, `RudiCheckbox` and `RudiCheckboxGroup` sat their hints 12px further from the field than `RudiNumberField` did.
 - `RudiTableCell`: a text field inside a cell keeps its arrow keys, Home/End and typing. Focusing it puts the grid in React Aria's edit mode, so the caret moves instead of focus jumping to another cell or a type-ahead row match. Tab still leaves the field.
 - `RudiTable`: hovered rows are now distinguishable from striped rows. `component.table.row-hover-bg` uses `surface-sunken` in light themes and `neutral.700` in dark themes (both previously matched the stripe color).
 - **Form controls meet WCAG 1.4.11 non-text contrast.** Input, textarea, select, checkbox and radio borders, and the switch's off track, used `#e5e5e5`/`#d4d4d4` on white (about 1.3:1 and 1.5:1). They now use a new semantic `color.border.control` (`neutral.500`, about 4.7:1); the date, number and combo fields follow through the input tokens. Decorative borders (cards, tables, top bar) keep `color.border.default`.

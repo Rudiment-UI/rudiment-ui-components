@@ -96,3 +96,9 @@
 .rudi-radio__label {
   color: inherit;
 }
+
+/* Hint and error text render as <p>; drop the browser's paragraph margin. */
+.rudi-radio-group__description,
+.rudi-radio-group__error {
+  margin: 0;
+}

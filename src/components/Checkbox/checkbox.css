@@ -115,3 +115,8 @@
   font-size: var(--rudi-component-checkbox-group-error-font-size);
 }
 
+/* Hint and error text render as <p>; drop the browser's paragraph margin. */
+.rudi-checkbox__error,
+.rudi-checkbox-group__error {
+  margin: 0;
+}

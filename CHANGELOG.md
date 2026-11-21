@@ -34,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- `RudiKanbanBoard` columns are visible in dark themes. `column-bg` resolved to the page color there; dark themes now use `surface-raised`.
 - `RudiStatCard` trends in dark themes are green and red again. They used `feedback.*-text`, which in dark is a near-white tint meant for alert surfaces. Dark themes now use the new `color.green.400` / `color.red.400` primitives, about 5.5:1 or better on the card.
 - `RudiBadge` keeps its own width inside `RudiStack` and other stretching parents. It no longer becomes a full-width bar.
 - `RudiKanbanBoard` columns share the board width equally, with `column-min-width` as the floor. Before, each column grew to its longest unwrapped line, so three columns with real card text overflowed a 1200px page.

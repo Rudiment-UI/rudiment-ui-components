@@ -714,7 +714,7 @@
   --rudi-component-menu-separator-color: var(--rudi-color-border-default);
   --rudi-component-menu-section-header-color: var(--rudi-color-text-subtle);
   --rudi-component-menu-section-header-padding-x: var(--rudi-component-input-padding-x);
-  --rudi-component-kanban-column-bg: var(--rudi-color-background-surface-sunken);
+  --rudi-component-kanban-column-bg: var(--rudi-color-background-surface-raised);
   --rudi-component-kanban-column-header-color: var(--rudi-color-text-default);
   --rudi-component-kanban-column-count-bg: var(--rudi-color-background-surface-raised);
   --rudi-component-kanban-column-count-color: var(--rudi-color-text-subtle);

@@ -24,6 +24,7 @@
     },
     "border": {
       "default": { "$value": "{color.neutral.500}" },
+      "control": { "$value": "{color.neutral.500}" },
       "focus": { "$value": "{color.blue.400}" },
       "error": { "$value": "{color.red.500}" }
     },

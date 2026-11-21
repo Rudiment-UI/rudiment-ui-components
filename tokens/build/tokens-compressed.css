@@ -786,7 +786,7 @@
   --rudi-component-stepper-label-active-color: var(--rudi-color-text-default);
   --rudi-component-stepper-description-color: var(--rudi-color-text-subtle);
   --rudi-component-textarea-text: var(--rudi-color-text-default);
-  --rudi-component-textarea-border: var(--rudi-color-border-default);
+  --rudi-component-textarea-border: var(--rudi-color-border-control);
   --rudi-component-textarea-placeholder-color: var(--rudi-color-text-disabled);
   --rudi-component-textarea-focus-outline-color: var(--rudi-color-border-focus);
   --rudi-component-textarea-disabled-bg: var(--rudi-color-background-disabled);

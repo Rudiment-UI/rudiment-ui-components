@@ -184,6 +184,7 @@
   --rudi-color-background-inverted: var(--rudi-color-soft-700);
   --rudi-color-background-control: var(--rudi-color-neutral-100);
   --rudi-color-border-default: var(--rudi-color-neutral-200);
+  --rudi-color-border-control: var(--rudi-color-neutral-500);
   --rudi-color-border-focus: var(--rudi-color-soft-400);
   --rudi-color-border-error: var(--rudi-color-red-500);
   --rudi-color-feedback-error: var(--rudi-color-red-500);
@@ -854,7 +855,7 @@
   --rudi-component-stepper-label-active-color: var(--rudi-color-text-default);
   --rudi-component-stepper-description-color: var(--rudi-color-text-subtle);
   --rudi-component-textarea-text: var(--rudi-color-text-default);
-  --rudi-component-textarea-border: var(--rudi-color-border-default);
+  --rudi-component-textarea-border: var(--rudi-color-border-control);
   --rudi-component-textarea-placeholder-color: var(--rudi-color-text-disabled);
   --rudi-component-textarea-focus-outline-color: var(--rudi-color-border-focus);
   --rudi-component-textarea-disabled-bg: var(--rudi-color-background-disabled);

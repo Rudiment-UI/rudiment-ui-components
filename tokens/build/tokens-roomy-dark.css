@@ -166,6 +166,7 @@
   --rudi-color-background-overlay: var(--rudi-color-background-surface-overlay);
   --rudi-color-background-inverted: var(--rudi-color-neutral-0);
   --rudi-color-border-default: var(--rudi-color-neutral-500);
+  --rudi-color-border-control: var(--rudi-color-neutral-500);
   --rudi-color-border-focus: var(--rudi-color-roomy-400);
   --rudi-color-border-error: var(--rudi-color-red-500);
   --rudi-color-feedback-error: var(--rudi-color-red-500);
@@ -570,7 +571,7 @@
   --rudi-component-icon-button-ghost-text: var(--rudi-color-text-default);
   --rudi-component-icon-button-ghost-hover-bg: var(--rudi-color-background-surface-raised);
   --rudi-component-input-text: var(--rudi-color-text-default);
-  --rudi-component-input-border: var(--rudi-color-border-default);
+  --rudi-component-input-border: var(--rudi-color-border-control);
   --rudi-component-input-placeholder-color: var(--rudi-color-text-disabled);
   --rudi-component-input-focus-outline-color: var(--rudi-color-border-focus);
   --rudi-component-input-disabled-bg: var(--rudi-color-background-disabled);
@@ -581,7 +582,7 @@
   --rudi-component-input-error-text-color: var(--rudi-color-feedback-error-text);
   --rudi-component-input-required-color: var(--rudi-color-feedback-error);
   --rudi-component-select-trigger-text: var(--rudi-color-text-default);
-  --rudi-component-select-trigger-border: var(--rudi-color-border-default);
+  --rudi-component-select-trigger-border: var(--rudi-color-border-control);
   --rudi-component-select-trigger-padding-x: var(--rudi-component-input-padding-x);
   --rudi-component-select-trigger-focus-outline-color: var(--rudi-color-border-focus);
   --rudi-component-select-trigger-disabled-bg: var(--rudi-color-background-disabled);
@@ -595,7 +596,7 @@
   --rudi-component-select-label-color: var(--rudi-color-text-default);
   --rudi-component-select-description-color: var(--rudi-color-text-subtle);
   --rudi-component-select-error-text-color: var(--rudi-color-feedback-error-text);
-  --rudi-component-checkbox-control-border: var(--rudi-color-border-default);
+  --rudi-component-checkbox-control-border: var(--rudi-color-border-control);
   --rudi-component-checkbox-checked-bg: var(--rudi-color-brand-primary);
   --rudi-component-checkbox-checked-border: var(--rudi-color-brand-primary);
   --rudi-component-checkbox-check-color: var(--rudi-color-text-on-brand);
@@ -604,7 +605,7 @@
   --rudi-component-checkbox-group-label-color: var(--rudi-color-text-default);
   --rudi-component-checkbox-group-description-color: var(--rudi-color-text-subtle);
   --rudi-component-checkbox-group-error-color: var(--rudi-color-feedback-error-text);
-  --rudi-component-radio-control-border: var(--rudi-color-border-default);
+  --rudi-component-radio-control-border: var(--rudi-color-border-control);
   --rudi-component-radio-selected-border: var(--rudi-color-brand-primary);
   --rudi-component-radio-dot-color: var(--rudi-color-brand-primary);
   --rudi-component-radio-focus-outline-color: var(--rudi-color-border-focus);
@@ -845,7 +846,7 @@
   --rudi-component-stepper-label-active-color: var(--rudi-color-text-default);
   --rudi-component-stepper-description-color: var(--rudi-color-text-subtle);
   --rudi-component-textarea-text: var(--rudi-color-text-default);
-  --rudi-component-textarea-border: var(--rudi-color-border-default);
+  --rudi-component-textarea-border: var(--rudi-color-border-control);
   --rudi-component-textarea-placeholder-color: var(--rudi-color-text-disabled);
   --rudi-component-textarea-focus-outline-color: var(--rudi-color-border-focus);
   --rudi-component-textarea-disabled-bg: var(--rudi-color-background-disabled);

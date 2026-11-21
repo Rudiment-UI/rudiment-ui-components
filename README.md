@@ -68,7 +68,7 @@ Every export is marked `"use client"`, so the package can be imported directly i
 import 'rudiment-ui/styles'
 ```
 
-That single import is the whole setup. There is no provider to mount — `Dialog` portals itself, and `useChartTheme` reads tokens straight off `document.documentElement`.
+That single import is the whole setup. There is no provider to mount — `RudiDialog` portals itself, and `useChartTheme` reads tokens straight off `document.documentElement`.
 
 ## Themes
 
@@ -172,27 +172,27 @@ Component-level tokens (`--rudi-component-*`) are available for surgical changes
 ## Components
 
 ```tsx
-import { Button, Input, Stack } from 'rudiment-ui'
+import { RudiButton, RudiInput, RudiStack } from 'rudiment-ui'
 
 function LoginForm() {
   return (
-    <Stack space="1.5rem">
-      <Input label="Email" type="email" />
-      <Input label="Password" type="password" />
-      <Button variant="primary">Sign in</Button>
-    </Stack>
+    <RudiStack space="1.5rem">
+      <RudiInput label="Email" type="email" />
+      <RudiInput label="Password" type="password" />
+      <RudiButton variant="primary">Sign in</RudiButton>
+    </RudiStack>
   )
 }
 ```
 
 ### Conventions worth knowing up front
 
-- **`onPress`, not `onClick`.** `Button`, `IconButton`, `Tag`, and `NavItem` are built on React Aria and take `onPress`. React Aria handles pointer, touch, and keyboard activation in one event.
-- **`onChange` gives you a value, not an event.** `Input` calls `onChange(value: string)`, `Checkbox` calls `onChange(isSelected: boolean)`, `CheckboxGroup` calls `onChange(value: string[])`.
-- **Labels are required props, not children.** `Input`, `Select`, `RadioGroup`, `CheckboxGroup`, `ProgressBar`, and the charts all take `label` as a string — it wires up the accessible name for you.
+- **`onPress`, not `onClick`.** `RudiButton`, `RudiIconButton`, `RudiTag`, and `RudiNavItem` are built on React Aria and take `onPress`. React Aria handles pointer, touch, and keyboard activation in one event.
+- **`onChange` gives you a value, not an event.** `RudiInput` calls `onChange(value: string)`, `RudiCheckbox` calls `onChange(isSelected: boolean)`, `RudiCheckboxGroup` calls `onChange(value: string[])`.
+- **Labels are required props, not children.** `RudiInput`, `RudiSelect`, `RudiRadioGroup`, `RudiCheckboxGroup`, `RudiProgressBar`, and the charts all take `label` as a string — it wires up the accessible name for you.
 - **Icons are Iconify names.** Any prop typed as an icon takes a `"collection:name"` string, e.g. `icon="mdi:close"`. No icon imports needed.
 - **`className` is merged, not replaced** — every component runs it through `clsx` + `tailwind-merge`. `cn` is exported if you want the same helper.
-- **Layout primitives are polymorphic and spread props**; components are not. `Stack`, `Box`, `Text` etc. accept `as` plus any DOM attribute. `Button`, `Card`, `Alert` have closed prop interfaces.
+- **Layout primitives are polymorphic and spread props**; components are not. `RudiStack`, `RudiBox`, `RudiText` etc. accept `as` plus any DOM attribute. `RudiButton`, `RudiCard`, `RudiAlert` have closed prop interfaces.
 
 ### Component reference
 
@@ -200,27 +200,26 @@ function LoginForm() {
 
 | Component    | Props                                                                                                                                                                                        |
 | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Button`     | `variant?: 'primary' \| 'secondary' \| 'destructive' \| 'ghost'` (`'primary'`), `size?: 'sm' \| 'md' \| 'lg'` (`'md'`), `isLoading?`, `iconBefore?`, `iconAfter?`, `onPress?`, `isDisabled?` |
-| `IconButton` | `aria-label` **(required)**, `variant?` (`'secondary'`), `size?: 'sm' \| 'md' \| 'lg'` (`'md'`), `isLoading?`, `onPress?`; `children` is a single element                                    |
-| `NavItem`    | `label` **(required)**, `icon?`, `isActive?`, `href?` (renders `<a>`, else `<button>`), `onPress?`, `badge?`, `isDisabled?`                                                                  |
+| `RudiButton`     | `variant?: 'primary' \| 'secondary' \| 'destructive' \| 'ghost'` (`'primary'`), `size?: 'sm' \| 'md' \| 'lg'` (`'md'`), `isLoading?`, `iconBefore?`, `iconAfter?`, `onPress?`, `isDisabled?` |
+| `RudiIconButton` | `aria-label` **(required)**, `variant?` (`'secondary'`), `size?: 'sm' \| 'md' \| 'lg'` (`'md'`), `isLoading?`, `onPress?`; `children` is a single element                                    |
+| `RudiNavItem`    | `label` **(required)**, `icon?`, `isActive?`, `href?` (renders `<a>`, else `<button>`), `onPress?`, `badge?`, `isDisabled?`                                                                  |
 
 **Forms**
 
 | Component       | Props                                                                                                                                                                                                                                                                                      |
 | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `Input`         | `label` **(required)**, `type?: 'text' \| 'email' \| 'password' \| 'url' \| 'tel' \| 'search' \| 'number'` (`'text'`), `placeholder?`, `description?`, `errorMessage?` (sets invalid state), `isRequired?`, `isDisabled?`, `value?`, `defaultValue?`, `onChange?: (value: string) => void` |
-| `Checkbox`      | `children` (label), `isSelected?`, `defaultSelected?`, `isIndeterminate?`, `onChange?: (isSelected: boolean) => void`, `isDisabled?`, `value?`                                                                                                                                             |
-| `CheckboxGroup` | `label` **(required)**, `description?`, `value?: string[]`, `defaultValue?`, `onChange?: (value: string[]) => void`, `errorMessage?`, `isDisabled?`                                                                                                                                        |
-| `Switch`        | `children` (label), `isSelected?`, `defaultSelected?`, `onChange?: (isSelected: boolean) => void`, `isDisabled?`                                                                                                                                                                           |
-| `Select`        | `label`, `items`, `children: (item) => ReactNode`, `selectedKey?`, `defaultSelectedKey?`, `onSelectionChange?: (key) => void`, `placeholder?`, `description?`, `errorMessage?`, `isRequired?`, `isDisabled?`                                                                               |
-| `Radio`         | `value`, `children`, `isDisabled?` — must be rendered inside `RadioGroup`                                                                                                                                                                                                                        |
-| `RadioGroup`    | `label`, `orientation?: 'horizontal' \| 'vertical'`, `value?`, `defaultValue?`, `onChange?: (value: string) => void`, `errorMessage?`, `isDisabled?`                                                                                                                                       |
+| `RudiInput`         | `label` **(required)**, `type?: 'text' \| 'email' \| 'password' \| 'url' \| 'tel' \| 'search' \| 'number'` (`'text'`), `placeholder?`, `description?`, `errorMessage?` (sets invalid state), `isRequired?`, `isDisabled?`, `value?`, `defaultValue?`, `onChange?: (value: string) => void` |
+| `RudiCheckbox`      | `children` (label), `isSelected?`, `defaultSelected?`, `isIndeterminate?`, `onChange?: (isSelected: boolean) => void`, `isDisabled?`, `value?`                                                                                                                                             |
+| `RudiCheckboxGroup` | `label` **(required)**, `description?`, `value?: string[]`, `defaultValue?`, `onChange?: (value: string[]) => void`, `errorMessage?`, `isDisabled?`                                                                                                                                        |
+| `RudiSwitch`        | `children` (label), `isSelected?`, `defaultSelected?`, `onChange?: (isSelected: boolean) => void`, `isDisabled?`                                                                                                                                                                           |
+| `RudiSelect`        | `label`, `items`, `children: (item) => ReactNode`, `selectedKey?`, `defaultSelectedKey?`, `onSelectionChange?: (key) => void`, `placeholder?`, `description?`, `errorMessage?`, `isRequired?`, `isDisabled?`                                                                               |
+| `RudiRadio`         | `value`, `children`, `isDisabled?` — must be rendered inside `RudiRadioGroup`                                                                                                                                                                                                                        |
+| `RudiRadioGroup`    | `label`, `orientation?: 'horizontal' \| 'vertical'`, `value?`, `defaultValue?`, `onChange?: (value: string) => void`, `errorMessage?`, `isDisabled?`                                                                                                                                       |
 
-`Select` renders its options from an `items` collection plus a render function. The item element comes from `react-stately`:
+`RudiSelect` renders its options from an `items` collection plus a render function that returns a `RudiOption` for each item:
 
 ```tsx
-import { Item } from 'react-stately'
-import { Select } from 'rudiment-ui'
+import { RudiSelect, RudiOption } from 'rudiment-ui'
 
 const roles = [
   { id: 'viewer', label: 'Viewer' },
@@ -228,106 +227,106 @@ const roles = [
   { id: 'admin', label: 'Admin' },
 ]
 
-<Select label="Role" items={roles} placeholder="Choose a role" onSelectionChange={setRole}>
-  {(item) => <Item key={item.id}>{item.label}</Item>}
-</Select>
+<RudiSelect label="Role" items={roles} placeholder="Choose a role" onSelectionChange={setRole}>
+  {(item) => <RudiOption key={item.id}>{item.label}</RudiOption>}
+</RudiSelect>
 ```
 
 **Feedback & display**
 
 | Component          | Props                                                                                                                                                                          |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `Alert`            | `variant: 'info' \| 'success' \| 'warning' \| 'error'` **(required)**, `title?`, `icon?`, `isPolite?` (`role="status"` instead of `"alert"`), `dismissible?`, `onDismiss?`     |
-| `Badge`            | `variant?: 'default' \| 'success' \| 'warning' \| 'error' \| 'info'` (`'default'`), `size?: 'sm' \| 'md'` (`'md'`), `dot?` (hides children)                                    |
-| `Tag`              | `variant?` (as Badge), `dismissible?`, `onDismiss?`, `onPress?` (switches root to `<button>`), `isDisabled?`                                                                   |
-| `Avatar`           | `src?`, `alt?`, `name?` (derives initials), `size?: 'sm' \| 'md' \| 'lg'` (`'md'`), `status?: 'success' \| 'warning' \| 'error' \| 'info'`                                     |
-| `Icon`             | `icon` **(required)**, `size?: 'sm' \| 'md' \| 'lg' \| number` (`'md'`), `color?`, `label?` (sets `role="img"`; without it the icon is `aria-hidden`)                          |
-| `ProgressBar`      | `value` + `label` **(required)**, `minValue?` (`0`), `maxValue?` (`100`), `showValueLabel?`, `variant?: 'default' \| 'success' \| 'warning' \| 'error'`, `size?: 'sm' \| 'md'` |
-| `CircularProgress` | same as ProgressBar plus `size?: 'sm' \| 'md' \| 'lg'` and `children?` for custom center content                                                                               |
-| `StatCard`         | `label`, `value: string \| number`, `delta?: string`, `trend?: 'up' \| 'down' \| 'neutral'` (`'neutral'`), `children?`                                                         |
+| `RudiAlert`            | `variant: 'info' \| 'success' \| 'warning' \| 'error'` **(required)**, `title?`, `icon?`, `isPolite?` (`role="status"` instead of `"alert"`), `dismissible?`, `onDismiss?`     |
+| `RudiBadge`            | `variant?: 'default' \| 'success' \| 'warning' \| 'error' \| 'info'` (`'default'`), `size?: 'sm' \| 'md'` (`'md'`), `dot?` (hides children)                                    |
+| `RudiTag`              | `variant?` (as Badge), `dismissible?`, `onDismiss?`, `onPress?` (switches root to `<button>`), `isDisabled?`                                                                   |
+| `RudiAvatar`           | `src?`, `alt?`, `name?` (derives initials), `size?: 'sm' \| 'md' \| 'lg'` (`'md'`), `status?: 'success' \| 'warning' \| 'error' \| 'info'`                                     |
+| `RudiIcon`             | `icon` **(required)**, `size?: 'sm' \| 'md' \| 'lg' \| number` (`'md'`), `color?`, `label?` (sets `role="img"`; without it the icon is `aria-hidden`)                          |
+| `RudiProgressBar`      | `value` + `label` **(required)**, `minValue?` (`0`), `maxValue?` (`100`), `showValueLabel?`, `variant?: 'default' \| 'success' \| 'warning' \| 'error'`, `size?: 'sm' \| 'md'` |
+| `RudiCircularProgress` | same as ProgressBar plus `size?: 'sm' \| 'md' \| 'lg'` and `children?` for custom center content                                                                               |
+| `RudiStatCard`         | `label`, `value: string \| number`, `delta?: string`, `trend?: 'up' \| 'down' \| 'neutral'` (`'neutral'`), `children?`                                                         |
 
-`Alert` and `Tag` handle dismissal with internal state — once dismissed they render `null` and can't be reopened via props. Control visibility yourself if you need it back.
+`RudiAlert` and `RudiTag` handle dismissal with internal state — once dismissed they render `null` and can't be reopened via props. Control visibility yourself if you need it back.
 
 **Containers & overlays**
 
 | Component                                                        | Props                                                                                                                |
 | ---------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `Card`                                                           | `variant?: 'default' \| 'outlined' \| 'elevated'` (`'default'`), `padding?: 'none' \| 'sm' \| 'md' \| 'lg'` (`'md'`) |
-| `Dialog`                                                         | `isOpen`, `onClose`, `title` **(all required)**, `isDismissable?` (`true`), `size?: 'sm' \| 'md' \| 'lg'` (`'md'`)   |
-| `TooltipTrigger` / `Tooltip`                                     | `delay?` (`500`ms), `closeDelay?` (`0`ms); children must be exactly `[trigger, tooltip]`                             |
-| `MenuTrigger` / `Menu` / `MenuItem` / `MenuSection` / `Keyboard` | React Aria menu primitives; `MenuItem` adds `isDestructive?`                                                         |
+| `RudiCard`                                                           | `variant?: 'default' \| 'outlined' \| 'elevated'` (`'default'`), `padding?: 'none' \| 'sm' \| 'md' \| 'lg'` (`'md'`) |
+| `RudiDialog`                                                         | `isOpen`, `onClose`, `title` **(all required)**, `isDismissable?` (`true`), `size?: 'sm' \| 'md' \| 'lg'` (`'md'`)   |
+| `RudiTooltipTrigger` / `RudiTooltip`                                     | `delay?` (`500`ms), `closeDelay?` (`0`ms); children must be exactly `[trigger, tooltip]`                             |
+| `RudiMenuTrigger` / `RudiMenu` / `RudiMenuItem` / `RudiMenuSection` / `RudiKeyboard` | React Aria menu primitives; `RudiMenuItem` adds `isDestructive?`                                                         |
 
-`Card` is compound — use the dot subcomponents:
+`RudiCard` is compound — use the dot subcomponents:
 
 ```tsx
-<Card variant="elevated" padding="lg">
-  <Card.Header>Monthly revenue</Card.Header>
-  <Card.Body>…</Card.Body>
-  <Card.Footer>…</Card.Footer>
-</Card>
+<RudiCard variant="elevated" padding="lg">
+  <RudiCard.Header>Monthly revenue</RudiCard.Header>
+  <RudiCard.Body>…</RudiCard.Body>
+  <RudiCard.Footer>…</RudiCard.Footer>
+</RudiCard>
 ```
 
-`Dialog` is fully controlled — it has no internal open state:
+`RudiDialog` is fully controlled — it has no internal open state:
 
 ```tsx
 const [isOpen, setIsOpen] = useState(false)
 
-<Button onPress={() => setIsOpen(true)}>Delete account</Button>
-<Dialog isOpen={isOpen} onClose={() => setIsOpen(false)} title="Are you sure?" size="sm">
-  <Button variant="destructive" onPress={confirmDelete}>Delete</Button>
-</Dialog>
+<RudiButton onPress={() => setIsOpen(true)}>Delete account</RudiButton>
+<RudiDialog isOpen={isOpen} onClose={() => setIsOpen(false)} title="Are you sure?" size="sm">
+  <RudiButton variant="destructive" onPress={confirmDelete}>Delete</RudiButton>
+</RudiDialog>
 ```
 
-`TooltipTrigger` takes exactly two children, in order:
+`RudiTooltipTrigger` takes exactly two children, in order:
 
 ```tsx
-<TooltipTrigger>
-  <IconButton aria-label="Delete">
-    <Icon icon="mdi:trash-can" />
-  </IconButton>
-  <Tooltip>Delete this item</Tooltip>
-</TooltipTrigger>
+<RudiTooltipTrigger>
+  <RudiIconButton aria-label="Delete">
+    <RudiIcon icon="mdi:trash-can" />
+  </RudiIconButton>
+  <RudiTooltip>Delete this item</RudiTooltip>
+</RudiTooltipTrigger>
 ```
 
 ## Layout primitives
 
-Eight primitives handle spacing and composition. **Every spacing prop takes a raw CSS length string** — `"1rem"`, `"2rem"`, or `var(--rudi-spacing-6)` — not a numeric scale. The prop is `space` everywhere (never `gap`); `Box` uses `padding`. All accept `as`, `className`, and any DOM attribute.
+Eight primitives handle spacing and composition. **Every spacing prop takes a raw CSS length string** — `"1rem"`, `"2rem"`, or `var(--rudi-spacing-6)` — not a numeric scale. The prop is `space` everywhere (never `gap`); `RudiBox` uses `padding`. All accept `as`, `className`, and any DOM attribute.
 
 | Component  | Props                                                                                                                                                                          | Default                                            |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------- |
-| `Box`      | `padding?`, `bordered?`, `invert?`                                                                                                                                             | padding `1rem`                                     |
-| `Stack`    | `space?`, `recursive?`, `splitAfter?: number`                                                                                                                                  | space `1.5rem`                                     |
-| `Cluster`  | `space?`, `justify?: 'flex-start' \| 'flex-end' \| 'center' \| 'space-between' \| 'space-around'`, `align?: 'flex-start' \| 'flex-end' \| 'center' \| 'baseline' \| 'stretch'` | space `1rem`, justify `flex-start`, align `center` |
-| `Grid`     | `minCellWidth?`, `space?`                                                                                                                                                      | min cell `15rem`, space `1.5rem`                   |
-| `Sidebar`  | `side?: 'left' \| 'right'`, `sideWidth?`, `contentMin?`, `space?`, `noStretch?`                                                                                                | side `left`, width `20rem`, content min `50%`      |
-| `Center`   | `maxWidth?`, `gutters?`, `intrinsic?`                                                                                                                                          | max width `60rem`, gutters `1rem`                  |
-| `Cover`    | `minHeight?`, `space?`                                                                                                                                                         | min height `100vh`                                 |
-| `Switcher` | `threshold?`, `space?`                                                                                                                                                         | threshold `30rem`, space `1.5rem`                  |
+| `RudiBox`      | `padding?`, `bordered?`, `invert?`                                                                                                                                             | padding `1rem`                                     |
+| `RudiStack`    | `space?`, `recursive?`, `splitAfter?: number`                                                                                                                                  | space `1.5rem`                                     |
+| `RudiCluster`  | `space?`, `justify?: 'flex-start' \| 'flex-end' \| 'center' \| 'space-between' \| 'space-around'`, `align?: 'flex-start' \| 'flex-end' \| 'center' \| 'baseline' \| 'stretch'` | space `1rem`, justify `flex-start`, align `center` |
+| `RudiGrid`     | `minCellWidth?`, `space?`                                                                                                                                                      | min cell `15rem`, space `1.5rem`                   |
+| `RudiSidebar`  | `side?: 'left' \| 'right'`, `sideWidth?`, `contentMin?`, `space?`, `noStretch?`                                                                                                | side `left`, width `20rem`, content min `50%`      |
+| `RudiCenter`   | `maxWidth?`, `gutters?`, `intrinsic?`                                                                                                                                          | max width `60rem`, gutters `1rem`                  |
+| `RudiCover`    | `minHeight?`, `space?`                                                                                                                                                         | min height `100vh`                                 |
+| `RudiSwitcher` | `threshold?`, `space?`                                                                                                                                                         | threshold `30rem`, space `1.5rem`                  |
 
 ```tsx
-<Sidebar side="left" sideWidth="16rem" space="2rem">
+<RudiSidebar side="left" sideWidth="16rem" space="2rem">
   <nav>…</nav>
-  <Stack space="1.5rem">
-    <Heading level={1}>Dashboard</Heading>
-    <Grid minCellWidth="18rem" space="1rem">
-      <StatCard label="Revenue" value="$48.2k" delta="+12.5%" trend="up" />
-      <StatCard label="Users" value="1,284" delta="+3.1%" trend="up" />
-    </Grid>
-  </Stack>
-</Sidebar>
+  <RudiStack space="1.5rem">
+    <RudiHeading level={1}>Dashboard</RudiHeading>
+    <RudiGrid minCellWidth="18rem" space="1rem">
+      <RudiStatCard label="Revenue" value="$48.2k" delta="+12.5%" trend="up" />
+      <RudiStatCard label="Users" value="1,284" delta="+3.1%" trend="up" />
+    </RudiGrid>
+  </RudiStack>
+</RudiSidebar>
 ```
 
-`Stack` deserves a note: `recursive` applies the spacing to all nested descendants rather than direct children, and `splitAfter={n}` pushes everything after the nth child to the bottom — useful for pinning a footer inside a sidebar.
+`RudiStack` deserves a note: `recursive` applies the spacing to all nested descendants rather than direct children, and `splitAfter={n}` pushes everything after the nth child to the bottom — useful for pinning a footer inside a sidebar.
 
 ## Typography
 
 | Component | Props                                                                                          |
 | --------- | ---------------------------------------------------------------------------------------------- |
-| `Heading` | `level: 1–6` **(required, sets the tag)**, `size?: 1–6` (visual size, defaults to `level`)     |
-| `Text`    | `variant?: 'body' \| 'body-sm' \| 'caption' \| 'overline' \| 'code'` (`'body'`), `as?` (`'p'`) |
-| `Prose`   | `size?: 'sm' \| 'base' \| 'lg'` (`'base'`), `as?` (`'div'`)                                    |
+| `RudiHeading` | `level: 1–6` **(required, sets the tag)**, `size?: 1–6` (visual size, defaults to `level`)     |
+| `RudiText`    | `variant?: 'body' \| 'body-sm' \| 'caption' \| 'overline' \| 'code'` (`'body'`), `as?` (`'p'`) |
+| `RudiProse`   | `size?: 'sm' \| 'base' \| 'lg'` (`'base'`), `as?` (`'div'`)                                    |
 
-`level` and `size` are separate so you can keep a correct document outline while styling freely — `<Heading level={2} size={4}>` renders an `<h2>` that looks like an h4. `Prose` styles a block of unstyled HTML (CMS content, rendered Markdown).
+`level` and `size` are separate so you can keep a correct document outline while styling freely — `<Heading level={2} size={4}>` renders an `<h2>` that looks like an h4. `RudiProse` styles a block of unstyled HTML (CMS content, rendered Markdown).
 
 ## Charts
 
@@ -335,12 +334,12 @@ All three wrap Recharts, size themselves to their container, and require a `labe
 
 | Component    | Props                                                                                                                                                                                |
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `BarChart`   | `data`, `dataKeys: string[]`, `indexKey`, `label`, `layout?: 'vertical' \| 'horizontal'` (`'vertical'`), `stacked?`, `showLegend?` (`true`), `showGrid?` (`true`), `height?` (`300`) |
-| `LineChart`  | `data`, `dataKeys`, `indexKey`, `label`, `curved?` (`true`), `showDots?` (`true`), `showGrid?`, `showLegend?`, `height?`                                                             |
-| `DonutChart` | `data: { name, value }[]`, `label`, `innerRadius?` (`60`), `showLabels?` (`false`), `showLegend?`, `height?`                                                                         |
+| `RudiBarChart`   | `data`, `dataKeys: string[]`, `indexKey`, `label`, `layout?: 'vertical' \| 'horizontal'` (`'vertical'`), `stacked?`, `showLegend?` (`true`), `showGrid?` (`true`), `height?` (`300`) |
+| `RudiLineChart`  | `data`, `dataKeys`, `indexKey`, `label`, `curved?` (`true`), `showDots?` (`true`), `showGrid?`, `showLegend?`, `height?`                                                             |
+| `RudiDonutChart` | `data: { name, value }[]`, `label`, `innerRadius?` (`60`), `showLabels?` (`false`), `showLegend?`, `height?`                                                                         |
 
 ```tsx
-<BarChart
+<RudiBarChart
   label="Revenue by month"
   data={[
     { month: 'Jan', revenue: 4200, costs: 2400 },
@@ -352,18 +351,18 @@ All three wrap Recharts, size themselves to their container, and require a `labe
 />
 ```
 
-Note that `BarChart`'s `layout` describes the bars, not the Recharts axis: the default `"vertical"` gives you vertical bars, and `"horizontal"` gives horizontal ones.
+Note that `RudiBarChart`'s `layout` describes the bars, not the Recharts axis: the default `"vertical"` gives you vertical bars, and `"horizontal"` gives horizontal ones.
 
 ## Kanban
 
-`KanbanBoard` is fully controlled — it never mutates `columns`. Apply the move yourself in `onCardMove`:
+`RudiKanbanBoard` is fully controlled — it never mutates `columns`. Apply the move yourself in `onCardMove`:
 
 ```tsx
-import { KanbanBoard, KanbanCard, type KanbanCardMoveEvent } from 'rudiment-ui'
-;<KanbanBoard
+import { RudiKanbanBoard, RudiKanbanCard, type RudiKanbanCardMoveEvent } from 'rudiment-ui'
+;<RudiKanbanBoard
   columns={columns} // { id, title, items: { id, ... }[] }[]
-  renderCard={(item) => <KanbanCard id={item.id}>{item.title}</KanbanCard>}
-  onCardMove={(e: KanbanCardMoveEvent) => {
+  renderCard={(item) => <RudiKanbanCard id={item.id}>{item.title}</RudiKanbanCard>}
+  onCardMove={(e: RudiKanbanCardMoveEvent) => {
     // e: { cardId, fromColumnId, toColumnId, fromIndex, toIndex }
     setColumns((prev) => applyMove(prev, e))
   }}
@@ -376,7 +375,7 @@ import { KanbanBoard, KanbanCard, type KanbanCardMoveEvent } from 'rudiment-ui'
 
 **`useChartTheme()`** returns the resolved chart palette for the active theme — `{ colors, axisColor, gridColor, labelColor, legendColor, tooltipBg, tooltipText, tooltipBorder, chartBg }`. Use it to style custom Recharts compositions so they match the built-in charts. It's SSR-safe and re-resolves on theme change.
 
-**`useLoadingButton(ariaProps, isLoading, ref)`** returns `{ buttonProps }` with disabled and `aria-busy` handled. Useful if you're building a custom button rather than using `Button`.
+**`useLoadingButton(ariaProps, isLoading, ref)`** returns `{ buttonProps }` with disabled and `aria-busy` handled. Useful if you're building a custom button rather than using `RudiButton`.
 
 ## Customizing the tokens at source
 

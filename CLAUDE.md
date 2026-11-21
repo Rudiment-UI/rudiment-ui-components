@@ -57,7 +57,7 @@ Note: `CONTRIBUTING.md` still says to style with Tailwind utilities — that is 
 
 ## Component conventions
 
-- **Every export is `Rudi`-prefixed**: `RudiButton`, `RudiButtonProps`, `RudiStack`. The README's usage examples and prop tables drop the prefix (`Button`, `Input`) — the real exported names in `src/index.ts` all carry it.
+- **Every export is `Rudi`-prefixed**: `RudiButton`, `RudiButtonProps`, `RudiStack`. Keep README examples and prop tables on the prefixed names too.
 - Interactive components wrap React Aria hooks (`useButton`, `useRadio`, …) and take `onPress`, not `onClick`. `onChange` handlers receive a **value**, not an event.
 - `label` is a required prop (not children) on `Input`, `Select`, `RadioGroup`, `CheckboxGroup`, `ProgressBar`, and the charts.
 - Icons are Iconify name strings (`icon="mdi:close"`), never imported components.

@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **`RudiDialog` now has an accessible name when opened after mount.** React Aria resolves the title id once, on mount, and the dialog mounted its hooks while closed, so a dialog toggled open (the normal case) rendered `role="dialog"` with no `aria-labelledby`. The panel now mounts only while open.
 - **`rudiment-ui/styles` type-checks on TypeScript 6+.** The export now has a `types` condition pointing to an empty declaration, so `import 'rudiment-ui/styles'` no longer fails with TS2882 under `noUncheckedSideEffectImports` (the default since TypeScript 6).
 
 ## [0.3.0] - 2026-08-04

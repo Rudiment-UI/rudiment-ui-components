@@ -22,25 +22,34 @@ export interface RudiDialogProps {
 }
 
 export const RudiDialog = forwardRef<HTMLDivElement, RudiDialogProps>(function RudiDialog(
-  {
-    isOpen,
-    onClose,
-    title,
-    isDismissable = true,
-    size = 'md',
-    children,
-    className,
-  }: RudiDialogProps,
+  props: RudiDialogProps,
   ref,
 ) {
-  const underlayRef = useRef<HTMLDivElement>(null)
-  const dialogRef = useObjectRef(ref)
+  // The panel (and its React Aria hooks) mounts only while open. useDialog
+  // resolves the title id once, on mount; mounting it while closed meant the
+  // title never existed at that moment and the dialog shipped with no
+  // accessible name.
+  if (!props.isOpen) return null
+  return <RudiDialogPanel {...props} forwardedRef={ref} />
+})
 
-  usePreventScroll({ isDisabled: !isOpen })
+function RudiDialogPanel({
+  onClose,
+  title,
+  isDismissable = true,
+  size = 'md',
+  children,
+  className,
+  forwardedRef,
+}: RudiDialogProps & { forwardedRef: React.ForwardedRef<HTMLDivElement> }) {
+  const underlayRef = useRef<HTMLDivElement>(null)
+  const dialogRef = useObjectRef(forwardedRef)
+
+  usePreventScroll()
 
   // Create a state object compatible with useModalOverlay
   const state: OverlayTriggerState = {
-    isOpen,
+    isOpen: true,
     close: onClose,
     open: () => {},
     toggle: () => {},
@@ -56,8 +65,6 @@ export const RudiDialog = forwardRef<HTMLDivElement, RudiDialogProps>(function R
   )
 
   const { dialogProps, titleProps } = useDialog({}, dialogRef)
-
-  if (!isOpen) return null
 
   return (
     <OverlayContainer>
@@ -87,4 +94,4 @@ export const RudiDialog = forwardRef<HTMLDivElement, RudiDialogProps>(function R
       </div>
     </OverlayContainer>
   )
-})
+}

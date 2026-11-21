@@ -288,6 +288,29 @@ const [isOpen, setIsOpen] = useState(false)
 </RudiTooltipTrigger>
 ```
 
+**App chrome**
+
+| Component           | Key props |
+| ------------------- | --------- |
+| `RudiAppShell`      | `isSidebarOpen?`, `onSidebarOpenChange?`, `defaultSidebarOpen?`; parts `.Sidebar` (`width?`, `aria-label?`), `.Content`, `.Main` (`maxWidth?`, `padding?`), `.MenuButton` |
+| `RudiTopBar`        | `start?`, `end?`, `children` (center), `announcement?`, `sticky?` (`true`), `as?` (`'header'`) |
+| `RudiPageHeader`    | `title` **(required)**, `subtitle?`, `actions?`, `headingLevel?` (`1`) |
+| `RudiSectionHeader` | `title` **(required)**, `description?`, `action?`, `headingLevel?` (`2`) |
+
+```tsx
+<RudiAppShell>
+  <RudiAppShell.Sidebar aria-label="Main navigation">
+    <RudiNavItem label="Shipments" icon="lucide:package" href="/shipments" isActive />
+  </RudiAppShell.Sidebar>
+  <RudiAppShell.Content>
+    <RudiTopBar start={<RudiAppShell.MenuButton />} end={<RudiAvatar name="Ada Admin" />} />
+    <RudiAppShell.Main>
+      <RudiPageHeader title="Shipments" actions={<RudiButton>New shipment</RudiButton>} />
+    </RudiAppShell.Main>
+  </RudiAppShell.Content>
+</RudiAppShell>
+```
+
 ## Layout primitives
 
 Eight primitives handle spacing and composition. **Every spacing prop takes a raw CSS length string** — `"1rem"`, `"2rem"`, or `var(--rudi-spacing-6)` — not a numeric scale. The prop is `space` everywhere (never `gap`); `RudiBox` uses `padding`. All accept `as`, `className`, and any DOM attribute.

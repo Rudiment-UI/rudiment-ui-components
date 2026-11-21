@@ -668,7 +668,7 @@
       "cell-padding-y-compact": { "$value": "{spacing.1}" },
       "cell-padding-x-compact": { "$value": "{spacing.3}" },
       "row-border": { "$value": "{color.border.default}" },
-      "row-hover-bg": { "$value": "{color.background.surface-raised}" },
+      "row-hover-bg": { "$value": "{color.background.surface-sunken}" },
       "row-striped-bg": { "$value": "{color.background.surface-raised}" },
       "row-selected-bg": { "$value": "{color.feedback.info-surface}" },
       "focus-outline-color": { "$value": "{color.border.focus}" },

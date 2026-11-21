@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- `RudiTable`: hovered rows are now distinguishable from striped rows. `component.table.row-hover-bg` uses `surface-sunken` in light themes and `neutral.700` in dark themes (both previously matched the stripe color).
 - **Form controls meet WCAG 1.4.11 non-text contrast.** Input, textarea, select, checkbox and radio borders, and the switch's off track, used `#e5e5e5`/`#d4d4d4` on white (about 1.3:1 and 1.5:1). They now use a new semantic `color.border.control` (`neutral.500`, about 4.7:1); the date, number and combo fields follow through the input tokens. Decorative borders (cards, tables, top bar) keep `color.border.default`.
 - **`RudiSidebar side="right"` no longer always wraps.** The sidebar (last child) kept the content's `contentMin` minimum from the base rule, so both columns needed it and they never sat side by side.
 - **`RudiCheckboxGroup` now drives its checkboxes.** The group's `value`, `defaultValue` and `onChange` never reached the `RudiCheckbox` children (no shared state), so groups only worked as a label. Checkboxes inside a group now use the group's state (give each a `value`).

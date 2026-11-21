@@ -811,7 +811,7 @@
   --rudi-component-table-header-bg: var(--rudi-color-background-surface-raised);
   --rudi-component-table-header-text: var(--rudi-color-text-subtle);
   --rudi-component-table-row-border: var(--rudi-color-border-default);
-  --rudi-component-table-row-hover-bg: var(--rudi-color-background-surface-raised);
+  --rudi-component-table-row-hover-bg: var(--rudi-color-background-surface-sunken);
   --rudi-component-table-row-striped-bg: var(--rudi-color-background-surface-raised);
   --rudi-component-table-row-selected-bg: var(--rudi-color-feedback-info-surface);
   --rudi-component-table-focus-outline-color: var(--rudi-color-border-focus);

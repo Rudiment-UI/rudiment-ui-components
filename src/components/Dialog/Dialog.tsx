@@ -1,4 +1,4 @@
-import { forwardRef, useRef } from 'react'
+import { Children, forwardRef, isValidElement, useRef } from 'react'
 import {
   useDialog,
   useModalOverlay,
@@ -9,6 +9,8 @@ import {
 import { useObjectRef } from '@react-aria/utils'
 import type { OverlayTriggerState } from 'react-stately'
 import { cn } from '@/utils/cn'
+import { RudiIconButton } from '@/components/IconButton/IconButton'
+import { RudiIcon } from '@/components/Icon/Icon'
 import './dialog.css'
 
 export interface RudiDialogProps {
@@ -21,7 +23,18 @@ export interface RudiDialogProps {
   className?: string
 }
 
-export const RudiDialog = forwardRef<HTMLDivElement, RudiDialogProps>(function RudiDialog(
+export interface RudiDialogFooterProps {
+  /** Action buttons, primary action last. */
+  children: React.ReactNode
+  className?: string
+}
+
+/** Action row pinned to the bottom of the dialog (it stays visible while the body scrolls). */
+function DialogFooter({ children, className }: RudiDialogFooterProps) {
+  return <div className={cn('rudi-dialog__footer', className)}>{children}</div>
+}
+
+const DialogRoot = forwardRef<HTMLDivElement, RudiDialogProps>(function RudiDialog(
   props: RudiDialogProps,
   ref,
 ) {
@@ -66,6 +79,11 @@ function RudiDialogPanel({
 
   const { dialogProps, titleProps } = useDialog({}, dialogRef)
 
+  // RudiDialog.Footer children render after the scrolling body.
+  const parts = Children.toArray(children)
+  const footer = parts.filter((child) => isValidElement(child) && child.type === DialogFooter)
+  const body = parts.filter((child) => !(isValidElement(child) && child.type === DialogFooter))
+
   return (
     <OverlayContainer>
       <div
@@ -85,13 +103,23 @@ function RudiDialogPanel({
               className,
             )}
           >
-            <h2 {...titleProps} className="rudi-dialog__title">
-              {title}
-            </h2>
-            <div className="rudi-dialog__body">{children}</div>
+            <div className="rudi-dialog__header">
+              <h2 {...titleProps} className="rudi-dialog__title">
+                {title}
+              </h2>
+              {isDismissable && (
+                <RudiIconButton aria-label="Close" variant="ghost" size="sm" onPress={onClose}>
+                  <RudiIcon icon="lucide:x" />
+                </RudiIconButton>
+              )}
+            </div>
+            <div className="rudi-dialog__body">{body}</div>
+            {footer}
           </div>
         </FocusScope>
       </div>
     </OverlayContainer>
   )
 }
+
+export const RudiDialog = Object.assign(DialogRoot, { Footer: DialogFooter })

@@ -150,4 +150,40 @@ describe('Dialog', () => {
     await userEvent.keyboard('{Escape}')
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
   })
+  it('renders RudiDialog.Footer actions after the body', () => {
+    render(
+      <RudiDialog isOpen onClose={() => {}} title="Remove shipment">
+        <p>Body text</p>
+        <RudiDialog.Footer>
+          <button>Cancel</button>
+        </RudiDialog.Footer>
+      </RudiDialog>,
+    )
+    const footer = screen.getByRole('button', { name: 'Cancel' }).parentElement!
+    expect(footer).toHaveClass('rudi-dialog__footer')
+    expect(screen.getByText('Body text').closest('.rudi-dialog__body')).not.toContainElement(footer)
+  })
+
+  it('has a close button when dismissable', async () => {
+    function Harness() {
+      const [isOpen, setOpen] = useState(true)
+      return (
+        <RudiDialog isOpen={isOpen} onClose={() => setOpen(false)} title="Assign tracker">
+          <p>Body</p>
+        </RudiDialog>
+      )
+    }
+    render(<Harness />)
+    await userEvent.click(screen.getByRole('button', { name: 'Close' }))
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+  })
+
+  it('has no close button when not dismissable', () => {
+    render(
+      <RudiDialog isOpen onClose={() => {}} title="Saving" isDismissable={false}>
+        <p>Body</p>
+      </RudiDialog>,
+    )
+    expect(screen.queryByRole('button', { name: 'Close' })).not.toBeInTheDocument()
+  })
 })

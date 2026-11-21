@@ -247,7 +247,7 @@ const roles = [
 | Component                                                        | Props                                                                                                                |
 | ---------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
 | `RudiCard`                                                           | `variant?: 'default' \| 'outlined' \| 'elevated'` (`'default'`), `padding?: 'none' \| 'sm' \| 'md' \| 'lg'` (`'md'`) |
-| `RudiDialog`                                                         | `isOpen`, `onClose`, `title` **(all required)**, `isDismissable?` (`true`), `size?: 'sm' \| 'md' \| 'lg'` (`'md'`)   |
+| `RudiDialog`                                                         | `isOpen`, `onClose`, `title` **(all required)**, `isDismissable?` (`true`, adds a close button), `size?: 'sm' \| 'md' \| 'lg'` (`'md'`); part `RudiDialog.Footer` for actions |
 | `RudiTooltipTrigger` / `RudiTooltip`                                     | `delay?` (`500`ms), `closeDelay?` (`0`ms); children must be exactly `[trigger, tooltip]`                             |
 | `RudiMenuTrigger` / `RudiMenu` / `RudiMenuItem` / `RudiMenuSection` / `RudiKeyboard` | React Aria menu primitives; `RudiMenuItem` adds `isDestructive?`                                                         |
 

@@ -203,6 +203,7 @@
   --rudi-component-dialog-title-line-height: var(--rudi-font-line-height-tight);
   --rudi-component-dialog-body-font-size: var(--rudi-font-size-sm);
   --rudi-component-dialog-body-line-height: var(--rudi-font-line-height-normal);
+  --rudi-component-dialog-footer-gap: var(--rudi-spacing-2);
   --rudi-component-tooltip-bg: var(--rudi-color-neutral-200);
   --rudi-component-tooltip-text: var(--rudi-color-neutral-900);
   --rudi-component-tooltip-font-size: var(--rudi-font-size-xs);

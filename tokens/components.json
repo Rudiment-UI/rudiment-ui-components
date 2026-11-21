@@ -179,7 +179,8 @@
       "title-line-height": { "$value": "{font.lineHeight.tight}" },
       "body-font-size": { "$value": "{font.size.sm}" },
       "body-color": { "$value": "{color.text.subtle}" },
-      "body-line-height": { "$value": "{font.lineHeight.normal}" }
+      "body-line-height": { "$value": "{font.lineHeight.normal}" },
+      "footer-gap": { "$value": "{spacing.2}" }
     },
     "tooltip": {
       "max-width": { "$value": "16rem" },

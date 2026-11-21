@@ -88,7 +88,8 @@ These two components look similar but serve different purposes:
 ## Dialog
 
 - **Do** use for confirmations that require user action (for example, "Are you sure you want to delete this?")
-- **Do** provide a clear title and a visible close mechanism
+- **Do** provide a clear title. Dismissable dialogs get a close button automatically.
+- **Do** put action buttons in `RudiDialog.Footer`, primary action last; it stays visible while long content scrolls
 - **Don't** use for passive notifications. Use **Alert** instead.
 - **Don't** stack multiple dialogs. If a dialog needs to open another dialog, rethink the flow.
 

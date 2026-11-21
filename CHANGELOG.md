@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **`RudiDialog.Footer`:** an action row after the body (primary action last). Dismissable dialogs now show a close button, and tall content scrolls inside the body while the title and footer stay visible.
 - **`RudiCover.Centered`:** marks the child that sits in the vertical middle of a `RudiCover`. Previously consumers had to add the internal `rudi-cover__centered` class by hand.
 - **`RudiInput` form attributes:** `name`, `autoComplete`, `inputMode`, `maxLength`, `isReadOnly`, `autoFocus` and `onBlur` pass through to the input, so it works with native forms, password managers and one-time-code autofill.
 - **`data-theme="auto"`:** follows the OS color scheme in pure CSS, using the dark tokens under `prefers-color-scheme: dark` and the defaults otherwise. `useChartTheme` now also re-resolves when the OS scheme changes. Built from the dark config as `tokens/build/tokens-auto-dark.css`.

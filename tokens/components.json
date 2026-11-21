@@ -21,7 +21,7 @@
       "secondary-text": { "$value": "{color.text.default}" },
       "secondary-border": { "$value": "{color.border.default}" },
       "secondary-hover-bg": { "$value": "{color.background.surface-raised}" },
-      "destructive-bg": { "$value": "{color.feedback.error}" },
+      "destructive-bg": { "$value": "{color.red.600}" },
       "destructive-text": { "$value": "{color.text.on-brand}" },
       "ghost-text": { "$value": "{color.text.default}" },
       "ghost-hover-bg": { "$value": "{color.background.surface-raised}" }
@@ -42,7 +42,7 @@
       "secondary-text": { "$value": "{color.text.default}" },
       "secondary-border": { "$value": "{color.border.default}" },
       "secondary-hover-bg": { "$value": "{color.background.surface-raised}" },
-      "destructive-bg": { "$value": "{color.feedback.error}" },
+      "destructive-bg": { "$value": "{color.red.600}" },
       "destructive-text": { "$value": "{color.text.on-brand}" },
       "ghost-text": { "$value": "{color.text.default}" },
       "ghost-hover-bg": { "$value": "{color.background.surface-raised}" }
@@ -710,7 +710,7 @@
       "disabled-bg": { "$value": "{color.background.disabled}" },
       "disabled-text": { "$value": "{color.text.disabled}" },
       "error-border": { "$value": "{color.border.error}" },
-      "placeholder-color": { "$value": "{color.text.disabled}" },
+      "placeholder-color": { "$value": "{color.text.subtle}" },
       "segment-radius": { "$value": "{radius.sm}" },
       "segment-focus-bg": { "$value": "{color.brand.primary}" },
       "segment-focus-text": { "$value": "{color.text.on-brand}" },

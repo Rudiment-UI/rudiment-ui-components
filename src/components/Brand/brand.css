@@ -1,0 +1,52 @@
+/* Brand */
+.rudi-brand {
+  --brand-mark-size: var(--rudi-component-brand-mark-size-md);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rudi-component-brand-gap);
+  color: var(--rudi-component-brand-name-color);
+  font-size: var(--rudi-component-brand-name-font-size-md);
+  font-weight: var(--rudi-component-brand-name-font-weight);
+  line-height: 1;
+  text-decoration: none;
+}
+
+.rudi-brand--sm {
+  --brand-mark-size: var(--rudi-component-brand-mark-size-sm);
+  font-size: var(--rudi-component-brand-name-font-size-sm);
+}
+
+.rudi-brand--lg {
+  --brand-mark-size: var(--rudi-component-brand-mark-size-lg);
+  font-size: var(--rudi-component-brand-name-font-size-lg);
+}
+
+.rudi-brand--link:focus-visible {
+  outline: var(--rudi-component-brand-focus-width) solid var(--rudi-component-brand-focus-color);
+  outline-offset: 2px;
+  border-radius: var(--rudi-component-brand-focus-radius);
+}
+
+/* The mark sets its height; width follows the artwork's aspect ratio. */
+.rudi-brand__mark {
+  display: inline-flex;
+  block-size: var(--brand-mark-size);
+}
+
+.rudi-brand__mark > svg,
+.rudi-brand__mark > img {
+  block-size: 100%;
+  inline-size: auto;
+}
+
+.rudi-brand__name--hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

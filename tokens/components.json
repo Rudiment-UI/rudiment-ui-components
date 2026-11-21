@@ -519,6 +519,20 @@
       "focus-width": { "$value": "2px" },
       "focus-radius": { "$value": "{radius.sm}" }
     },
+    "brand": {
+      "gap": { "$value": "{spacing.2}" },
+      "mark-size-sm": { "$value": "1.25rem" },
+      "mark-size-md": { "$value": "1.75rem" },
+      "mark-size-lg": { "$value": "2.5rem" },
+      "name-font-size-sm": { "$value": "{font.size.base}" },
+      "name-font-size-md": { "$value": "{font.size.lg}" },
+      "name-font-size-lg": { "$value": "{font.size.xl}" },
+      "name-font-weight": { "$value": "{font.weight.semibold}" },
+      "name-color": { "$value": "{color.text.default}" },
+      "focus-color": { "$value": "{color.border.focus}" },
+      "focus-width": { "$value": "2px" },
+      "focus-radius": { "$value": "{radius.sm}" }
+    },
     "image": {
       "placeholder-bg": { "$value": "{color.background.surface-sunken}" }
     },

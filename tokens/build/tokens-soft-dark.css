@@ -126,6 +126,10 @@
   --rudi-component-dot-size-md: 0.5rem;
   --rudi-component-dot-size-lg: 0.75rem;
   --rudi-component-link-focus-width: 2px;
+  --rudi-component-brand-mark-size-sm: 1.25rem;
+  --rudi-component-brand-mark-size-md: 1.75rem;
+  --rudi-component-brand-mark-size-lg: 2.5rem;
+  --rudi-component-brand-focus-width: 2px;
   --rudi-component-rating-star-gap: 0.0625rem;
   --rudi-component-stepper-node-size-sm: 1.75rem;
   --rudi-component-stepper-node-size-md: 2.25rem;
@@ -393,6 +397,12 @@
   --rudi-component-link-standalone-font-weight: var(--rudi-font-weight-medium);
   --rudi-component-link-icon-gap: var(--rudi-spacing-1);
   --rudi-component-link-focus-radius: var(--rudi-radius-sm);
+  --rudi-component-brand-gap: var(--rudi-spacing-2);
+  --rudi-component-brand-name-font-size-sm: var(--rudi-font-size-base);
+  --rudi-component-brand-name-font-size-md: var(--rudi-font-size-lg);
+  --rudi-component-brand-name-font-size-lg: var(--rudi-font-size-xl);
+  --rudi-component-brand-name-font-weight: var(--rudi-font-weight-semibold);
+  --rudi-component-brand-focus-radius: var(--rudi-radius-sm);
   --rudi-component-rating-gap: var(--rudi-spacing-2);
   --rudi-component-rating-text-font-size: var(--rudi-font-size-sm);
   --rudi-component-stepper-number-font-size: var(--rudi-font-size-sm);
@@ -630,6 +640,8 @@
   --rudi-component-link-color-hover: var(--rudi-color-brand-primary-hover);
   --rudi-component-link-subtle-color: var(--rudi-color-text-subtle);
   --rudi-component-link-focus-color: var(--rudi-color-border-focus);
+  --rudi-component-brand-name-color: var(--rudi-color-text-default);
+  --rudi-component-brand-focus-color: var(--rudi-color-border-focus);
   --rudi-component-image-placeholder-bg: var(--rudi-color-background-surface-sunken);
   --rudi-component-rating-active-color: var(--rudi-color-feedback-warning);
   --rudi-component-rating-empty-color: var(--rudi-color-text-subtle);

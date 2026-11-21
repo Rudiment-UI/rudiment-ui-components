@@ -223,3 +223,6 @@ export type { RudiSectionHeaderProps } from './components/SectionHeader/SectionH
 
 export { RudiRouterProvider } from './components/RouterProvider/RouterProvider'
 export type { RudiRouterProviderProps } from './components/RouterProvider/RouterProvider'
+
+export { RudiBrand } from './components/Brand/Brand'
+export type { RudiBrandProps } from './components/Brand/Brand'

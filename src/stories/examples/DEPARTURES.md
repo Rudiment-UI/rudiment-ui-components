@@ -51,7 +51,7 @@ Priority is driven by how many of the four domains hit the same wall.
 | App chrome: header/footer + app-shell/sidebar/top-bar | Missing component | 4/4 | **Critical** |
 | No `className`/variant escape hatch on components | Systemic API gap | 4/4 | **High** |
 | ~~`RudiSelect` requires external `react-stately` `Item`~~ ✅ `RudiOption` re-exported | Leaky API | 4/4 | ~~High~~ Done |
-| Brand / logo lockup | Missing component | 4/4 | **High** |
+| ~~Brand / logo lockup~~ ✅ `RudiBrand` | Missing component | 4/4 | ~~High~~ Done |
 | Page-header & section-header composites | Missing component | 4/4 | **High** |
 | `RudiBox` missing radius / surface-bg / full-bleed props | API gap | crm, pm, biotech, ecommerce (4/4) | **High** |
 | ~~Divider / Separator~~ ✅ `RudiDivider` | Missing component | biotech, pm, ecommerce (3/4) | ~~High~~ Done |
@@ -107,7 +107,7 @@ two-column content layout, not an app-shell nav rail. Signal that the app-shell 
 
 Implies `RudiAppShell`, `RudiHeader`/`RudiNavbar`, `RudiFooter`, nav-rail, and top-app-bar.
 
-#### Brand / logo lockup — **4/4 domains**
+#### Brand / logo lockup — ✅ `RudiBrand` shipped — **4/4 domains**
 Every domain builds an icon-tile + wordmark by hand: `HelexaLogo`
 ([biotech/shared.tsx:547-580](biotech/shared.tsx#L547-L580)), `StoreLogo`
 ([ecommerce/shared.tsx:172-181](ecommerce/shared.tsx#L172-L181)), `WorkspaceMark`

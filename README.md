@@ -295,6 +295,7 @@ const [isOpen, setIsOpen] = useState(false)
 | `RudiAppShell`      | `isSidebarOpen?`, `onSidebarOpenChange?`, `defaultSidebarOpen?`; parts `.Sidebar` (`width?`, `aria-label?`), `.Content`, `.Main` (`maxWidth?`, `padding?`), `.MenuButton` |
 | `RudiTopBar`        | `start?`, `end?`, `children` (center), `announcement?`, `sticky?` (`true`), `as?` (`'header'`) |
 | `RudiPageHeader`    | `title` **(required)**, `subtitle?`, `actions?`, `headingLevel?` (`1`) |
+| `RudiBrand`         | `name` **(required)**, `mark?`, `hideName?`, `href?`, `size?: 'sm' \| 'md' \| 'lg'` (`'md'`) |
 | `RudiSectionHeader` | `title` **(required)**, `description?`, `action?`, `headingLevel?` (`2`) |
 
 ```tsx

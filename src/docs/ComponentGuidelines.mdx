@@ -34,6 +34,12 @@ Practical do/don't guidance for each interactive component. Following these patt
 - **Don't** put long text in a Badge. Keep labels to one or two short words.
 - **Don't** use color as the only way to convey meaning. Pair the variant color with a text label so color-blind readers can still understand the status.
 
+## Brand
+
+- **Do** pass `href` (usually `/`) in the app header so the logo links home
+- **Do** set `hideName` when the mark is a full wordmark; the name still labels the link for screen readers
+- **Don't** put a visible text heading next to a brand that already shows the name
+
 ## Breadcrumb
 
 - **Do** reflect the real page hierarchy in `items`, with the current page as the last entry (it's rendered as plain text with `aria-current="page"`, not a link)

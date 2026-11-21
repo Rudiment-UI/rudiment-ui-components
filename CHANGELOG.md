@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **`RudiBrand`:** a logo lockup (mark + name, `sm` / `md` / `lg`), optionally a home link. The mark is decorative and the name is always the accessible name, visible unless `hideName`. New `component.brand.*` tokens.
 - **`RudiRouterProvider`:** connects Rudi links to your router (pass `navigate`, and optionally `useHref`) so `RudiLink`, `RudiNavItem` and `RudiBreadcrumb` navigate client-side instead of reloading the page. It re-exports React Aria's `RouterProvider`, so apps don't import `react-aria` directly.
 - **App chrome is now exported:** `RudiAppShell` (with `.Sidebar`, `.Content`, `.Main`, `.MenuButton`), `RudiTopBar`, `RudiPageHeader` and `RudiSectionHeader`, plus their Props types. Before export, the shell's mobile drawer gained `aria-expanded` / `aria-controls` on the menu button, closes on Escape (returning focus to the menu button), and is hidden from keyboard and assistive tech while off-canvas. `RudiFooter` stays internal.
 - **`RudiRadio`:** the option component for `RudiRadioGroup` is now exported (with `RudiRadioProps`). Previously the group was unusable from the package because nothing could be rendered inside it; the only radio item lived in a story.

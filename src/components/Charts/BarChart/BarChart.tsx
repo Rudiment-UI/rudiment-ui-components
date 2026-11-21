@@ -44,6 +44,14 @@ export function RudiBarChart({
   const theme = useChartTheme()
 
   const isHorizontal = layout === 'horizontal'
+  // Recharts gives the category axis a fixed 60px, which clips names like
+  // "Economy International". Size it to the longest label instead (capped).
+  const categoryWidth = isHorizontal
+    ? Math.min(
+        220,
+        Math.max(60, ...data.map((row) => String(row[indexKey] ?? '').length * 7 + 16)),
+      )
+    : undefined
 
   return (
     <div
@@ -60,8 +68,9 @@ export function RudiBarChart({
             <CartesianGrid
               strokeDasharray="3 3"
               stroke={theme.gridColor}
-              vertical={!isHorizontal}
-              horizontal={!isHorizontal ? true : false}
+              // Grid lines run across the value axis only.
+              vertical={isHorizontal}
+              horizontal={!isHorizontal}
             />
           )}
           {isHorizontal ? (
@@ -70,6 +79,7 @@ export function RudiBarChart({
               <YAxis
                 dataKey={indexKey}
                 type="category"
+                width={categoryWidth}
                 tick={{ fill: theme.axisColor }}
               />
             </>

@@ -34,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- `RudiBarChart` `layout="horizontal"`: the category axis is sized to the longest label (up to 220px) instead of clipping at Recharts' 60px default. Grid lines now run across the value axis only in both layouts; before, they were inverted for horizontal bars.
 - Chart legends (`RudiBarChart`, `RudiDonutChart`, `RudiLineChart`): label text now uses `component.chart.legend-color`. Only the swatch carries the series color; before, Recharts painted the text in series hues such as amber, which fall well under 4.5:1 contrast.
 - `RudiKanbanBoard` announced every drag twice: once from its own live region and again from dnd-kit's default messages, which used raw ids. Announcements now go only through dnd-kit's `accessibility.announcements`, naming the card and its position ("REF-1042 is over Active, position 2 of 3"), and cancelling is announced.
 - `RudiButton` and `RudiIconButton` with `isDisabled` now look disabled. The dimmed style and the hover guard only matched `aria-disabled` (set while loading), but `isDisabled` renders the native `disabled` attribute.

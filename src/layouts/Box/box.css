@@ -13,3 +13,11 @@
   background-color: var(--rudi-layout-box-invert-bg);
   color: var(--rudi-layout-box-invert-text);
 }
+
+/* Sticky: stays in view inside its scroll container. align-self keeps it from
+   stretching to the full row height in grid/flex parents, which would defeat sticking. */
+.rudi-box--sticky {
+  position: sticky;
+  inset-block-start: var(--box-sticky-top, 0);
+  align-self: start;
+}

@@ -6,7 +6,11 @@ import { cn } from '@/utils/cn'
 import './switch.css'
 
 export interface RudiSwitchProps {
-  children: React.ReactNode
+  /** Visible label. Omit only when `aria-label` or `aria-labelledby` names the switch. */
+  children?: React.ReactNode
+  /** Accessible name, for switches whose visible text repeats (e.g. one per table row). */
+  'aria-label'?: string
+  'aria-labelledby'?: string
   isSelected?: boolean
   defaultSelected?: boolean
   onChange?: (isSelected: boolean) => void
@@ -40,7 +44,7 @@ export const RudiSwitch = forwardRef<HTMLInputElement, RudiSwitchProps>(
         >
           <span className="rudi-switch__thumb" />
         </span>
-        <span className="rudi-switch__label">{props.children}</span>
+        {props.children != null && <span className="rudi-switch__label">{props.children}</span>}
       </label>
     )
   },

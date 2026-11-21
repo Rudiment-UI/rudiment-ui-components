@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import {
   DndContext,
   DragOverlay,
@@ -8,8 +8,8 @@ import {
   useSensor,
   useSensors,
   type DragStartEvent,
-  type DragOverEvent,
   type DragEndEvent,
+  type Announcements,
 } from '@dnd-kit/core'
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { cn } from '@/utils/cn'
@@ -39,6 +39,8 @@ export interface RudiKanbanBoardProps {
   columns: RudiKanbanColumnData[]
   onCardMove: (event: RudiKanbanCardMoveEvent) => void
   renderCard: (item: RudiKanbanItem) => React.ReactNode
+  /** Names a card in drag announcements ("Picked up REF-1042 from Pending"). Defaults to its id. */
+  getCardLabel?: (item: RudiKanbanItem) => string
   className?: string
 }
 
@@ -53,10 +55,10 @@ function KanbanBoardRoot({
   columns,
   onCardMove,
   renderCard,
+  getCardLabel,
   className,
 }: RudiKanbanBoardProps) {
   const [activeId, setActiveId] = useState<string | null>(null)
-  const announcementRef = useRef<HTMLDivElement>(null)
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -67,11 +69,47 @@ function KanbanBoardRoot({
     }),
   )
 
-  const announce = useCallback((message: string) => {
-    if (announcementRef.current) {
-      announcementRef.current.textContent = message
-    }
-  }, [])
+  const labelOf = useCallback(
+    (id: string) => {
+      const item = columns.flatMap((col) => col.items).find((i) => i.id === id)
+      return item && getCardLabel ? getCardLabel(item) : id
+    },
+    [columns, getCardLabel],
+  )
+
+  // Where a card would land, in words: "Active, position 2 of 3".
+  const describeOver = useCallback(
+    (overId: string) => {
+      const column = columns.find((col) => col.id === overId)
+      if (column) return `${column.title}, position ${column.items.length + 1}`
+      const owner = findColumnOfItem(columns, overId)
+      if (!owner) return undefined
+      const index = owner.items.findIndex((item) => item.id === overId)
+      return `${owner.title}, position ${index + 1} of ${owner.items.length}`
+    },
+    [columns],
+  )
+
+  // Screen-reader announcements go through dnd-kit's own live region so they're
+  // spoken once, with card labels and column titles instead of raw ids.
+  const announcements = useMemo<Announcements>(
+    () => ({
+      onDragStart: ({ active }) => {
+        const col = findColumnOfItem(columns, String(active.id))
+        return `Picked up ${labelOf(String(active.id))}${col ? ` from ${col.title}` : ''}.`
+      },
+      onDragOver: ({ active, over }) => {
+        const where = over ? describeOver(String(over.id)) : undefined
+        return where ? `${labelOf(String(active.id))} is over ${where}.` : `${labelOf(String(active.id))} is no longer over a column.`
+      },
+      onDragEnd: ({ active, over }) => {
+        const where = over ? describeOver(String(over.id)) : undefined
+        return where ? `Dropped ${labelOf(String(active.id))} in ${where}.` : `Dropped ${labelOf(String(active.id))}. It was not moved.`
+      },
+      onDragCancel: ({ active }) => `Cancelled. ${labelOf(String(active.id))} was not moved.`,
+    }),
+    [columns, labelOf, describeOver],
+  )
 
   const activeItem = activeId
     ? columns.flatMap((col) => col.items).find((item) => item.id === activeId)
@@ -81,27 +119,8 @@ function KanbanBoardRoot({
     (event: DragStartEvent) => {
       const id = String(event.active.id)
       setActiveId(id)
-      const col = findColumnOfItem(columns, id)
-      if (col) {
-        announce(`Picked up card from ${col.title}`)
-      }
     },
-    [columns, announce],
-  )
-
-  const handleDragOver = useCallback(
-    (event: DragOverEvent) => {
-      const { over } = event
-      if (!over) return
-      const overId = String(over.id)
-      const overCol =
-        columns.find((col) => col.id === overId) ||
-        findColumnOfItem(columns, overId)
-      if (overCol) {
-        announce(`Over column ${overCol.title}`)
-      }
-    },
-    [columns, announce],
+    [],
   )
 
   const handleDragEnd = useCallback(
@@ -109,10 +128,7 @@ function KanbanBoardRoot({
       const { active, over } = event
       setActiveId(null)
 
-      if (!over) {
-        announce('Cancelled drag')
-        return
-      }
+      if (!over) return
 
       const activeIdStr = String(active.id)
       const overIdStr = String(over.id)
@@ -143,8 +159,6 @@ function KanbanBoardRoot({
       // Only fire if something actually changed
       if (fromColumn.id === toColumn.id && fromIndex === toIndex) return
 
-      announce(`Dropped card in ${toColumn.title} at position ${toIndex + 1}`)
-
       onCardMove({
         cardId: activeIdStr,
         fromColumnId: fromColumn.id,
@@ -153,16 +167,17 @@ function KanbanBoardRoot({
         toIndex,
       })
     },
-    [columns, onCardMove, announce],
+    [columns, onCardMove],
   )
 
   return (
     <DndContext
       sensors={sensors}
       collisionDetection={closestCorners}
+      accessibility={{ announcements }}
       onDragStart={handleDragStart}
-      onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
+      onDragCancel={() => setActiveId(null)}
     >
       <div className={cn('rudi-kanban', className)}>
         {columns.map((column) => (
@@ -182,13 +197,6 @@ function KanbanBoardRoot({
           </div>
         ) : null}
       </DragOverlay>
-      <div
-        ref={announcementRef}
-        role="status"
-        aria-live="assertive"
-        aria-atomic="true"
-        className="rudi-kanban__sr-only"
-      />
     </DndContext>
   )
 }

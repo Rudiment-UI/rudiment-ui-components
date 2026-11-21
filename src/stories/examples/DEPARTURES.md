@@ -47,11 +47,11 @@ Priority is driven by how many of the four domains hit the same wall.
 |---|---|---|---|
 | `RudiText` missing `weight` / `color`(tone) / `align` | API gap | biotech, ecommerce, crm, pm (4/4) | **Critical** |
 | `RudiHeading` missing `margin`/`noMargin`, `color`, display size | API gap | 4/4 | **Critical** |
-| Data table / DataGrid | Missing component | 4/4 | **Critical** |
+| ~~Data table / DataGrid~~ ✅ `RudiTable` | Missing component | 4/4 | ~~Critical~~ Done |
 | App chrome: header/footer + app-shell/sidebar/top-bar | Missing component | 4/4 | **Critical** |
 | No `className`/variant escape hatch on components | Systemic API gap | 4/4 | **High** |
 | ~~`RudiSelect` requires external `react-stately` `Item`~~ ✅ `RudiOption` re-exported | Leaky API | 4/4 | ~~High~~ Done |
-| Brand / logo lockup | Missing component | 4/4 | **High** |
+| ~~Brand / logo lockup~~ ✅ `RudiBrand` | Missing component | 4/4 | ~~High~~ Done |
 | Page-header & section-header composites | Missing component | 4/4 | **High** |
 | `RudiBox` missing radius / surface-bg / full-bleed props | API gap | crm, pm, biotech, ecommerce (4/4) | **High** |
 | ~~Divider / Separator~~ ✅ `RudiDivider` | Missing component | biotech, pm, ecommerce (3/4) | ~~High~~ Done |
@@ -75,7 +75,7 @@ Priority is driven by how many of the four domains hit the same wall.
 
 ### Cross-domain (multiple examples hit this)
 
-#### Data table / DataGrid — **4/4 domains**
+#### Data table / DataGrid — ✅ `RudiTable` shipped — **4/4 domains**
 No tabular primitive exists, so every data grid is hand-built:
 - pm — raw `<table><thead><tbody>` with module-level `cellHeader`/`cell` style objects:
   [Stories.stories.tsx:210-263](project-management/Stories.stories.tsx#L210-L263)
@@ -107,7 +107,7 @@ two-column content layout, not an app-shell nav rail. Signal that the app-shell 
 
 Implies `RudiAppShell`, `RudiHeader`/`RudiNavbar`, `RudiFooter`, nav-rail, and top-app-bar.
 
-#### Brand / logo lockup — **4/4 domains**
+#### Brand / logo lockup — ✅ `RudiBrand` shipped — **4/4 domains**
 Every domain builds an icon-tile + wordmark by hand: `HelexaLogo`
 ([biotech/shared.tsx:547-580](biotech/shared.tsx#L547-L580)), `StoreLogo`
 ([ecommerce/shared.tsx:172-181](ecommerce/shared.tsx#L172-L181)), `WorkspaceMark`
@@ -252,6 +252,15 @@ you set `padding="none"` then wrap the image in a `<div>` with `overflow:hidden`
 `borderStartStartRadius:'inherit'` ([biotech/Landing.stories.tsx:140-143](biotech/Landing.stories.tsx#L140-L143)).
 
 ### Smaller API gaps
+- **Subtree theming doesn't reach overlays.** `RudiDialog`, the `RudiSelect` popover, `RudiMenu`
+  and `RudiTooltip` portal to `<body>`, so a `data-theme` set on a wrapper (not `<html>`) leaves
+  them in the default theme. Found in the IVFCryo app smoke test: a light dialog over a dark page.
+  Workaround: put `data-theme` on `<html>`. Fix options: portal into the nearest themed ancestor,
+  or copy its `data-theme` onto the overlay container.
+- **`RudiText` / `RudiHeading` `as` prop doesn't type element attributes.** `as="a"` rejects
+  `href`, and `as="label"` rejects `htmlFor` (33 type errors across the example stories). The
+  polymorphic props need to be derived from the `as` element.
+- ~~**`RudiRadioGroup` — no exported option component.**~~ ✅ Resolved — `RudiRadio` is exported. Found while building the IVFCryo app: the group rendered nothing a consumer could select, and the only radio item was a story-local helper.
 - **`RudiButton` — no `fullWidth`/block prop.** Wrapped in `<div style={{flex:1,display:'grid'}}>` to stretch:
   [ecommerce/ProductPage.stories.tsx:229](ecommerce/ProductPage.stories.tsx#L229)
 - **`RudiInput` / `RudiSelect` — no width/size prop.** Wrapped in `<div style={{minWidth:…}}>`:
@@ -342,13 +351,58 @@ use a Rudi component anymore.
 
 ---
 
+## Part 6 — A real app: the IVFCryo rebuild (0.4.0)
+
+The examples above are demo pages. In November 2026 the logged-in IVFCryo shipping app (Rails)
+was rebuilt on Rudiment UI: 14 screens covering shipments, booking, admin resources, pricing, a
+dashboard, an ops board and notification templates. That surfaced a different class of problem,
+which only shows up once real data, real forms and real keyboard use meet the components.
+
+**Shipped for it (new components and parts):** `RudiTable`, `RudiTabs`, `RudiEmptyState`,
+`RudiComboBox`, `RudiToastRegion` + `rudiToast`, `RudiDatePicker` / `RudiDateRangePicker`,
+`RudiNumberField`, `RudiForm` (error summary), `RudiRadio`, `RudiBrand`, `RudiRouterProvider`,
+`RudiDialog.Footer`, chart reference lines, `RudiSwitch` `aria-label`, `RudiNumberField`
+`labelHidden`, kanban card labels.
+
+**Bugs only real screens found:**
+- **Broken outright:** `RudiCheckboxGroup` never passed its value to its checkboxes.
+- **Keyboard:**
+  - Text fields inside `RudiTable` cells lost their arrow keys and typing to grid navigation and type-ahead.
+  - `RudiForm` stole focus while the user typed.
+- **Contrast:**
+  - Form-control borders measured 1.3:1 (WCAG 1.4.11 asks for 3:1).
+  - Chart legend text took series colors (amber ≈ 2:1).
+  - Dark-theme stat-card trends were near-white.
+- **Screen readers:**
+  - Group errors weren't linked to their groups.
+  - Every kanban drag was announced twice, by raw id.
+- **Layout at 375px:**
+  - `RudiForm`'s auto grid column let a tab list widen the page.
+  - `RudiDot`'s hidden label escaped scroll containers.
+  - Kanban columns grew to their longest unwrapped line.
+- **Visual states:**
+  - Disabled buttons didn't look disabled.
+  - Field hints kept the browser's paragraph margin.
+  - Badges stretched full width in stacks.
+  - Table hover matched the stripe color.
+
+**Lesson:** demo pages exercise how a component looks, not how it behaves under typing, scrolling,
+narrow screens or assistive tech. Every one of the bugs above passed the existing unit, axe and
+story tests.
+
+**Still open:**
+- **Text input:** no caret access to insert a placeholder at the cursor in `RudiInput` / `RudiTextarea`, and no `maxLength` on `RudiTextarea`.
+- **Content:** no line-break-preserving `RudiText`, and no caption slot on `RudiStatCard`.
+- **Missing component:** no address autocomplete.
+- **Theming:** subtree theming still doesn't reach portaled overlays.
+
 ## Recommended remediation order
 
 1. ~~**Add typography props** — `weight`, `color`/`tone`, `align`, `noMargin` on `RudiText`/`RudiHeading`.
    Cheapest fix, removes the largest share of inline styling immediately.~~ ✅ Done — `weight`,
    `tone`, `align`, `noMargin` added to both components (semantic-token-backed BEM modifier classes).
-2. **Ship `RudiTable`** — every domain needs it.
-3. ~~**Ship app-chrome primitives** — `RudiAppShell`, header/nav/top-bar, footer, page/section header.~~ ✅ Done — `RudiAppShell` (`.Sidebar`/`.Content`/`.Main`/`.MenuButton` with a responsive drawer), `RudiTopBar` (start/center/end + announcement), `RudiFooter` (`.Columns`/`.Column`/`.BottomBar`), `RudiPageHeader`, and `RudiSectionHeader` added (semantic-token-backed BEM). All four example domains migrated onto them — crm's injected `SHELL_CSS` and the per-domain `CrmShell`/`PmShell`/`BioHeader`/`StoreHeader`/`BioFooter`/`StoreFooter` chrome are gone.
+2. ~~**Ship `RudiTable`** — every domain needs it.~~ ✅ Done in 0.4.0.
+3. ~~**Ship app-chrome primitives** — `RudiAppShell`, header/nav/top-bar, footer, page/section header.~~ ✅ Done — `RudiAppShell` (`.Sidebar`/`.Content`/`.Main`/`.MenuButton` with a responsive drawer), `RudiTopBar` (start/center/end + announcement), `RudiFooter` (`.Columns`/`.Column`/`.BottomBar`), `RudiPageHeader`, and `RudiSectionHeader` added (semantic-token-backed BEM). Exported in 0.4.0 (except `RudiFooter`), after the IVFCryo app needed them. All four example domains migrated onto them — crm's injected `SHELL_CSS` and the per-domain `CrmShell`/`PmShell`/`BioHeader`/`StoreHeader`/`BioFooter`/`StoreFooter` chrome are gone.
 4. ~~**Close the leaky composed APIs** — re-export `RudiOption` and `RudiMenuSeparator`/label slot;
    stop requiring `react-stately`/`react-aria-components` imports; stop exposing internal BEM classes.~~ ✅ Done — `RudiOption` (re-exported `Item`) and `RudiMenuSeparator` added, and `RudiMenuItem` gained first-class `icon` / `label` / `description` / `shortcut` props. Every example domain, the Select story, and the canonical Menu story were migrated: no `src/stories` file imports `react-stately`/`react-aria-components` or hand-applies a `rudi-menu__*` class anymore.
 5. **Add surface/radius props to `RudiBox`** (or a `RudiSurface`/`RudiPanel`) and `colSpan` to `RudiGrid`.

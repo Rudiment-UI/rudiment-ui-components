@@ -23,3 +23,10 @@
 .rudi-stack--split {
   min-block-size: 100%;
 }
+
+/* Rendered as a list (as="ul" / "ol"): keep list semantics, drop browser bullets and indent. */
+.rudi-stack:is(ul, ol) {
+  list-style: none;
+  margin-block: 0;
+  padding-inline-start: 0;
+}

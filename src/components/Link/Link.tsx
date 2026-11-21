@@ -1,4 +1,6 @@
 import React from 'react'
+import { mergeProps, useLink } from 'react-aria'
+import { useObjectRef } from '@react-aria/utils'
 import { cn } from '@/utils/cn'
 import { RudiIcon } from '@/components/Icon/Icon'
 import './link.css'
@@ -29,15 +31,19 @@ export const RudiLink = React.forwardRef<HTMLAnchorElement, RudiLinkProps>(
       className,
       ...rest
     },
-    ref,
+    forwardedRef,
   ) {
+    const ref = useObjectRef(forwardedRef)
     const externalProps = external
       ? { target: '_blank', rel: 'noreferrer noopener' }
       : {}
+    // useLink routes same-tab clicks through RudiRouterProvider when one is
+    // mounted (client-side navigation), and is a plain link otherwise.
+    const { linkProps } = useLink({ href, ...externalProps }, ref)
 
     return (
       <a
-        {...rest}
+        {...mergeProps(rest, linkProps)}
         {...externalProps}
         ref={ref}
         href={href}

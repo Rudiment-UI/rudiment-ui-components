@@ -1,37 +1,6 @@
-import React, { forwardRef, useContext } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
-import { useRadio } from 'react-aria'
-import { useObjectRef } from '@react-aria/utils'
-import type { AriaRadioProps } from 'react-aria'
-import { RudiRadioGroup, RadioGroupContext } from './RadioGroup'
-import './radio-group.css'
-
-// Minimal Radio component for story demonstration.
-// A companion Radio component is expected in this directory alongside RadioGroup.
-interface RadioProps extends AriaRadioProps {
-  children: React.ReactNode
-}
-
-const Radio = forwardRef<HTMLInputElement, RadioProps>(
-  function Radio(props, forwardedRef) {
-    const state = useContext(RadioGroupContext)!
-    const ref = useObjectRef(forwardedRef)
-    const { inputProps } = useRadio(props, state, ref)
-
-    return (
-      <label
-        className={`rudi-radio${props.isDisabled ? ' rudi-radio--disabled' : ''}`}
-      >
-        <input {...inputProps} ref={ref} className="rudi-radio__input" />
-        <span
-          className={`rudi-radio__control${state.selectedValue === props.value ? ' rudi-radio__control--selected' : ''}`}
-          aria-hidden="true"
-        />
-        <span className="rudi-radio__label">{props.children}</span>
-      </label>
-    )
-  },
-)
+import { RudiRadioGroup } from './RadioGroup'
+import { RudiRadio } from './Radio'
 
 const meta = {
   title: 'Components/RadioGroup',
@@ -118,9 +87,9 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: (args) => (
     <RudiRadioGroup {...args} label="Shipping speed">
-      <Radio value="standard">Standard (5–7 days)</Radio>
-      <Radio value="express">Express (2–3 days)</Radio>
-      <Radio value="overnight">Overnight (next day)</Radio>
+      <RudiRadio value="standard">Standard (5–7 days)</RudiRadio>
+      <RudiRadio value="express">Express (2–3 days)</RudiRadio>
+      <RudiRadio value="overnight">Overnight (next day)</RudiRadio>
     </RudiRadioGroup>
   ),
 }
@@ -131,9 +100,9 @@ export const WithDescription: Story = {
       label="Plan"
       description="You can change your plan at any time."
     >
-      <Radio value="starter">Starter — free forever</Radio>
-      <Radio value="pro">Pro — $12/month</Radio>
-      <Radio value="enterprise">Enterprise — contact us</Radio>
+      <RudiRadio value="starter">Starter — free forever</RudiRadio>
+      <RudiRadio value="pro">Pro — $12/month</RudiRadio>
+      <RudiRadio value="enterprise">Enterprise — contact us</RudiRadio>
     </RudiRadioGroup>
   ),
 }
@@ -141,11 +110,11 @@ export const WithDescription: Story = {
 export const Horizontal: Story = {
   render: ({}) => (
     <RudiRadioGroup label="Size" orientation="horizontal">
-      <Radio value="xs">XS</Radio>
-      <Radio value="s">S</Radio>
-      <Radio value="m">M</Radio>
-      <Radio value="l">L</Radio>
-      <Radio value="xl">XL</Radio>
+      <RudiRadio value="xs">XS</RudiRadio>
+      <RudiRadio value="s">S</RudiRadio>
+      <RudiRadio value="m">M</RudiRadio>
+      <RudiRadio value="l">L</RudiRadio>
+      <RudiRadio value="xl">XL</RudiRadio>
     </RudiRadioGroup>
   ),
 }
@@ -156,9 +125,9 @@ export const WithError: Story = {
       label="Shipping speed"
       errorMessage="Please select a shipping option."
     >
-      <Radio value="standard">Standard (5–7 days)</Radio>
-      <Radio value="express">Express (2–3 days)</Radio>
-      <Radio value="overnight">Overnight (next day)</Radio>
+      <RudiRadio value="standard">Standard (5–7 days)</RudiRadio>
+      <RudiRadio value="express">Express (2–3 days)</RudiRadio>
+      <RudiRadio value="overnight">Overnight (next day)</RudiRadio>
     </RudiRadioGroup>
   ),
 }
@@ -166,9 +135,9 @@ export const WithError: Story = {
 export const Disabled: Story = {
   render: ({}) => (
     <RudiRadioGroup label="Region" isDisabled>
-      <Radio value="us">United States</Radio>
-      <Radio value="eu">Europe</Radio>
-      <Radio value="ap">Asia Pacific</Radio>
+      <RudiRadio value="us">United States</RudiRadio>
+      <RudiRadio value="eu">Europe</RudiRadio>
+      <RudiRadio value="ap">Asia Pacific</RudiRadio>
     </RudiRadioGroup>
   ),
 }

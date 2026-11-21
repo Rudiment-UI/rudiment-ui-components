@@ -1,0 +1,158 @@
+.rudi-combo-box {
+  display: grid;
+  gap: var(--rudi-component-combo-box-gap);
+  font-size: var(--rudi-component-combo-box-font-size);
+}
+
+.rudi-combo-box__label {
+  font-weight: var(--rudi-component-combo-box-label-font-weight);
+  color: var(--rudi-component-combo-box-label-color);
+  line-height: var(--rudi-component-combo-box-label-line-height);
+}
+
+.rudi-combo-box__required {
+  color: var(--rudi-component-combo-box-required-color);
+}
+
+/* Field: the bordered box holding the input and the chevron button */
+.rudi-combo-box__field {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: var(--rudi-component-combo-box-bg);
+  color: var(--rudi-component-combo-box-text);
+  border: 1px solid var(--rudi-component-combo-box-border);
+  border-radius: var(--rudi-component-combo-box-radius);
+  transition: border-color var(--rudi-motion-duration-base) var(--rudi-motion-easing-standard);
+}
+
+.rudi-combo-box__field:focus-within {
+  outline: 2px solid var(--rudi-component-combo-box-focus-outline-color);
+  outline-offset: 2px;
+}
+
+.rudi-combo-box__field--error {
+  border-color: var(--rudi-component-combo-box-error-border);
+}
+
+.rudi-combo-box__field--error:focus-within {
+  outline-color: var(--rudi-component-combo-box-error-border);
+}
+
+.rudi-combo-box__field--disabled {
+  background-color: var(--rudi-component-combo-box-disabled-bg);
+  color: var(--rudi-component-combo-box-disabled-text);
+  cursor: not-allowed;
+}
+
+.rudi-combo-box__input {
+  flex: 1;
+  min-width: 0;
+  padding: var(--rudi-component-combo-box-padding-y) 0
+    var(--rudi-component-combo-box-padding-y) var(--rudi-component-combo-box-padding-x);
+  background: transparent;
+  color: inherit;
+  border: none;
+  font: inherit;
+  line-height: var(--rudi-component-combo-box-line-height);
+  outline: none;
+}
+
+.rudi-combo-box__input::placeholder {
+  color: var(--rudi-component-combo-box-placeholder-color);
+}
+
+.rudi-combo-box__input:disabled {
+  cursor: not-allowed;
+}
+
+.rudi-combo-box__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  padding: 0 var(--rudi-component-combo-box-button-padding-x);
+  background: transparent;
+  color: var(--rudi-component-combo-box-button-color);
+  border: none;
+  cursor: pointer;
+}
+
+.rudi-combo-box__button:disabled {
+  color: inherit;
+  cursor: not-allowed;
+}
+
+/* Popover + listbox: same token references as RudiSelect */
+.rudi-combo-box__popover {
+  position: absolute;
+  z-index: 50;
+  width: var(--trigger-width, auto);
+  min-width: 8rem;
+  max-height: var(--rudi-component-combo-box-popover-max-height);
+  overflow-y: auto;
+  background-color: var(--rudi-component-combo-box-popover-bg);
+  border: 1px solid var(--rudi-component-combo-box-popover-border);
+  border-radius: var(--rudi-component-combo-box-popover-radius);
+  box-shadow: var(--rudi-component-combo-box-popover-shadow);
+}
+
+.rudi-combo-box__listbox {
+  list-style: none;
+  margin: 0;
+  padding: var(--rudi-component-combo-box-popover-padding);
+}
+
+.rudi-combo-box__listbox:empty {
+  display: none;
+}
+
+.rudi-combo-box__option {
+  display: flex;
+  align-items: center;
+  padding: var(--rudi-component-combo-box-option-padding-y)
+    var(--rudi-component-combo-box-option-padding-x);
+  border-radius: var(--rudi-component-combo-box-option-radius);
+  font-size: var(--rudi-component-combo-box-option-font-size);
+  cursor: pointer;
+}
+
+.rudi-combo-box__option[aria-selected='true'] {
+  background-color: var(--rudi-component-combo-box-option-selected-bg);
+  color: var(--rudi-component-combo-box-option-selected-text);
+}
+
+.rudi-combo-box__option[data-focused='true']:not([aria-selected='true']) {
+  background-color: var(--rudi-component-combo-box-option-hover-bg);
+}
+
+.rudi-combo-box__option[data-disabled] {
+  color: var(--rudi-component-combo-box-disabled-text);
+  cursor: not-allowed;
+}
+
+.rudi-combo-box__empty {
+  margin: 0;
+  padding: var(--rudi-component-combo-box-option-padding-y)
+    var(--rudi-component-combo-box-option-padding-x);
+  color: var(--rudi-component-combo-box-empty-color);
+  font-size: var(--rudi-component-combo-box-option-font-size);
+}
+
+.rudi-combo-box__description {
+  color: var(--rudi-component-combo-box-description-color);
+  font-size: var(--rudi-component-combo-box-description-font-size);
+  line-height: var(--rudi-font-line-height-normal);
+}
+
+.rudi-combo-box__error {
+  color: var(--rudi-component-combo-box-error-text-color);
+  font-size: var(--rudi-component-combo-box-error-font-size);
+  line-height: var(--rudi-font-line-height-normal);
+}
+
+/* Hint and error text render as <p>; drop the browser's paragraph margin. */
+.rudi-combo-box__description,
+.rudi-combo-box__error {
+  margin: 0;
+}

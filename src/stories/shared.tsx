@@ -1,8 +1,3 @@
-import React, { forwardRef, useContext } from 'react'
-import { useRadio } from 'react-aria'
-import { useObjectRef } from '@react-aria/utils'
-import type { AriaRadioProps } from 'react-aria'
-
 import { RudiBox } from '../layouts/Box/Box'
 import { Icon } from '@iconify/react'
 import { RudiCenter } from '../layouts/Center/Center'
@@ -18,8 +13,6 @@ import { RudiMenuTrigger } from '../components/Menu/MenuTrigger'
 import { RudiMenu } from '../components/Menu/Menu'
 import { RudiMenuItem } from '../components/Menu/MenuItem'
 import { RudiMenuSeparator } from '../components/Menu/MenuSeparator'
-import { RadioGroupContext } from '../components/RadioGroup/RadioGroup'
-import '../components/RadioGroup/radio-group.css'
 
 // ---------------------------------------------------------------------------
 // Shared placeholder helpers
@@ -176,31 +169,3 @@ export function SidebarNav() {
     </RudiBox>
   )
 }
-
-// ---------------------------------------------------------------------------
-// Radio — no standalone component file yet
-// ---------------------------------------------------------------------------
-
-interface RadioProps extends AriaRadioProps {
-  children: React.ReactNode
-}
-
-export const Radio = forwardRef<HTMLInputElement, RadioProps>(
-  function Radio(props, forwardedRef) {
-    const state = useContext(RadioGroupContext)!
-    const ref = useObjectRef(forwardedRef)
-    const { inputProps } = useRadio(props, state, ref)
-    return (
-      <label
-        className={`rudi-radio${props.isDisabled ? ' rudi-radio--disabled' : ''}`}
-      >
-        <input {...inputProps} ref={ref} className="rudi-radio__input" />
-        <span
-          className={`rudi-radio__control${state.selectedValue === props.value ? ' rudi-radio__control--selected' : ''}`}
-          aria-hidden="true"
-        />
-        <span className="rudi-radio__label">{props.children}</span>
-      </label>
-    )
-  },
-)

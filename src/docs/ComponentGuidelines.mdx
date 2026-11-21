@@ -13,6 +13,13 @@ Practical do/don't guidance for each interactive component. Following these patt
 - **Don't** use `variant="error"` for informational messages. It causes unnecessary alarm.
 - **Don't** overuse alerts. When everything is highlighted, nothing stands out.
 
+## AppShell (Sidebar, Content, Main, MenuButton)
+
+- **Do** render one `RudiAppShell` per page, with `RudiAppShell.Sidebar` for navigation and `RudiAppShell.Main` for the page body, so the page gets `aside` and `main` landmarks
+- **Do** put `RudiAppShell.MenuButton` in the top bar: it only shows below 900px, opens the sidebar as a drawer, and reports `aria-expanded`
+- **Do** control the drawer (`isSidebarOpen` / `onSidebarOpenChange`) when you need to close it after navigation
+- **Don't** nest `RudiAppShell`, or put page content in the sidebar
+
 ## Avatar
 
 - **Do** provide a `name` prop so the component can generate initials as a fallback when the image fails to load
@@ -26,6 +33,12 @@ Practical do/don't guidance for each interactive component. Following these patt
 - **Do** use the `dot` variant for a minimal presence indicator without text (for example, unread notifications)
 - **Don't** put long text in a Badge. Keep labels to one or two short words.
 - **Don't** use color as the only way to convey meaning. Pair the variant color with a text label so color-blind readers can still understand the status.
+
+## Brand
+
+- **Do** pass `href` (usually `/`) in the app header so the logo links home
+- **Do** set `hideName` when the mark is a full wordmark; the name still labels the link for screen readers
+- **Don't** put a visible text heading next to a brand that already shows the name
 
 ## Breadcrumb
 
@@ -55,6 +68,7 @@ Practical do/don't guidance for each interactive component. Following these patt
 - **Do** limit chart series to 8 or fewer to stay within the dataviz token palette
 - **Don't** mix chart types to represent the same data set. Pick the chart that best fits the data relationship.
 - **Don't** override series colors with custom hex values. The dataviz tokens are designed for accessible contrast in both light and dark mode.
+- **Do** mark thresholds (a set-point, a target) with `referenceLines` on `RudiLineChart`, and set `yDomain` so the line stays in view
 
 ## Checkbox vs Switch
 
@@ -72,10 +86,25 @@ These two components look similar but serve different purposes:
 - **Don't** use CircularProgress for indeterminate loading, which requires a numeric `value`. Use a spinner instead.
 - **Don't** use both `showValueLabel` and `children` at the same time. The `children` slot overrides the value label.
 
+## ComboBox
+
+- **Do** use ComboBox instead of Select once a list is long enough that scrolling it is tedious (roughly 10+ options)
+- **Do** pass `textValue` on `RudiOption` when its content isn't plain text, so filtering still works
+- **Do** set `allowsCustomValue` only when free text is a valid answer
+- **Don't** use ComboBox for a handful of options. Use **Select** or **RadioGroup**.
+
+## DatePicker (DateRangePicker)
+
+- **Do** pass and read plain ISO strings; you never need `@internationalized/date`
+- **Do** use `isDateUnavailable` for business rules such as weekends and holidays; typed unavailable dates also mark the field invalid
+- **Do** use `granularity="minute"` when a time matters, instead of a separate time input
+- **Don't** use a date picker for distant known dates like a birthday; typing the segments is faster
+
 ## Dialog
 
 - **Do** use for confirmations that require user action (for example, "Are you sure you want to delete this?")
-- **Do** provide a clear title and a visible close mechanism
+- **Do** provide a clear title. Dismissable dialogs get a close button automatically.
+- **Do** put action buttons in `RudiDialog.Footer`, primary action last; it stays visible while long content scrolls
 - **Don't** use for passive notifications. Use **Alert** instead.
 - **Don't** stack multiple dialogs. If a dialog needs to open another dialog, rethink the flow.
 
@@ -93,12 +122,25 @@ These two components look similar but serve different purposes:
 - **Don't** rely on color alone. Pair the Dot with a text label so color-blind readers can tell states apart.
 - **Don't** use `pulse` for static states. Reserve the animation for live or active indicators.
 
+## EmptyState
+
+- **Do** say what is empty and what to do next, with at most one primary action
+- **Do** use `size="sm"` inside table cells and cards, and set `headingLevel` to fit the page outline
+- **Don't** use EmptyState for errors or loading. Use **Alert** or a progress indicator instead.
+- **Don't** put long prose in `description`. Keep it to one or two sentences.
+
 ## Icon
 
 - **Do** provide a `label` prop when the icon conveys meaning not present in surrounding text
 - **Do** omit `label` when the icon is purely decorative or accompanies visible text (it will be hidden from screen readers)
 - **Don't** use icons without text labels for critical actions unless the icon meaning is universally understood
 - **Don't** override the `color` prop when the icon should inherit its color from the parent text. The default `currentColor` behavior keeps icons in sync.
+
+## Form
+
+- **Do** validate on submit, pass the problems as `errors`, and also set `errorMessage` on each field. The summary lists them and takes focus; the fields show where.
+- **Do** write each error as a fix ("Choose a pickup date"), not a code
+- **Don't** clear `errors` while the user is still typing. Recompute them on the next submit.
 
 ## IconButton
 
@@ -132,6 +174,8 @@ These two components look similar but serve different purposes:
 
 ## Link
 
+- **Do** wrap a single-page app in `RudiRouterProvider` (with your router's `navigate`) so `RudiLink`, `RudiNavItem` and `RudiBreadcrumb` navigate without a page reload
+
 - **Do** use for navigation to another page or resource (`href` is required)
 - **Do** set `external` for links that open a new tab. It adds a safe `rel` and an external-link icon automatically.
 - **Do** match `variant` to context (`default` in body copy, `subtle` for muted secondary links, `standalone` for a self-contained "Learn more" link)
@@ -154,6 +198,19 @@ These two components look similar but serve different purposes:
 - **Don't** provide both `href` and `onPress` for the same navigation action. Pick the appropriate mechanism.
 - **Don't** use NavItem outside of a sidebar or navigation context. For in-page actions, use **Button** instead.
 
+## NumberField
+
+- **Do** use `formatOptions` for currency and percent instead of putting `$` or `%` in the label
+- **Do** pass percent values as fractions (`0.25` shows 25%)
+- **Do** set `minValue`, `maxValue` and `step` so the steppers and arrow keys stay in range
+- **Don't** use it for IDs, phone numbers or ZIP codes; use `RudiInput`
+
+## PageHeader and SectionHeader
+
+- **Do** start every page with one `RudiPageHeader` (an `h1` by default) and put primary page actions in `actions`
+- **Do** use `RudiSectionHeader` (an `h2` by default) to title regions within a page; set `headingLevel` to keep the outline correct
+- **Don't** use more than one `RudiPageHeader` per page
+
 ## Pagination
 
 - **Do** use for navigating large, paged data sets (search results, tables, listings)
@@ -171,6 +228,7 @@ These two components look similar but serve different purposes:
 ## RadioGroup
 
 - **Do** use when there are two to five mutually exclusive options
+- **Do** compose options with `RudiRadio` (`<RudiRadio value="express">Express</RudiRadio>`); it reads the group's state, so it must sit inside a `RudiRadioGroup`
 - **Do** use horizontal layout only for two or three short options (long labels work better vertically)
 - **Don't** use for more than seven options. Use **Select** instead to save space.
 
@@ -202,6 +260,22 @@ These two components look similar but serve different purposes:
 - **Don't** use Stepper for navigation between unrelated pages. Use **Breadcrumb** for hierarchy or **NavItem** for navigation.
 - **Don't** mark more than one step as `current` at a time. The current step should be unambiguous.
 
+## Table
+
+- **Do** give every `RudiTable` an `aria-label` (or `aria-labelledby`) and mark one column `isRowHeader`
+- **Do** set `align="end"` on numeric columns so digits line up
+- **Do** use row `href` for navigation and `onRowAction` for in-place actions, not buttons in every row
+- **Don't** use a table for layout or for content without columns. Use **Grid** or **Stack** instead.
+- **Don't** expect `allowsSorting` to sort your data. Sorting is controlled, so reorder `items` in `onSortChange`.
+
+## Tabs
+
+- **Do** give every `RudiTabList` an `aria-label` that names the set, such as "Shipment status"
+- **Do** put counts in `badge` so they're read as part of the tab name ("Pending 7")
+- **Do** use `href` tabs with `selectedKey` taken from the current route when each tab is its own URL
+- **Don't** use tabs for steps in a sequence. Use **Stepper** instead.
+- **Don't** hide content users need to compare side by side behind separate tabs.
+
 ## Tag
 
 - **Do** use for user-generated labels, filters, or categorization that users may need to add or remove
@@ -216,6 +290,18 @@ These two components look similar but serve different purposes:
 - **Do** use `errorMessage` to surface validation problems inline
 - **Don't** use Textarea for short single-line values. Use **Input** instead.
 - **Don't** disable resizing (`resize="none"`) when users may need to see long content while editing.
+
+## Toast
+
+- **Do** mount exactly one `RudiToastRegion` near the app root
+- **Do** keep titles short and put the detail in `description`
+- **Don't** put the only path to a required action in a toast. It disappears, so use **Alert** or **Dialog**.
+- **Don't** use a toast for form validation errors. Show them inline next to the field.
+
+## TopBar
+
+- **Do** use `start` for the menu button or brand, `children` for page-level titles or navigation, and `end` for account and global actions
+- **Don't** put more than a few actions in `end`. Move the rest into a `RudiMenu`.
 
 ## Tooltip
 

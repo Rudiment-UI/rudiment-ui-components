@@ -6,7 +6,10 @@
 }
 
 .rudi-kanban__column {
-  flex-shrink: 0;
+  /* Share the board equally, never narrower than the minimum (the board scrolls
+     sideways instead). A zero basis lets long card text wrap rather than
+     stretching its column to the text's full width. */
+  flex: 1 1 0;
   min-width: var(--rudi-component-kanban-column-min-width);
   background: var(--rudi-component-kanban-column-bg);
   border-radius: var(--rudi-component-kanban-column-radius);
@@ -98,16 +101,4 @@
 .rudi-kanban__card-content {
   flex: 1;
   min-width: 0;
-}
-
-.rudi-kanban__sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
 }

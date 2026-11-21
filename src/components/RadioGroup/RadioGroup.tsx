@@ -21,9 +21,11 @@ export interface RudiRadioGroupProps {
 }
 
 export function RudiRadioGroup(props: RudiRadioGroupProps) {
-  const state = useRadioGroupState(props)
+  // isInvalid links the error message to the group and marks it invalid for assistive tech.
+  const ariaProps = { ...props, isInvalid: !!props.errorMessage }
+  const state = useRadioGroupState(ariaProps)
   const { radioGroupProps, labelProps, descriptionProps, errorMessageProps } =
-    useRadioGroup(props, state)
+    useRadioGroup(ariaProps, state)
 
   return (
     <RadioGroupContext.Provider value={state}>

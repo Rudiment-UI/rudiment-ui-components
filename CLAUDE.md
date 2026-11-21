@@ -39,7 +39,7 @@ Components read **only** tier 3/tier 2 custom properties. No hardcoded colors, s
 
 ### Themes are token-filtered overlays
 
-Eight themes: default (`:root`, no attribute) plus `dark`, `roomy`, `roomy-dark`, `soft`, `soft-dark`, `compressed`, `compressed-dark`, each activated by `data-theme` on any ancestor element. Each theme has its own `tokens/style-dictionary.config.<theme>.mjs` whose `filter` decides which tokens get re-emitted under that selector; everything filtered out cascades from `:root`. Example: the `compressed` config emits only spacing/radius (colors and fonts inherit), while `dark` emits semantic + component colors but excludes theme-invariant primitives. Adding a theme means adding a config, a `tokens/themes/<name>/` directory, an `@import` in both `src/styles.css` and `src/app.css`, a `build:tokens` entry in package.json, and a toolbar item in `.storybook/preview.tsx`.
+Eight themes: default (`:root`, no attribute) plus `dark`, `roomy`, `roomy-dark`, `soft`, `soft-dark`, `compressed`, `compressed-dark`, each activated by `data-theme` on any ancestor element. Each theme has its own `tokens/style-dictionary.config.<theme>.mjs` whose `filter` decides which tokens get re-emitted under that selector; everything filtered out cascades from `:root`. Example: the `compressed` config emits only spacing/radius (colors and fonts inherit), while `dark` emits semantic + component colors but excludes theme-invariant primitives. `auto` is not a separate theme: the dark config also emits `tokens-auto-dark.css` under `[data-theme="auto"]`, which `src/styles.css` and `src/app.css` import inside `(prefers-color-scheme: dark)`. Adding a theme means adding a config, a `tokens/themes/<name>/` directory, an `@import` in both `src/styles.css` and `src/app.css`, a `build:tokens` entry in package.json, and a toolbar item in `.storybook/preview.tsx`.
 
 Because `:root` and `[data-theme=...]` have equal specificity and theme blocks come later in the stylesheet, a consumer's `:root` override loses inside a themed subtree — overrides must be repeated per theme.
 
@@ -57,7 +57,7 @@ Note: `CONTRIBUTING.md` still says to style with Tailwind utilities — that is 
 
 ## Component conventions
 
-- **Every export is `Rudi`-prefixed**: `RudiButton`, `RudiButtonProps`, `RudiStack`. The README's usage examples and prop tables drop the prefix (`Button`, `Input`) — the real exported names in `src/index.ts` all carry it.
+- **Every export is `Rudi`-prefixed**: `RudiButton`, `RudiButtonProps`, `RudiStack`. Keep README examples and prop tables on the prefixed names too.
 - Interactive components wrap React Aria hooks (`useButton`, `useRadio`, …) and take `onPress`, not `onClick`. `onChange` handlers receive a **value**, not an event.
 - `label` is a required prop (not children) on `Input`, `Select`, `RadioGroup`, `CheckboxGroup`, `ProgressBar`, and the charts.
 - Icons are Iconify name strings (`icon="mdi:close"`), never imported components.

@@ -27,6 +27,9 @@
 .rudi-sidebar--right > :last-child {
   flex-basis: var(--sidebar-width);
   flex-grow: 1;
+  /* Undo the content minimum from the base rule: with side="right" the last
+     child is the sidebar, and keeping it forced both columns to wrap. */
+  min-inline-size: 0;
 }
 
 .rudi-sidebar--no-stretch {

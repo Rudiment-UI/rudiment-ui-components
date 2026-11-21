@@ -53,16 +53,17 @@ function Placeholder({
   label: string
   centered?: boolean
 }) {
+  const Element = centered ? RudiCover.Centered : 'div'
   return (
-    <div
+    <Element
       className={
         centered
-          ? 'rudi-cover__centered border border-border-default rounded-md p-8 bg-surface-raised text-center'
+          ? 'border border-border-default rounded-md p-8 bg-surface-raised text-center'
           : 'border border-border-default rounded-md p-4 bg-surface-raised'
       }
     >
       {label}
-    </div>
+    </Element>
   )
 }
 

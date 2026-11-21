@@ -14,6 +14,7 @@ Rudiment UI generates CSS files from your token definitions:
 |---|---|---|
 | `tokens/build/tokens.css` | `:root` | Base (light) theme |
 | `tokens/build/tokens-dark.css` | `[data-theme="dark"]` | Dark theme overrides |
+| `tokens/build/tokens-auto-dark.css` | `[data-theme="auto"]` inside `@media (prefers-color-scheme: dark)` | Follows the OS: dark tokens when it prefers dark |
 | `tokens/build/tokens-roomy.css` | `[data-theme="roomy"]` | Roomy light theme |
 | `tokens/build/tokens-roomy-dark.css` | `[data-theme="roomy-dark"]` | Roomy dark theme |
 | `tokens/build/tokens-soft.css` | `[data-theme="soft"]` | Soft light theme |
@@ -115,20 +116,10 @@ Set the `data-theme` attribute on your root element:
 
 ### Respecting system preference
 
-Detect the user's OS-level setting and apply the matching theme:
+Set `data-theme="auto"` to follow the OS setting. It uses the dark tokens when the system prefers dark and the default (light) tokens otherwise. This is pure CSS, so there is no flash of the wrong theme on load, and charts re-resolve their colors when the OS setting changes.
 
-```js
-function applyTheme() {
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-  document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light')
-}
-
-// Apply on load
-applyTheme()
-
-// React to changes
-window.matchMedia('(prefers-color-scheme: dark)')
-  .addEventListener('change', applyTheme)
+```html
+<html data-theme="auto">
 ```
 
 ### Theme toggle in React

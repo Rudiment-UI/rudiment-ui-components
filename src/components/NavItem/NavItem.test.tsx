@@ -92,4 +92,19 @@ describe('NavItem', () => {
     const { container } = render(<RudiNavItem label="Dashboard" />)
     expect(await axe(container)).toHaveNoViolations()
   })
+  it('marks the active link as the current page', () => {
+    render(
+      <>
+        <RudiNavItem label="Home" href="/" isActive />
+        <RudiNavItem label="Other" href="/other" />
+      </>,
+    )
+    expect(screen.getByRole('link', { name: 'Home' })).toHaveAttribute('aria-current', 'page')
+    expect(screen.getByRole('link', { name: 'Other' })).not.toHaveAttribute('aria-current')
+  })
+
+  it('marks an active button item as current', () => {
+    render(<RudiNavItem label="Inbox" isActive />)
+    expect(screen.getByRole('button', { name: 'Inbox' })).toHaveAttribute('aria-current', 'true')
+  })
 })

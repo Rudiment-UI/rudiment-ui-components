@@ -7,6 +7,7 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  ReferenceLine,
 } from 'recharts'
 import { useChartTheme } from '@/hooks/useChartTheme'
 import { cn } from '@/utils/cn'
@@ -27,7 +28,19 @@ export interface RudiLineChartProps {
   showLegend?: boolean
   height?: number
   label: string
+  /** Horizontal guide lines, e.g. a temperature set-point or a target. */
+  referenceLines?: RudiChartReferenceLine[]
+  /** Y-axis range; use `'auto'` for either end. Keeps reference lines in view. */
+  yDomain?: [number | 'auto', number | 'auto']
+  /** Unit suffix for y-axis ticks and tooltip values, e.g. `°C`. */
+  unit?: string
   className?: string
+}
+
+export interface RudiChartReferenceLine {
+  y: number
+  label: string
+  tone?: 'default' | 'success' | 'warning' | 'error' | 'info'
 }
 
 export function RudiLineChart({
@@ -40,6 +53,9 @@ export function RudiLineChart({
   showLegend = true,
   height = 300,
   label,
+  referenceLines = [],
+  yDomain,
+  unit,
   className,
 }: RudiLineChartProps) {
   const theme = useChartTheme()
@@ -59,7 +75,7 @@ export function RudiLineChart({
             />
           )}
           <XAxis dataKey={indexKey} tick={{ fill: theme.axisColor }} />
-          <YAxis tick={{ fill: theme.axisColor }} />
+          <YAxis tick={{ fill: theme.axisColor }} domain={yDomain} unit={unit} />
           <Tooltip
             contentStyle={{
               backgroundColor: theme.tooltipBg,
@@ -67,12 +83,26 @@ export function RudiLineChart({
               border: `1px solid ${theme.tooltipBorder}`,
               borderRadius: '0.375rem',
             }}
+            formatter={unit ? (value) => `${value}${unit}` : undefined}
           />
           {showLegend && (
             <Legend
               wrapperStyle={{ color: theme.legendColor }}
+              // Recharts colours each label like its series; keep the swatch coloured
+              // and the text readable (series hues can fall well under 4.5:1).
+              formatter={(value) => <span style={{ color: theme.legendColor }}>{value}</span>}
             />
           )}
+          {referenceLines.map((line) => (
+            <ReferenceLine
+              key={`${line.y}-${line.label}`}
+              y={line.y}
+              stroke={theme.tones[line.tone ?? 'default']}
+              strokeDasharray="6 4"
+              ifOverflow="extendDomain"
+              label={{ value: line.label, position: 'insideTopRight', fill: theme.tones[line.tone ?? 'default'] }}
+            />
+          ))}
           {dataKeys.map((key, i) => (
             <Line
               key={key}

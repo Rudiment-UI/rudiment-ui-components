@@ -10,6 +10,8 @@ interface ChartTheme {
   tooltipText: string
   tooltipBorder: string
   chartBg: string
+  /** Feedback colors for reference lines and thresholds. */
+  tones: Record<'default' | 'success' | 'warning' | 'error' | 'info', string>
 }
 
 const TOKEN_MAP = {
@@ -44,6 +46,7 @@ function resolveTokens(): ChartTheme {
       tooltipText: '#111827',
       tooltipBorder: '#e5e7eb',
       chartBg: '#ffffff',
+      tones: { default: '#6b7280', success: '#16a34a', warning: '#d97706', error: '#dc2626', info: '#2563eb' },
     }
   }
 
@@ -67,6 +70,13 @@ function resolveTokens(): ChartTheme {
     tooltipText: theme.tooltipText,
     tooltipBorder: theme.tooltipBorder,
     chartBg: theme.chartBg,
+    tones: {
+      default: resolve('--rudi-color-text-subtle') || '#6b7280',
+      success: resolve('--rudi-color-feedback-success') || '#16a34a',
+      warning: resolve('--rudi-color-feedback-warning') || '#d97706',
+      error: resolve('--rudi-color-feedback-error') || '#dc2626',
+      info: resolve('--rudi-color-feedback-info') || '#2563eb',
+    },
   }
 }
 
@@ -96,7 +106,15 @@ export function useChartTheme(): ChartTheme {
       attributeFilter: ['data-theme'],
     })
 
-    return () => observer.disconnect()
+    // data-theme="auto" follows the OS without any attribute change, so
+    // also re-resolve when the color-scheme preference flips.
+    const scheme = window.matchMedia?.('(prefers-color-scheme: dark)')
+    scheme?.addEventListener('change', updateTheme)
+
+    return () => {
+      observer.disconnect()
+      scheme?.removeEventListener('change', updateTheme)
+    }
   }, [updateTheme])
 
   return theme

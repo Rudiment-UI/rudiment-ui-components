@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import { axe } from 'vitest-axe'
 import { describe, it, expect } from 'vitest'
+import { useState } from 'react'
+import userEvent from '@testing-library/user-event'
 import { RudiDialog } from './Dialog'
 
 describe('Dialog', () => {
@@ -104,5 +106,84 @@ describe('Dialog', () => {
       </RudiDialog>,
     )
     expect(await axe(container)).toHaveNoViolations()
+  })
+  it('is labelled by its title when rendered open', () => {
+    render(
+      <RudiDialog isOpen onClose={() => {}} title="Assign tracker">
+        <p>Body</p>
+      </RudiDialog>,
+    )
+    expect(
+      screen.getByRole('dialog', { name: 'Assign tracker' }),
+    ).toBeInTheDocument()
+  })
+
+  it('is labelled by its title when opened after mount', async () => {
+    function Harness() {
+      const [isOpen, setOpen] = useState(false)
+      return (
+        <>
+          <button onClick={() => setOpen(true)}>Open</button>
+          <RudiDialog isOpen={isOpen} onClose={() => setOpen(false)} title="Assign tracker">
+            <p>Body</p>
+          </RudiDialog>
+        </>
+      )
+    }
+    render(<Harness />)
+    await userEvent.click(screen.getByRole('button', { name: 'Open' }))
+    expect(
+      screen.getByRole('dialog', { name: 'Assign tracker' }),
+    ).toBeInTheDocument()
+  })
+
+  it('closes on Escape when dismissable', async () => {
+    function Harness() {
+      const [isOpen, setOpen] = useState(true)
+      return (
+        <RudiDialog isOpen={isOpen} onClose={() => setOpen(false)} title="Assign tracker">
+          <button>Inside</button>
+        </RudiDialog>
+      )
+    }
+    render(<Harness />)
+    await userEvent.keyboard('{Escape}')
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+  })
+  it('renders RudiDialog.Footer actions after the body', () => {
+    render(
+      <RudiDialog isOpen onClose={() => {}} title="Remove shipment">
+        <p>Body text</p>
+        <RudiDialog.Footer>
+          <button>Cancel</button>
+        </RudiDialog.Footer>
+      </RudiDialog>,
+    )
+    const footer = screen.getByRole('button', { name: 'Cancel' }).parentElement!
+    expect(footer).toHaveClass('rudi-dialog__footer')
+    expect(screen.getByText('Body text').closest('.rudi-dialog__body')).not.toContainElement(footer)
+  })
+
+  it('has a close button when dismissable', async () => {
+    function Harness() {
+      const [isOpen, setOpen] = useState(true)
+      return (
+        <RudiDialog isOpen={isOpen} onClose={() => setOpen(false)} title="Assign tracker">
+          <p>Body</p>
+        </RudiDialog>
+      )
+    }
+    render(<Harness />)
+    await userEvent.click(screen.getByRole('button', { name: 'Close' }))
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+  })
+
+  it('has no close button when not dismissable', () => {
+    render(
+      <RudiDialog isOpen onClose={() => {}} title="Saving" isDismissable={false}>
+        <p>Body</p>
+      </RudiDialog>,
+    )
+    expect(screen.queryByRole('button', { name: 'Close' })).not.toBeInTheDocument()
   })
 })

@@ -1,4 +1,4 @@
-import React, { createContext, forwardRef, useContext, useState } from 'react'
+import React, { createContext, forwardRef, useContext, useEffect, useId, useRef, useState } from 'react'
 import { cn } from '@/utils/cn'
 import { RudiIconButton } from '@/components/IconButton/IconButton'
 import { RudiIcon } from '@/components/Icon/Icon'
@@ -8,6 +8,8 @@ interface AppShellContextValue {
   isSidebarOpen: boolean
   setSidebarOpen: (open: boolean) => void
   toggleSidebar: () => void
+  sidebarId: string
+  menuButtonRef: React.RefObject<HTMLSpanElement | null>
 }
 
 const AppShellContext = createContext<AppShellContextValue | null>(null)
@@ -81,10 +83,26 @@ const AppShellRoot = forwardRef<HTMLDivElement, RudiAppShellProps>(
     const isControlled = isSidebarOpen !== undefined
     const open = isControlled ? isSidebarOpen : uncontrolledOpen
 
+    const sidebarId = useId()
+    const menuButtonRef = useRef<HTMLSpanElement>(null)
+
     const setSidebarOpen = (next: boolean) => {
       if (!isControlled) setUncontrolledOpen(next)
       onSidebarOpenChange?.(next)
     }
+
+    // Escape closes the drawer and returns focus to the menu button.
+    useEffect(() => {
+      if (!open) return
+      const onKeyDown = (event: KeyboardEvent) => {
+        if (event.key !== 'Escape') return
+        if (!isControlled) setUncontrolledOpen(false)
+        onSidebarOpenChange?.(false)
+        menuButtonRef.current?.querySelector('button')?.focus()
+      }
+      document.addEventListener('keydown', onKeyDown)
+      return () => document.removeEventListener('keydown', onKeyDown)
+    }, [open, isControlled, onSidebarOpenChange])
 
     return (
       <AppShellContext.Provider
@@ -92,6 +110,8 @@ const AppShellRoot = forwardRef<HTMLDivElement, RudiAppShellProps>(
           isSidebarOpen: open,
           setSidebarOpen,
           toggleSidebar: () => setSidebarOpen(!open),
+          sidebarId,
+          menuButtonRef,
         }}
       >
         <div
@@ -118,7 +138,7 @@ function AppShellSidebar({
   'aria-label': ariaLabel = 'Sidebar',
   ...props
 }: RudiAppShellSidebarProps) {
-  const { isSidebarOpen, setSidebarOpen } = useAppShell()
+  const { isSidebarOpen, setSidebarOpen, sidebarId } = useAppShell()
   const customProperties: Record<string, string> = {}
   if (width) customProperties['--sidebar-width'] = width
 
@@ -132,6 +152,7 @@ function AppShellSidebar({
         tabIndex={isSidebarOpen ? 0 : -1}
       />
       <aside
+        id={sidebarId}
         className={cn('rudi-app-shell__sidebar', className)}
         aria-label={ariaLabel}
         style={{ ...customProperties, ...style } as React.CSSProperties}
@@ -183,11 +204,13 @@ function AppShellMenuButton({
   icon = 'lucide:menu',
   className,
 }: RudiAppShellMenuButtonProps) {
-  const { toggleSidebar } = useAppShell()
+  const { toggleSidebar, isSidebarOpen, sidebarId, menuButtonRef } = useAppShell()
   return (
-    <span className={cn('rudi-app-shell__menu', className)}>
+    <span ref={menuButtonRef} className={cn('rudi-app-shell__menu', className)}>
       <RudiIconButton
         aria-label={ariaLabel}
+        aria-expanded={isSidebarOpen}
+        aria-controls={sidebarId}
         variant="ghost"
         onPress={toggleSidebar}
       >

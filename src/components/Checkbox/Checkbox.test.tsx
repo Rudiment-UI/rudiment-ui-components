@@ -88,4 +88,10 @@ describe('Checkbox', () => {
     )
     expect(await axe(container)).toHaveNoViolations()
   })
+  it('shows and links an error message on a standalone checkbox', () => {
+    render(<RudiCheckbox errorMessage="Accept the terms to continue.">I agree</RudiCheckbox>)
+    const box = screen.getByRole('checkbox', { name: 'I agree' })
+    expect(box).toHaveAttribute('aria-invalid', 'true')
+    expect(box).toHaveAccessibleDescription('Accept the terms to continue.')
+  })
 })

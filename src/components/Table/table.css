@@ -1,0 +1,222 @@
+/* Table — scroll container */
+.rudi-table {
+  position: relative;
+  max-width: 100%;
+  overflow: auto;
+  background-color: var(--rudi-component-table-bg);
+  border: 1px solid var(--rudi-component-table-border);
+  border-radius: var(--rudi-component-table-radius);
+  --rudi-table-cell-padding-y: var(--rudi-component-table-cell-padding-y);
+  --rudi-table-cell-padding-x: var(--rudi-component-table-cell-padding-x);
+}
+
+.rudi-table--compact {
+  --rudi-table-cell-padding-y: var(--rudi-component-table-cell-padding-y-compact);
+  --rudi-table-cell-padding-x: var(--rudi-component-table-cell-padding-x-compact);
+}
+
+.rudi-table--max-height {
+  max-height: var(--table-max-height);
+}
+
+.rudi-table__grid {
+  width: 100%;
+  /* separate + 0 spacing keeps row borders attached to a sticky header */
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--rudi-component-table-font-size);
+  line-height: var(--rudi-component-table-line-height);
+  color: var(--rudi-component-table-text);
+  outline: none;
+}
+
+.rudi-table__grid[data-focus-visible] {
+  outline: 2px solid var(--rudi-component-table-focus-outline-color);
+  outline-offset: -2px;
+}
+
+/* Header */
+.rudi-table__column {
+  padding: var(--rudi-table-cell-padding-y) var(--rudi-table-cell-padding-x);
+  background-color: var(--rudi-component-table-header-bg);
+  border-bottom: 1px solid var(--rudi-component-table-border);
+  color: var(--rudi-component-table-header-text);
+  font-size: var(--rudi-component-table-header-font-size);
+  font-weight: var(--rudi-component-table-header-font-weight);
+  text-align: start;
+  white-space: nowrap;
+  vertical-align: middle;
+  outline: none;
+}
+
+.rudi-table--sticky-header .rudi-table__column {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.rudi-table__column[data-allows-sorting] {
+  cursor: pointer;
+}
+
+.rudi-table__column[data-allows-sorting][data-hovered] {
+  color: var(--rudi-component-table-text);
+}
+
+.rudi-table__column[data-focus-visible] {
+  outline: 2px solid var(--rudi-component-table-focus-outline-color);
+  outline-offset: -2px;
+}
+
+.rudi-table__column[data-align='center'] {
+  text-align: center;
+}
+
+.rudi-table__column[data-align='end'] {
+  text-align: end;
+}
+
+.rudi-table__column-content {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rudi-component-table-sort-icon-gap);
+}
+
+/* Keep labels visually aligned on end columns: icon sits before the text */
+.rudi-table__column[data-align='end'] .rudi-table__column-content {
+  flex-direction: row-reverse;
+}
+
+.rudi-table__sort-icon {
+  color: var(--rudi-component-table-sort-icon-color);
+  transition: color var(--rudi-component-table-transition-duration)
+    var(--rudi-motion-easing-standard);
+}
+
+.rudi-table__sort-icon--active {
+  color: var(--rudi-component-table-sort-icon-active-color);
+}
+
+/* Rows */
+.rudi-table__row {
+  outline: none;
+  transition: background-color var(--rudi-component-table-transition-duration)
+    var(--rudi-motion-easing-standard);
+}
+
+.rudi-table--striped .rudi-table__row:nth-child(even) {
+  background-color: var(--rudi-component-table-row-striped-bg);
+}
+
+/* RAC only reports hover on rows that have an action, a link, or are selectable */
+.rudi-table__row[data-hovered] {
+  cursor: pointer;
+  background-color: var(--rudi-component-table-row-hover-bg);
+}
+
+.rudi-table__row[data-selected] {
+  background-color: var(--rudi-component-table-row-selected-bg);
+}
+
+.rudi-table__row[data-disabled] {
+  color: var(--rudi-component-table-disabled-text);
+  cursor: not-allowed;
+}
+
+.rudi-table__row[data-focus-visible] {
+  outline: 2px solid var(--rudi-component-table-focus-outline-color);
+  outline-offset: -2px;
+}
+
+/* Cells */
+.rudi-table__cell {
+  padding: var(--rudi-table-cell-padding-y) var(--rudi-table-cell-padding-x);
+  border-bottom: 1px solid var(--rudi-component-table-row-border);
+  vertical-align: middle;
+  outline: none;
+}
+
+.rudi-table__row:last-child > .rudi-table__cell {
+  border-bottom: none;
+}
+
+.rudi-table__cell[data-focus-visible] {
+  outline: 2px solid var(--rudi-component-table-focus-outline-color);
+  outline-offset: -2px;
+}
+
+.rudi-table__cell-content[data-align='center'] {
+  text-align: center;
+}
+
+.rudi-table__cell-content[data-align='end'] {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Selection column */
+.rudi-table__column--selection,
+.rudi-table__cell--selection {
+  width: var(--rudi-component-table-selection-column-width);
+  padding-inline-end: 0;
+}
+
+.rudi-table__checkbox {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.rudi-table__checkbox-control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--rudi-component-table-checkbox-size);
+  height: var(--rudi-component-table-checkbox-size);
+  border: 1px solid var(--rudi-component-table-checkbox-border);
+  border-radius: var(--rudi-component-table-checkbox-radius);
+  background-color: var(--rudi-component-table-checkbox-bg);
+  transition:
+    background-color var(--rudi-component-table-transition-duration)
+      var(--rudi-motion-easing-standard),
+    border-color var(--rudi-component-table-transition-duration)
+      var(--rudi-motion-easing-standard);
+}
+
+.rudi-table__checkbox[data-focus-visible] .rudi-table__checkbox-control {
+  outline: 2px solid var(--rudi-component-table-focus-outline-color);
+  outline-offset: 2px;
+}
+
+.rudi-table__checkbox-control--checked,
+.rudi-table__checkbox-control--indeterminate {
+  background-color: var(--rudi-component-table-checkbox-checked-bg);
+  border-color: var(--rudi-component-table-checkbox-checked-border);
+}
+
+.rudi-table__checkbox-control--checked::after {
+  content: '';
+  width: 0.3125rem;
+  height: 0.5625rem;
+  border: 2px solid var(--rudi-component-table-checkbox-check-color);
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg) translateY(-1px);
+}
+
+.rudi-table__checkbox-control--indeterminate::after {
+  content: '';
+  width: 0.5rem;
+  height: 2px;
+  background-color: var(--rudi-component-table-checkbox-check-color);
+  border-radius: 1px;
+}
+
+/* Empty state */
+.rudi-table__body[data-empty] td {
+  padding: var(--rudi-component-table-empty-padding);
+  color: var(--rudi-component-table-empty-text);
+  text-align: center;
+}

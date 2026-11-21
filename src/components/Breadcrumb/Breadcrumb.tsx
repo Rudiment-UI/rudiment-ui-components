@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import { useLink } from 'react-aria'
 import { cn } from '@/utils/cn'
 import { RudiIcon } from '@/components/Icon/Icon'
 import './breadcrumb.css'
@@ -15,6 +16,17 @@ export interface RudiBreadcrumbProps {
   /** Accessible label for the nav landmark. */
   label?: string
   className?: string
+}
+
+/** A crumb link; routes client-side through RudiRouterProvider when one is mounted. */
+function BreadcrumbLink({ href, children }: { href: string; children: React.ReactNode }) {
+  const ref = useRef<HTMLAnchorElement>(null)
+  const { linkProps } = useLink({ href }, ref)
+  return (
+    <a {...linkProps} ref={ref} href={href} className="rudi-breadcrumb__link">
+      {children}
+    </a>
+  )
 }
 
 export function RudiBreadcrumb({
@@ -38,9 +50,7 @@ export function RudiBreadcrumb({
                   {item.label}
                 </span>
               ) : (
-                <a href={item.href} className="rudi-breadcrumb__link">
-                  {item.label}
-                </a>
+                <BreadcrumbLink href={item.href}>{item.label}</BreadcrumbLink>
               )}
               {!isLast && (
                 <RudiIcon

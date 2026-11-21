@@ -20,7 +20,9 @@
     0 8px 10px -6px rgb(0 0 0 / 0.1);
   padding: var(--rudi-component-dialog-padding);
   display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
   gap: var(--rudi-component-dialog-gap);
+  max-block-size: calc(100dvh - 2 * var(--rudi-component-dialog-overlay-padding));
 }
 
 .rudi-dialog:focus-visible {
@@ -40,6 +42,13 @@
   max-width: var(--rudi-component-dialog-max-width-lg);
 }
 
+.rudi-dialog__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--rudi-component-dialog-gap);
+}
+
 .rudi-dialog__title {
   font-size: var(--rudi-component-dialog-title-font-size);
   font-weight: var(--rudi-component-dialog-title-font-weight);
@@ -52,4 +61,17 @@
   font-size: var(--rudi-component-dialog-body-font-size);
   color: var(--rudi-component-dialog-body-color);
   line-height: var(--rudi-component-dialog-body-line-height);
+}
+
+/* Tall content scrolls inside the body; header and footer stay put. */
+.rudi-dialog__body {
+  min-block-size: 0;
+  overflow-y: auto;
+}
+
+.rudi-dialog__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--rudi-component-dialog-footer-gap);
 }

@@ -1,4 +1,4 @@
-import { forwardRef, useRef } from 'react'
+import { Children, forwardRef, isValidElement, useRef } from 'react'
 import {
   useDialog,
   useModalOverlay,
@@ -9,6 +9,8 @@ import {
 import { useObjectRef } from '@react-aria/utils'
 import type { OverlayTriggerState } from 'react-stately'
 import { cn } from '@/utils/cn'
+import { RudiIconButton } from '@/components/IconButton/IconButton'
+import { RudiIcon } from '@/components/Icon/Icon'
 import './dialog.css'
 
 export interface RudiDialogProps {
@@ -21,26 +23,46 @@ export interface RudiDialogProps {
   className?: string
 }
 
-export const RudiDialog = forwardRef<HTMLDivElement, RudiDialogProps>(function RudiDialog(
-  {
-    isOpen,
-    onClose,
-    title,
-    isDismissable = true,
-    size = 'md',
-    children,
-    className,
-  }: RudiDialogProps,
+export interface RudiDialogFooterProps {
+  /** Action buttons, primary action last. */
+  children: React.ReactNode
+  className?: string
+}
+
+/** Action row pinned to the bottom of the dialog (it stays visible while the body scrolls). */
+function DialogFooter({ children, className }: RudiDialogFooterProps) {
+  return <div className={cn('rudi-dialog__footer', className)}>{children}</div>
+}
+
+const DialogRoot = forwardRef<HTMLDivElement, RudiDialogProps>(function RudiDialog(
+  props: RudiDialogProps,
   ref,
 ) {
-  const underlayRef = useRef<HTMLDivElement>(null)
-  const dialogRef = useObjectRef(ref)
+  // The panel (and its React Aria hooks) mounts only while open. useDialog
+  // resolves the title id once, on mount; mounting it while closed meant the
+  // title never existed at that moment and the dialog shipped with no
+  // accessible name.
+  if (!props.isOpen) return null
+  return <RudiDialogPanel {...props} forwardedRef={ref} />
+})
 
-  usePreventScroll({ isDisabled: !isOpen })
+function RudiDialogPanel({
+  onClose,
+  title,
+  isDismissable = true,
+  size = 'md',
+  children,
+  className,
+  forwardedRef,
+}: RudiDialogProps & { forwardedRef: React.ForwardedRef<HTMLDivElement> }) {
+  const underlayRef = useRef<HTMLDivElement>(null)
+  const dialogRef = useObjectRef(forwardedRef)
+
+  usePreventScroll()
 
   // Create a state object compatible with useModalOverlay
   const state: OverlayTriggerState = {
-    isOpen,
+    isOpen: true,
     close: onClose,
     open: () => {},
     toggle: () => {},
@@ -57,7 +79,10 @@ export const RudiDialog = forwardRef<HTMLDivElement, RudiDialogProps>(function R
 
   const { dialogProps, titleProps } = useDialog({}, dialogRef)
 
-  if (!isOpen) return null
+  // RudiDialog.Footer children render after the scrolling body.
+  const parts = Children.toArray(children)
+  const footer = parts.filter((child) => isValidElement(child) && child.type === DialogFooter)
+  const body = parts.filter((child) => !(isValidElement(child) && child.type === DialogFooter))
 
   return (
     <OverlayContainer>
@@ -78,13 +103,23 @@ export const RudiDialog = forwardRef<HTMLDivElement, RudiDialogProps>(function R
               className,
             )}
           >
-            <h2 {...titleProps} className="rudi-dialog__title">
-              {title}
-            </h2>
-            <div className="rudi-dialog__body">{children}</div>
+            <div className="rudi-dialog__header">
+              <h2 {...titleProps} className="rudi-dialog__title">
+                {title}
+              </h2>
+              {isDismissable && (
+                <RudiIconButton aria-label="Close" variant="ghost" size="sm" onPress={onClose}>
+                  <RudiIcon icon="lucide:x" />
+                </RudiIconButton>
+              )}
+            </div>
+            <div className="rudi-dialog__body">{body}</div>
+            {footer}
           </div>
         </FocusScope>
       </div>
     </OverlayContainer>
   )
-})
+}
+
+export const RudiDialog = Object.assign(DialogRoot, { Footer: DialogFooter })

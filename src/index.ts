@@ -144,7 +144,7 @@ export { RudiBarChart } from './components/Charts/BarChart/BarChart'
 export type { RudiBarChartProps } from './components/Charts/BarChart/BarChart'
 
 export { RudiLineChart } from './components/Charts/LineChart/LineChart'
-export type { RudiLineChartProps } from './components/Charts/LineChart/LineChart'
+export type { RudiLineChartProps, RudiChartReferenceLine } from './components/Charts/LineChart/LineChart'
 
 export { RudiDonutChart } from './components/Charts/DonutChart/DonutChart'
 export type { RudiDonutChartProps, RudiDonutChartDatum } from './components/Charts/DonutChart/DonutChart'

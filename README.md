@@ -311,6 +311,18 @@ const [isOpen, setIsOpen] = useState(false)
 </RudiAppShell>
 ```
 
+**Routing.** In a single-page app, wrap the tree in `RudiRouterProvider` so Rudi links navigate client-side:
+
+```tsx
+import { useHref, useNavigate } from 'react-router'
+import { RudiRouterProvider } from 'rudiment-ui'
+
+function Providers({ children }) {
+  const navigate = useNavigate()
+  return <RudiRouterProvider navigate={navigate} useHref={useHref}>{children}</RudiRouterProvider>
+}
+```
+
 ## Layout primitives
 
 Eight primitives handle spacing and composition. **Every spacing prop takes a raw CSS length string** — `"1rem"`, `"2rem"`, or `var(--rudi-spacing-6)` — not a numeric scale. The prop is `space` everywhere (never `gap`); `RudiBox` uses `padding`. All accept `as`, `className`, and any DOM attribute.

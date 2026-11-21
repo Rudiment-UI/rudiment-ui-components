@@ -220,3 +220,6 @@ export type { RudiPageHeaderProps } from './components/PageHeader/PageHeader'
 
 export { RudiSectionHeader } from './components/SectionHeader/SectionHeader'
 export type { RudiSectionHeaderProps } from './components/SectionHeader/SectionHeader'
+
+export { RudiRouterProvider } from './components/RouterProvider/RouterProvider'
+export type { RudiRouterProviderProps } from './components/RouterProvider/RouterProvider'

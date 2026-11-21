@@ -139,6 +139,8 @@ These two components look similar but serve different purposes:
 
 ## Link
 
+- **Do** wrap a single-page app in `RudiRouterProvider` (with your router's `navigate`) so `RudiLink`, `RudiNavItem` and `RudiBreadcrumb` navigate without a page reload
+
 - **Do** use for navigation to another page or resource (`href` is required)
 - **Do** set `external` for links that open a new tab. It adds a safe `rel` and an external-link icon automatically.
 - **Do** match `variant` to context (`default` in body copy, `subtle` for muted secondary links, `standalone` for a self-contained "Learn more" link)

@@ -9,11 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **`RudiRouterProvider`:** connects Rudi links to your router (pass `navigate`, and optionally `useHref`) so `RudiLink`, `RudiNavItem` and `RudiBreadcrumb` navigate client-side instead of reloading the page. It re-exports React Aria's `RouterProvider`, so apps don't import `react-aria` directly.
 - **App chrome is now exported:** `RudiAppShell` (with `.Sidebar`, `.Content`, `.Main`, `.MenuButton`), `RudiTopBar`, `RudiPageHeader` and `RudiSectionHeader`, plus their Props types. Before export, the shell's mobile drawer gained `aria-expanded` / `aria-controls` on the menu button, closes on Escape (returning focus to the menu button), and is hidden from keyboard and assistive tech while off-canvas. `RudiFooter` stays internal.
 - **`RudiRadio`:** the option component for `RudiRadioGroup` is now exported (with `RudiRadioProps`). Previously the group was unusable from the package because nothing could be rendered inside it; the only radio item lived in a story.
 
 ### Fixed
 
+- **`RudiLink` and `RudiBreadcrumb` links now honor a router.** They rendered plain anchors, so every click was a full page load in a single-page app. They now use React Aria's `useLink`, like `RudiNavItem`.
 - **README uses the real export names.** Usage examples, prop tables and inline references now use the `Rudi`-prefixed names (`RudiButton`, not `Button`), and the Select example uses `RudiOption` instead of `react-stately`'s `Item`. The old examples did not compile.
 - **`RudiDialog` now has an accessible name when opened after mount.** React Aria resolves the title id once, on mount, and the dialog mounted its hooks while closed, so a dialog toggled open (the normal case) rendered `role="dialog"` with no `aria-labelledby`. The panel now mounts only while open.
 - **`rudiment-ui/styles` type-checks on TypeScript 6+.** The export now has a `types` condition pointing to an empty declaration, so `import 'rudiment-ui/styles'` no longer fails with TS2882 under `noUncheckedSideEffectImports` (the default since TypeScript 6).

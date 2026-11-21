@@ -351,6 +351,51 @@ use a Rudi component anymore.
 
 ---
 
+## Part 6 — A real app: the IVFCryo rebuild (0.4.0)
+
+The examples above are demo pages. In November 2026 the logged-in IVFCryo shipping app (Rails)
+was rebuilt on Rudiment UI: 14 screens covering shipments, booking, admin resources, pricing, a
+dashboard, an ops board and notification templates. That surfaced a different class of problem,
+which only shows up once real data, real forms and real keyboard use meet the components.
+
+**Shipped for it (new components and parts):** `RudiTable`, `RudiTabs`, `RudiEmptyState`,
+`RudiComboBox`, `RudiToastRegion` + `rudiToast`, `RudiDatePicker` / `RudiDateRangePicker`,
+`RudiNumberField`, `RudiForm` (error summary), `RudiRadio`, `RudiBrand`, `RudiRouterProvider`,
+`RudiDialog.Footer`, chart reference lines, `RudiSwitch` `aria-label`, `RudiNumberField`
+`labelHidden`, kanban card labels.
+
+**Bugs only real screens found:**
+- **Broken outright:** `RudiCheckboxGroup` never passed its value to its checkboxes.
+- **Keyboard:**
+  - Text fields inside `RudiTable` cells lost their arrow keys and typing to grid navigation and type-ahead.
+  - `RudiForm` stole focus while the user typed.
+- **Contrast:**
+  - Form-control borders measured 1.3:1 (WCAG 1.4.11 asks for 3:1).
+  - Chart legend text took series colors (amber ≈ 2:1).
+  - Dark-theme stat-card trends were near-white.
+- **Screen readers:**
+  - Group errors weren't linked to their groups.
+  - Every kanban drag was announced twice, by raw id.
+- **Layout at 375px:**
+  - `RudiForm`'s auto grid column let a tab list widen the page.
+  - `RudiDot`'s hidden label escaped scroll containers.
+  - Kanban columns grew to their longest unwrapped line.
+- **Visual states:**
+  - Disabled buttons didn't look disabled.
+  - Field hints kept the browser's paragraph margin.
+  - Badges stretched full width in stacks.
+  - Table hover matched the stripe color.
+
+**Lesson:** demo pages exercise how a component looks, not how it behaves under typing, scrolling,
+narrow screens or assistive tech. Every one of the bugs above passed the existing unit, axe and
+story tests.
+
+**Still open:**
+- **Text input:** no caret access to insert a placeholder at the cursor in `RudiInput` / `RudiTextarea`, and no `maxLength` on `RudiTextarea`.
+- **Content:** no line-break-preserving `RudiText`, and no caption slot on `RudiStatCard`.
+- **Missing component:** no address autocomplete.
+- **Theming:** subtree theming still doesn't reach portaled overlays.
+
 ## Recommended remediation order
 
 1. ~~**Add typography props** — `weight`, `color`/`tone`, `align`, `noMargin` on `RudiText`/`RudiHeading`.

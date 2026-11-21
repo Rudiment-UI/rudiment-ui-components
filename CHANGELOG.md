@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-11-21
+
+Built out while rebuilding the IVFCryo shipping app on Rudiment UI. See Part 6 of `src/stories/examples/DEPARTURES.md`.
+
 ### Added
 
 - `RudiKanbanCard` `label` names the drag handle ("Move REF-1042"; was "Drag handle for card <id>"). `RudiKanbanBoard` `getCardLabel` names cards in announcements.

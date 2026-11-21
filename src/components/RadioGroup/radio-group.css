@@ -33,7 +33,7 @@
   line-height: var(--rudi-font-line-height-normal);
 }
 
-/* Radio item — consumed by a companion Radio component */
+/* Radio item — rendered by RudiRadio (Radio.tsx) */
 .rudi-radio {
   display: inline-flex;
   align-items: center;

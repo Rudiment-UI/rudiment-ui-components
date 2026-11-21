@@ -252,6 +252,7 @@ you set `padding="none"` then wrap the image in a `<div>` with `overflow:hidden`
 `borderStartStartRadius:'inherit'` ([biotech/Landing.stories.tsx:140-143](biotech/Landing.stories.tsx#L140-L143)).
 
 ### Smaller API gaps
+- ~~**`RudiRadioGroup` — no exported option component.**~~ ✅ Resolved — `RudiRadio` is exported. Found while building the IVFCryo app: the group rendered nothing a consumer could select, and the only radio item was a story-local helper.
 - **`RudiButton` — no `fullWidth`/block prop.** Wrapped in `<div style={{flex:1,display:'grid'}}>` to stretch:
   [ecommerce/ProductPage.stories.tsx:229](ecommerce/ProductPage.stories.tsx#L229)
 - **`RudiInput` / `RudiSelect` — no width/size prop.** Wrapped in `<div style={{minWidth:…}}>`:

@@ -58,6 +58,8 @@ export type { RudiSwitchProps } from './components/Switch/Switch'
 
 export { RudiRadioGroup } from './components/RadioGroup/RadioGroup'
 export type { RudiRadioGroupProps } from './components/RadioGroup/RadioGroup'
+export { RudiRadio } from './components/RadioGroup/Radio'
+export type { RudiRadioProps } from './components/RadioGroup/Radio'
 
 export { RudiTooltipTrigger, RudiTooltip } from './components/Tooltip/Tooltip'
 export type { RudiTooltipTriggerProps, RudiTooltipProps } from './components/Tooltip/Tooltip'

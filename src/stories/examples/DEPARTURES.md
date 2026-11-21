@@ -252,6 +252,14 @@ you set `padding="none"` then wrap the image in a `<div>` with `overflow:hidden`
 `borderStartStartRadius:'inherit'` ([biotech/Landing.stories.tsx:140-143](biotech/Landing.stories.tsx#L140-L143)).
 
 ### Smaller API gaps
+- **Subtree theming doesn't reach overlays.** `RudiDialog`, the `RudiSelect` popover, `RudiMenu`
+  and `RudiTooltip` portal to `<body>`, so a `data-theme` set on a wrapper (not `<html>`) leaves
+  them in the default theme. Found in the IVFCryo app smoke test: a light dialog over a dark page.
+  Workaround: put `data-theme` on `<html>`. Fix options: portal into the nearest themed ancestor,
+  or copy its `data-theme` onto the overlay container.
+- **`RudiText` / `RudiHeading` `as` prop doesn't type element attributes.** `as="a"` rejects
+  `href`, and `as="label"` rejects `htmlFor` (33 type errors across the example stories). The
+  polymorphic props need to be derived from the `as` element.
 - ~~**`RudiRadioGroup` — no exported option component.**~~ ✅ Resolved — `RudiRadio` is exported. Found while building the IVFCryo app: the group rendered nothing a consumer could select, and the only radio item was a story-local helper.
 - **`RudiButton` — no `fullWidth`/block prop.** Wrapped in `<div style={{flex:1,display:'grid'}}>` to stretch:
   [ecommerce/ProductPage.stories.tsx:229](ecommerce/ProductPage.stories.tsx#L229)

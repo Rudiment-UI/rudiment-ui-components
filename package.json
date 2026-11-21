@@ -21,11 +21,15 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./styles": "./dist/index.css",
+    "./styles": {
+      "types": "./styles.d.ts",
+      "default": "./dist/index.css"
+    },
     "./package.json": "./package.json"
   },
   "files": [
-    "dist"
+    "dist",
+    "styles.d.ts"
   ],
   "peerDependencies": {
     "react": "^19.0.0",

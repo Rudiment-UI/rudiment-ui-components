@@ -49,7 +49,7 @@ export function RudiBarChart({
   const categoryWidth = isHorizontal
     ? Math.min(
         220,
-        Math.max(60, ...data.map((row) => String(row[indexKey] ?? '').length * 7 + 16)),
+        Math.max(60, ...data.map((row) => String(row[indexKey] ?? '').length * 8 + 24)),
       )
     : undefined
 

@@ -393,6 +393,8 @@ which only shows up once real data, real forms and real keyboard use meet the co
 narrow screens or assistive tech. Every one of the bugs above passed the existing unit, axe and
 story tests.
 
+**Shipped for the Vitrea redesign (0.6.0):** `RudiDescriptionList` (replaces the hand-rolled `<dl>` / detail rows), `RudiSparkline` (the live probe-temperature trend on a shipment's summary card), `RudiPageHeader` `eyebrow` / `meta`, `RudiAlert` `action`, and a `RudiStack` fix: a nested stack's `space` leaked into its spacing from the previous sibling, so spacing is now a `gap`. Still open: `RudiCard` has no `as`, so a card grid can't be a `<ul>` of card `<li>`s without wrapping each card in `RudiBox as="li"`.
+
 **Still open:**
 - **Text input:** no caret access to insert a placeholder at the cursor in `RudiInput` / `RudiTextarea`, and no `maxLength` on `RudiTextarea`.
 - **Content:** no line-break-preserving `RudiText`, and no caption slot on `RudiStatCard`.

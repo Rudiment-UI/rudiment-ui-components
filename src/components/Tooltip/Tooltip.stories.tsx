@@ -58,13 +58,10 @@ const meta: Meta<TooltipStoryArgs> = {
   argTypes: {
     delay: {
       control: 'number',
-      description: 'Milliseconds to wait before showing the tooltip on hover',
       table: { category: 'Appearance' },
     },
     closeDelay: {
       control: 'number',
-      description:
-        'Milliseconds to wait before hiding the tooltip after the pointer leaves',
       table: { category: 'Appearance' },
     },
   },

@@ -25,14 +25,13 @@ const meta = {
     size: {
       control: 'inline-radio',
       options: ['sm', 'md', 'lg'],
-      description: 'Mark height and name size',
       table: { category: 'Appearance' },
     },
-    name: { control: 'text', description: 'Product name; always the accessible name', table: { category: 'Content' } },
-    mark: { control: false, description: 'Logo mark: an icon, svg or img (decorative)', table: { category: 'Content' } },
-    hideName: { control: 'boolean', description: 'Visually hide the name when the mark is a full wordmark', table: { category: 'Content' } },
-    href: { control: 'text', description: 'Makes the lockup a link', table: { category: 'Content' } },
-    className: { control: 'text', description: 'Extra class names', table: { category: 'Appearance' } },
+    name: { control: 'text', table: { category: 'Content' } },
+    mark: { control: false, table: { category: 'Content' } },
+    hideName: { control: 'boolean', table: { category: 'Content' } },
+    href: { control: 'text', table: { category: 'Content' } },
+    className: { control: 'text', table: { category: 'Appearance' } },
   },
 } satisfies Meta<typeof RudiBrand>
 

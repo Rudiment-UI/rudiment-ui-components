@@ -21,18 +21,15 @@ const meta = {
     orientation: {
       control: 'inline-radio',
       options: ['horizontal', 'vertical'],
-      description: 'Layout direction of the rule',
       table: { category: 'Appearance' },
     },
     spacing: {
       control: 'select',
       options: ['none', 'sm', 'md', 'lg'],
-      description: 'Margin around the rule',
       table: { category: 'Appearance' },
     },
     label: {
       control: 'text',
-      description: 'Optional centered label (horizontal only)',
       table: { category: 'Content' },
     },
     className: { control: 'text', table: { category: 'Appearance' } },

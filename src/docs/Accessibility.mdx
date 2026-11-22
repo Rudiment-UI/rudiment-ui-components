@@ -6,7 +6,7 @@ import { Meta } from '@storybook/addon-docs/blocks'
 
 ## Built on React Aria
 
-Nearly every interactive component in Rudiment UI is built on Adobe's [React Aria](https://react-spectrum.adobe.com/react-aria/) library. React Aria is one of the most well-tested accessibility foundations available for React, handling the complex parts of accessible UI so you don't have to. A few simpler components (such as Breadcrumb and Pagination) are composed from native HTML elements — `<nav>`, `<a>`, and `<button>` — which are accessible by default.
+Nearly every interactive component in Rudiment UI is built on Adobe's [React Aria](https://react-spectrum.adobe.com/react-aria/) library. React Aria is one of the most well-tested accessibility foundations available for React, handling the complex parts of accessible UI so you don't have to. A few simpler components, such as Breadcrumb, are made from native HTML elements like `<nav>` and `<a>`, which are accessible by default. Buttons inside other components, such as Pagination's page buttons and the dismiss buttons on Tag and Alert, use React Aria's `useButton`, so they handle mouse, touch and keyboard the same way.
 
 ### What React Aria provides automatically
 
@@ -28,11 +28,13 @@ Every component can be operated without a mouse. Here's what keyboard users can 
 | **Select**              | Arrow keys to navigate options, `Enter` to select, `Escape` to close       |
 | **Dialog**              | `Tab` cycles focus within the dialog (focus is trapped), `Escape` to close |
 | **Tooltip**             | Appears on focus, `Escape` to dismiss                                      |
-| **Tag**                 | `Space` or `Enter` to activate (when interactive), `Space` or `Enter` on close button to dismiss |
+| **Tag**                 | With `onPress` and `dismissible`, the tag and its remove button are two separate buttons. `Tab` moves between them, and `Space` or `Enter` activates either. |
+| **Rating** (with `onChange`) | One tab stop for the whole group. Arrow keys move and select, and `Home`/`End` jump to the first or last star |
 | **NavItem**             | `Space` or `Enter` to activate (link or button), `Tab` to move between items |
 | **Breadcrumb**          | `Tab` to move between links, `Enter` to activate (the current page is plain text, marked `aria-current="page"`) |
 | **Pagination**          | `Tab` to move between page controls, `Space` or `Enter` to activate (the active page is marked `aria-current="page"`) |
-| **ProgressBar**         | Not interactive — reports progress via `aria-valuenow` to assistive technology |
+| **KanbanBoard**         | `Space` or `Enter` on a card's handle picks it up. Arrow keys move it within and across columns, `Space` drops it and `Escape` cancels. Each step is announced. |
+| **ProgressBar / CircularProgress** | Not interactive. They report progress to assistive technology with `aria-valuenow` |
 
 ## Focus indicators
 
@@ -53,16 +55,28 @@ This applies to all built-in themes, in both light and dark variants.
 
 ## Live regions
 
-The **Alert** component uses ARIA live regions to announce messages to screen readers:
+These components announce changes that appear dynamically, so screen reader users don't miss them:
 
-- `role="alert"`: for urgent messages that need immediate attention (the default)
-- `role="status"`: for polite, non-urgent updates (set with the `isPolite` prop)
+- **Alert** uses `role="alert"` for urgent messages (the default) and `role="status"` for polite, non-urgent updates (the `isPolite` prop).
+- **Toast**: `RudiToastRegion` is a landmark (`F6` moves focus into it), and each toast is announced when it appears.
+- **KanbanBoard** announces drag progress with card labels and column titles, for example "Design homepage is over In Progress, position 2 of 3."
 
-This way, important information reaches screen reader users even when it appears dynamically on the page.
+## Meaning beyond color
+
+No status is shown by color alone:
+
+- **StatCard:** pairs the trend color with an icon and screen reader text, such as "Increased +12.5%". Use `trendLabel` to change the wording.
+- **Badge with `dot`:** still announces its children ("3 unread") as visually hidden text. A dot with no children is decorative.
+- **Avatar:** `statusLabel` adds the status to the accessible name ("Ada Lovelace, Busy"). An avatar with neither `alt` nor `name` is decorative.
+- **Image:** if the image fails to load, the fallback keeps the `alt` text as its accessible name.
+
+## Localizable labels
+
+Built-in control labels can be overridden for translation. Examples are `closeLabel` on `RudiDialog` and `RudiToastRegion`, and `trendLabel` on `RudiStatCard`. Components that render their own navigation landmark, such as Breadcrumb and Pagination, take a `label` prop.
 
 ## Progress reporting
 
-The **ProgressBar** component uses `role="progressbar"` with `aria-valuenow`, `aria-valuemin`, and `aria-valuemax` attributes (provided by React Aria's `useProgressBar` hook). Screen readers announce the current progress value along with the associated label.
+**ProgressBar** and **CircularProgress** use `role="progressbar"` with `aria-valuenow`, `aria-valuemin`, and `aria-valuemax` attributes (provided by React Aria's `useProgressBar` hook). Screen readers announce the current progress value along with the associated label. Values outside `minValue` and `maxValue` are clamped, so the reported value always stays in range.
 
 ## Decorative vs labeled icons
 

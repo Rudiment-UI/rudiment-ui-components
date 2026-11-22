@@ -26,42 +26,34 @@ const meta = {
   argTypes: {
     label: {
       control: 'text',
-      description: 'The text label displayed in the nav item',
       table: { category: 'Content' },
     },
     icon: {
       control: 'text',
-      description: 'Iconify icon name to display before the label',
       table: { category: 'Content' },
     },
     badge: {
       control: false,
-      description: 'Optional badge element rendered at the end of the nav item',
       table: { category: 'Content' },
     },
     isActive: {
       control: 'boolean',
-      description: 'Whether the nav item is currently active',
       table: { category: 'Appearance' },
     },
     isDisabled: {
       control: 'boolean',
-      description: 'Whether the nav item is disabled and non-interactive',
       table: { category: 'State' },
     },
     onPress: {
       action: 'pressed',
-      description: 'Called when the nav item is pressed (button mode)',
       table: { category: 'Events' },
     },
     href: {
       control: 'text',
-      description: 'When provided, renders as a link instead of a button',
       table: { category: 'Content' },
     },
     className: {
       control: 'text',
-      description: 'Additional CSS class names to apply',
       table: { category: 'Appearance' },
     },
   },

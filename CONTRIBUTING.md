@@ -19,23 +19,24 @@ src/components/ComponentName/
 
 - **Component files**: PascalCase (`Button.tsx`, `RadioGroup.tsx`)
 - **Directory names**: PascalCase matching the component (`Button/`, `RadioGroup/`)
-- **Props interface**: `ComponentNameProps` (e.g., `ButtonProps`, `RadioGroupProps`)
+- **Props interface**: `RudiComponentNameProps` (e.g., `RudiButtonProps`, `RudiRadioGroupProps`). Every export carries the `Rudi` prefix
 - **Story title**: `Components/ComponentName` for UI, `Typography/ComponentName` for text, `Layouts/ComponentName` for layout primitives
 
 ### Component Requirements
 
 1. **TypeScript**: All components must be fully typed with exported Props interfaces
-2. **Accessibility**: Use React Aria hooks for all interactive components
-3. **Tokens**: Reference design tokens for all visual values — no hardcoded colors, spacing, or sizes
-4. **Styling**: Use Tailwind CSS utilities via the `cn()` helper for class merging
-5. **Ref forwarding**: Forward refs using `React.forwardRef` where applicable
+2. **JSDoc**: Every exported component gets a summary and an `@example`. Every prop it declares gets a description, plus a `@default` that matches the destructured default exactly. This JSDoc ships in the `.d.ts` files and generates `dist/llms.txt` and `dist/components.json`. `scripts/component-docs.test.mjs` fails on gaps. See [Documenting the Public API](#documenting-the-public-api)
+3. **Accessibility**: Use React Aria hooks for all interactive components
+4. **Tokens**: Reference design tokens for all visual values — no hardcoded colors, spacing, or sizes
+5. **Styling**: BEM classes (`rudi-button`, `rudi-button--primary`, `rudi-button__icon`) in the component's own stylesheet, imported from the component (`import './button.css'`). Merge `className` with `cn()`, never replace it. Don't use Tailwind utilities in components, because the published CSS ships without Tailwind
+6. **Ref forwarding**: Forward refs using `React.forwardRef` where applicable
 
 ### Story Requirements
 
 Every story file must include:
 
 1. **Meta description**: A human-readable description in `parameters.docs.description.component`
-2. **Prop descriptions**: Every argType must have a `description` field written in plain language
+2. **Prop descriptions come from JSDoc.** Storybook's docgen reads the component's Props interface, so don't repeat a prop's description in `argTypes`. Add `description` only for args docgen can't see: props inherited from React Aria (`isDisabled`, `onPress`, …) and story-only args
 3. **Default args**: Set sensible defaults in the meta `args` object
 4. **Event grouping**: Group argTypes using `table.category`:
    - `Events` for callbacks (onChange, onPress, onClose)
@@ -44,6 +45,20 @@ Every story file must include:
    - `Content` for content props (label, children, placeholder)
 5. **No JSON controls**: Complex props should use `control: false`
 6. **Autodocs**: Include `tags: ['autodocs']` in the meta
+
+### Documenting the Public API
+
+JSDoc on exported components, Props interfaces and supporting types is the single source for editor hovers, the shipped `.d.ts` files, and the generated agent reference (`dist/llms.txt`, `dist/llms-full.txt`, `dist/components.json`, built by `scripts/component-docs.mjs`). `scripts/component-docs.test.mjs` fails on any gap.
+
+1. **Component summary**: on the exported declaration. Write 1–3 sentences covering what it is, when to use it (and what to use instead when people often mix them up), and any non-obvious contract such as a required `label`, controlled vs uncontrolled, a required parent, or mount-once. Follow it with one `@example` of 1–8 lines of correct TSX.
+2. **Compound parts**: a JSDoc comment above each property in the `Object.assign` literal (`/** Top section. */ Header: CardHeader,`).
+3. **Props**: one sentence per prop the interface declares, saying what it controls. Include units, ranges, interactions ("Ignored when `href` is set") and the accessibility purpose where relevant. Don't restate the type. Inherited React Aria props are documented upstream.
+4. **`@default`**: the exact source text of the destructured default (`size = 'md'` → `@default 'md'`). The test checks that they match.
+5. **Supporting types**: a summary, plus a description for every field.
+6. **Re-exports** (`export { Item as RudiOption } from 'react-stately'`): put the JSDoc on the export statement. The generator reads it from there.
+7. **Style**: plain present-tense prose. No marketing words or filler.
+
+Library-wide conventions (`onPress`, value-based `onChange`, theming, tokens) live in `scripts/llms-intro.md`. Update that file when a convention changes.
 
 ### Test Requirements
 

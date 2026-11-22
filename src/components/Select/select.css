@@ -12,6 +12,10 @@
   line-height: var(--rudi-component-select-label-line-height);
 }
 
+.rudi-select__required {
+  color: var(--rudi-component-select-required-color);
+}
+
 .rudi-select__trigger {
   box-sizing: border-box;
   min-block-size: var(--rudi-component-select-trigger-height);

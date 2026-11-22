@@ -5,15 +5,34 @@ import './stack.css'
 export interface RudiStackProps extends React.HTMLAttributes<HTMLElement> {
   /** CSS spacing value. Defaults to --rudi-layout-stack-space-default token. */
   space?: string
-  /** Apply spacing recursively to all nested elements, not just direct children. */
+  /**
+   * Apply spacing recursively to all nested elements, not just direct children.
+   *
+   * @default false
+   */
   recursive?: boolean
   /** 1-based index of the child after which to insert an auto margin, splitting the stack. */
   splitAfter?: number
-  /** HTML element to render. */
+  /**
+   * HTML element to render.
+   *
+   * @default 'div'
+   */
   as?: React.ElementType
+  /** Items to space out vertically. */
   children?: React.ReactNode
 }
 
+/**
+ * Vertical list of children with consistent spacing. Choose it for forms, card content, and page sections; use `RudiCluster` for items that run horizontally and wrap, and `RudiSwitcher` for a row that collapses to a column.
+ * Polymorphic through `as` (use `"ul"` or `"ol"` for a list; bullets and indent are removed); unrecognised DOM props are spread onto the root element, and `className` is merged with the built-in class, not replaced.
+ *
+ * @example
+ * <RudiStack space="1rem">
+ *   <RudiInput label="Name" />
+ *   <RudiInput label="Email" />
+ * </RudiStack>
+ */
 export const RudiStack = forwardRef<HTMLElement, RudiStackProps>(function RudiStack(
   {
     space,

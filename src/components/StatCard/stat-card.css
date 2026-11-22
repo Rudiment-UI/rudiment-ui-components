@@ -17,6 +17,9 @@
 }
 
 .rudi-stat-card__delta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rudi-component-stat-card-gap);
   font-size: var(--rudi-component-stat-card-delta-font-size);
   font-weight: var(--rudi-component-stat-card-delta-font-weight);
 }

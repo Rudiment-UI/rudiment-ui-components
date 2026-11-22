@@ -47,87 +47,68 @@ const meta = {
   argTypes: {
     label: {
       control: 'text',
-      description: 'The visible label displayed above the field',
       table: { category: 'Content' },
     },
     description: {
       control: 'text',
-      description: 'Helper text displayed below the field',
       table: { category: 'Content' },
     },
     errorMessage: {
       control: 'text',
-      description: 'Validation error displayed below the field; marks it invalid',
       table: { category: 'Content' },
     },
     granularity: {
       control: 'inline-radio',
       options: ['day', 'minute'],
-      description:
-        '`day` edits a date (`YYYY-MM-DD`); `minute` adds hour and minute segments (`YYYY-MM-DDTHH:mm`)',
       table: { category: 'Appearance' },
     },
     hourCycle: {
       control: 'inline-radio',
       options: [12, 24],
-      description: 'Force a 12- or 24-hour clock; defaults to the locale',
       table: { category: 'Appearance' },
     },
     className: {
       control: 'text',
-      description: 'Additional CSS class names for the wrapper',
       table: { category: 'Appearance' },
     },
     name: {
       control: 'text',
-      description: 'Form field name; submits the ISO string',
       table: { category: 'Content' },
     },
     value: {
       control: 'text',
-      description: 'Controlled value as an ISO string, or `null` for empty',
       table: { category: 'State' },
     },
     defaultValue: {
       control: 'text',
-      description: 'Initial uncontrolled value as an ISO string',
       table: { category: 'State' },
     },
     minValue: {
       control: 'text',
-      description: 'Earliest selectable value, same format as `value`',
       table: { category: 'State' },
     },
     maxValue: {
       control: 'text',
-      description: 'Latest selectable value, same format as `value`',
       table: { category: 'State' },
     },
     isDateUnavailable: {
       control: false,
-      description:
-        'Receives a `YYYY-MM-DD` string; return `true` to disable that date in the calendar and flag it when typed',
       table: { category: 'State' },
     },
     isRequired: {
       control: 'boolean',
-      description: 'Whether a value is required; shows a required indicator',
       table: { category: 'State' },
     },
     isDisabled: {
       control: 'boolean',
-      description: 'Whether the field is disabled and non-interactive',
       table: { category: 'State' },
     },
     isReadOnly: {
       control: 'boolean',
-      description: 'Whether the value is visible but not editable',
       table: { category: 'State' },
     },
     onChange: {
       action: 'changed',
-      description:
-        'Called with the ISO string, or `null` when the field is cleared or incomplete',
       table: { category: 'Events' },
     },
   },

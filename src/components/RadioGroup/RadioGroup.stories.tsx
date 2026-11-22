@@ -27,55 +27,43 @@ const meta = {
   argTypes: {
     label: {
       control: 'text',
-      description: 'The visible label displayed above the radio group',
       table: { category: 'Content' },
     },
     description: {
       control: 'text',
-      description: 'Helper text displayed below the radio group',
       table: { category: 'Content' },
     },
     errorMessage: {
       control: 'text',
-      description: 'Validation error message displayed below the radio group',
       table: { category: 'Content' },
     },
     children: {
       control: false,
-      description: 'The Radio components rendered inside the group',
       table: { category: 'Content' },
     },
     orientation: {
       control: 'select',
       options: ['vertical', 'horizontal'],
-      description:
-        'Whether the radio options are stacked vertically or laid out horizontally',
       table: { category: 'Appearance' },
     },
     className: {
       control: 'text',
-      description:
-        'Additional CSS class names to apply to the radio group wrapper',
       table: { category: 'Appearance' },
     },
     isDisabled: {
       control: 'boolean',
-      description: 'Whether the entire group is disabled and non-interactive',
       table: { category: 'State' },
     },
     value: {
       control: 'text',
-      description: 'The currently selected radio value (controlled)',
       table: { category: 'State' },
     },
     defaultValue: {
       control: 'text',
-      description: 'The initially selected radio value (uncontrolled)',
       table: { category: 'State' },
     },
     onChange: {
       action: 'changed',
-      description: 'Called when the selected radio option changes',
       table: { category: 'Events' },
     },
   },

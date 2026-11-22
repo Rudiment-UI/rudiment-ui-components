@@ -24,16 +24,21 @@ import {
 } from './CalendarParts'
 import './date-picker.css'
 
-/** A date range as `YYYY-MM-DD` strings. */
+/** A date range as `YYYY-MM-DD` strings, passed to and from `RudiDateRangePicker`. */
 export interface RudiDateRange {
+  /** First day of the range, `YYYY-MM-DD`. */
   start: string
+  /** Last day of the range, `YYYY-MM-DD`. */
   end: string
 }
 
+/** Props for `RudiDateRangePicker`. Values are plain strings, not date objects. */
 export interface RudiDateRangePickerProps {
+  /** Visible label and the field's accessible name. Required. */
   label: string
   /** Controlled range of `YYYY-MM-DD` strings. `null` clears the field. */
   value?: RudiDateRange | null
+  /** Initial range for an uncontrolled field. Read only on mount. */
   defaultValue?: RudiDateRange | null
   /** Receives `{ start, end }` once both ends are set, or `null` when cleared. */
   onChange?: (value: RudiDateRange | null) => void
@@ -43,16 +48,30 @@ export interface RudiDateRangePickerProps {
   maxValue?: string
   /** Return `true` to disable a `YYYY-MM-DD` date. */
   isDateUnavailable?: (date: string) => boolean
+  /** Help text under the field. Hidden while the field is invalid (an `errorMessage`, or a value outside `minValue`/`maxValue` or flagged by `isDateUnavailable`). */
   description?: string
   /** Shows the message and marks the field invalid. */
   errorMessage?: string
+  /**
+   * Marks the field required and adds an asterisk to the label.
+   * @default false
+   */
   isRequired?: boolean
+  /**
+   * Disables the field and the calendar button.
+   * @default false
+   */
   isDisabled?: boolean
+  /**
+   * Makes the value focusable but not editable, and disables the calendar.
+   * @default false
+   */
   isReadOnly?: boolean
   /** Form field name for the start date (submits `YYYY-MM-DD`). */
   startName?: string
   /** Form field name for the end date (submits `YYYY-MM-DD`). */
   endName?: string
+  /** Extra class names for the wrapper element, merged with the component's own classes. */
   className?: string
 }
 
@@ -65,6 +84,12 @@ function parseRange(
   return start && end ? { start, end } : null
 }
 
+/**
+ * A start and end date field with segmented keyboard entry and a range calendar popover. Values are `{ start, end }` objects of `YYYY-MM-DD` strings. `label` is required. Use `RudiDatePicker` for a single date. Day granularity only. Ref points at the wrapper `div`.
+ *
+ * @example
+ * <RudiDateRangePicker label="Stay" value={range} onChange={setRange} />
+ */
 export const RudiDateRangePicker = React.forwardRef<
   HTMLDivElement,
   RudiDateRangePickerProps

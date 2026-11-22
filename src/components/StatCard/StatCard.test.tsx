@@ -91,4 +91,39 @@ describe('StatCard', () => {
     )
     expect(await axe(container)).toHaveNoViolations()
   })
+
+  describe('trend semantics', () => {
+    it('renders an icon and default screen-reader text for each trend', async () => {
+      const { container } = render(
+        <>
+          <RudiStatCard label="A" value="1" delta="+12.5%" trend="up" />
+          <RudiStatCard label="B" value="1" delta="-3%" trend="down" />
+          <RudiStatCard label="C" value="1" delta="0%" trend="neutral" />
+        </>,
+      )
+      expect(screen.getByText('Increased')).toBeInTheDocument()
+      expect(screen.getByText('Decreased')).toBeInTheDocument()
+      expect(screen.getByText('No change')).toBeInTheDocument()
+      expect(container.querySelectorAll('.rudi-stat-card__trend-icon')).toHaveLength(3)
+      expect(await axe(container)).toHaveNoViolations()
+    })
+
+    it('reads the delta with the trend text', () => {
+      const { container } = render(
+        <RudiStatCard label="A" value="1" delta="+12.5%" trend="up" />,
+      )
+      expect(container.querySelector('.rudi-stat-card__delta')).toHaveTextContent('Increased +12.5%')
+    })
+
+    it('overrides the text with trendLabel', () => {
+      render(<RudiStatCard label="A" value="1" delta="+1%" trend="up" trendLabel="Gestiegen" />)
+      expect(screen.getByText('Gestiegen')).toBeInTheDocument()
+      expect(screen.queryByText('Increased')).not.toBeInTheDocument()
+    })
+
+    it('still renders the delta when no trend is set', () => {
+      render(<RudiStatCard label="A" value="1" delta="+1%" />)
+      expect(screen.getByText('+1%')).toBeInTheDocument()
+    })
+  })
 })

@@ -5,6 +5,7 @@ import { cn } from '@/utils/cn'
 import { RadioGroupContext } from './RadioGroup'
 import './radio-group.css'
 
+/** Props for `RudiRadio`. */
 export interface RudiRadioProps {
   /** The value submitted and reported to the group's `onChange` when this option is selected. */
   value: string
@@ -12,12 +13,16 @@ export interface RudiRadioProps {
   children: React.ReactNode
   /** Disables just this option. A disabled group disables every option. */
   isDisabled?: boolean
+  /** Extra class names, merged with the component's own classes. */
   className?: string
 }
 
 /**
  * A single option inside `RudiRadioGroup`. Must be rendered as a descendant of
- * a `RudiRadioGroup`, which owns the selection state.
+ * a `RudiRadioGroup`, which owns the selection state. The ref points at the `<input>`.
+ *
+ * @example
+ * <RudiRadio value="monthly">Monthly</RudiRadio>
  */
 export const RudiRadio = forwardRef<HTMLInputElement, RudiRadioProps>(
   function RudiRadio(props, forwardedRef) {

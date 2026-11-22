@@ -111,7 +111,6 @@
   --rudi-component-kanban-card-border: rgba(0, 0, 0, 0);
   --rudi-component-kanban-card-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.2);
   --rudi-component-kanban-card-dragging-shadow: 0 4px 12px 0 rgb(0 0 0 / 0.4);
-  --rudi-component-kanban-card-dragging-opacity: 0.5;
   --rudi-component-kanban-drop-indicator-width: 2px;
   --rudi-component-app-shell-sidebar-width: 15rem;
   --rudi-component-app-shell-sidebar-z: 30;
@@ -122,6 +121,10 @@
   --rudi-component-top-bar-z: 10;
   --rudi-component-footer-column-min-width: 14rem;
   --rudi-component-footer-heading-tracking: 0.1em;
+  --rudi-component-description-list-inline-term-width: 12rem;
+  --rudi-component-description-list-column-min-width: 14rem;
+  --rudi-component-sparkline-height: 2.5rem;
+  --rudi-component-sparkline-stroke-width: 1.5;
   --rudi-component-divider-thickness: 1px;
   --rudi-component-dot-size-sm: 0.375rem;
   --rudi-component-dot-size-md: 0.5rem;
@@ -143,6 +146,7 @@
   --rudi-component-toast-width: 24rem;
   --rudi-component-toast-region-z: 70;
   --rudi-component-table-selection-column-width: 2.5rem;
+  --rudi-component-image-fallback-min-size: 4rem;
   --rudi-component-rating-star-gap: 0.0625rem;
   --rudi-component-stepper-node-size-sm: 1.75rem;
   --rudi-component-stepper-node-size-md: 2.25rem;
@@ -364,6 +368,7 @@
   --rudi-component-alert-success-bg: var(--rudi-color-feedback-success-surface);
   --rudi-component-alert-warning-bg: var(--rudi-color-feedback-warning-surface);
   --rudi-component-alert-error-bg: var(--rudi-color-feedback-error-surface);
+  --rudi-component-alert-action-gap: var(--rudi-spacing-3);
   --rudi-component-menu-popover-radius: var(--rudi-radius-lg);
   --rudi-component-menu-popover-padding: var(--rudi-spacing-1);
   --rudi-component-menu-item-padding-y: var(--rudi-component-input-padding-y);
@@ -407,6 +412,13 @@
   --rudi-component-page-header-gap: var(--rudi-spacing-4);
   --rudi-component-page-header-title-gap: var(--rudi-spacing-1);
   --rudi-component-page-header-subtitle-font-size: var(--rudi-font-size-sm);
+  --rudi-component-page-header-eyebrow-gap: var(--rudi-spacing-2);
+  --rudi-component-page-header-meta-gap: var(--rudi-spacing-2);
+  --rudi-component-description-list-gap: var(--rudi-spacing-4);
+  --rudi-component-description-list-row-gap: var(--rudi-spacing-1);
+  --rudi-component-description-list-term-font-size: var(--rudi-font-size-sm);
+  --rudi-component-description-list-term-font-weight: var(--rudi-font-weight-medium);
+  --rudi-component-description-list-description-font-size: var(--rudi-font-size-sm);
   --rudi-component-section-header-gap: var(--rudi-spacing-4);
   --rudi-component-section-header-title-gap: var(--rudi-spacing-1);
   --rudi-component-section-header-description-font-size: var(--rudi-font-size-sm);
@@ -725,6 +737,7 @@
   --rudi-component-kanban-column-count-bg: var(--rudi-color-background-surface-raised);
   --rudi-component-kanban-column-count-color: var(--rudi-color-text-subtle);
   --rudi-component-kanban-card-bg: var(--rudi-color-background-surface-raised);
+  --rudi-component-kanban-placeholder-bg: var(--rudi-color-background-surface-raised);
   --rudi-component-kanban-drag-handle-color: var(--rudi-color-text-disabled);
   --rudi-component-kanban-drag-handle-hover-color: var(--rudi-color-text-subtle);
   --rudi-component-kanban-drop-indicator-color: var(--rudi-color-brand-primary);
@@ -738,6 +751,14 @@
   --rudi-component-footer-bottom-border: var(--rudi-color-border-default);
   --rudi-component-footer-bottom-color: var(--rudi-color-text-subtle);
   --rudi-component-page-header-subtitle-color: var(--rudi-color-text-subtle);
+  --rudi-component-description-list-term-color: var(--rudi-color-text-default);
+  --rudi-component-description-list-description-color: var(--rudi-color-text-default);
+  --rudi-component-description-list-divider-color: color-mix(in srgb, var(--rudi-color-text-default) 12%, transparent);
+  --rudi-component-sparkline-threshold-color: var(--rudi-color-text-subtle);
+  --rudi-component-sparkline-neutral-color: var(--rudi-color-text-subtle);
+  --rudi-component-sparkline-brand-color: var(--rudi-color-brand-primary);
+  --rudi-component-sparkline-error-color: var(--rudi-color-feedback-error);
+  --rudi-component-sparkline-success-color: var(--rudi-color-feedback-success);
   --rudi-component-section-header-description-color: var(--rudi-color-text-subtle);
   --rudi-component-divider-color: var(--rudi-color-border-default);
   --rudi-component-divider-label-color: var(--rudi-color-text-subtle);
@@ -853,6 +874,7 @@
   --rudi-component-number-field-stepper-border: var(--rudi-color-border-default);
   --rudi-component-number-field-stepper-disabled-text: var(--rudi-color-text-disabled);
   --rudi-component-image-placeholder-bg: var(--rudi-color-background-surface-sunken);
+  --rudi-component-image-fallback-color: var(--rudi-color-text-subtle);
   --rudi-component-rating-active-color: var(--rudi-color-feedback-warning);
   --rudi-component-rating-empty-color: var(--rudi-color-text-subtle);
   --rudi-component-rating-text-color: var(--rudi-color-text-subtle);
@@ -912,6 +934,7 @@
   --rudi-typography-prose-pre-bg: var(--rudi-color-background-surface-raised);
   --rudi-typography-prose-hr-color: var(--rudi-color-border-default);
   --rudi-typography-prose-h6-color: var(--rudi-color-text-subtle);
+  --rudi-component-select-required-color: var(--rudi-component-input-required-color);
   --rudi-component-switch-thumb-bg: var(--rudi-color-background-surface);
   --rudi-component-avatar-status-border-color: var(--rudi-color-background-surface);
   --rudi-component-app-shell-sidebar-bg: var(--rudi-color-background-surface);

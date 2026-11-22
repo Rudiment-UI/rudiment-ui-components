@@ -24,34 +24,28 @@ const meta = {
   argTypes: {
     src: {
       control: 'text',
-      description: 'The image source URL for the avatar',
       table: { category: 'Content' },
     },
     alt: {
       control: 'text',
-      description: 'Alternative text for the avatar image',
       table: { category: 'Content' },
     },
     name: {
       control: 'text',
-      description: 'The user name used to generate initials',
       table: { category: 'Content' },
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'The size of the avatar',
       table: { category: 'Appearance' },
     },
     status: {
       control: 'select',
       options: [undefined, 'success', 'warning', 'error', 'info'],
-      description: 'Optional status indicator displayed as a dot',
       table: { category: 'Appearance' },
     },
     className: {
       control: 'text',
-      description: 'Additional CSS class names to apply to the avatar',
       table: { category: 'Appearance' },
     },
   },

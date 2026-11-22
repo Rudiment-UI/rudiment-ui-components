@@ -9,14 +9,21 @@ import { VisuallyHidden } from 'react-aria'
 import { cn } from '@/utils/cn'
 import { RudiTableSelectionCheckbox } from './TableSelectionCheckbox'
 
+/** Props for `RudiTableHeader`. Inherits `columns`, `children` and `dependencies` from React Aria's `TableHeader`. */
 export interface RudiTableHeaderProps<T extends object>
   extends Omit<AriaTableHeaderProps<T>, 'className' | 'style'> {
+  /** Class merged onto the header element. */
   className?: string
 }
 
 /**
  * The header row. Pass static `RudiTableColumn` children, or `columns` plus a render function.
- * A selection column is prepended automatically when the table has a `selectionMode`.
+ * A selection column is prepended automatically when the table has a `selectionMode` and its `selectionBehavior` is `toggle` (the default).
+ *
+ * @example
+ * <RudiTableHeader>
+ *   <RudiTableColumn isRowHeader>Name</RudiTableColumn>
+ * </RudiTableHeader>
  */
 export function RudiTableHeader<T extends object>({
   columns,

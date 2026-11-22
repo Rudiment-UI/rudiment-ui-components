@@ -2,16 +2,16 @@
 
 > Rudiment is still in beta (not even beta, really) and should not be used in production. I'm happy to accept pull requests that help improve this tool.
 
-A complete, accessible React component library template built on [React Aria](https://react-spectrum.adobe.com/react-aria/), styled with [Tailwind CSS 4](https://tailwindcss.com/), and documented in [Storybook](https://storybook.js.org/).
+An accessible React 19 component library built on [React Aria](https://react-spectrum.adobe.com/react-aria/), styled with BEM classes and `--rudi-*` design-token custom properties, and documented in [Storybook](https://storybook.js.org/).
 
-Clone it. Swap the tokens. Ship your design system.
+Install it as a package, or clone it, swap the tokens, and ship your own design system.
 
 ## What's included
 
 | Category              | Components                                                                                                                                                                               |
 | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **UI Components**     | Button, Input, Checkbox, CheckboxGroup, Select, Dialog, Switch, RadioGroup, Tooltip, Alert, IconButton, Badge, Tag, Avatar, Card, Icon, NavItem, ProgressBar, StatCard, CircularProgress |
-| **Charts**            | BarChart, LineChart, DonutChart                                                                                                                                                          |
+| **Charts**            | BarChart, LineChart, DonutChart, Sparkline                                                                                                                                               |
 | **Kanban**            | KanbanBoard, KanbanColumn, KanbanCard                                                                                                                                                    |
 | **Typography**        | Heading, Text, Prose                                                                                                                                                                     |
 | **Layout Primitives** | Box, Stack, Cluster, Grid, Sidebar, Center, Cover, Switcher                                                                                                                              |
@@ -20,22 +20,6 @@ Clone it. Swap the tokens. Ship your design system.
 Also included: a three-tier design token architecture, eight built-in themes (Default plus the Roomy, Soft, and Compressed modifier themes, each in light and dark variants), motion tokens, a data visualization palette, surface tokens, a Vitest test suite with accessibility checks, and interactive Storybook documentation.
 
 ## Quick start
-
-### As a template (recommended for your own design system)
-
-```bash
-# Clone the template
-git clone https://github.com/Rudiment-UI/rudiment-ui.git my-design-system
-cd my-design-system
-
-# Install dependencies
-npm install
-
-# Start Storybook (development)
-npm run dev
-```
-
-Open [http://localhost:6006](http://localhost:6006) to browse components and documentation.
 
 ### As a dependency
 
@@ -57,6 +41,22 @@ This ships the component styles plus all eight themes. It does **not** include T
 
 Every export is marked `"use client"`, so the package can be imported directly into a Next.js App Router Server Component without a re-export barrel.
 
+### As a template (to build your own design system)
+
+```bash
+# Clone the template
+git clone https://github.com/Rudiment-UI/rudiment-ui.git my-design-system
+cd my-design-system
+
+# Install dependencies
+npm install
+
+# Start Storybook (development)
+npm run dev
+```
+
+Open [http://localhost:6006](http://localhost:6006) to browse components and documentation.
+
 ---
 
 # Using Rudiment UI in your app
@@ -69,6 +69,41 @@ import 'rudiment-ui/styles'
 ```
 
 That single import is the whole setup. There is no provider to mount — `RudiDialog` portals itself, and `useChartTheme` reads tokens straight off `document.documentElement`.
+
+## API reference for AI agents and tooling
+
+The package ships a reference generated from the TypeScript source, so it always matches the version you installed:
+
+| File | Contents |
+| ---- | -------- |
+| `node_modules/rudiment-ui/dist/llms.txt` | Read this first: conventions, setup, themes and a one-line index of every component (about 10 KB) |
+| `node_modules/rudiment-ui/dist/llms-full.txt` | Every component's props, defaults, examples, compound parts, inherited React Aria props and `ref` target, in Markdown |
+| `node_modules/rudiment-ui/dist/components.json` | The same data as JSON, including types and descriptions for inherited props |
+| `node_modules/rudiment-ui/dist/**/*.d.ts` | Type declarations with JSDoc on every component and prop, so editor hovers show the same descriptions |
+
+They are also exported as `rudiment-ui/llms.txt`, `rudiment-ui/llms-full.txt` and `rudiment-ui/components.json`. To point a coding agent at the library, add this to your project's `CLAUDE.md`, `AGENTS.md` or rules file:
+
+```md
+UI components come from `rudiment-ui`. Before using one, read
+`node_modules/rudiment-ui/dist/llms.txt` for the conventions, then look the component
+up in `llms-full.txt` (search for `### RudiName`) for its props.
+```
+
+### MCP server
+
+The package also ships an [MCP](https://modelcontextprotocol.io) server, so agents can query the API instead of reading files. It runs locally from your `node_modules` and needs no network or extra install. It has four tools: `get_conventions`, `list_components`, `get_component` and `search`.
+
+```bash
+# Claude Code, from your project root (add --scope project to share it via .mcp.json)
+claude mcp add rudiment-ui -- npx --no rudiment-ui-mcp
+```
+
+```jsonc
+// .mcp.json / .cursor/mcp.json
+{ "mcpServers": { "rudiment-ui": { "command": "npx", "args": ["--no", "rudiment-ui-mcp"] } } }
+```
+
+See [`mcp/README.md`](mcp/README.md) for VS Code, Codex and Claude Desktop setup, the tool reference and troubleshooting.
 
 ## Themes
 
@@ -190,6 +225,8 @@ function LoginForm() {
 - **Layout primitives are polymorphic and spread props**; components are not. `RudiStack`, `RudiBox`, `RudiText` etc. accept `as` plus any DOM attribute. `RudiButton`, `RudiCard`, `RudiAlert` have closed prop interfaces.
 
 ### Component reference
+
+The tables below summarise the most-used props. The complete reference, generated from the source, is [`dist/llms-full.txt`](#api-reference-for-ai-agents-and-tooling). It also covers components not listed here: `RudiTextarea`, `RudiLink`, `RudiImage`, `RudiDivider`, `RudiDot`, `RudiRating`, `RudiStepper`, `RudiBreadcrumb`, `RudiPagination`, `RudiDescriptionList`, `RudiSparkline` and the Menu, Tabs and Table parts.
 
 **Actions**
 
@@ -435,7 +472,8 @@ If you cloned the template rather than installing the package:
 | Command                   | Description                                  |
 | ------------------------- | -------------------------------------------- |
 | `npm run dev`             | Start Storybook dev server on port 6006      |
-| `npm run build`           | Build the component library for distribution |
+| `npm run build`           | Build the library and generate the agent reference (`dist/llms*.txt`, `dist/components.json`) |
+| `npm run build:docs`      | Regenerate only the agent reference          |
 | `npm run build-storybook` | Build a static Storybook site                |
 | `npm run build:tokens`    | Generate CSS from design token JSON files    |
 | `npm run test`            | Run the test suite                           |
@@ -465,7 +503,7 @@ tokens/
 ## Architecture
 
 - **React Aria** handles accessibility (ARIA attributes, keyboard navigation, focus management)
-- **Tailwind CSS 4** provides utility-first styling
+- **BEM classes + CSS custom properties** style every component; each component imports its own stylesheet, and the published CSS contains no Tailwind and no reset (Tailwind is used only inside Storybook)
 - **Style Dictionary 4** transforms design tokens into CSS custom properties
 - **Storybook 10** provides the documentation and development environment
 - **Vitest** with vitest-axe runs automated accessibility checks on every component

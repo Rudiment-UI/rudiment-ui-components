@@ -23,38 +23,31 @@ const meta = {
   argTypes: {
     children: {
       control: 'text',
-      description: 'The text or content displayed inside the tag',
       table: { category: 'Content' },
     },
     variant: {
       control: 'select',
       options: ['default', 'success', 'warning', 'error', 'info'],
-      description: 'The visual style and semantic meaning of the tag',
       table: { category: 'Appearance' },
     },
     className: {
       control: 'text',
-      description: 'Additional CSS class names to apply to the tag',
       table: { category: 'Appearance' },
     },
     dismissible: {
       control: 'boolean',
-      description: 'When true, shows a close button to dismiss the tag',
       table: { category: 'Content' },
     },
     onDismiss: {
       action: 'dismissed',
-      description: 'Callback fired when the close button is clicked',
       table: { category: 'Content' },
     },
     onPress: {
       action: 'pressed',
-      description: 'Callback fired when the tag itself is clicked',
       table: { category: 'Content' },
     },
     isDisabled: {
       control: 'boolean',
-      description: 'When true, disables all interactions on the tag',
       table: { category: 'Content' },
     },
   },

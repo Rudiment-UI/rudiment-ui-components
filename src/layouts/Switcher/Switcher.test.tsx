@@ -101,4 +101,27 @@ describe('Switcher', () => {
     )
     expect(await axe(container)).toHaveNoViolations()
   })
+
+  it('stacks when the child count exceeds limit and does not leak limit to the DOM', () => {
+    const { container } = render(
+      <RudiSwitcher limit={2}>
+        <p>1</p>
+        <p>2</p>
+        <p>3</p>
+      </RudiSwitcher>,
+    )
+    expect(container.firstChild).toHaveClass('rudi-switcher--stacked')
+    expect(container.firstChild).not.toHaveAttribute('limit')
+  })
+
+  it('does not stack when the child count is within limit', () => {
+    const { container } = render(
+      <RudiSwitcher limit={3}>
+        <p>1</p>
+        <p>2</p>
+        <p>3</p>
+      </RudiSwitcher>,
+    )
+    expect(container.firstChild).not.toHaveClass('rudi-switcher--stacked')
+  })
 })

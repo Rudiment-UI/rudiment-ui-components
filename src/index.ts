@@ -48,6 +48,13 @@ export type { RudiKeyboardProps } from './components/Menu/Keyboard'
 export { RudiSubmenuTrigger } from './components/Menu/SubmenuTrigger'
 export type { RudiSubmenuTriggerProps } from './components/Menu/SubmenuTrigger'
 
+/**
+ * React Aria's `Separator`, re-exported unchanged and unstyled. Prefer
+ * `RudiMenuSeparator` inside a `RudiMenu` and `RudiDivider` between page content.
+ *
+ * @example
+ * <RudiSeparator />
+ */
 export { Separator as RudiSeparator } from 'react-aria-components'
 
 export { RudiDialog } from './components/Dialog/Dialog'
@@ -146,6 +153,9 @@ export type { RudiBarChartProps } from './components/Charts/BarChart/BarChart'
 export { RudiLineChart } from './components/Charts/LineChart/LineChart'
 export type { RudiLineChartProps, RudiChartReferenceLine } from './components/Charts/LineChart/LineChart'
 
+export { RudiSparkline } from './components/Charts/Sparkline/Sparkline'
+export type { RudiSparklineProps } from './components/Charts/Sparkline/Sparkline'
+
 export { RudiDonutChart } from './components/Charts/DonutChart/DonutChart'
 export type { RudiDonutChartProps, RudiDonutChartDatum } from './components/Charts/DonutChart/DonutChart'
 
@@ -214,6 +224,12 @@ export type {
 
 export { RudiTopBar } from './components/TopBar/TopBar'
 export type { RudiTopBarProps } from './components/TopBar/TopBar'
+
+export { RudiDescriptionList } from './components/DescriptionList/DescriptionList'
+export type {
+  RudiDescriptionListProps,
+  RudiDescriptionListItem,
+} from './components/DescriptionList/DescriptionList'
 
 export { RudiPageHeader } from './components/PageHeader/PageHeader'
 export type { RudiPageHeaderProps } from './components/PageHeader/PageHeader'

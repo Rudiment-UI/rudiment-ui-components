@@ -14,11 +14,21 @@ import { RudiIconButton } from '@/components/IconButton/IconButton'
 import { toastQueue, type RudiToastContent, type RudiToastVariant } from './toastQueue'
 import './toast.css'
 
+/** Props for `RudiToastRegion`. */
 export interface RudiToastRegionProps {
-  /** Corner of the viewport the toasts stack from. */
+  /**
+   * Where the toasts stack: the top or bottom inline-end corner of the viewport, or bottom center.
+   * @default 'bottom-end'
+   */
   placement?: 'top-end' | 'bottom-end' | 'bottom-center'
   /** Accessible name for the notifications landmark. Defaults to a localized "Notifications" label. */
   'aria-label'?: string
+  /**
+   * Accessible label of every toast's close button.
+   * @default 'Close'
+   */
+  closeLabel?: string
+  /** Class merged onto the region element. */
   className?: string
 }
 
@@ -29,7 +39,13 @@ const VARIANT_ICON: Record<RudiToastVariant, string> = {
   error: 'lucide:circle-alert',
 }
 
-function RudiToast({ toast }: { toast: QueuedToast<RudiToastContent> }) {
+function RudiToast({
+  toast,
+  closeLabel,
+}: {
+  toast: QueuedToast<RudiToastContent>
+  closeLabel: string
+}) {
   const state = useContext(ToastStateContext)
   const { title, description, variant } = toast.content
 
@@ -52,7 +68,7 @@ function RudiToast({ toast }: { toast: QueuedToast<RudiToastContent> }) {
         )}
       </ToastContent>
       <RudiIconButton
-        aria-label="Close"
+        aria-label={closeLabel}
         variant="ghost"
         size="sm"
         className="rudi-toast__close"
@@ -68,11 +84,16 @@ function RudiToast({ toast }: { toast: QueuedToast<RudiToastContent> }) {
  * Renders toasts queued with `rudiToast`. Mount exactly one, near the app
  * root. It portals into `document.body` and renders nothing while the queue
  * is empty. The region is an ARIA landmark (F6 moves focus into it) and each
- * toast is announced to screen readers when it appears.
+ * toast is announced to screen readers when it appears. Queue toasts with `rudiToast`, not
+ * through props.
+ *
+ * @example
+ * <RudiToastRegion placement="bottom-end" />
  */
 export function RudiToastRegion({
   placement = 'bottom-end',
   'aria-label': ariaLabel,
+  closeLabel = 'Close',
   className,
 }: RudiToastRegionProps) {
   return (
@@ -81,7 +102,7 @@ export function RudiToastRegion({
       aria-label={ariaLabel}
       className={cn('rudi-toast-region', `rudi-toast-region--${placement}`, className)}
     >
-      {({ toast }) => <RudiToast toast={toast} />}
+      {({ toast }) => <RudiToast toast={toast} closeLabel={closeLabel} />}
     </ToastRegion>
   )
 }

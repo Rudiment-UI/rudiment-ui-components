@@ -25,17 +25,25 @@ import {
 } from './CalendarParts'
 import './date-picker.css'
 
+/** Props for `RudiDatePicker`. Values are plain strings, not date objects. */
 export interface RudiDatePickerProps {
+  /** Visible label and the field's accessible name. Required. */
   label: string
   /**
    * Controlled value: `YYYY-MM-DD` for `granularity="day"`, or
    * `YYYY-MM-DDTHH:mm` for `granularity="minute"`. `null` clears the field.
    */
   value?: string | null
+  /**
+   * Initial value for an uncontrolled field, in the same string format as `value`. Read only on mount.
+   */
   defaultValue?: string | null
   /** Receives the value in the same string format, or `null` when cleared or incomplete. */
   onChange?: (value: string | null) => void
-  /** `day` (default) shows date segments; `minute` adds hour and minute segments. */
+  /**
+   * `day` shows date segments; `minute` adds hour and minute segments.
+   * @default 'day'
+   */
   granularity?: RudiDateGranularity
   /** Earliest selectable value, same string format as `value`. */
   minValue?: string
@@ -43,19 +51,39 @@ export interface RudiDatePickerProps {
   maxValue?: string
   /** Return `true` to disable a `YYYY-MM-DD` date (weekends, holidays). */
   isDateUnavailable?: (date: string) => boolean
+  /** Help text under the field. Hidden while the field is invalid (an `errorMessage`, or a value outside `minValue`/`maxValue` or flagged by `isDateUnavailable`). */
   description?: string
   /** Shows the message and marks the field invalid. */
   errorMessage?: string
+  /**
+   * Marks the field required and adds an asterisk to the label.
+   * @default false
+   */
   isRequired?: boolean
+  /**
+   * Disables the field and the calendar button.
+   * @default false
+   */
   isDisabled?: boolean
+  /**
+   * Makes the value focusable but not editable, and disables the calendar.
+   * @default false
+   */
   isReadOnly?: boolean
-  /** Form field name; submits the ISO string. */
+  /** Form field name. Submits `YYYY-MM-DD`, or `YYYY-MM-DDTHH:mm:ss` with `granularity="minute"`. */
   name?: string
   /** Force a 12- or 24-hour clock in minute granularity. Defaults to the locale. */
   hourCycle?: 12 | 24
+  /** Extra class names for the wrapper element, merged with the component's own classes. */
   className?: string
 }
 
+/**
+ * A date (or date and time) field with segmented keyboard entry and a calendar popover. Values are ISO strings: `YYYY-MM-DD`, or `YYYY-MM-DDTHH:mm` with `granularity="minute"`. `label` is required. Use `RudiDateRangePicker` for a start and end date. Ref points at the wrapper `div`.
+ *
+ * @example
+ * <RudiDatePicker label="Due date" value={due} onChange={setDue} />
+ */
 export const RudiDatePicker = React.forwardRef<HTMLDivElement, RudiDatePickerProps>(
   function RudiDatePicker(
     {

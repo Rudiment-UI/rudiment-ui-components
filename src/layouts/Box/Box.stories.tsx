@@ -22,28 +22,21 @@ const meta = {
   argTypes: {
     as: {
       control: 'text',
-      description:
-        "The HTML element to render (e.g., 'div', 'section', 'article')",
       table: { category: 'Content' },
     },
     children: {
       table: { category: 'Content' },
-      description: 'Content to display inside the box',
     },
     bordered: {
       control: 'boolean',
-      description: 'Adds a visible border around the container',
       table: { category: 'Appearance' },
     },
     invert: {
       control: 'boolean',
-      description: 'Swaps foreground and background colors for visual emphasis',
       table: { category: 'Appearance' },
     },
     padding: {
       control: 'text',
-      description:
-        "Inner spacing using any CSS length value (e.g., '1rem', '2rem')",
       table: { category: 'Layout' },
     },
   },

@@ -15,11 +15,13 @@ import { cn } from '@/utils/cn'
 import { RudiIcon } from '@/components/Icon/Icon'
 import './combo-box.css'
 
+/** Props for `RudiComboBox`. */
 export interface RudiComboBoxProps<T extends object> {
   /** Visible label. Required for accessibility. */
   label: string
   /** The options. Render each with `RudiOption`; give rich content a `textValue` so it can be filtered. */
   items: Iterable<T>
+  /** Render function returning a `RudiOption` for each item. */
   children: (item: T) => ReactNode
   /** The selected option key (controlled). */
   selectedKey?: Key | null
@@ -33,19 +35,36 @@ export interface RudiComboBoxProps<T extends object> {
   defaultInputValue?: string
   /** Called with the input text whenever it changes. */
   onInputChange?: (value: string) => void
+  /** Hint text shown in the input while it is empty. */
   placeholder?: string
+  /** Help text under the field. Hidden while `errorMessage` is shown. */
   description?: string
+  /** Error text shown under the field. Setting it marks the field invalid. */
   errorMessage?: string
+  /**
+   * Marks the field required and adds an asterisk to the label.
+   * @default false
+   */
   isRequired?: boolean
+  /**
+   * Disables the input and the chevron button.
+   * @default false
+   */
   isDisabled?: boolean
   /** Form field name. The input's text is submitted under this name. */
   name?: string
-  /** What opens the list: typing (`input`, default), focusing the field (`focus`), or only the arrow keys / chevron button (`manual`). */
+  /** What opens the list: typing (`input`), focusing the field (`focus`), or only the arrow keys / chevron button (`manual`).
+   * @default 'input'
+   */
   menuTrigger?: 'focus' | 'input' | 'manual'
   /** Keep typed text that matches no option instead of reverting to the selected option on blur. */
   allowsCustomValue?: boolean
-  /** Message shown in the popover when the typed text matches no option. */
+  /**
+   * Message shown in the popover when the typed text matches no option.
+   * @default 'No matches'
+   */
   emptyMessage?: string
+  /** Extra class names for the wrapper element, merged with the component's own classes. */
   className?: string
 }
 
@@ -129,8 +148,14 @@ function Option({ item, state }: OptionInternalProps) {
 }
 
 /**
- * A searchable select: a text input that filters a list of options.
- * Options are `RudiOption` elements, the same as `RudiSelect`.
+ * A searchable select: a text input that filters a list of options by case- and accent-insensitive substring
+ * match. Options are `RudiOption` elements, the same as `RudiSelect`; prefer `RudiSelect` for short lists.
+ * `label` is required. The text in the input, not the selected key, is what a `name`d form field submits.
+ *
+ * @example
+ * <RudiComboBox label="City" items={cities} onSelectionChange={setCity}>
+ *   {(c) => <RudiOption key={c.id}>{c.name}</RudiOption>}
+ * </RudiComboBox>
  */
 export function RudiComboBox<T extends object>(props: RudiComboBoxProps<T>) {
   const {

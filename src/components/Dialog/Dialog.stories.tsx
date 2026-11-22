@@ -27,24 +27,19 @@ const meta: Meta<DialogStoryArgs> = {
   argTypes: {
     title: {
       control: 'text',
-      description: 'The heading displayed at the top of the dialog',
       table: { category: 'Content' },
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'The width of the dialog panel',
       table: { category: 'Appearance' },
     },
     className: {
       control: 'text',
-      description: 'Additional CSS class names to apply to the dialog panel',
       table: { category: 'Appearance' },
     },
     isDismissable: {
       control: 'boolean',
-      description:
-        'Whether the dialog can be closed by clicking the overlay or pressing Escape',
       table: { category: 'State' },
     },
   },

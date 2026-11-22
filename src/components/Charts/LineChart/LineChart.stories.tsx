@@ -36,11 +36,10 @@ const meta = {
   argTypes: {
     referenceLines: {
       control: 'object',
-      description: 'Horizontal guide lines: `{ y, label, tone? }`',
       table: { category: 'Content' },
     },
-    yDomain: { control: 'object', description: "Y-axis range; `'auto'` for either end", table: { category: 'Layout' } },
-    unit: { control: 'text', description: 'Unit suffix for ticks and tooltip values', table: { category: 'Content' } },
+    yDomain: { control: 'object', table: { category: 'Layout' } },
+    unit: { control: 'text', table: { category: 'Content' } },
     curved: {
       control: 'boolean',
       table: { category: 'Appearance' },

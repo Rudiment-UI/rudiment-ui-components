@@ -4,17 +4,23 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  /*
+   * Spacing is a gap on the stack, not a margin on each child. A margin rule (`> * + *`) resolves
+   * --stack-space on the child, so a nested stack with its own `space` used that value for its distance
+   * from the previous sibling instead of the parent's.
+   */
+  gap: var(--stack-space);
 }
 
 .rudi-stack > * {
   margin-block: 0;
 }
 
-.rudi-stack > * + * {
-  margin-block-start: var(--stack-space);
+/* Recursive: apply spacing at any nesting depth, with margins instead of the gap. */
+.rudi-stack--recursive {
+  gap: 0;
 }
 
-/* Recursive: apply spacing at any nesting depth */
 .rudi-stack--recursive * + * {
   margin-block-start: var(--stack-space);
 }

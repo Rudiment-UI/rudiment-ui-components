@@ -13,36 +13,82 @@ import { useChartTheme } from '@/hooks/useChartTheme'
 import { cn } from '@/utils/cn'
 import '../charts.css'
 
+/** Props for `RudiLineChart`. */
 export interface RudiLineChartProps {
-  /**
-   * Row data. Values may be `null` to represent gaps in a series (e.g. a
-   * burndown line that stops partway through the sprint). Strongly-typed data
-   * objects are accepted directly — no cast required.
-   */
+  /** Row data. Values may be `null` to represent gaps in a series (e.g. a burndown line that stops partway through the sprint). Strongly-typed data objects are accepted directly, with no cast required. */
   data: Array<Record<string, string | number | null>>
+  /** Keys of `data` rows to plot, one line each. Colors come from the chart theme in order. */
   dataKeys: string[]
+  /** Key of `data` rows used for the x axis labels. */
   indexKey: string
+  /**
+   * Draws smoothed lines instead of straight segments.
+   * @default true
+   */
   curved?: boolean
+  /**
+   * Draws a dot at each data point.
+   * @default true
+   */
   showDots?: boolean
+  /**
+   * Shows grid lines.
+   * @default true
+   */
   showGrid?: boolean
+  /**
+   * Shows the series legend.
+   * @default true
+   */
   showLegend?: boolean
+  /**
+   * Chart height in px.
+   * @default 300
+   */
   height?: number
+  /** Accessible name describing the chart. */
   label: string
-  /** Horizontal guide lines, e.g. a temperature set-point or a target. */
+  /**
+   * Horizontal guide lines, e.g. a temperature set-point or a target. The y axis extends to keep them in view.
+   * @default []
+   */
   referenceLines?: RudiChartReferenceLine[]
   /** Y-axis range; use `'auto'` for either end. Keeps reference lines in view. */
   yDomain?: [number | 'auto', number | 'auto']
   /** Unit suffix for y-axis ticks and tooltip values, e.g. `°C`. */
   unit?: string
+  /** Extra class names, merged with the component's own classes rather than replacing them. */
   className?: string
 }
 
+/** A horizontal guide line drawn across a `RudiLineChart`. */
 export interface RudiChartReferenceLine {
+  /** Value on the y axis where the line is drawn. */
   y: number
+  /** Text shown on the line, at its top inline-end. */
   label: string
+  /**
+   * Semantic color of the line and its label.
+   * @default 'default'
+   */
   tone?: 'default' | 'success' | 'warning' | 'error' | 'info'
 }
 
+/**
+ * Line chart with one series per data key, built on Recharts and the library chart theme. Use `RudiBarChart` to compare categories.
+ * `label` is required; the chart is exposed as a single `role="img"` with that name, so summarize the data in it. It fills its container's width.
+ * @example
+ * ```tsx
+ * <RudiLineChart
+ *   label="Temperature over 24 hours"
+ *   data={readings}
+ *   indexKey="time"
+ *   dataKeys={['temp']}
+ *   unit="°C"
+ *   referenceLines={[{ y: 8, label: 'Set point', tone: 'warning' }]}
+ * />
+ * ```
+ */
 export function RudiLineChart({
   data,
   dataKeys,

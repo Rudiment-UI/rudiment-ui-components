@@ -8,11 +8,21 @@ export interface RudiBrandProps {
   name: string
   /** Logo mark (an icon, `<svg>` or `<img>`). Decorative: hidden from assistive tech. */
   mark?: React.ReactNode
-  /** Hide the visible name when the mark already includes the wordmark. */
+  /**
+   * Hide the visible name when the mark already includes the wordmark.
+   *
+   * @default false
+   */
   hideName?: boolean
   /** Makes the lockup a link (usually home). Routes client-side under `RudiRouterProvider`. */
   href?: string
+  /**
+   * Size of the mark and name.
+   *
+   * @default 'md'
+   */
   size?: 'sm' | 'md' | 'lg'
+  /** Extra class names, merged with the built-in classes. */
   className?: string
 }
 
@@ -39,7 +49,12 @@ function BrandLink({ href, className, children }: { href: string; className: str
   )
 }
 
-/** Logo lockup: a mark plus the product name, optionally linking home. */
+/**
+ * Logo lockup: a mark plus the product name, optionally linking home. Use it in `RudiTopBar` or the sidebar header. `name` is the accessible name even when `hideName` is set. It does not spread DOM props.
+ *
+ * @example
+ * <RudiBrand name="Acme" mark={<AcmeLogo />} href="/" />
+ */
 export function RudiBrand({ name, mark, hideName = false, href, size = 'md', className }: RudiBrandProps) {
   const classes = cn('rudi-brand', `rudi-brand--${size}`, href && 'rudi-brand--link', className)
   const content = <BrandContent name={name} mark={mark} hideName={hideName} />

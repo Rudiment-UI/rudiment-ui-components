@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { RudiAlert } from './Alert'
+import { RudiButton } from '@/components/Button/Button'
 
 const meta = {
   title: 'Components/Alert',
@@ -24,46 +25,39 @@ const meta = {
   argTypes: {
     title: {
       control: 'text',
-      description: 'An optional bold heading displayed above the alert content',
       table: { category: 'Content' },
     },
     children: {
       control: 'text',
-      description: 'The body content of the alert message',
       table: { category: 'Content' },
     },
     icon: {
       control: 'text',
-      description:
-        'An optional Iconify icon name displayed before the alert content',
       table: { category: 'Content' },
     },
     variant: {
       control: 'select',
       options: ['info', 'success', 'warning', 'error'],
-      description: 'The visual style and semantic meaning of the alert',
       table: { category: 'Appearance' },
     },
     className: {
       control: 'text',
-      description: 'Additional CSS class names to apply to the alert wrapper',
       table: { category: 'Appearance' },
     },
     isPolite: {
       control: 'boolean',
-      description:
-        'When true, uses role="status" instead of role="alert" for a less intrusive announcement',
       table: { category: 'State' },
     },
     dismissible: {
       control: 'boolean',
-      description:
-        'When true, renders a close button that removes the alert from the DOM',
       table: { category: 'State' },
+    },
+    action: {
+      control: false,
+      table: { category: 'Content' },
     },
     onDismiss: {
       action: 'dismissed',
-      description: 'Callback fired when the dismiss button is clicked',
       table: { category: 'Events' },
     },
   },
@@ -154,6 +148,30 @@ export const AllVariants: Story = {
       <RudiAlert variant="error" icon="mdi:alert-circle" title="Error">
         This is an error alert.
       </RudiAlert>
+    </div>
+  ),
+}
+
+export const WithAction: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <RudiAlert
+        variant="warning"
+        icon="mdi:alert"
+        title="Temperature out of range"
+        action={<RudiButton size="sm" variant="secondary">Review</RudiButton>}
+      >
+        Shipment REF-1042 exceeded its limit for 12 minutes.
+      </RudiAlert>
+      <div style={{ inlineSize: '16rem' }}>
+        <RudiAlert
+          variant="info"
+          dismissible
+          action={<RudiButton size="sm" variant="secondary">Review</RudiButton>}
+        >
+          A narrow alert wraps the action below the text.
+        </RudiAlert>
+      </div>
     </div>
   ),
 }

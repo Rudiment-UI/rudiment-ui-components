@@ -77,36 +77,28 @@ const meta = {
   argTypes: {
     'aria-label': {
       control: 'text',
-      description:
-        'An accessible label describing the button action (required for screen readers)',
       table: { category: 'Content' },
     },
     children: {
       control: false,
-      description: 'The icon element rendered inside the button',
       table: { category: 'Content' },
     },
     variant: {
       control: 'select',
       options: ['primary', 'secondary', 'destructive', 'ghost'],
-      description: 'The visual style of the icon button',
       table: { category: 'Appearance' },
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'The size of the icon button',
       table: { category: 'Appearance' },
     },
     className: {
       control: 'text',
-      description: 'Additional CSS class names to apply to the icon button',
       table: { category: 'Appearance' },
     },
     isLoading: {
       control: 'boolean',
-      description:
-        'Whether the button shows a loading state and disables interaction',
       table: { category: 'State' },
     },
     isDisabled: {

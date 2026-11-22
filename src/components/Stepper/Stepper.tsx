@@ -2,21 +2,39 @@ import { cn } from '@/utils/cn'
 import { RudiIcon } from '@/components/Icon/Icon'
 import './stepper.css'
 
+/** Progress state of a step: finished, in progress, or not yet reached. */
 export type RudiStepStatus = 'complete' | 'current' | 'upcoming'
 
+/** One step in a `RudiStepper`. */
 export interface RudiStepperStep {
+  /** Step title. */
   label: string
+  /** Secondary text shown under the label. */
   description?: string
-  /** Icon name for the node. Falls back to a check (complete) or the step number. */
+  /** Iconify icon name for the node. Falls back to a check (complete) or the step number. */
   icon?: string
+  /**
+   * Progress state of the step.
+   * @default 'upcoming'
+   */
   status?: RudiStepStatus
 }
 
+/** Props for `RudiStepper`. */
 export interface RudiStepperProps {
+  /** Steps in order. */
   steps: RudiStepperStep[]
-  /** `horizontal` — a progress track; `vertical` — a timeline. */
+  /**
+   * `horizontal` is a progress track; `vertical` is a timeline.
+   * @default 'horizontal'
+   */
   orientation?: 'horizontal' | 'vertical'
+  /**
+   * Size of the step nodes and text.
+   * @default 'md'
+   */
   size?: 'sm' | 'md'
+  /** Extra class names, merged with the component's own classes rather than replacing them. */
   className?: string
 }
 
@@ -26,6 +44,20 @@ function nodeContent(step: RudiStepperStep, index: number) {
   return <span className="rudi-stepper__number">{index + 1}</span>
 }
 
+/**
+ * Ordered list of steps that shows progress through a multi-step process. Display only: it has no internal state or navigation, so set each step's `status` from your own state.
+ * The step with `status: 'current'` gets `aria-current="step"`; steps without a status are treated as `upcoming`.
+ * @example
+ * ```tsx
+ * <RudiStepper
+ *   steps={[
+ *     { label: 'Cart', status: 'complete' },
+ *     { label: 'Payment', status: 'current' },
+ *     { label: 'Confirm' },
+ *   ]}
+ * />
+ * ```
+ */
 export function RudiStepper({
   steps,
   orientation = 'horizontal',

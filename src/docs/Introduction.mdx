@@ -4,71 +4,123 @@ import { Meta } from '@storybook/addon-docs/blocks'
 
 # Introduction to Rudiment UI
 
-Rudiment UI is a template for building accessible React component libraries. It's built on [React Aria](https://react-spectrum.adobe.com/react-aria/) for accessibility and [Tailwind CSS 4](https://tailwindcss.com/) for styling.
+Rudiment UI is an accessible React 19 component library. It's built on [React Aria](https://react-spectrum.adobe.com/react-aria/) for accessibility and styled with BEM classes and `--rudi-*` design-token custom properties. The published CSS contains no Tailwind and no reset, so it won't restyle the rest of your app.
+
+You can install it as a package, or clone it as the starting point for your own design system.
 
 ## Intended audience
 
-Rudiment UI is for teams that want to start with a solid foundation and customize it for their brand. Instead of building a component library from scratch, you get:
+Rudiment UI is for teams that want a solid foundation they can customize for their brand. Instead of building a component library from scratch, you get:
 
 - **Components** with built-in accessibility
 - **Design tokens** that make theming straightforward, including dark mode support
 - **Tests** that verify behavior and accessibility
-- **Documentation** powered by Storybook
+- **Documentation** in Storybook, plus a machine-readable API reference for AI coding agents
 
-## Get started
+## Use it as a package
 
-1. Clone the repository.
+1. Install it. `react` and `react-dom` 19 are peer dependencies.
 
-2. Install dependencies.
+   ```bash
+   npm install rudiment-ui
+   ```
+
+2. Import the stylesheet once, at your app's entry point.
+
+   ```js
+   import 'rudiment-ui/styles'
+   ```
+
+3. Import components. Every export carries the `Rudi` prefix.
+
+   ```jsx
+   import { RudiButton, RudiInput, RudiStack } from 'rudiment-ui'
+   ```
+
+There's no provider to mount. Every export is marked `'use client'`, so you can import it directly from a Next.js App Router Server Component.
+
+## Customize it as a template
+
+1. Clone the repository and install dependencies.
 
    ```bash
    npm install
    ```
 
-3. Start Storybook.
+2. Start Storybook.
 
    ```bash
    npm run dev
    ```
 
-4. Customize design tokens by editing `tokens/tokens.json` (primitive values), `tokens/semantic.json` (theme-level decisions), and `tokens/themes/dark/semantic.json` (dark mode overrides).
+3. Customize design tokens:
+   - `tokens/tokens.json` holds primitive values.
+   - `tokens/semantic.json` holds theme-level decisions.
+   - `tokens/components.json` holds per-component tokens.
+   - `tokens/themes/<name>/` holds each theme's overrides.
 
-5. Build the tokens.
+4. Build the tokens.
 
    ```bash
    npm run build:tokens
    ```
 
-6. Switch themes with the theme picker in the Storybook toolbar, or set `data-theme` on your root element (supported values: `light`, `dark`, and the `roomy`, `soft`, and `compressed` modifier themes, each with a `-dark` variant).
+## Themes
 
-## Import components
+Switch themes with the theme picker in the Storybook toolbar, or set `data-theme` on any element.
 
-Import any component directly:
+- **Default:** don't set the attribute. There is no `light` value.
+- **Built-in themes:** `dark`, `roomy`, `roomy-dark`, `soft`, `soft-dark`, `compressed` and `compressed-dark`.
+- **`auto`:** follows the operating system's light or dark preference.
 
-```jsx
-import { RudiButton, RudiInput, RudiBadge, RudiCard, RudiIcon, RudiStack, RudiBarChart, RudiKanbanBoard } from 'rudiment-ui'
-```
+See [Theming](?path=/docs/getting-started-theming--docs).
 
-## Import styles
+## Conventions worth knowing
 
-Include the stylesheet in your app entry point:
-
-```js
-import 'rudiment-ui/styles'
-```
+- **`onPress`, not `onClick`.** Interactive components use React Aria press events, which cover mouse, touch and keyboard.
+- **`onChange` receives a value**, not an event. For example, `RudiInput` passes a `string` and `RudiCheckbox` passes a `boolean`.
+- **`label` is a required prop** on form fields, progress indicators and charts. It becomes the accessible name.
+- **Icons are Iconify name strings**, such as `icon="mdi:close"`. You don't import icon components.
+- **Layout spacing takes CSS lengths**, such as `space="1.5rem"`. See [Layout Primitives](?path=/docs/getting-started-layout-primitives--docs).
 
 ## Library contents
 
-| Category              | Count         | Examples                             |
-| --------------------- | ------------- | ------------------------------------ |
-| UI components         | 34            | RudiButton, RudiInput, RudiTextarea, RudiCheckbox, RudiCheckboxGroup, RudiRadioGroup, RudiSelect, RudiSwitch, RudiMenu, RudiDialog, RudiTooltip, RudiAlert, RudiBadge, RudiTag, RudiIcon, RudiIconButton, RudiCard, RudiStatCard, RudiAvatar, RudiProgressBar, RudiCircularProgress, RudiBreadcrumb, RudiPagination, RudiStepper, RudiRating, RudiLink, RudiDivider, RudiDot, RudiImage, RudiNavItem, RudiBarChart, RudiLineChart, RudiDonutChart, RudiKanbanBoard |
-| Typography components | 3             | RudiHeading, RudiText, RudiProse                 |
-| Layout primitives     | 8             | RudiBox, RudiStack, RudiCluster, RudiGrid, RudiSidebar, RudiCenter, RudiCover, RudiSwitcher    |
-| Hooks                 | 2             | useLoadingButton, useChartTheme      |
-| Design tokens         | Full set      | Colors, spacing, typography, motion, data visualization |
-| Themes                | 8 built-in    | Default plus the Roomy, Soft, and Compressed modifier themes, each in light and dark, via `data-theme` attribute |
-| Page examples         | 26            | Full-page compositions across four domains — CRM, Project Management, eCommerce, and Biotech (dashboards, boards, checkout flows, and marketing/landing pages) |
-| Tests                 | Per component | Unit tests with accessibility checks |
+| Category | Count | Exports |
+| -------- | ----- | ------- |
+| Form fields | 13 | RudiInput, RudiTextarea, RudiNumberField, RudiSelect (+ RudiOption), RudiComboBox, RudiCheckbox, RudiCheckboxGroup, RudiRadioGroup (+ RudiRadio), RudiSwitch, RudiDatePicker, RudiDateRangePicker, RudiRating, RudiForm |
+| Actions and navigation | 9 | RudiButton, RudiIconButton, RudiLink, RudiNavItem, RudiBreadcrumb, RudiPagination, RudiTabs (+ RudiTabList, RudiTab, RudiTabPanel), RudiStepper, RudiRouterProvider |
+| Overlays and menus | 3 | RudiDialog, RudiMenuTrigger (+ RudiMenu, RudiMenuItem, RudiMenuSection, RudiMenuSeparator, RudiSubmenuTrigger, RudiKeyboard), RudiTooltipTrigger (+ RudiTooltip) |
+| Feedback and status | 8 | RudiAlert, RudiToastRegion (+ `rudiToast`), RudiBadge, RudiTag, RudiDot, RudiProgressBar, RudiCircularProgress, RudiEmptyState |
+| Content and data | 10 | RudiCard, RudiStatCard, RudiAvatar, RudiIcon, RudiImage, RudiDivider, RudiSeparator, RudiDescriptionList, RudiTable (+ header, column, body, row and cell parts), RudiKanbanBoard (+ RudiKanbanColumn, RudiKanbanCard) |
+| App chrome | 5 | RudiAppShell, RudiTopBar, RudiPageHeader, RudiSectionHeader, RudiBrand |
+| Charts | 4 | RudiBarChart, RudiLineChart, RudiDonutChart, RudiSparkline |
+| Typography | 3 | RudiHeading, RudiText, RudiProse |
+| Layout primitives | 8 | RudiBox, RudiStack, RudiCluster, RudiGrid, RudiSidebar, RudiCenter, RudiCover, RudiSwitcher |
+| Hooks and utilities | 4 | useLoadingButton, useChartTheme, `rudiToast`, `cn` |
+| Design tokens | Full set | Colors, spacing, typography, motion, data visualization |
+| Themes | 8 built-in | Default plus the Roomy, Soft and Compressed modifier themes, each in light and dark, plus `auto` |
+| Page examples | 26 | Full-page compositions across four domains (CRM, Project Management, eCommerce and Biotech) |
+| Tests | Per component | Unit tests with accessibility checks, plus every story rendered and audited in a real browser |
+
+## For AI coding agents
+
+The package ships an API reference generated from the TypeScript source and JSDoc, so it always matches the installed version:
+
+| Resource | What it is |
+| -------- | ---------- |
+| `node_modules/rudiment-ui/dist/llms.txt` | Conventions plus a one-line index of every component. Read this first. |
+| `node_modules/rudiment-ui/dist/llms-full.txt` | Every component's props, defaults, examples and compound parts |
+| `node_modules/rudiment-ui/dist/components.json` | The same data as JSON |
+| `rudiment-ui-mcp` | An MCP server with four tools: `get_conventions`, `list_components`, `get_component` and `search` |
+| `.d.ts` files | JSDoc on every component and prop, shown in editor hovers |
+
+To connect the MCP server in Claude Code, run this from your project root:
+
+```bash
+claude mcp add rudiment-ui -- npx --no rudiment-ui-mcp
+```
+
+Setup for Cursor, VS Code, Codex and Claude Desktop is in `mcp/README.md` in the package.
 
 ## Related documentation
 

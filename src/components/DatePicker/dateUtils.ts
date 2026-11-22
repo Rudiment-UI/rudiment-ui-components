@@ -8,6 +8,7 @@ import {
   type DateValue,
 } from '@internationalized/date'
 
+/** Precision of a `RudiDatePicker`: `day` for `YYYY-MM-DD`, `minute` for `YYYY-MM-DDTHH:mm`. */
 export type RudiDateGranularity = 'day' | 'minute'
 
 const pad = (n: number) => String(n).padStart(2, '0')

@@ -74,6 +74,7 @@
       "gap": { "$value": "{spacing.1}" }
     },
     "select": {
+      "required-color": { "$value": "{component.input.required-color}" },
       "trigger-bg": { "$value": "{color.background.surface}" },
       "trigger-text": { "$value": "{color.text.default}" },
       "trigger-border": { "$value": "{color.border.control}" },
@@ -379,7 +380,8 @@
       "warning-text": { "$value": "{color.feedback.warning-text}" },
       "error-bg": { "$value": "{color.feedback.error-surface}" },
       "error-border": { "$value": "{color.feedback.error-border}" },
-      "error-text": { "$value": "{color.feedback.error-text}" }
+      "error-text": { "$value": "{color.feedback.error-text}" },
+      "action-gap": { "$value": "{spacing.3}" }
     },
     "menu": {
       "popover-bg": { "$value": "{color.background.surface}" },
@@ -430,7 +432,7 @@
       "card-border": { "$value": "{color.border.default}" },
       "card-shadow": { "$value": "0 1px 2px 0 rgb(0 0 0 / 0.05)" },
       "card-dragging-shadow": { "$value": "0 4px 12px 0 rgb(0 0 0 / 0.15)" },
-      "card-dragging-opacity": { "$value": "0.5" },
+      "placeholder-bg": { "$value": "{color.background.surface-raised}" },
       "drag-handle-color": { "$value": "{color.text.disabled}" },
       "drag-handle-hover-color": { "$value": "{color.text.subtle}" },
       "drop-indicator-color": { "$value": "{color.brand.primary}" },
@@ -485,7 +487,30 @@
       "gap": { "$value": "{spacing.4}" },
       "title-gap": { "$value": "{spacing.1}" },
       "subtitle-font-size": { "$value": "{font.size.sm}" },
-      "subtitle-color": { "$value": "{color.text.subtle}" }
+      "subtitle-color": { "$value": "{color.text.subtle}" },
+      "eyebrow-gap": { "$value": "{spacing.2}" },
+      "meta-gap": { "$value": "{spacing.2}" }
+    },
+    "description-list": {
+      "gap": { "$value": "{spacing.4}" },
+      "row-gap": { "$value": "{spacing.1}" },
+      "term-color": { "$value": "{color.text.default}" },
+      "term-font-size": { "$value": "{font.size.sm}" },
+      "term-font-weight": { "$value": "{font.weight.medium}" },
+      "description-color": { "$value": "{color.text.default}" },
+      "description-font-size": { "$value": "{font.size.sm}" },
+      "inline-term-width": { "$value": "12rem" },
+      "column-min-width": { "$value": "14rem" },
+      "divider-color": { "$value": "color-mix(in srgb, {color.text.default} 12%, transparent)" }
+    },
+    "sparkline": {
+      "height": { "$value": "2.5rem" },
+      "stroke-width": { "$value": "1.5" },
+      "threshold-color": { "$value": "{color.text.subtle}" },
+      "neutral-color": { "$value": "{color.text.subtle}" },
+      "brand-color": { "$value": "{color.brand.primary}" },
+      "error-color": { "$value": "{color.feedback.error}" },
+      "success-color": { "$value": "{color.feedback.success}" }
     },
     "section-header": {
       "gap": { "$value": "{spacing.4}" },
@@ -785,7 +810,9 @@
       "stepper-disabled-text": { "$value": "{color.text.disabled}" }
     },
     "image": {
-      "placeholder-bg": { "$value": "{color.background.surface-sunken}" }
+      "placeholder-bg": { "$value": "{color.background.surface-sunken}" },
+      "fallback-color": { "$value": "{color.text.subtle}" },
+      "fallback-min-size": { "$value": "4rem" }
     },
     "rating": {
       "gap": { "$value": "{spacing.2}" },

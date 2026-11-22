@@ -3,12 +3,24 @@ import { cn } from '@/utils/cn'
 import { RudiBadge } from '@/components/Badge/Badge'
 import './avatar.css'
 
+/** Props for `RudiAvatar`. */
 export interface RudiAvatarProps {
+  /** Image URL. When it is missing or fails to load, initials are shown instead. */
   src?: string
+  /** Accessible name of the avatar. Takes precedence over `name` for the label. */
   alt?: string
+  /** Full name used for the initials (first and last word, uppercased) and as the fallback accessible name. */
   name?: string
+  /**
+   * Diameter of the avatar.
+   * @default 'md'
+   */
   size?: 'sm' | 'md' | 'lg'
+  /** Shows a small status dot in the corner. Without `statusLabel` the dot carries no text, so convey the status elsewhere for assistive technology. */
   status?: 'success' | 'warning' | 'error' | 'info'
+  /** Text for the status, appended to the accessible name ("Ada Lovelace, Busy"). Only used when `status` is set. */
+  statusLabel?: string
+  /** Extra class names, merged with the component's own classes rather than replacing them. */
   className?: string
 }
 
@@ -20,18 +32,29 @@ function getInitials(name: string): string {
   return (parts[0]?.[0] ?? '').toUpperCase()
 }
 
+/**
+ * Circular representation of a person or entity: an image when `src` loads, otherwise initials derived from `name`. Falls back to initials if the image fails to load.
+ * Exposed as `role="img"` labelled by `alt`, then `name`. With neither, the avatar is decorative (`aria-hidden`, no role).
+ * @example
+ * ```tsx
+ * <RudiAvatar name="Ada Lovelace" src="/ada.jpg" size="lg" status="success" />
+ * ```
+ */
 export function RudiAvatar({
   src,
   alt,
   name,
   size = 'md',
   status,
+  statusLabel,
   className,
 }: RudiAvatarProps) {
   const [imgError, setImgError] = useState(false)
   const showImage = src && !imgError
   const initials = name ? getInitials(name) : ''
-  const ariaLabel = alt || name
+  const baseLabel = alt || name
+  const ariaLabel =
+    baseLabel && status && statusLabel ? `${baseLabel}, ${statusLabel}` : baseLabel
 
   return (
     <span
@@ -40,8 +63,7 @@ export function RudiAvatar({
         `rudi-avatar--${size}`,
         className,
       )}
-      role="img"
-      aria-label={ariaLabel}
+      {...(ariaLabel ? { role: 'img', 'aria-label': ariaLabel } : { 'aria-hidden': true })}
     >
       {showImage ? (
         <img

@@ -191,4 +191,67 @@ describe('Alert', () => {
     )
     expect(await axe(container)).toHaveNoViolations()
   })
+
+  it('renders an action at the inline-end, after the text', () => {
+    const { container } = render(
+      <RudiAlert
+        variant="warning"
+        title="Out of range"
+        action={<button type="button">Review</button>}
+      >
+        Temperature exceeded the limit.
+      </RudiAlert>,
+    )
+    const action = container.querySelector('.rudi-alert__action')!
+    expect(action).toContainElement(screen.getByRole('button', { name: 'Review' }))
+    const body = container.querySelector('.rudi-alert__body')!
+    expect(body.compareDocumentPosition(action) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+  })
+
+  it('renders no action wrapper when action is absent', () => {
+    const { container } = render(<RudiAlert variant="info">Message</RudiAlert>)
+    expect(container.querySelector('.rudi-alert__main')).toBeNull()
+    expect(container.querySelector('.rudi-alert__action')).toBeNull()
+  })
+
+  it('has no accessibility violations with an action', async () => {
+    const { container } = render(
+      <RudiAlert
+        variant="error"
+        icon="mdi:alert-circle"
+        dismissible
+        action={<button type="button">Retry</button>}
+      >
+        Failed.
+      </RudiAlert>,
+    )
+    expect(await axe(container)).toHaveNoViolations()
+  })
+
+  it.each(['click', '{Enter}', ' '])('dismisses via %j and calls onDismiss', async (how) => {
+    const user = userEvent.setup()
+    const onDismiss = vi.fn()
+    render(
+      <RudiAlert variant="info" dismissible onDismiss={onDismiss}>
+        Message
+      </RudiAlert>,
+    )
+    const btn = screen.getByRole('button', { name: 'Dismiss alert' })
+    if (how === 'click') await user.click(btn)
+    else {
+      btn.focus()
+      await user.keyboard(how)
+    }
+    expect(onDismiss).toHaveBeenCalledTimes(1)
+    expect(screen.queryByText('Message')).not.toBeInTheDocument()
+  })
+
+  it('nests no interactive element inside another', () => {
+    const { container } = render(
+      <RudiAlert variant="info" dismissible action={<button type="button">Undo</button>}>
+        Message
+      </RudiAlert>,
+    )
+    expect(container.querySelector('button [role=button], button button')).toBeNull()
+  })
 })

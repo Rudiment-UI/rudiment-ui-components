@@ -7,17 +7,37 @@ import { CheckboxGroupContext } from './CheckboxGroupContext'
 import { cn } from '@/utils/cn'
 import './checkbox.css'
 
+/** Props for `RudiCheckbox`. */
 export interface RudiCheckboxProps {
+  /** Visible label, rendered next to the box. */
   children: React.ReactNode
+  /**
+   * Controlled checked state for a standalone checkbox. Pair with `onChange`. Ignored inside a `RudiCheckboxGroup`.
+   */
   isSelected?: boolean
+  /** Initial checked state for an uncontrolled standalone checkbox. */
   defaultSelected?: boolean
+  /**
+   * Shows the mixed state (e.g. a "select all" box when only some children are checked). Sets the native `indeterminate` property so assistive tech announces "mixed", and shows the dash. It does not change `isSelected`.
+   */
   isIndeterminate?: boolean
+  /**
+   * Called with the new checked state (a boolean, not an event) for a standalone checkbox.
+   */
   onChange?: (isSelected: boolean) => void
+  /** Disables the checkbox. */
   isDisabled?: boolean
-  /** Required inside a RudiCheckboxGroup: the value added to the group's array when checked. */
+  /**
+   * Required inside a RudiCheckboxGroup: the value added to the group's array when checked. On a standalone checkbox it is the value submitted under `name` in a native form.
+   */
   value?: string
+  /** Form field name for a standalone checkbox. When checked, `name`=`value` is included in native form submission. */
+  name?: string
   /** Error shown under a standalone checkbox (e.g. an unaccepted agreement); marks it invalid. */
   errorMessage?: string
+  /**
+   * Extra class names, merged with the component's own classes. Always applied to the outermost element: the label, or the wrapper when `errorMessage` is set.
+   */
   className?: string
 }
 
@@ -87,8 +107,11 @@ const StandaloneCheckbox = forwardRef<HTMLInputElement, RudiCheckboxProps>(
 )
 
 /**
- * A checkbox. Inside a `RudiCheckboxGroup` it reads and updates the group's value (give it a `value`);
- * on its own it's controlled with `isSelected` / `onChange`.
+ * A checkbox with a visible label. Inside a `RudiCheckboxGroup` it reads and updates the group's value
+ * array (give it a `value`); on its own it is controlled with `isSelected` / `onChange`. The ref points at the `<input>`.
+ *
+ * @example
+ * <RudiCheckbox isSelected={agreed} onChange={setAgreed}>I agree to the terms</RudiCheckbox>
  */
 export const RudiCheckbox = forwardRef<HTMLInputElement, RudiCheckboxProps>(
   function RudiCheckbox(props, forwardedRef) {

@@ -25,10 +25,10 @@ const meta = {
   },
   args: { children: null },
   argTypes: {
-    errors: { control: 'object', description: 'Problems to fix; non-empty shows and focuses the summary', table: { category: 'State' } },
-    errorTitle: { control: false, description: 'Summary heading for a count', table: { category: 'Content' } },
-    onSubmit: { action: 'submit', description: 'Called with FormData on submit', table: { category: 'Events' } },
-    children: { control: false, description: 'Fields and actions', table: { category: 'Content' } },
+    errors: { control: 'object', table: { category: 'State' } },
+    errorTitle: { control: false, table: { category: 'Content' } },
+    onSubmit: { action: 'submit', table: { category: 'Events' } },
+    children: { control: false, table: { category: 'Content' } },
   },
 } satisfies Meta<typeof RudiForm>
 

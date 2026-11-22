@@ -4,6 +4,10 @@ import { cn } from '@/utils/cn'
 import { RudiAlert } from '@/components/Alert/Alert'
 import './form.css'
 
+/**
+ * Props for `RudiForm`. Also accepts native `<form>` attributes except `onSubmit` and `children`,
+ * and spreads them onto the element. `noValidate` defaults to `true`, so validation is left to the app.
+ */
 export interface RudiFormProps
   extends Omit<React.FormHTMLAttributes<HTMLFormElement>, 'onSubmit' | 'children'> {
   /** Called on submit with the form's data. The page never reloads. */
@@ -12,16 +16,31 @@ export interface RudiFormProps
    * Problems to fix, shown as a summary at the top. After each submit that leaves
    * problems, the summary receives focus so keyboard and screen-reader users land
    * on it. Updating `errors` while the user edits never moves focus.
+   * @default []
    */
   errors?: string[]
-  /** Summary heading. Defaults to "1 problem to fix" / "N problems to fix". */
+  /**
+   * Builds the summary heading from the error count.
+   * @default defaultTitle
+   */
   errorTitle?: (count: number) => string
+  /** The form's fields and buttons. */
   children: React.ReactNode
+  /** Extra class names for the form element, merged with the component's own classes. */
   className?: string
 }
 
 const defaultTitle = (count: number) => `${count} ${count === 1 ? 'problem' : 'problems'} to fix`
 
+/**
+ * A `<form>` that collects submitted values as `FormData`, never reloads the page, and shows a focusable error summary when `errors` is non-empty. Validate in `onSubmit` and pass the messages back via `errors`; field-level `errorMessage` props are set separately on each field.
+ *
+ * @example
+ * <RudiForm onSubmit={(data) => save(data)} errors={errors}>
+ *   <RudiInput label="Name" name="name" />
+ *   <RudiButton type="submit">Save</RudiButton>
+ * </RudiForm>
+ */
 export const RudiForm = forwardRef<HTMLFormElement, RudiFormProps>(function RudiForm(
   { onSubmit, errors = [], errorTitle = defaultTitle, noValidate = true, className, children, ...props },
   forwardedRef,

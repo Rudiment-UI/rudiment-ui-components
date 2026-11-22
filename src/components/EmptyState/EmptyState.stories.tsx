@@ -27,38 +27,31 @@ const meta = {
     size: {
       control: 'inline-radio',
       options: ['sm', 'md'],
-      description: 'Spacing and type scale. `sm` suits table cells and cards; `md` suits page sections.',
       table: { category: 'Appearance' },
     },
     className: {
       control: 'text',
-      description: 'Additional CSS class names to apply.',
       table: { category: 'Appearance' },
     },
     icon: {
       control: 'text',
-      description: 'Iconify icon name shown above the title. Decorative.',
       table: { category: 'Content' },
     },
     title: {
       control: 'text',
-      description: 'Short statement of what is empty.',
       table: { category: 'Content' },
     },
     description: {
       control: 'text',
-      description: 'Supporting text explaining why it is empty or what to do next.',
       table: { category: 'Content' },
     },
     action: {
       control: false,
-      description: 'Call to action rendered below the text, e.g. a `RudiButton`.',
       table: { category: 'Content' },
     },
     headingLevel: {
       control: 'select',
       options: [1, 2, 3, 4, 5, 6],
-      description: 'Semantic heading level for the title, chosen to fit the page outline. Visual size follows `size`.',
       table: { category: 'Content' },
     },
   },

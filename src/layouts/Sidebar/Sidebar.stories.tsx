@@ -20,40 +20,30 @@ const meta = {
   argTypes: {
     as: {
       control: 'text',
-      description: 'The HTML element to render',
       table: { category: 'Content' },
     },
     children: {
       table: { category: 'Content' },
-      description: 'Content to display inside the sidebar layout',
     },
     noStretch: {
       control: 'boolean',
-      description:
-        'Prevents children from stretching to fill the container height',
       table: { category: 'Appearance' },
     },
     side: {
       control: 'radio',
       options: ['left', 'right'],
-      description: 'Which side the sidebar appears on',
       table: { category: 'Layout' },
     },
     sideWidth: {
       control: 'text',
-      description:
-        "The fixed width of the sidebar panel (e.g., '20rem')",
       table: { category: 'Layout' },
     },
     contentMin: {
       control: 'text',
-      description:
-        "The minimum width of the content area before stacking (e.g., '50%')",
       table: { category: 'Layout' },
     },
     space: {
       control: 'text',
-      description: 'Gap between sidebar and content',
       table: { category: 'Layout' },
     },
   },

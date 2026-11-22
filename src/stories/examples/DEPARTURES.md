@@ -395,6 +395,8 @@ story tests.
 
 **Shipped for the Vitrea redesign (0.6.0):** `RudiDescriptionList` (replaces the hand-rolled `<dl>` / detail rows), `RudiSparkline` (the live probe-temperature trend on a shipment's summary card), `RudiPageHeader` `eyebrow` / `meta`, `RudiAlert` `action`, and a `RudiStack` fix: a nested stack's `space` leaked into its spacing from the previous sibling, so spacing is now a `gap`. Still open: `RudiCard` has no `as`, so a card grid can't be a `<ul>` of card `<li>`s without wrapping each card in `RudiBox as="li"`.
 
+- ~~**`RudiStepper` — check icon invisible on a filled node.**~~ ✅ Resolved (Unreleased) — node icons used the icon token (`text-default`) instead of the node's color, so the complete-step check was dark on the brand circle. Found on the Vitrea shipment page's chain-of-custody stepper. Related, still open: `RudiIcon`'s `color` JSDoc says it defaults to `currentColor`, but `icon.css` paints `--rudi-component-icon-color` (`text-default`), so any icon inside a colored container has the same problem.
+
 **Still open:**
 - **Text input:** no caret access to insert a placeholder at the cursor in `RudiInput` / `RudiTextarea`, and no `maxLength` on `RudiTextarea`.
 - **Content:** no line-break-preserving `RudiText`, and no caption slot on `RudiStatCard`.

@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **`RudiStepper` node icons:** the check on a complete step, and any custom `icon`, now take the node's color. Before, they used the icon token (`text-default`), so the check was dark on the filled brand circle and nearly invisible.
 - **`RudiDialog` `isDismissable={false}`:** Escape no longer closes the dialog, as documented. Before, only the close button and outside click were disabled.
 - JSDoc corrections on `RudiDatePicker`, `RudiDateRangePicker`, `RudiTable` header and row, `RudiSelect`, `RudiToastRegion`, `RudiAppShell`, `RudiKanbanCard`, `RudiCircularProgress`, `RudiCover`, `RudiLink` and `RudiNumberField`, where the docs described behavior the code doesn't have.
 

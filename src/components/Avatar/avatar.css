@@ -54,3 +54,27 @@
   height: var(--rudi-component-avatar-status-size);
   box-shadow: 0 0 0 var(--rudi-component-avatar-status-border-width) var(--rudi-component-avatar-status-border-color);
 }
+
+.rudi-avatar .rudi-avatar__icon {
+  color: inherit;
+}
+
+.rudi-avatar--sm .rudi-avatar__icon {
+  width: var(--rudi-component-avatar-icon-size-sm);
+  height: var(--rudi-component-avatar-icon-size-sm);
+}
+
+.rudi-avatar--md .rudi-avatar__icon {
+  width: var(--rudi-component-avatar-icon-size-md);
+  height: var(--rudi-component-avatar-icon-size-md);
+}
+
+.rudi-avatar--lg .rudi-avatar__icon {
+  width: var(--rudi-component-avatar-icon-size-lg);
+  height: var(--rudi-component-avatar-icon-size-lg);
+}
+
+.rudi-avatar--tinted .rudi-avatar__initials {
+  background-color: color-mix(in srgb, var(--avatar-tint) var(--rudi-component-avatar-tint-bg-amount), transparent);
+  color: var(--avatar-tint);
+}

@@ -7,8 +7,10 @@ import './empty-state.css'
 
 /** Props for `RudiEmptyState`. */
 export interface RudiEmptyStateProps {
-  /** Iconify icon name shown above the title. Decorative. */
+  /** Iconify icon name shown above the title. Decorative. Ignored when `illustration` is set. */
   icon?: string
+  /** Image URL for a spot illustration shown above the title in place of `icon`. Decorative (`alt=""`); its width follows `size` and its height is automatic. */
+  illustration?: string
   /** Short statement of what is empty, e.g. "No shipments yet". */
   title: string
   /** Supporting text explaining why, or what to do next. */
@@ -30,7 +32,7 @@ export interface RudiEmptyStateProps {
 }
 
 /**
- * Placeholder for a view, table, or card with no content, explaining why and offering a next step. Forwards its ref to the root `div`.
+ * Placeholder for a view, table, or card with no content, explaining why and offering a next step, with an optional `icon` or spot `illustration` above the title. Forwards its ref to the root `div`.
  * The title renders as a heading, so set `headingLevel` to fit the surrounding outline.
  * @example
  * ```tsx
@@ -44,12 +46,16 @@ export interface RudiEmptyStateProps {
  */
 export const RudiEmptyState = forwardRef<HTMLDivElement, RudiEmptyStateProps>(
   function RudiEmptyState(
-    { icon, title, description, action, headingLevel = 3, size = 'md', className },
+    { icon, illustration, title, description, action, headingLevel = 3, size = 'md', className },
     ref,
   ) {
     return (
       <div ref={ref} className={cn('rudi-empty-state', `rudi-empty-state--${size}`, className)}>
-        {icon && <RudiIcon icon={icon} className="rudi-empty-state__icon" />}
+        {illustration ? (
+          <img src={illustration} alt="" className="rudi-empty-state__illustration" />
+        ) : (
+          icon && <RudiIcon icon={icon} className="rudi-empty-state__icon" />
+        )}
         <RudiHeading
           level={headingLevel}
           size={size === 'sm' ? 6 : 5}

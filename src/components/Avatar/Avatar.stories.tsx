@@ -9,7 +9,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'A user representation component with image support, initials fallback, and optional status indicator.',
+          'A user or entity representation with image support, an icon or initials fallback, an optional tint for colored tiles, and an optional status indicator. `tint="auto"` picks a categorical color from `name`.',
       },
     },
   },
@@ -19,6 +19,8 @@ const meta = {
     src: '',
     alt: '',
     status: undefined,
+    icon: undefined,
+    tint: undefined,
     className: '',
   },
   argTypes: {
@@ -42,6 +44,14 @@ const meta = {
     status: {
       control: 'select',
       options: [undefined, 'success', 'warning', 'error', 'info'],
+      table: { category: 'Appearance' },
+    },
+    icon: {
+      control: 'text',
+      table: { category: 'Content' },
+    },
+    tint: {
+      control: 'text',
       table: { category: 'Appearance' },
     },
     className: {
@@ -119,6 +129,39 @@ export const AllStatuses: Story = {
       <RudiAvatar name="John Doe" status="warning" />
       <RudiAvatar name="John Doe" status="error" />
       <RudiAvatar name="John Doe" status="info" />
+    </div>
+  ),
+}
+
+export const WithIcon: Story = {
+  name: 'With icon',
+  args: {
+    name: 'Shipments',
+    icon: 'lucide:truck',
+    tint: 'var(--rudi-color-brand-primary)',
+  },
+}
+
+export const Tinted: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+      <RudiAvatar name="Shipments" icon="lucide:truck" tint="var(--rudi-color-dataviz-series-1)" size="lg" />
+      <RudiAvatar name="Contacts" icon="lucide:users" tint="var(--rudi-color-dataviz-series-4)" size="lg" />
+      <RudiAvatar name="Devices" icon="lucide:thermometer" tint="var(--rudi-color-dataviz-series-6)" size="lg" />
+      <RudiAvatar name="Ada Lovelace" tint="var(--rudi-color-dataviz-series-2)" size="lg" />
+    </div>
+  ),
+}
+
+export const AutoTint: Story = {
+  name: 'Auto tint',
+  render: () => (
+    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+      {['Ada Lovelace', 'Grace Hopper', 'Alan Turing', 'Katherine Johnson', 'Northside Fertility', 'Coastal IVF'].map(
+        (name) => (
+          <RudiAvatar key={name} name={name} tint="auto" />
+        ),
+      )}
     </div>
   ),
 }

@@ -39,8 +39,9 @@ export interface RudiStepperProps {
 }
 
 function nodeContent(step: RudiStepperStep, index: number) {
-  if (step.icon) return <RudiIcon icon={step.icon} size="sm" />
-  if (step.status === 'complete') return <RudiIcon icon="lucide:check" size="sm" />
+  // The node sets the color (white on a filled node); the icon token alone would paint it text-default.
+  if (step.icon) return <RudiIcon icon={step.icon} size="sm" color="currentColor" />
+  if (step.status === 'complete') return <RudiIcon icon="lucide:check" size="sm" color="currentColor" />
   return <span className="rudi-stepper__number">{index + 1}</span>
 }
 

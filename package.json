@@ -7,6 +7,7 @@
     "dev": "storybook dev -p 6006",
     "build": "vite build && node scripts/component-docs.mjs",
     "build:docs": "node scripts/component-docs.mjs",
+    "build:social-card": "node scripts/social-card.mjs",
     "prepare": "npm run build:tokens && npm run build",
     "prepublishOnly": "npm run build:tokens && npm run build",
     "build-storybook": "storybook build",

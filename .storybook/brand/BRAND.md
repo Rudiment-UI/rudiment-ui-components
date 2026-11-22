@@ -26,6 +26,7 @@ rudiments."
 | `brand.ts` | Colors, fonts, `markSvg()` and the sidebar lockup. This is the single source. |
 | `../public/favicon.svg` | Favicon. It inverts for dark OS appearance. |
 | `BrandHero.tsx`, `brand-hero.css` | Introduction hero and construction plate |
+| `social-card.html` | Source for `../public/social-card.png`, the 1200×630 share image. Regenerate with `npm run build:social-card`. Tags are emitted by `managerHead` in `../main.ts`; set `STORYBOOK_SITE_URL` at build time so `og:image` is absolute. |
 | `../manager.ts` | Light and dark chrome themes, which follow the OS setting |
 | `../preview-head.html` | Typography for docs prose |
 

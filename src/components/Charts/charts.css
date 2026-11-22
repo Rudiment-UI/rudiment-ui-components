@@ -3,3 +3,47 @@
   padding: var(--rudi-component-chart-padding);
   border-radius: var(--rudi-component-card-radius);
 }
+
+/* Sparkline */
+.rudi-sparkline {
+  display: block;
+  inline-size: 100%;
+  block-size: var(--rudi-component-sparkline-height);
+  overflow: visible;
+  color: var(--rudi-component-sparkline-neutral-color);
+}
+
+.rudi-sparkline--fixed-width {
+  inline-size: auto;
+}
+
+.rudi-sparkline--brand {
+  color: var(--rudi-component-sparkline-brand-color);
+}
+
+.rudi-sparkline--error {
+  color: var(--rudi-component-sparkline-error-color);
+}
+
+.rudi-sparkline--success {
+  color: var(--rudi-component-sparkline-success-color);
+}
+
+.rudi-sparkline__line {
+  stroke: currentColor;
+  stroke-width: var(--rudi-component-sparkline-stroke-width);
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.rudi-sparkline__endpoint {
+  stroke: currentColor;
+  stroke-width: calc(var(--rudi-component-sparkline-stroke-width) * 3.5);
+  stroke-linecap: round;
+}
+
+.rudi-sparkline__threshold {
+  stroke: var(--rudi-component-sparkline-threshold-color);
+  stroke-width: 1;
+  stroke-dasharray: 4 3;
+}

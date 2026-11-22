@@ -13,18 +13,38 @@ import type { Key } from 'react-aria'
 import { cn } from '@/utils/cn'
 import './select.css'
 
+/** Props for `RudiSelect`. */
 export interface RudiSelectProps<T extends object> {
+  /** Visible label and the field's accessible name. Required. */
   label: string
+  /**
+   * The options as data. Each item is rendered by the `children` function; give items an `id` or `key` for stable selection.
+   */
   items: Iterable<T>
+  /** Render function returning a `RudiOption` for each item. */
   children: (item: T) => React.ReactNode
+  /** Controlled selected option key. Pair with `onSelectionChange`. */
   selectedKey?: Key | null
+  /** Initial selected key for an uncontrolled select. */
   defaultSelectedKey?: Key | null
+  /** Called with the chosen option's key (not an event). */
   onSelectionChange?: (key: Key | null) => void
+  /**
+   * Text shown when nothing is selected.
+   * @default 'Select an option'
+   */
   placeholder?: string
+  /** Help text under the field. Hidden while `errorMessage` is shown. */
   description?: string
+  /** Error text shown under the field. Setting it marks the field invalid. */
   errorMessage?: string
+  /** Form field name. The selected option's key is submitted under this name in a native form. */
+  name?: string
+  /** Marks the field required for assistive tech and adds an asterisk to the label. It does not block native form submission. */
   isRequired?: boolean
+  /** Disables the field. */
   isDisabled?: boolean
+  /** Extra class names for the wrapper element, merged with the component's own classes. */
   className?: string
 }
 
@@ -119,6 +139,15 @@ function Option({ item, state }: OptionInternalProps) {
   )
 }
 
+/**
+ * A dropdown for choosing one option from a list. Pass data via `items` and render each entry with a
+ * `RudiOption` in `children`. `label` is required. Use `RudiComboBox` when the list is long enough to need search.
+ *
+ * @example
+ * <RudiSelect label="Country" items={countries} onSelectionChange={setCountry}>
+ *   {(c) => <RudiOption key={c.id}>{c.name}</RudiOption>}
+ * </RudiSelect>
+ */
 export function RudiSelect<T extends object>(props: RudiSelectProps<T>) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const state = useSelectState(props as any)
@@ -142,8 +171,20 @@ export function RudiSelect<T extends object>(props: RudiSelectProps<T>) {
     <div className={cn('rudi-select', props.className)}>
       <label {...labelProps} className="rudi-select__label">
         {props.label}
+        {props.isRequired && (
+          <span className="rudi-select__required" aria-hidden="true">
+            {' '}
+            *
+          </span>
+        )}
       </label>
-      <HiddenSelect state={state} triggerRef={triggerRef} label={props.label} />
+      <HiddenSelect
+        state={state}
+        triggerRef={triggerRef}
+        label={props.label}
+        name={props.name}
+        isDisabled={props.isDisabled}
+      />
       <button
         {...buttonProps}
         ref={triggerRef}

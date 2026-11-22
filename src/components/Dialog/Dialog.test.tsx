@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { axe } from 'vitest-axe'
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { useState } from 'react'
 import userEvent from '@testing-library/user-event'
 import { RudiDialog } from './Dialog'
@@ -178,6 +178,17 @@ describe('Dialog', () => {
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
   })
 
+  it('stays open on Escape when not dismissable', async () => {
+    const onClose = vi.fn()
+    render(
+      <RudiDialog isOpen onClose={onClose} title="Saving" isDismissable={false}>
+        <button>Inside</button>
+      </RudiDialog>,
+    )
+    await userEvent.keyboard('{Escape}')
+    expect(onClose).not.toHaveBeenCalled()
+  })
+
   it('has no close button when not dismissable', () => {
     render(
       <RudiDialog isOpen onClose={() => {}} title="Saving" isDismissable={false}>
@@ -185,5 +196,16 @@ describe('Dialog', () => {
       </RudiDialog>,
     )
     expect(screen.queryByRole('button', { name: 'Close' })).not.toBeInTheDocument()
+  })
+
+  it('uses closeLabel for the close button', async () => {
+    const { baseElement } = render(
+      <RudiDialog isOpen onClose={() => {}} title="Confirm" closeLabel="Fermer">
+        Content
+      </RudiDialog>,
+    )
+    expect(screen.getByRole('button', { name: 'Fermer' })).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Close' })).not.toBeInTheDocument()
+    expect(await axe(baseElement)).toHaveNoViolations()
   })
 })

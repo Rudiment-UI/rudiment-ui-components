@@ -80,6 +80,16 @@ function resolveTokens(): ChartTheme {
   }
 }
 
+/**
+ * Reads the active theme's chart colors (series, axes, grid, tooltip and feedback tones) from the
+ * `--rudi-*` CSS custom properties, for chart libraries that need color values in JS. Re-resolves
+ * when `data-theme` on `<html>` changes or the OS color scheme flips. Returns light fallback
+ * colors on the server. Only the `data-theme` attribute on the document element is observed.
+ *
+ * @example
+ * const theme = useChartTheme()
+ * <Line dataKey="value" stroke={theme.colors[0]} />
+ */
 export function useChartTheme(): ChartTheme {
   const [theme, setTheme] = useState<ChartTheme>(resolveTokens)
 

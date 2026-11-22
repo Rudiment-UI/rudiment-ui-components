@@ -6,15 +6,28 @@ import './section-header.css'
 
 export interface RudiSectionHeaderProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
+  /** Section title, rendered as the heading. */
   title: React.ReactNode
+  /** Supporting text below the title, in small body text. */
   description?: React.ReactNode
   /** Content pinned to the inline-end, e.g. a "see all" link or button. */
   action?: React.ReactNode
-  /** Heading level for the title. Defaults to 2. */
+  /**
+   * Heading level for the title. Defaults to 2.
+   *
+   * @default 2
+   */
   headingLevel?: 1 | 2 | 3 | 4 | 5 | 6
+  /** Extra class names, merged with the built-in classes. */
   className?: string
 }
 
+/**
+ * Heading row for a section of a page, with an optional description and an action slot. Use `RudiPageHeader` for the page title instead. The title is visually sized 5 whatever `headingLevel` is. Other DOM props go on the root `div`.
+ *
+ * @example
+ * <RudiSectionHeader title="Recent activity" action={<RudiButton onPress={showAll}>See all</RudiButton>} />
+ */
 export const RudiSectionHeader = forwardRef<
   HTMLDivElement,
   RudiSectionHeaderProps

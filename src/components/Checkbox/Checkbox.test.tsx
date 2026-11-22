@@ -94,4 +94,36 @@ describe('Checkbox', () => {
     expect(box).toHaveAttribute('aria-invalid', 'true')
     expect(box).toHaveAccessibleDescription('Accept the terms to continue.')
   })
+
+  it('sets the native indeterminate property and keeps the visual state', () => {
+    const { container } = render(<RudiCheckbox isIndeterminate>Select all</RudiCheckbox>)
+    expect((screen.getByRole('checkbox') as HTMLInputElement).indeterminate).toBe(true)
+    expect(container.querySelector('.rudi-checkbox__control--indeterminate')).toBeInTheDocument()
+  })
+
+  it('submits name and value in a native form when checked', () => {
+    const { container } = render(
+      <form>
+        <RudiCheckbox name="terms" value="yes" defaultSelected>Accept</RudiCheckbox>
+      </form>,
+    )
+    expect(new FormData(container.querySelector('form')!).get('terms')).toBe('yes')
+  })
+
+  it('submits nothing when unchecked', () => {
+    const { container } = render(
+      <form>
+        <RudiCheckbox name="terms" value="yes">Accept</RudiCheckbox>
+      </form>,
+    )
+    expect(new FormData(container.querySelector('form')!).has('terms')).toBe(false)
+  })
+
+  it('puts className on the outermost element with and without an error', () => {
+    const { container, rerender } = render(<RudiCheckbox className="x">A</RudiCheckbox>)
+    expect(container.firstChild).toHaveClass('x')
+    rerender(<RudiCheckbox className="x" errorMessage="Required">A</RudiCheckbox>)
+    expect(container.firstChild).toHaveClass('x')
+    expect(container.querySelector('label')).not.toHaveClass('x')
+  })
 })

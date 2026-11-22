@@ -133,4 +133,15 @@ describe('RudiToastRegion', () => {
     })
     expect(await axe(document.body)).toHaveNoViolations()
   })
+
+  it('applies closeLabel to every toast close button', async () => {
+    const { baseElement } = render(<RudiToastRegion closeLabel="Fermer" />)
+    act(() => {
+      rudiToast.info('One')
+      rudiToast.error('Two')
+    })
+    expect(screen.getAllByRole('button', { name: 'Fermer' })).toHaveLength(2)
+    expect(screen.queryByRole('button', { name: 'Close' })).not.toBeInTheDocument()
+    expect(await axe(baseElement)).toHaveNoViolations()
+  })
 })

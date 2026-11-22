@@ -22,25 +22,22 @@ const meta = {
     variant: {
       control: 'select',
       options: ['default', 'outlined', 'elevated'],
-      description: 'The visual style of the card',
       table: { category: 'Appearance' },
     },
     padding: {
       control: 'select',
       options: ['none', 'sm', 'md', 'lg'],
-      description: 'The internal padding applied to card slots',
       table: { category: 'Appearance' },
     },
     className: {
       control: 'text',
-      description: 'Additional CSS class names to apply to the card',
       table: { category: 'Appearance' },
     },
   },
 } satisfies Meta<typeof RudiCard>
 
 export default meta
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<typeof RudiCard>
 
 export const Default: Story = {
   args: {

@@ -6,16 +6,47 @@ import { RudiIcon } from '@/components/Icon/Icon'
 import { useLoadingButton } from '@/hooks/useLoadingButton'
 import './button.css'
 
+/** Props for `RudiButton`. Also accepts React Aria's `AriaButtonProps` (`onPress`, `isDisabled`, `type`, `aria-label`, ...). */
 export interface RudiButtonProps extends AriaButtonProps {
+  /**
+   * Visual emphasis: `primary` for the main action, `destructive` for irreversible actions, `ghost` for low-emphasis ones.
+   * @default 'primary'
+   */
   variant?: 'primary' | 'secondary' | 'destructive' | 'ghost'
+  /**
+   * Button height and text size.
+   * @default 'md'
+   */
   size?: 'sm' | 'md' | 'lg'
+  /**
+   * Replaces the icons with a spinner, sets `aria-busy`, and disables the button so it cannot be pressed again.
+   * @default false
+   */
   isLoading?: boolean
+  /**
+   * Iconify name shown before the label, e.g. `"mdi:plus"`. Not rendered while `isLoading`.
+   */
   iconBefore?: string
+  /**
+   * Iconify name shown after the label, e.g. `"mdi:arrow-right"`. Not rendered while `isLoading`.
+   */
   iconAfter?: string
+  /** Extra class names, merged with the component's own classes. */
   className?: string
+  /**
+   * Button label, rendered in a `span`. It is the accessible name unless `aria-label` is set.
+   */
   children: React.ReactNode
 }
 
+/**
+ * A text button built on React Aria's `useButton`. Use it for actions on the page (save, delete, open a dialog); use a link for navigation. Handle activation with `onPress`, not `onClick`. For an icon-only button use `RudiIconButton`.
+ *
+ * @example
+ * <RudiButton variant="primary" iconBefore="mdi:plus" onPress={addItem}>
+ *   Add item
+ * </RudiButton>
+ */
 export const RudiButton = React.forwardRef<HTMLButtonElement, RudiButtonProps>(
   function RudiButton(
     {

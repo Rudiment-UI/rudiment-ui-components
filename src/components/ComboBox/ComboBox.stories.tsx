@@ -65,88 +65,71 @@ const meta: Meta<ComboBoxStoryArgs> = {
   argTypes: {
     className: {
       control: 'text',
-      description: 'Additional CSS class names to apply to the combo box wrapper',
       table: { category: 'Appearance' },
     },
     label: {
       control: 'text',
-      description: 'The visible label displayed above the field',
       table: { category: 'Content' },
     },
     items: {
       control: false,
-      description: 'The list of options, each rendered by the `children` function as a `RudiOption`',
       table: { category: 'Content' },
     },
     placeholder: {
       control: 'text',
-      description: 'Placeholder text shown when the input is empty',
       table: { category: 'Content' },
     },
     description: {
       control: 'text',
-      description: 'Helper text displayed below the field',
       table: { category: 'Content' },
     },
     errorMessage: {
       control: 'text',
-      description: 'Validation error message; also marks the field invalid',
       table: { category: 'Content' },
     },
     emptyMessage: {
       control: 'text',
-      description: 'Message shown in the popover when the typed text matches no option',
       table: { category: 'Content' },
     },
     name: {
       control: 'text',
-      description: 'Form field name; the input text is submitted under it',
       table: { category: 'Content' },
     },
     selectedKey: {
       control: false,
-      description: 'The selected option key (controlled)',
       table: { category: 'State' },
     },
     defaultSelectedKey: {
       control: false,
-      description: 'The initially selected option key (uncontrolled)',
       table: { category: 'State' },
     },
     inputValue: {
       control: false,
-      description: 'The input text (controlled)',
       table: { category: 'State' },
     },
     menuTrigger: {
       control: 'inline-radio',
       options: ['input', 'focus', 'manual'],
-      description: 'What opens the list: typing, focusing the field, or only the arrow keys and chevron button',
       table: { category: 'State' },
     },
     allowsCustomValue: {
       control: 'boolean',
-      description: 'Keep typed text that matches no option instead of reverting on blur',
       table: { category: 'State' },
     },
     isRequired: {
       control: 'boolean',
-      description: 'Whether a value is required before form submission',
       table: { category: 'State' },
     },
     isDisabled: {
       control: 'boolean',
-      description: 'Whether the combo box is disabled and non-interactive',
       table: { category: 'State' },
     },
     onSelectionChange: {
       action: 'selectionChanged',
-      description: 'Called with the selected key, or null when cleared',
       table: { category: 'Events' },
     },
     onInputChange: {
       action: 'inputChanged',
-      description: 'Called with the input text whenever it changes',
       table: { category: 'Events' },
     },
   },

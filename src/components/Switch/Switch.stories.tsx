@@ -23,32 +23,26 @@ const meta = {
   argTypes: {
     children: {
       control: 'text',
-      description: 'The label text displayed next to the switch',
       table: { category: 'Content' },
     },
     className: {
       control: 'text',
-      description: 'Additional CSS class names to apply to the switch wrapper',
       table: { category: 'Appearance' },
     },
     isSelected: {
       control: 'boolean',
-      description: 'Whether the switch is on (controlled)',
       table: { category: 'State' },
     },
     defaultSelected: {
       control: 'boolean',
-      description: 'Whether the switch is initially on (uncontrolled)',
       table: { category: 'State' },
     },
     isDisabled: {
       control: 'boolean',
-      description: 'Whether the switch is disabled and non-interactive',
       table: { category: 'State' },
     },
     onChange: {
       action: 'changed',
-      description: 'Called when the switch is toggled on or off',
       table: { category: 'Events' },
     },
   },

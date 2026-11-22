@@ -2,25 +2,39 @@ import type { CSSProperties } from 'react'
 import { cn } from '@/utils/cn'
 import './dot.css'
 
+/** Props for `RudiDot`. */
 export interface RudiDotProps {
-  /** Semantic color of the dot. Ignored when `color` is set. */
+  /**
+   * Semantic color of the dot. Ignored when `color` is set.
+   * @default 'default'
+   */
   tone?: 'default' | 'success' | 'warning' | 'error' | 'info'
-  /**
-   * Explicit color (any CSS color or design token, e.g.
-   * `var(--rudi-color-dataviz-3)`) for domain accents. Overrides `tone`.
-   */
+  /** Explicit CSS color or token, e.g. `var(--rudi-color-dataviz-3)`, for domain accents. Overrides `tone`. */
   color?: string
-  size?: 'sm' | 'md' | 'lg'
-  /** Renders an animated halo to draw attention (e.g. "live"). */
-  pulse?: boolean
   /**
-   * Accessible label. When provided the dot is exposed as a status with
-   * visually-hidden text; otherwise it is decorative (`aria-hidden`).
+   * Diameter of the dot.
+   * @default 'md'
    */
+  size?: 'sm' | 'md' | 'lg'
+  /**
+   * Renders an animated halo to draw attention, e.g. for a "live" state.
+   * @default false
+   */
+  pulse?: boolean
+  /** Accessible label. When set the dot is exposed as `role="status"` with visually hidden text; otherwise it is hidden from assistive technology. */
   label?: string
+  /** Extra class names, merged with the component's own classes rather than replacing them. */
   className?: string
 }
 
+/**
+ * Small colored circle for status or category. Use `RudiBadge` when the indicator needs text beside it.
+ * Decorative (`aria-hidden`) unless `label` is set, in which case it is exposed as a status with visually hidden text.
+ * @example
+ * ```tsx
+ * <RudiDot tone="success" pulse label="Live" />
+ * ```
+ */
 export function RudiDot({
   tone = 'default',
   color,

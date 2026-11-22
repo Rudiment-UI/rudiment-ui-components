@@ -19,7 +19,7 @@ const meta = {
 } satisfies Meta<typeof RudiFooter>
 
 export default meta
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<typeof RudiFooter>
 
 const COLUMNS = [
   { title: 'Product', links: ['Features', 'Pricing', 'Integrations'] },

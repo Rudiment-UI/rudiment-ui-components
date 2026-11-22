@@ -1,4 +1,5 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
+import { useState } from 'react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'vitest-axe'
 import { describe, it, expect, vi } from 'vitest'
@@ -32,6 +33,56 @@ describe('Rating', () => {
     expect(radios).toHaveLength(5)
     await userEvent.click(radios[3])
     expect(onChange).toHaveBeenCalledWith(4)
+  })
+
+  it('is a single tab stop with arrow, Home and End key navigation', async () => {
+    const onChange = vi.fn()
+    function Harness() {
+      const [v, setV] = useState(2)
+      return (
+        <RudiRating
+          value={v}
+          onChange={(n) => {
+            onChange(n)
+            setV(n)
+          }}
+        />
+      )
+    }
+    render(
+      <>
+        <button>before</button>
+        <Harness />
+        <button>after</button>
+      </>,
+    )
+    const user = userEvent.setup()
+    await user.tab()
+    await user.tab()
+    const radios = screen.getAllByRole('radio')
+    expect(radios[1]).toHaveFocus()
+    expect(radios[1]).toBeChecked()
+    await user.keyboard('{ArrowRight}')
+    expect(onChange).toHaveBeenLastCalledWith(3)
+    await user.keyboard('{ArrowLeft}')
+    expect(onChange).toHaveBeenLastCalledWith(2)
+    fireEvent.keyDown(document.activeElement!, { key: 'End' })
+    expect(onChange).toHaveBeenLastCalledWith(5)
+    fireEvent.keyDown(document.activeElement!, { key: 'Home' })
+    expect(onChange).toHaveBeenLastCalledWith(1)
+    await user.tab()
+    expect(screen.getByText('after')).toHaveFocus()
+  })
+
+  it('focuses the first star when none is selected', async () => {
+    render(<RudiRating value={0} onChange={() => {}} />)
+    await userEvent.tab()
+    expect(screen.getAllByRole('radio')[0]).toHaveFocus()
+  })
+
+  it('has no accessibility violations when interactive', async () => {
+    const { container } = render(<RudiRating value={3} onChange={() => {}} label="Rate" />)
+    expect(await axe(container)).toHaveNoViolations()
   })
 
   it('applies the size class', () => {

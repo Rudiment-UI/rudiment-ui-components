@@ -13,4 +13,5 @@ import { RouterProvider } from 'react-aria'
  */
 export const RudiRouterProvider = RouterProvider
 
+/** Props for `RudiRouterProvider`: `navigate`, optional `useHref`, and `children`. */
 export type RudiRouterProviderProps = React.ComponentProps<typeof RouterProvider>

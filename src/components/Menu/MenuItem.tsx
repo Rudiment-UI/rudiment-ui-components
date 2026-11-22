@@ -8,7 +8,9 @@ import { cn } from '@/utils/cn'
 import { RudiIcon } from '../Icon/Icon'
 import { RudiKeyboard } from './Keyboard'
 
+/** Props for `RudiMenuItem`. Inherits `id`, `href`, `onAction`, `isDisabled` and `textValue` from React Aria's `MenuItem`. */
 export interface RudiMenuItemProps extends AriaMenuItemProps {
+  /** Styles the item as a destructive action (for example Delete) and sets `data-destructive`. */
   isDestructive?: boolean
   /** Iconify icon name rendered before the label. */
   icon?: string
@@ -20,6 +22,15 @@ export interface RudiMenuItemProps extends AriaMenuItemProps {
   shortcut?: ReactNode
 }
 
+/**
+ * A single action in a `RudiMenu`. Give it a `label` (plus optional `icon`, `description` and
+ * `shortcut`) for structured content, or pass plain `children`. Give every item an `id`, which is
+ * the key delivered to the menu's `onAction`. When `children` is not a plain string and no `label`
+ * is set, pass `textValue` so typeahead works.
+ *
+ * @example
+ * <RudiMenuItem id="delete" label="Delete" icon="mdi:delete" shortcut="⌫" isDestructive />
+ */
 export function RudiMenuItem({
   isDestructive,
   icon,

@@ -12,23 +12,58 @@ import { useChartTheme } from '@/hooks/useChartTheme'
 import { cn } from '@/utils/cn'
 import '../charts.css'
 
+/** Props for `RudiBarChart`. */
 export interface RudiBarChartProps {
-  /**
-   * Row data. Values may be `null` to represent gaps in a series. Strongly-typed
-   * data objects are accepted directly — no cast required.
-   */
+  /** Row data. Values may be `null` to represent gaps in a series. Strongly-typed data objects are accepted directly, with no cast required. */
   data: Array<Record<string, string | number | null>>
+  /** Keys of `data` rows to plot, one bar series each. Colors come from the chart theme in order. */
   dataKeys: string[]
+  /** Key of `data` rows used for the category axis labels. */
   indexKey: string
+  /**
+   * `vertical` draws upright columns with categories along the x axis; `horizontal` draws sideways bars with categories along the y axis.
+   * @default 'vertical'
+   */
   layout?: 'vertical' | 'horizontal'
+  /**
+   * Stacks the series instead of placing them side by side.
+   * @default false
+   */
   stacked?: boolean
+  /**
+   * Shows the series legend.
+   * @default true
+   */
   showLegend?: boolean
+  /**
+   * Shows grid lines along the value axis.
+   * @default true
+   */
   showGrid?: boolean
+  /**
+   * Chart height in px.
+   * @default 300
+   */
   height?: number
+  /** Accessible name describing the chart. */
   label: string
+  /** Extra class names, merged with the component's own classes rather than replacing them. */
   className?: string
 }
 
+/**
+ * Bar chart with one series per data key, built on Recharts and the library chart theme. Use `RudiLineChart` for trends over time.
+ * `label` is required; the chart is exposed as a single `role="img"` with that name, so summarize the data in it. It fills its container's width.
+ * @example
+ * ```tsx
+ * <RudiBarChart
+ *   label="Orders per month"
+ *   data={[{ month: 'Jan', orders: 12 }, { month: 'Feb', orders: 18 }]}
+ *   indexKey="month"
+ *   dataKeys={['orders']}
+ * />
+ * ```
+ */
 export function RudiBarChart({
   data,
   dataKeys,

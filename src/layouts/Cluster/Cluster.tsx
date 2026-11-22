@@ -3,18 +3,37 @@ import { cn } from '@/utils/cn'
 import './cluster.css'
 
 export interface RudiClusterProps extends React.HTMLAttributes<HTMLElement> {
+  /** Gap between items, both horizontally and between wrapped rows; any CSS length. Falls back to the `--rudi-layout-cluster-space` token (1rem). */
   space?: string
+  /** Horizontal distribution of items along each row (`justify-content`). Defaults to `flex-start` in CSS. */
   justify?:
     | 'flex-start'
     | 'flex-end'
     | 'center'
     | 'space-between'
     | 'space-around'
+  /** Vertical alignment of items within each row (`align-items`). Defaults to `center` in CSS. */
   align?: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch'
+  /**
+   * Element or component to render as the root. Use `"ul"` or `"ol"` for a list; bullets and indent are removed.
+   *
+   * @default 'div'
+   */
   as?: React.ElementType
+  /** Items to lay out in a row. */
   children?: React.ReactNode
 }
 
+/**
+ * Horizontal row of items that wraps onto new lines when space runs out. Choose it for tags, button groups, and breadcrumbs. Use `RudiStack` for a vertical list, and `RudiSwitcher` when a row should collapse to a single column as a whole instead of wrapping item by item.
+ * Polymorphic through `as`; unrecognised DOM props (`id`, `aria-*`, `data-*`, handlers) are spread onto the root element, and `className` is merged with the built-in class, not replaced.
+ *
+ * @example
+ * <RudiCluster space="0.5rem" justify="flex-end">
+ *   <RudiButton onPress={cancel}>Cancel</RudiButton>
+ *   <RudiButton onPress={save}>Save</RudiButton>
+ * </RudiCluster>
+ */
 export const RudiCluster = forwardRef<HTMLElement, RudiClusterProps>(function RudiCluster(
   {
     space,

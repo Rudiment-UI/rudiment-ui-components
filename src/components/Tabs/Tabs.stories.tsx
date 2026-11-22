@@ -32,7 +32,6 @@ const meta = {
     orientation: {
       control: 'inline-radio',
       options: ['horizontal', 'vertical'],
-      description: 'Layout of the tab list and the arrow-key axis. Vertical places the list beside the panels.',
       table: { category: 'Layout' },
     },
     children: {
@@ -68,7 +67,6 @@ const meta = {
     },
     className: {
       control: 'text',
-      description: 'Additional CSS class names for the root element.',
       table: { category: 'Appearance' },
     },
     onSelectionChange: {

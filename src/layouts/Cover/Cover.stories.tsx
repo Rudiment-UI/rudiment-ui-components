@@ -21,23 +21,17 @@ const meta = {
   argTypes: {
     as: {
       control: 'text',
-      description: 'The HTML element to render',
       table: { category: 'Content' },
     },
     children: {
       table: { category: 'Content' },
-      description: 'Content to display inside the cover layout',
     },
     minHeight: {
       control: 'text',
-      description:
-        "The minimum height of the cover (e.g., '100vh' for full viewport)",
       table: { category: 'Layout' },
     },
     space: {
       control: 'text',
-      description:
-        'Vertical padding inside the cover using any CSS length value',
       table: { category: 'Layout' },
     },
   },

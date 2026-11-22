@@ -26,88 +26,70 @@ const meta = {
   argTypes: {
     label: {
       control: 'text',
-      description: 'The visible label displayed above the field',
       table: { category: 'Content' },
     },
     placeholder: {
       control: 'text',
-      description: 'Placeholder shown when the field is empty',
       table: { category: 'Content' },
     },
     description: {
       control: 'text',
-      description: 'Helper text displayed below the field',
       table: { category: 'Content' },
     },
     errorMessage: {
       control: 'text',
-      description: 'Validation error displayed below the field; marks it invalid',
       table: { category: 'Content' },
     },
     name: {
       control: 'text',
-      description: 'Form field name; submits the raw number',
       table: { category: 'Content' },
     },
     formatOptions: {
       control: 'object',
-      description:
-        '`Intl.NumberFormatOptions` for display, e.g. `{ style: "currency", currency: "USD" }` or `{ style: "percent" }`',
       table: { category: 'Appearance' },
     },
     hideStepper: {
       control: 'boolean',
-      description: 'Hide the − / + buttons; arrow keys still step',
       table: { category: 'Appearance' },
     },
     className: {
       control: 'text',
-      description: 'Additional CSS class names for the wrapper',
       table: { category: 'Appearance' },
     },
     value: {
       control: 'number',
-      description: 'Controlled value, or `null` for empty',
       table: { category: 'State' },
     },
     defaultValue: {
       control: 'number',
-      description: 'Initial uncontrolled value',
       table: { category: 'State' },
     },
     minValue: {
       control: 'number',
-      description: 'Smallest allowed value; typed values clamp on blur',
       table: { category: 'State' },
     },
     maxValue: {
       control: 'number',
-      description: 'Largest allowed value; typed values clamp on blur',
       table: { category: 'State' },
     },
     step: {
       control: 'number',
-      description: 'Increment for steppers and arrow keys; values snap to it',
       table: { category: 'State' },
     },
     isRequired: {
       control: 'boolean',
-      description: 'Whether a value is required; shows a required indicator',
       table: { category: 'State' },
     },
     isDisabled: {
       control: 'boolean',
-      description: 'Whether the field is disabled and non-interactive',
       table: { category: 'State' },
     },
     isReadOnly: {
       control: 'boolean',
-      description: 'Whether the value is visible but not editable',
       table: { category: 'State' },
     },
     onChange: {
       action: 'changed',
-      description: 'Called with the parsed number, or `null` when cleared',
       table: { category: 'Events' },
     },
   },

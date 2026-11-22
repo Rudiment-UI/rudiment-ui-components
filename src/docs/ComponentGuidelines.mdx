@@ -24,13 +24,14 @@ Practical do/don't guidance for each interactive component. Following these patt
 
 - **Do** provide a `name` prop so the component can generate initials as a fallback when the image fails to load
 - **Do** use the `status` prop sparingly. It works best for presence indicators (online/offline) or assignment states
-- **Don't** use Avatar without either `src` or `name`. An empty circle with no context is meaningless.
+- **Do** pass `statusLabel` with `status` (for example, "Busy") so the status is part of the accessible name, not just a colored dot
+- **Don't** use Avatar without either `src` or `name`. An empty circle with no context is meaningless. Without `alt` or `name` it is treated as decorative and hidden from screen readers.
 - **Don't** rely on the image alone for identification. Pair Avatar with a visible name label in lists and profiles.
 
 ## Badge
 
 - **Do** use to indicate status, counts, or categories (for example, "New", "3", or "Beta")
-- **Do** use the `dot` variant for a minimal presence indicator without text (for example, unread notifications)
+- **Do** use the `dot` variant for a minimal indicator (for example, unread notifications), and still pass children such as "3 unread". They're hidden visually but announced.
 - **Don't** put long text in a Badge. Keep labels to one or two short words.
 - **Don't** use color as the only way to convey meaning. Pair the variant color with a text label so color-blind readers can still understand the status.
 
@@ -61,7 +62,7 @@ Practical do/don't guidance for each interactive component. Following these patt
 - **Don't** nest Cards inside Cards. It creates visual noise and confusing depth hierarchy.
 - **Don't** use `variant="elevated"` for every card in a dense layout. Reserve elevation for the card that needs emphasis.
 
-## Charts (BarChart, LineChart, DonutChart)
+## Charts (BarChart, LineChart, DonutChart, Sparkline)
 
 - **Do** provide a `label` that describes the chart's purpose (for example, `label="Monthly revenue by product line"`). It sets the chart's accessible name.
 - **Do** use `BarChart` for categorical comparisons, `LineChart` for trends over time, and `DonutChart` for part-to-whole relationships
@@ -69,6 +70,7 @@ Practical do/don't guidance for each interactive component. Following these patt
 - **Don't** mix chart types to represent the same data set. Pick the chart that best fits the data relationship.
 - **Don't** override series colors with custom hex values. The dataviz tokens are designed for accessible contrast in both light and dark mode.
 - **Do** mark thresholds (a set-point, a target) with `referenceLines` on `RudiLineChart`, and set `yDomain` so the line stays in view
+- **Do** use `RudiSparkline` for a small trend inside a card, table cell or sentence. Switch to `RudiLineChart` when readers need axes, tooltips or exact values.
 
 ## Checkbox vs Switch
 
@@ -105,8 +107,16 @@ These two components look similar but serve different purposes:
 - **Do** use for confirmations that require user action (for example, "Are you sure you want to delete this?")
 - **Do** provide a clear title. Dismissable dialogs get a close button automatically.
 - **Do** put action buttons in `RudiDialog.Footer`, primary action last; it stays visible while long content scrolls
+- **Do** set `closeLabel` when your interface isn't in English. It names the close button.
 - **Don't** use for passive notifications. Use **Alert** instead.
 - **Don't** stack multiple dialogs. If a dialog needs to open another dialog, rethink the flow.
+
+## DescriptionList
+
+- **Do** use for read-only key–value details, such as a record's attributes or an order summary
+- **Do** use `layout="inline"` for short values beside their terms. It falls back to stacked when its container is narrow.
+- **Don't** use it for data with several attributes per row. Use **Table** instead.
+- **Don't** put form fields in it. Use a **Form** with labeled inputs for editable values.
 
 ## Divider
 
@@ -155,6 +165,7 @@ These two components look similar but serve different purposes:
 - **Do** write descriptive `alt` text (it's required); use an empty string only when the image is purely decorative
 - **Do** use `loading="lazy"` for below-the-fold images
 - **Don't** use `fit="cover"` when cropping would hide important detail. Use `fit="contain"` instead.
+- **Do** pass a `fallback` (or rely on the default placeholder) for images that may be missing, such as user uploads. The fallback keeps the `alt` text as its accessible name.
 - **Don't** put essential controls only in the `overlay` slot without making them reachable by keyboard.
 
 ## Input
@@ -168,7 +179,9 @@ These two components look similar but serve different purposes:
 
 - **Do** provide a `renderCard` prop to control card content. Compose with Badge, Avatar, and other components as needed
 - **Do** keep column counts manageable (3–7 columns). Horizontal scrolling with too many columns hurts usability.
-- **Do** test keyboard drag-and-drop: Space to grab, arrow keys to move, Space to drop
+- **Do** test keyboard drag-and-drop: Space to grab, arrow keys to move, Space to drop, Escape to cancel
+- **Do** apply `onCardMove` exactly as documented: remove the card at `fromIndex`, then insert it at `toIndex`. `toIndex` is the card's final position, and it matches the dashed drop slot shown during the drag.
+- **Do** pass `getCardLabel` (and `label` on each card) so drag announcements name the card instead of its id
 - **Don't** put complex interactive elements (dialogs, forms) inside KanbanCard. Cards should be scannable at a glance.
 - **Don't** use KanbanBoard for simple lists. It's designed for multi-column workflows with drag-and-drop reordering.
 
@@ -234,7 +247,7 @@ These two components look similar but serve different purposes:
 
 ## Rating
 
-- **Do** pass `onChange` only when users should set the rating — it becomes an interactive radiogroup; omit it for a read-only display (a labeled image)
+- **Do** pass `onChange` only when users should set the rating. It then becomes a radio group with one tab stop, where arrow keys change the value. Omit it for a read-only display, which is a labeled image.
 - **Do** use `showValue` and `count` to add the numeric score and review count next to the stars
 - **Do** provide a `label` describing what is being rated
 - **Don't** make a read-only rating look interactive. Without `onChange` it is not clickable, so don't imply it is.
@@ -243,12 +256,14 @@ These two components look similar but serve different purposes:
 ## Select
 
 - **Do** provide a clear placeholder like "Choose a color" so users know what to expect
+- **Do** set `name` when the select is inside a native form, so the selected key is submitted
 - **Don't** use Select for fewer than three options. Use **RadioGroup** instead, so users can see all choices at once.
 - **Don't** use Select when users need to compare all options at a glance. RadioGroup makes comparison easier.
 
 ## StatCard
 
-- **Do** use `trend` to give color context to the `delta` value (green for up, red for down)
+- **Do** set `trend` to match the `delta`. It controls the color, the icon and the screen reader text ("Increased +12.5%"). The default, `neutral`, reads as "No change".
+- **Do** set `trendLabel` to reword or translate that screen reader text
 - **Do** keep the `value` prominent and the `label` descriptive but concise
 - **Don't** use StatCard for non-metric content. It's designed for numbers and KPIs, not paragraphs.
 - **Don't** omit the `label`. A number without context ("12,450") is meaningless on its own.
@@ -281,13 +296,15 @@ These two components look similar but serve different purposes:
 - **Do** use for user-generated labels, filters, or categorization that users may need to add or remove
 - **Do** provide `onDismiss` when users should be able to remove the tag
 - **Don't** use Tag when the label is system-defined and non-removable. Use **Badge** instead.
-- **Don't** mix interactive (`onPress`) and dismissible (`onDismiss`) behavior on the same tag. Pick one interaction model.
+- **Do** keep the two actions distinct when a tag has both `onPress` and `dismissible`. They render as two separate buttons: the tag itself and its remove button.
+- **Don't** rely on `isDisabled` to hide a tag's remove button. It disables both actions; omit `dismissible` instead.
 
 ## Textarea
 
 - **Do** use for multi-line free text (comments, descriptions, notes), and set `rows` to hint at the expected length
 - **Do** provide a visible label and use the `description` prop for guidance, mirroring **Input**
 - **Do** use `errorMessage` to surface validation problems inline
+- **Do** set `name` inside native forms. `maxLength`, `isReadOnly` and `onBlur` work the same as on **Input**.
 - **Don't** use Textarea for short single-line values. Use **Input** instead.
 - **Don't** disable resizing (`resize="none"`) when users may need to see long content while editing.
 
@@ -295,6 +312,7 @@ These two components look similar but serve different purposes:
 
 - **Do** mount exactly one `RudiToastRegion` near the app root
 - **Do** keep titles short and put the detail in `description`
+- **Do** set `closeLabel` on `RudiToastRegion` when your interface isn't in English
 - **Don't** put the only path to a required action in a toast. It disappears, so use **Alert** or **Dialog**.
 - **Don't** use a toast for form validation errors. Show them inline next to the field.
 

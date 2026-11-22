@@ -7,10 +7,13 @@ import {
 import { cn } from '@/utils/cn'
 import type { RudiTableAlign } from './TableColumn'
 
+/** Props for `RudiTableCell`. Inherits `id`, `colSpan` and `textValue` from React Aria's `Cell`. */
 export interface RudiTableCellProps extends Omit<AriaCellProps, 'className' | 'style' | 'children'> {
   /** Overrides the alignment inherited from the cell's `RudiTableColumn`. */
   align?: RudiTableAlign
+  /** Cell content. A plain string also becomes the `textValue` unless one is given. */
   children?: ReactNode
+  /** Class merged onto the cell element. */
   className?: string
 }
 
@@ -53,6 +56,14 @@ function CellContent({
   )
 }
 
+/**
+ * A data cell in a `RudiTableRow`, in the same order as the table's columns. It inherits its
+ * column's `align` unless it sets its own. Focusing a text field inside the cell pauses the grid's
+ * arrow-key navigation so the field keeps the keys.
+ *
+ * @example
+ * <RudiTableCell align="end">12 kg</RudiTableCell>
+ */
 export function RudiTableCell({ align, children, className, textValue, ...props }: RudiTableCellProps) {
   return (
     <AriaCell

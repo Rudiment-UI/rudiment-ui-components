@@ -2,34 +2,42 @@ import { render, screen } from '@testing-library/react'
 import { axe } from 'vitest-axe'
 import { describe, it, expect } from 'vitest'
 import { RudiRadioGroup } from './RadioGroup'
+import { RudiRadio } from './Radio'
+
+const options = (
+  <>
+    <RudiRadio value="standard">Standard</RudiRadio>
+    <RudiRadio value="express">Express</RudiRadio>
+  </>
+)
 
 describe('RadioGroup', () => {
   it('renders the group label', () => {
-    render(<RudiRadioGroup label="Shipping" />)
+    render(<RudiRadioGroup label="Shipping">{options}</RudiRadioGroup>)
     expect(screen.getByText('Shipping')).toBeInTheDocument()
   })
 
   it('applies the group class', () => {
-    const { container } = render(<RudiRadioGroup label="Shipping" />)
+    const { container } = render(<RudiRadioGroup label="Shipping">{options}</RudiRadioGroup>)
     expect(container.firstChild).toHaveClass('rudi-radio-group')
   })
 
   it('applies the label class', () => {
-    render(<RudiRadioGroup label="Shipping" />)
+    render(<RudiRadioGroup label="Shipping">{options}</RudiRadioGroup>)
     expect(screen.getByText('Shipping')).toHaveClass(
       'rudi-radio-group__label',
     )
   })
 
   it('renders the options container', () => {
-    const { container } = render(<RudiRadioGroup label="Shipping" />)
+    const { container } = render(<RudiRadioGroup label="Shipping">{options}</RudiRadioGroup>)
     expect(
       container.querySelector('.rudi-radio-group__options'),
     ).toBeInTheDocument()
   })
 
   it('does not apply the horizontal class by default', () => {
-    const { container } = render(<RudiRadioGroup label="Shipping" />)
+    const { container } = render(<RudiRadioGroup label="Shipping">{options}</RudiRadioGroup>)
     expect(
       container.querySelector('.rudi-radio-group__options'),
     ).not.toHaveClass('rudi-radio-group__options--horizontal')
@@ -37,7 +45,7 @@ describe('RadioGroup', () => {
 
   it('applies the horizontal class when orientation is horizontal', () => {
     const { container } = render(
-      <RudiRadioGroup label="Shipping" orientation="horizontal" />,
+      <RudiRadioGroup label="Shipping" orientation="horizontal">{options}</RudiRadioGroup>,
     )
     expect(
       container.querySelector('.rudi-radio-group__options'),
@@ -46,13 +54,13 @@ describe('RadioGroup', () => {
 
   it('renders the description when provided and no error', () => {
     render(
-      <RudiRadioGroup label="Shipping" description="Choose a delivery speed." />,
+      <RudiRadioGroup label="Shipping" description="Choose a delivery speed.">{options}</RudiRadioGroup>,
     )
     expect(screen.getByText('Choose a delivery speed.')).toBeInTheDocument()
   })
 
   it('renders the error message when errorMessage is provided', () => {
-    render(<RudiRadioGroup label="Shipping" errorMessage="Select an option." />)
+    render(<RudiRadioGroup label="Shipping" errorMessage="Select an option.">{options}</RudiRadioGroup>)
     expect(screen.getByText('Select an option.')).toBeInTheDocument()
   })
 
@@ -61,8 +69,7 @@ describe('RadioGroup', () => {
       <RudiRadioGroup
         label="Shipping"
         description="Choose a delivery speed."
-        errorMessage="Select an option."
-      />,
+        errorMessage="Select an option.">{options}</RudiRadioGroup>,
     )
     expect(
       screen.queryByText('Choose a delivery speed.'),
@@ -71,14 +78,14 @@ describe('RadioGroup', () => {
 
   it('merges a custom className', () => {
     const { container } = render(
-      <RudiRadioGroup label="Shipping" className="extra" />,
+      <RudiRadioGroup label="Shipping" className="extra">{options}</RudiRadioGroup>,
     )
     expect(container.firstChild).toHaveClass('rudi-radio-group')
     expect(container.firstChild).toHaveClass('extra')
   })
 
   it('has the radiogroup role', () => {
-    render(<RudiRadioGroup label="Shipping" />)
+    render(<RudiRadioGroup label="Shipping">{options}</RudiRadioGroup>)
     expect(screen.getByRole('radiogroup')).toBeInTheDocument()
   })
 
@@ -92,13 +99,13 @@ describe('RadioGroup', () => {
   })
 
   it('has no accessibility violations', async () => {
-    const { container } = render(<RudiRadioGroup label="Shipping" />)
+    const { container } = render(<RudiRadioGroup label="Shipping">{options}</RudiRadioGroup>)
     expect(await axe(container)).toHaveNoViolations()
   })
 
   it('has no accessibility violations in error state', async () => {
     const { container } = render(
-      <RudiRadioGroup label="Shipping" errorMessage="Select an option." />,
+      <RudiRadioGroup label="Shipping" errorMessage="Select an option.">{options}</RudiRadioGroup>,
     )
     expect(await axe(container)).toHaveNoViolations()
   })

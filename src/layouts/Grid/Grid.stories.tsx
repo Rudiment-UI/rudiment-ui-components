@@ -16,22 +16,17 @@ const meta = {
   argTypes: {
     as: {
       control: 'text',
-      description: 'The HTML element to render',
       table: { category: 'Content' },
     },
     children: {
       table: { category: 'Content' },
-      description: 'Content to display inside the grid',
     },
     minCellWidth: {
       control: 'text',
-      description:
-        "The smallest allowed width for each grid cell (e.g., '15rem')",
       table: { category: 'Layout' },
     },
     space: {
       control: 'text',
-      description: 'Gap between grid cells using any CSS length value',
       table: { category: 'Layout' },
     },
   },

@@ -1,11 +1,12 @@
 {
   "name": "rudiment-ui",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Accessible React component library built on React Aria, with layout primitives, charts, and a three-tier design token architecture supporting eight built-in themes.",
   "main": "dist/index.js",
   "scripts": {
     "dev": "storybook dev -p 6006",
-    "build": "vite build",
+    "build": "vite build && node scripts/component-docs.mjs",
+    "build:docs": "node scripts/component-docs.mjs",
     "prepare": "npm run build:tokens && npm run build",
     "prepublishOnly": "npm run build:tokens && npm run build",
     "build-storybook": "storybook build",
@@ -16,6 +17,9 @@
   },
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "bin": {
+    "rudiment-ui-mcp": "mcp/server.mjs"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -25,10 +29,16 @@
       "types": "./styles.d.ts",
       "default": "./dist/index.css"
     },
+    "./llms.txt": "./dist/llms.txt",
+    "./llms-full.txt": "./dist/llms-full.txt",
+    "./components.json": "./dist/components.json",
     "./package.json": "./package.json"
   },
   "files": [
     "dist",
+    "mcp/server.mjs",
+    "mcp/render.mjs",
+    "mcp/README.md",
     "styles.d.ts"
   ],
   "peerDependencies": {

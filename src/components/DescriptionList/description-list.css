@@ -1,0 +1,70 @@
+/* DescriptionList */
+.rudi-description-list {
+  container-type: inline-size;
+  display: grid;
+  gap: var(--rudi-component-description-list-gap);
+  margin: 0;
+  padding: 0;
+}
+
+/* Stacked: up to --description-list-columns columns, each at least the min width, flowing responsively. */
+.rudi-description-list--stacked {
+  --description-list-columns: 1;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(
+      min(
+        100%,
+        max(
+          var(--rudi-component-description-list-column-min-width),
+          (
+              100% - var(--rudi-component-description-list-gap) *
+                (var(--description-list-columns) - 1)
+            ) / var(--description-list-columns)
+        )
+      ),
+      1fr
+    )
+  );
+}
+
+.rudi-description-list__item {
+  display: grid;
+  align-content: start;
+  gap: var(--rudi-component-description-list-row-gap);
+  min-inline-size: 0;
+}
+
+.rudi-description-list__term {
+  margin: 0;
+  color: var(--rudi-component-description-list-term-color);
+  font-size: var(--rudi-component-description-list-term-font-size);
+  font-weight: var(--rudi-component-description-list-term-font-weight);
+}
+
+.rudi-description-list__description {
+  margin: 0;
+  color: var(--rudi-component-description-list-description-color);
+  font-size: var(--rudi-component-description-list-description-font-size);
+  font-weight: normal;
+  overflow-wrap: anywhere;
+}
+
+/* Inline: term and description side by side once the list is wide enough. */
+@container (min-width: 28rem) {
+  .rudi-description-list--inline > .rudi-description-list__item {
+    grid-template-columns: var(--rudi-component-description-list-inline-term-width) minmax(0, 1fr);
+    column-gap: var(--rudi-component-description-list-gap);
+    align-items: baseline;
+  }
+}
+
+.rudi-description-list--dividers > .rudi-description-list__item {
+  padding-block-end: var(--rudi-component-description-list-gap);
+  border-block-end: 1px solid var(--rudi-component-description-list-divider-color);
+}
+
+.rudi-description-list--dividers > .rudi-description-list__item:last-child {
+  padding-block-end: 0;
+  border-block-end: 0;
+}

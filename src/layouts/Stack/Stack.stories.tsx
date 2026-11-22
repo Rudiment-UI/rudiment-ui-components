@@ -19,29 +19,21 @@ const meta = {
   argTypes: {
     as: {
       control: 'text',
-      description: "The HTML element to render (e.g., 'div', 'ul', 'ol')",
       table: { category: 'Content' },
     },
     children: {
       table: { category: 'Content' },
-      description: 'Content to display inside the stack',
     },
     recursive: {
       control: 'boolean',
-      description:
-        'When enabled, applies spacing to all nested elements, not just direct children',
       table: { category: 'Appearance' },
     },
     space: {
       control: 'text',
-      description:
-        "Vertical gap between items using any CSS length value (e.g., '1.5rem')",
       table: { category: 'Layout' },
     },
     splitAfter: {
       control: 'number',
-      description:
-        'Pushes all items after this index to the bottom of the stack (1-based)',
       table: { category: 'Layout' },
     },
   },
@@ -114,6 +106,22 @@ export const AsUnorderedList: Story = {
       <li>First item</li>
       <li>Second item</li>
       <li>Third item</li>
+    </RudiStack>
+  ),
+}
+
+export const Nested: Story = {
+  render: () => (
+    <RudiStack space="3rem">
+      <RudiStack space="1rem">
+        <Placeholder label="Group 1, item 1" />
+        <Placeholder label="Group 1, item 2" />
+        <Placeholder label="Group 1, item 3" />
+      </RudiStack>
+      <RudiStack space="1rem">
+        <Placeholder label="Group 2, item 1" />
+        <Placeholder label="Group 2, item 2" />
+      </RudiStack>
     </RudiStack>
   ),
 }

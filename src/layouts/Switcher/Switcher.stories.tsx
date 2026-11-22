@@ -16,28 +16,21 @@ const meta = {
   argTypes: {
     as: {
       control: 'text',
-      description: 'The HTML element to render',
       table: { category: 'Content' },
     },
     children: {
       table: { category: 'Content' },
-      description: 'Content to display inside the switcher layout',
     },
     threshold: {
       control: 'text',
-      description:
-        "The container width at which the layout switches from row to stack (e.g., '30rem')",
       table: { category: 'Layout' },
     },
     space: {
       control: 'text',
-      description: 'Gap between items using any CSS length value',
       table: { category: 'Layout' },
     },
     limit: {
       control: 'number',
-      description:
-        'Maximum number of items before the layout forces a vertical stack',
       table: { category: 'Layout' },
     },
   },

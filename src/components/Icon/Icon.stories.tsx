@@ -22,30 +22,23 @@ const meta = {
   argTypes: {
     icon: {
       control: 'text',
-      description: 'The Iconify icon identifier (e.g. "lucide:home")',
       table: { category: 'Content' },
     },
     label: {
       control: 'text',
-      description:
-        'Accessible label for the icon. When provided, the icon is treated as meaningful (role="img"). When omitted, the icon is decorative (aria-hidden="true").',
       table: { category: 'Content' },
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description:
-        'Preset size or a custom numeric pixel value for width and height',
       table: { category: 'Appearance' },
     },
     color: {
       control: 'color',
-      description: 'Custom color applied via inline style',
       table: { category: 'Appearance' },
     },
     className: {
       control: 'text',
-      description: 'Additional CSS class names to apply to the icon wrapper',
       table: { category: 'Appearance' },
     },
   },

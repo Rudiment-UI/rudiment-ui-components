@@ -92,17 +92,14 @@ const meta = {
     placement: {
       control: 'inline-radio',
       options: ['bottom-end', 'top-end', 'bottom-center'],
-      description: 'The viewport corner the toasts stack from',
       table: { category: 'Layout' },
     },
     className: {
       control: 'text',
-      description: 'Additional CSS class names to apply to the region',
       table: { category: 'Appearance' },
     },
     'aria-label': {
       control: 'text',
-      description: 'Accessible name for the notifications landmark',
       table: { category: 'Content' },
     },
   },

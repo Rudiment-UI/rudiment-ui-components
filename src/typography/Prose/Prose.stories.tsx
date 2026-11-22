@@ -16,23 +16,17 @@ const meta = {
   argTypes: {
     as: {
       control: 'text',
-      description:
-        "The HTML element to render (e.g., 'div', 'article', 'section')",
       table: { category: 'Content' },
     },
     children: {
-      description: 'The long-form content rendered inside the prose container',
       table: { category: 'Content' },
     },
     size: {
       control: 'select',
       options: ['sm', 'base', 'lg'],
-      description: 'The overall text size for the prose content',
       table: { category: 'Appearance' },
     },
     className: {
-      description:
-        'Additional CSS class names to apply to the prose container',
       table: { category: 'Appearance' },
     },
   },
@@ -42,7 +36,7 @@ const meta = {
 } satisfies Meta<typeof RudiProse>
 
 export default meta
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<typeof RudiProse>
 
 const SampleContent = () => (
   <>

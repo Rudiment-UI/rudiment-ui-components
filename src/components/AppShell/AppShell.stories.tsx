@@ -22,7 +22,7 @@ const meta = {
 } satisfies Meta<typeof RudiAppShell>
 
 export default meta
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<typeof RudiAppShell>
 
 const NAV = [
   { key: 'home', label: 'Dashboard', icon: 'lucide:layout-dashboard' },

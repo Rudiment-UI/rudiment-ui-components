@@ -104,12 +104,10 @@ const meta = {
     density: {
       control: 'inline-radio',
       options: ['regular', 'compact'],
-      description: 'Row height and cell padding.',
       table: { category: 'Appearance' },
     },
     striped: {
       control: 'boolean',
-      description: 'Alternate row backgrounds (zebra striping).',
       table: { category: 'Appearance' },
     },
     'aria-label': {
@@ -124,17 +122,14 @@ const meta = {
     },
     stickyHeader: {
       control: 'boolean',
-      description: 'Pins the header row while the body scrolls inside the table. Pair with `maxHeight`.',
       table: { category: 'Layout' },
     },
     maxHeight: {
       control: 'text',
-      description: 'Max height of the scroll container (CSS length or px number).',
       table: { category: 'Layout' },
     },
     className: {
       control: false,
-      description: 'Class merged onto the outer scroll container.',
       table: { category: 'Layout' },
     },
     selectionMode: {

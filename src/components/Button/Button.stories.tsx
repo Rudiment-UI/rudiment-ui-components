@@ -26,40 +26,32 @@ const meta = {
   argTypes: {
     children: {
       control: 'text',
-      description: 'The text or content displayed inside the button',
       table: { category: 'Content' },
     },
     variant: {
       control: 'select',
       options: ['primary', 'secondary', 'destructive', 'ghost'],
-      description: 'The visual style of the button',
       table: { category: 'Appearance' },
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'The size of the button',
       table: { category: 'Appearance' },
     },
     iconBefore: {
       control: 'text',
-      description: 'Iconify icon name to display before the button label',
       table: { category: 'Content' },
     },
     iconAfter: {
       control: 'text',
-      description: 'Iconify icon name to display after the button label',
       table: { category: 'Content' },
     },
     className: {
       control: 'text',
-      description: 'Additional CSS class names to apply to the button',
       table: { category: 'Appearance' },
     },
     isLoading: {
       control: 'boolean',
-      description:
-        'Whether the button shows a loading spinner and disables interaction',
       table: { category: 'State' },
     },
     isDisabled: {

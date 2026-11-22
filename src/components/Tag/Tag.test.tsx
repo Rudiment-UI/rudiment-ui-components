@@ -81,4 +81,67 @@ describe('Tag', () => {
     const { container } = render(<RudiTag dismissible>Removable</RudiTag>)
     expect(await axe(container)).toHaveNoViolations()
   })
+
+  it('nests no interactive element inside another with onPress and dismissible', async () => {
+    const { container } = render(
+      <RudiTag onPress={() => {}} dismissible>Both</RudiTag>,
+    )
+    const buttons = container.querySelectorAll('button')
+    expect(buttons).toHaveLength(2)
+    expect(container.querySelector('button [role=button], button button')).toBeNull()
+    expect(container.querySelector('[role=button]')).toBeNull()
+    expect(await axe(container)).toHaveNoViolations()
+  })
+
+  it('presses the main control and dismiss control independently', async () => {
+    const user = userEvent.setup()
+    const onPress = vi.fn()
+    const onDismiss = vi.fn()
+    render(
+      <RudiTag onPress={onPress} dismissible onDismiss={onDismiss}>Both</RudiTag>,
+    )
+    await user.click(screen.getByRole('button', { name: 'Both' }))
+    expect(onPress).toHaveBeenCalledTimes(1)
+    expect(onDismiss).not.toHaveBeenCalled()
+    await user.click(screen.getByRole('button', { name: 'Remove Both' }))
+    expect(onDismiss).toHaveBeenCalledTimes(1)
+    expect(onPress).toHaveBeenCalledTimes(1)
+  })
+
+  it.each(['{Enter}', ' '])('dismisses with keyboard key %j', async (key) => {
+    const user = userEvent.setup()
+    const onDismiss = vi.fn()
+    render(<RudiTag onPress={() => {}} dismissible onDismiss={onDismiss}>Item</RudiTag>)
+    screen.getByRole('button', { name: 'Remove Item' }).focus()
+    await user.keyboard(key)
+    expect(onDismiss).toHaveBeenCalledTimes(1)
+  })
+
+  it.each(['{Enter}', ' '])('presses the main control with keyboard key %j', async (key) => {
+    const user = userEvent.setup()
+    const onPress = vi.fn()
+    render(<RudiTag onPress={onPress} dismissible>Item</RudiTag>)
+    screen.getByRole('button', { name: 'Item' }).focus()
+    await user.keyboard(key)
+    expect(onPress).toHaveBeenCalledTimes(1)
+  })
+
+  it('disables the dismiss button and does not fire onDismiss when isDisabled', async () => {
+    const user = userEvent.setup()
+    const onDismiss = vi.fn()
+    render(<RudiTag dismissible isDisabled onDismiss={onDismiss}>Item</RudiTag>)
+    const close = screen.getByRole('button', { name: 'Remove Item' })
+    expect(close).toBeDisabled()
+    await user.click(close)
+    close.focus()
+    await user.keyboard('{Enter}')
+    expect(onDismiss).not.toHaveBeenCalled()
+    expect(screen.getByText('Item')).toBeInTheDocument()
+  })
+
+  it('disables both controls when isDisabled with onPress and dismissible', () => {
+    render(<RudiTag onPress={() => {}} dismissible isDisabled>Item</RudiTag>)
+    expect(screen.getByRole('button', { name: 'Item' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: 'Remove Item' })).toBeDisabled()
+  })
 })

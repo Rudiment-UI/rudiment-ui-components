@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-11-21
+
+### Added
+
+- **`--rudi-component-input-height`:** one height for single-line fields and medium buttons: 38px by default, 44px in roomy, 32px in compressed. `RudiInput`, `RudiSelect`, `RudiComboBox`, `RudiNumberField`, `RudiDatePicker` and `RudiButton size="md"` read it through their own tokens (`select-trigger-height`, `combo-box-height`, `number-field-field-height`, `date-picker-field-height`, `button-height-md`), so overriding it once resizes them all.
+
+### Changed
+
+- Fields and medium buttons now share a height in every theme. Fields were 35px, medium buttons 39px (26px compressed, 47px roomy). `--rudi-component-button-padding-y-md` drops from `spacing.2` to `spacing.1`, since the height now comes from `min-block-size`. Compressed fields use `0.25rem` vertical padding.
+- The affected controls set `box-sizing: border-box`.
+
+### Fixed
+
+- A field in a grid row no longer stretches when a neighbouring field has a description or error. `RudiInput`, `RudiSelect`, `RudiComboBox`, `RudiNumberField`, `RudiDatePicker` and `RudiTextarea` set `align-content: start`.
+
 ## [0.4.0] - 2026-11-21
 
 Built out while rebuilding the IVFCryo shipping app on Rudiment UI. See Part 6 of `src/stories/examples/DEPARTURES.md`.

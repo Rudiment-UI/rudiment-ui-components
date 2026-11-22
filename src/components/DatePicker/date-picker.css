@@ -2,6 +2,8 @@
 
 .rudi-date-picker {
   display: grid;
+  /* Keep the control its own height when a grid row stretches the field (a neighbour has help text). */
+  align-content: start;
   gap: var(--rudi-component-date-picker-gap);
   font-size: var(--rudi-component-date-picker-font-size);
 }
@@ -17,6 +19,8 @@
 }
 
 .rudi-date-picker__field {
+  box-sizing: border-box;
+  min-block-size: var(--rudi-component-date-picker-field-height);
   display: flex;
   align-items: center;
   gap: var(--rudi-component-date-picker-field-gap);

@@ -48,6 +48,7 @@
   --rudi-component-icon-button-size-md: 2.25rem;
   --rudi-component-icon-button-size-lg: 2.75rem;
   --rudi-component-icon-button-secondary-border: rgba(0, 0, 0, 0);
+  --rudi-component-input-height: 2.375rem;
   --rudi-component-input-padding-y: 0.375rem;
   --rudi-component-input-border: rgba(0, 0, 0, 0);
   --rudi-component-input-error-border: rgba(0, 0, 0, 0);
@@ -207,8 +208,9 @@
   --rudi-component-button-radius: var(--rudi-radius-full);
   --rudi-component-button-padding-y-sm: var(--rudi-spacing-1);
   --rudi-component-button-padding-x-sm: var(--rudi-spacing-3);
-  --rudi-component-button-padding-y-md: var(--rudi-spacing-2);
+  --rudi-component-button-padding-y-md: var(--rudi-spacing-1);
   --rudi-component-button-padding-x-md: var(--rudi-spacing-4);
+  --rudi-component-button-height-md: var(--rudi-component-input-height);
   --rudi-component-button-padding-y-lg: var(--rudi-spacing-3);
   --rudi-component-button-padding-x-lg: var(--rudi-spacing-6);
   --rudi-component-button-font-size-sm: var(--rudi-font-size-sm);
@@ -232,6 +234,7 @@
   --rudi-component-input-error-font-size: var(--rudi-font-size-xs);
   --rudi-component-input-gap: var(--rudi-spacing-1);
   --rudi-component-select-trigger-radius: var(--rudi-radius-lg);
+  --rudi-component-select-trigger-height: var(--rudi-component-input-height);
   --rudi-component-select-trigger-padding-y: var(--rudi-component-input-padding-y);
   --rudi-component-select-trigger-gap: var(--rudi-spacing-2);
   --rudi-component-select-trigger-font-size: var(--rudi-font-size-sm);
@@ -443,6 +446,7 @@
   --rudi-component-empty-state-action-margin-top: var(--rudi-spacing-2);
   --rudi-component-combo-box-border: var(--rudi-component-input-border);
   --rudi-component-combo-box-padding-y: var(--rudi-component-input-padding-y);
+  --rudi-component-combo-box-height: var(--rudi-component-input-height);
   --rudi-component-combo-box-error-border: var(--rudi-component-input-error-border);
   --rudi-component-combo-box-button-padding-x: var(--rudi-spacing-2);
   --rudi-component-combo-box-popover-border: var(--rudi-component-select-popover-border);
@@ -482,6 +486,7 @@
   --rudi-component-date-picker-description-font-size: var(--rudi-font-size-xs);
   --rudi-component-date-picker-error-font-size: var(--rudi-font-size-xs);
   --rudi-component-date-picker-field-radius: var(--rudi-radius-sm);
+  --rudi-component-date-picker-field-height: var(--rudi-component-input-height);
   --rudi-component-date-picker-field-padding-y: var(--rudi-component-input-padding-y);
   --rudi-component-date-picker-field-line-height: var(--rudi-font-line-height-normal);
   --rudi-component-date-picker-field-gap: var(--rudi-spacing-2);
@@ -508,6 +513,7 @@
   --rudi-component-number-field-description-font-size: var(--rudi-font-size-xs);
   --rudi-component-number-field-error-font-size: var(--rudi-font-size-xs);
   --rudi-component-number-field-field-radius: var(--rudi-radius-sm);
+  --rudi-component-number-field-field-height: var(--rudi-component-input-height);
   --rudi-component-number-field-field-padding-y: var(--rudi-component-input-padding-y);
   --rudi-component-number-field-field-line-height: var(--rudi-font-line-height-normal);
   --rudi-component-number-field-stepper-width: var(--rudi-spacing-8);

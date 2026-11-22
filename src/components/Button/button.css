@@ -29,6 +29,9 @@
   font-size: var(--rudi-component-button-font-size-sm);
 }
 .rudi-button--md {
+  /* Same height as the single-line fields, so a button lines up beside them. */
+  box-sizing: border-box;
+  min-block-size: var(--rudi-component-button-height-md);
   padding: var(--rudi-component-button-padding-y-md)
     var(--rudi-component-button-padding-x-md);
   font-size: var(--rudi-component-button-font-size-md);

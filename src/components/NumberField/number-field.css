@@ -2,6 +2,8 @@
 
 .rudi-number-field {
   display: grid;
+  /* Keep the control its own height when a grid row stretches the field (a neighbour has help text). */
+  align-content: start;
   gap: var(--rudi-component-number-field-gap);
   font-size: var(--rudi-component-number-field-font-size);
 }
@@ -17,6 +19,8 @@
 }
 
 .rudi-number-field__field {
+  box-sizing: border-box;
+  min-block-size: var(--rudi-component-number-field-field-height);
   display: flex;
   align-items: stretch;
   width: 100%;

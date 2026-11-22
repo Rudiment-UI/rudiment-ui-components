@@ -1,5 +1,7 @@
 .rudi-combo-box {
   display: grid;
+  /* Keep the control its own height when a grid row stretches the field (a neighbour has help text). */
+  align-content: start;
   gap: var(--rudi-component-combo-box-gap);
   font-size: var(--rudi-component-combo-box-font-size);
 }
@@ -16,6 +18,8 @@
 
 /* Field: the bordered box holding the input and the chevron button */
 .rudi-combo-box__field {
+  box-sizing: border-box;
+  min-block-size: var(--rudi-component-combo-box-height);
   display: flex;
   align-items: center;
   width: 100%;

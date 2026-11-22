@@ -3,6 +3,7 @@ import type { Preview } from '@storybook/react'
 import { useArgs } from 'storybook/preview-api'
 import { create } from 'storybook/theming/create'
 import '../src/app.css'
+import { brand, fonts } from './brand/brand'
 
 // Light docs theme so the "Show code" Source block renders the dark-on-light
 // `lightSyntaxColors` palette. Without it the block falls back to the dark
@@ -10,6 +11,20 @@ import '../src/app.css'
 // set in preview-head.html. Mirrors the light brand theme in manager.ts.
 const docsTheme = create({
   base: 'light',
+  fontBase: fonts.sans,
+  fontCode: fonts.mono,
+  colorPrimary: brand.ink,
+  colorSecondary: brand.persimmonDeep,
+  appBg: brand.paper,
+  appContentBg: brand.paperRaised,
+  appPreviewBg: brand.paperRaised,
+  appBorderColor: brand.stone,
+  appBorderRadius: 12,
+  textColor: brand.ink,
+  textMutedColor: brand.muted,
+  barBg: brand.paperRaised,
+  barTextColor: brand.muted,
+  barSelectedColor: brand.persimmonDeep,
 })
 
 const preview: Preview = {

@@ -1,0 +1,328 @@
+/* Introduction hero. Storybook-only; every class is `sbb-` (Storybook brand)
+   so nothing collides with `rudi-*` component classes. */
+
+.sbb-hero {
+  --sbb-ink: #141413;
+  --sbb-ink-soft: #2a2a27;
+  --sbb-paper: #f7f5f0;
+  --sbb-stone: #e7e4dc;
+  --sbb-muted: #6b6862;
+  --sbb-signal: #ff5a1f;
+  --sbb-signal-deep: #b93a0e;
+  --sbb-ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --sbb-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  padding: clamp(2rem, 6vw, 5rem) 0 clamp(3rem, 7vw, 6rem);
+  margin-bottom: 1rem;
+  font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  color: var(--sbb-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- Copy column --------------------------------------------------------- */
+
+.sbb-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 1.75rem;
+  padding: 0.35rem 0.8rem 0.35rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(20, 20, 19, 0.04);
+  box-shadow: inset 0 0 0 1px rgba(20, 20, 19, 0.07);
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--sbb-muted);
+}
+
+.sbb-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--sbb-signal);
+  box-shadow: 0 0 0 3px rgba(255, 90, 31, 0.16);
+}
+
+.sbb-title {
+  margin: 0;
+  font-size: clamp(2.75rem, 6.2vw, 4.75rem);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+  color: var(--sbb-ink);
+  text-wrap: balance;
+}
+
+.sbb-title-point {
+  color: var(--sbb-signal);
+}
+
+.sbb-lede {
+  max-width: 34ch;
+  margin: 1.5rem 0 0;
+  font-size: 1.125rem;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  color: var(--sbb-ink-soft);
+}
+
+.sbb-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  margin-top: 2.25rem;
+}
+
+.sbb-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.4rem 0.4rem 0.4rem 1.25rem;
+  border-radius: 999px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  color: var(--sbb-ink);
+  background: rgba(20, 20, 19, 0.04);
+  box-shadow: inset 0 0 0 1px rgba(20, 20, 19, 0.08);
+  transition:
+    transform 500ms var(--sbb-ease),
+    background-color 500ms var(--sbb-ease);
+}
+
+.sbb-btn:hover {
+  background: rgba(20, 20, 19, 0.07);
+}
+
+.sbb-btn:active {
+  transform: scale(0.98);
+}
+
+.sbb-btn:focus-visible {
+  outline: 2px solid var(--sbb-signal-deep);
+  outline-offset: 3px;
+}
+
+.sbb-btn--primary {
+  color: var(--sbb-paper);
+  background: var(--sbb-ink);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 10px 30px -12px rgba(20, 20, 19, 0.45);
+}
+
+.sbb-btn--primary:hover {
+  background: #000;
+}
+
+.sbb-btn-icon {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  background: rgba(20, 20, 19, 0.06);
+  transition: transform 500ms var(--sbb-ease);
+}
+
+.sbb-btn--primary .sbb-btn-icon {
+  background: rgba(247, 245, 240, 0.12);
+}
+
+.sbb-btn:hover .sbb-btn-icon {
+  transform: translate(2px, -1px) scale(1.06);
+}
+
+.sbb-btn[href^='#']:hover .sbb-btn-icon {
+  transform: translateY(2px) scale(1.06);
+}
+
+.sbb-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 2.5rem;
+  margin: 3rem 0 0;
+  padding: 1.25rem 0 0;
+  border-top: 1px solid var(--sbb-stone);
+}
+
+.sbb-facts > div {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 0.25rem;
+}
+
+.sbb-facts dt {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sbb-muted);
+}
+
+.sbb-facts dd {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Construction plate (double bezel) ----------------------------------- */
+
+.sbb-plate {
+  margin: 0;
+  padding: 0.5rem;
+  border-radius: 2rem;
+  background: rgba(20, 20, 19, 0.035);
+  box-shadow: inset 0 0 0 1px rgba(20, 20, 19, 0.06);
+}
+
+.sbb-plate-core {
+  position: relative;
+  overflow: hidden;
+  border-radius: calc(2rem - 0.5rem);
+  background:
+    radial-gradient(120% 80% at 85% 10%, rgba(255, 90, 31, 0.14), transparent 55%),
+    linear-gradient(160deg, #1d1d1b 0%, var(--sbb-ink) 60%);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.1),
+    0 30px 60px -30px rgba(20, 20, 19, 0.35);
+}
+
+.sbb-mark {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.sbb-grid {
+  stroke: rgba(247, 245, 240, 0.05);
+  stroke-width: 0.04;
+}
+
+.sbb-grid--major {
+  stroke: rgba(247, 245, 240, 0.12);
+}
+
+.sbb-guide {
+  fill: none;
+  stroke: rgba(255, 90, 31, 0.5);
+  stroke-width: 0.06;
+  stroke-dasharray: 0.3 0.3;
+}
+
+.sbb-glyph {
+  fill: var(--sbb-paper);
+}
+
+.sbb-point {
+  fill: var(--sbb-signal);
+}
+
+.sbb-labels text {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 1.05px;
+  letter-spacing: 0.08px;
+  fill: rgba(247, 245, 240, 0.55);
+}
+
+.sbb-caption {
+  padding: 0.875rem 1rem 0.5rem;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--sbb-muted);
+}
+
+/* ---- Motion -------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .sbb-copy > *,
+  .sbb-plate {
+    animation: sbb-rise 900ms var(--sbb-ease) both;
+    animation-delay: calc(var(--i, 0) * 90ms);
+  }
+
+  .sbb-bar,
+  .sbb-arc,
+  .sbb-point,
+  .sbb-guide,
+  .sbb-labels {
+    transform-box: fill-box;
+  }
+
+  .sbb-bar {
+    transform-origin: 50% 100%;
+    animation: sbb-grow 800ms var(--sbb-ease) 350ms both;
+  }
+
+  .sbb-arc {
+    transform-origin: 0% 100%;
+    animation: sbb-sweep 800ms var(--sbb-ease) 520ms both;
+  }
+
+  .sbb-point {
+    transform-origin: 50% 50%;
+    animation: sbb-pop 700ms var(--sbb-spring) 760ms both;
+  }
+
+  .sbb-guide,
+  .sbb-labels {
+    animation: sbb-fade 1200ms var(--sbb-ease) 900ms both;
+  }
+}
+
+@keyframes sbb-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+@keyframes sbb-grow {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+@keyframes sbb-sweep {
+  from { opacity: 0; transform: rotate(-90deg) scale(0.6); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes sbb-pop {
+  from { opacity: 0; transform: scale(0); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes sbb-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ---- Small screens ------------------------------------------------------- */
+
+@media (max-width: 767px) {
+  .sbb-hero {
+    grid-template-columns: minmax(0, 1fr);
+    padding-top: 1.5rem;
+  }
+
+  .sbb-plate {
+    max-width: 26rem;
+  }
+}

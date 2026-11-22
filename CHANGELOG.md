@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **Storybook brand identity:** Storybook now has a Rudiment UI mark (a lowercase "r" built from a bar, an arc and a point), a favicon, light and dark chrome themes that follow the OS, Geist typography for docs prose, and a hero on the Introduction page. This is presentation only: no component, token or published file changes. See `.storybook/brand/BRAND.md`.
+
 ## [0.7.0] - 2026-11-22
 
 ### Added

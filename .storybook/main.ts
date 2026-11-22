@@ -20,6 +20,9 @@ const config: StorybookConfig = {
     },
   ],
   framework: '@storybook/react-vite',
+  // Brand assets for the Storybook chrome only (favicon.svg is picked up
+  // automatically). Not part of the library build.
+  staticDirs: ['./public'],
   async viteFinal(config: InlineConfig) {
     return {
       ...config,

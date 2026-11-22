@@ -1,148 +1,95 @@
-<!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="preconnect" href="https://rsms.me" crossorigin />
-<link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
 <link
-  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&family=Rubik:wght@400;500;600;700&display=swap"
+  href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
   rel="stylesheet"
-/> -->
+/>
 
-<!-- <style>
-  :root {
-    --sb-font-sans:
-      'InterVariable', 'Inter', ui-sans-serif, system-ui, sans-serif;
-    --sb-font-display: 'Instrument Serif', ui-serif, Georgia, serif;
-    --sb-font-mono:
-      'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-      monospace;
-  }
-
-  /* Storybook's MDX DocsContainer applies emotion-generated classes with
-     `:where(h1:not(...))` rules (zero-specificity). Target the elements
-     directly inside the docs wrapper and use !important so our fonts win
-     against the runtime emotion stylesheet. Scoped to docs only — component
-     stories render in .docs-story / iframe and are unaffected. */
-  .sbdocs-wrapper,
+<style>
+  /* Brand typography for MDX docs pages only.
+     Selectors are anchored to direct children of `.sbdocs-content`: that is
+     where Markdown-rendered elements land. Component previews sit deeper,
+     inside `.docs-story`, and the Introduction hero opts out with
+     `.sb-unstyled`, so neither is touched. */
   .sbdocs-content {
-    font-family: var(--sb-font-sans) !important;
+    --sb-brand-ink: #141413;
+    --sb-brand-ink-soft: #2a2a27;
+    --sb-brand-muted: #6b6862;
+    --sb-brand-line: #e7e4dc;
+    --sb-brand-signal: #b93a0e;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizelegibility;
   }
 
-  .sbdocs-wrapper :is(h1, h2, h3, h4, h5, h6, th),
-  .sbdocs-content :is(h1, h2, h3, h4, h5, h6, th) {
-    font-family: var(--sb-font-display) !important;
-    font-weight: 400 !important;
-    font-style: normal;
-    letter-spacing: -0.01em;
+  .sbdocs-content > :is(h1, h2, h3, h4) {
+    font-family: 'Geist', ui-sans-serif, system-ui, sans-serif !important;
+    color: var(--sb-brand-ink) !important;
+    font-weight: 600 !important;
     text-wrap: balance;
-    font-weight: bold;
-    line-height: 1.15;
-    border: none !important;
+    border: 0 !important;
   }
-
-  .sbdocs-wrapper code,
-  .sbdocs-content code {
-    background-color: rgba(0, 0, 0, 0.05) !important;
-  }
-
-  .sbdocs-wrapper pre,
-  .sbdocs-content pre {
-    background-color: rgb(246, 249, 252) !important;
-  }
-
-  .sbdocs-wrapper h1,
-  .sbdocs-content h1 {
-    font-size: 3.5rem !important;
-  }
-
-  .sbdocs-wrapper h2,
-  .sbdocs-content h2 {
-    font-size: 2.5rem !important;
+  .sbdocs-content > h1 { font-size: 2.75rem !important; line-height: 1.05 !important; letter-spacing: -0.04em !important; }
+  .sbdocs-content > h2 {
+    font-size: 1.75rem !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.03em !important;
     margin-top: 4rem !important;
+    padding-top: 2rem !important;
+    border-top: 1px solid var(--sb-brand-line) !important;
   }
+  .sbdocs-content > h3 { font-size: 1.25rem !important; letter-spacing: -0.02em !important; margin-top: 2.5rem !important; }
 
-  .sbdocs-wrapper h3,
-  .sbdocs-content h3 {
-    font-size: 1.875rem !important;
+  .sbdocs-content > :is(p, ul, ol, blockquote, table) {
+    font-family: 'Geist', ui-sans-serif, system-ui, sans-serif !important;
   }
-
-  .sbdocs-wraper ol,
-  .sbdocs-wrapper ul,
-  .sbdocs-wrapper table {
-    margin-top: 1rem !important;
-  }
-
-  .sbdocs-wraper ol,
-  .sbdocs-content ol {
-    list-style: number !important;
-  }
-
-  .sbdocs-wraper ol li,
-  .sbdocs-content ol li {
-    margin-top: 0.5rem !important;
-  }
-
-  .sbdocs-wrapper h4,
-  .sbdocs-content h4 {
-    font-size: 1.5rem !important;
-  }
-
-  .sbdocs-wrapper h5,
-  .sbdocs-content h5 {
-    font-size: 1.25rem !important;
-  }
-
-  .sbdocs-wrapper h6,
-  .sbdocs-content h6 {
-    font-size: 1.125rem !important;
-  }
-
-  .sbdocs-wrapper th,
-  .sbdocs-content th {
-    font-size: 1.125rem !important;
-  }
-
-  /* .sbdocs-wrapper h2::before,
-  .sbdocs-content h2::before {
-    content: '';
-    display: block;
-    width: 2.5rem;
-    height: 1px;
-    background: currentColor;
-    opacity: 0.25;
-    margin-bottom: 1.5rem;
-  } */
-
-  .sbdocs-wrapper h3,
-  .sbdocs-content h3 {
-    margin-top: 2.5rem !important;
-  }
-
-  .sbdocs-wrapper :is(h4, h5, h6),
-  .sbdocs-content :is(h4, h5, h6) {
-    margin-top: 2rem !important;
-  }
-
-  .sbdocs-wrapper :is(p, li, blockquote, td, strong, em),
-  .sbdocs-content :is(p, li, blockquote, td, strong, em) {
-    font-family: var(--sb-font-sans) !important;
-    font-size: 1rem !important;
-    line-height: 1.65;
-  }
-
-  /* Constrain measure (line length) to ~70ch for readability. Excludes
-     table cells, which need to respect column layout. */
-  .sbdocs-wrapper :is(h1, h2, h3, h4, h5, h6, p, li, blockquote),
-  .sbdocs-content :is(h1, h2, h3, h4, h5, h6, p, li, blockquote) {
+  .sbdocs-content > p,
+  .sbdocs-content > :is(ul, ol) li {
+    font-size: 15px !important;
+    line-height: 1.7 !important;
+    color: var(--sb-brand-ink-soft) !important;
     max-width: 70ch;
   }
-
-  .sbdocs-wrapper :is(code, pre, kbd, samp),
-  .sbdocs-content :is(code, pre, kbd, samp),
-  .sbdocs-wrapper .docblock-source,
-  .sbdocs-content .docblock-source {
-    font-family: var(--sb-font-mono) !important;
+  /* app.css's Tailwind preflight strips list markers; restore them for prose. */
+  .sbdocs-content > ol { list-style: decimal !important; padding-left: 1.5rem !important; }
+  .sbdocs-content > ol > li::marker {
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 12px;
+    color: var(--sb-brand-muted);
   }
-</style> -->
+
+  /* Storybook stripes Markdown tables with a hardcoded cool gray (#F6F9FC,
+     `theme.color.lighter`) that no theme option reaches. Use warm paper. */
+  .sbdocs-content > table tr:nth-of-type(2n) {
+    background-color: #faf8f4;
+  }
+
+  .sbdocs-content > table th {
+    font-family: 'Geist Mono', ui-monospace, monospace !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sb-brand-muted) !important;
+  }
+
+  .sbdocs-content > :is(p, ul, ol, table, blockquote) a {
+    color: var(--sb-brand-ink) !important;
+    text-decoration: underline !important;
+    text-decoration-color: color-mix(in srgb, var(--sb-brand-signal) 45%, transparent) !important;
+    text-decoration-thickness: 1.5px !important;
+    text-underline-offset: 3px;
+    transition: text-decoration-color 240ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  .sbdocs-content > :is(p, ul, ol, table, blockquote) a:hover {
+    text-decoration-color: var(--sb-brand-signal) !important;
+  }
+
+  .sbdocs-content > :is(p, ul, ol, table) code {
+    font-family: 'Geist Mono', ui-monospace, monospace !important;
+    font-size: 0.86em !important;
+    background: #f1efe9 !important;
+    border: 1px solid var(--sb-brand-line) !important;
+    border-radius: 5px !important;
+    padding: 0.1em 0.4em !important;
+  }
+</style>

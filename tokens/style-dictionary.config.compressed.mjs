@@ -2,6 +2,10 @@
 // scale and a very small radius scale. Colors + font cascade from :root; only
 // spacing, radius, and the tokens that reference them are emitted.
 export default {
+  // Theme overlays override base tokens (collisions) and reference primitives that
+  // the filter leaves in :root (filtered references); both are by design, so the
+  // warnings are off here. scripts/check-token-refs.mjs verifies every var() resolves.
+  log: { warnings: 'disabled' },
   source: [
     'tokens/tokens.json',
     'tokens/semantic.json',

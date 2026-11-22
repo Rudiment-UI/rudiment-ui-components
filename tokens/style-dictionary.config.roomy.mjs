@@ -5,6 +5,10 @@
 const PRIMITIVE_GROUPS = new Set(['blue', 'red', 'green', 'amber'])
 
 export default {
+  // Theme overlays override base tokens (collisions) and reference primitives that
+  // the filter leaves in :root (filtered references); both are by design, so the
+  // warnings are off here. scripts/check-token-refs.mjs verifies every var() resolves.
+  log: { warnings: 'disabled' },
   source: [
     'tokens/tokens.json',
     'tokens/semantic.json',

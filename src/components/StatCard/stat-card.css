@@ -10,6 +10,7 @@
 }
 
 .rudi-stat-card__value {
+  font-family: var(--rudi-component-stat-card-value-font-family);
   font-size: var(--rudi-component-stat-card-value-font-size);
   color: var(--rudi-component-stat-card-value-color);
   font-weight: var(--rudi-component-stat-card-value-font-weight);

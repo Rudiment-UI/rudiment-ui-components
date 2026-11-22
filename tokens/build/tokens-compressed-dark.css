@@ -671,6 +671,7 @@
   --rudi-component-avatar-bg: var(--rudi-color-background-surface-raised);
   --rudi-component-avatar-text: var(--rudi-color-text-subtle);
   --rudi-component-stat-card-label-color: var(--rudi-color-text-subtle);
+  --rudi-component-stat-card-value-font-family: var(--rudi-font-family-display);
   --rudi-component-stat-card-value-color: var(--rudi-color-text-default);
   --rudi-component-stat-card-delta-neutral-color: var(--rudi-color-text-subtle);
   --rudi-component-nav-item-text-color: var(--rudi-color-text-subtle);
@@ -895,6 +896,7 @@
   --rudi-typography-heading-4-color: var(--rudi-color-text-default);
   --rudi-typography-heading-5-color: var(--rudi-color-text-default);
   --rudi-typography-heading-6-color: var(--rudi-color-text-default);
+  --rudi-typography-heading-font-family: var(--rudi-font-family-display);
   --rudi-typography-body-color: var(--rudi-color-text-default);
   --rudi-typography-body-sm-color: var(--rudi-color-text-default);
   --rudi-typography-caption-color: var(--rudi-color-text-subtle);

@@ -299,6 +299,7 @@
       "label-color": { "$value": "{color.text.subtle}" },
       "label-font-weight": { "$value": "{font.weight.medium}" },
       "value-font-size": { "$value": "{font.size.2xl}" },
+      "value-font-family": { "$value": "{font.family.display}" },
       "value-color": { "$value": "{color.text.default}" },
       "value-font-weight": { "$value": "{font.weight.semibold}" },
       "delta-font-size": { "$value": "{font.size.sm}" },
@@ -934,6 +935,7 @@
   },
   "typography": {
     "heading": {
+      "font-family": { "$value": "{font.family.display}" },
       "1": {
         "size": { "$value": "{font.size.2xl}" },
         "weight": { "$value": "{font.weight.bold}" },

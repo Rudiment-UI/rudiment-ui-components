@@ -1,3 +1,9 @@
+/* Headings use the display family, which defaults to the body sans. Point --rudi-font-family-display at a
+ * display face to restyle every heading (and stat-card values) at once. */
+.rudi-heading {
+  font-family: var(--rudi-typography-heading-font-family);
+}
+
 .rudi-heading--1 {
   font-size: var(--rudi-typography-heading-1-size);
   font-weight: var(--rudi-typography-heading-1-weight);

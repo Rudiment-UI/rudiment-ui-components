@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.2] - 2026-11-21
+
 ### Added
 
 - **Display font token:** `--rudi-font-family-display` (default: the body sans) sets the family for every `RudiHeading`, including page and section header titles, through `--rudi-typography-heading-font-family`, and for `RudiStatCard` values through `--rudi-component-stat-card-value-font-family`. Point it at a display face to give headings and figures their own voice without touching body text.

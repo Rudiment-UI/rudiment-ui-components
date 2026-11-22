@@ -4,11 +4,23 @@
   href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
   rel="stylesheet"
 />
-<meta name="theme-color" content="#F7F5F0" media="(prefers-color-scheme: light)" />
-<meta name="theme-color" content="#0E0E0D" media="(prefers-color-scheme: dark)" />
+<meta name="theme-color" content="#F5F5F5" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0E0E0E" media="(prefers-color-scheme: dark)" />
 <style>
   /* Lockup: give the brand row a little air and keep the inline SVG crisp. */
   .sidebar-header { padding-block: 4px 8px; }
   .sidebar-header a, .sidebar-header > div { text-decoration: none; }
   .sidebar-header svg { display: block; flex: none; }
+
+  /* Sidebar and search type icons. Storybook hardcodes docs icons to #ff8300
+     (gold in dark), groups to ultraviolet and stories to seafoam; no theme
+     option reaches them. Components already follow colorSecondary (red).
+     Specificity (0,1,1) beats the icon's own class but loses to the selected
+     row's `[data-selected="true"] svg`, which keeps selected icons white. */
+  svg[type="document"] { color: #c8201b; }
+  svg[type="group"], svg[type="story"] { color: #666666; }
+  @media (prefers-color-scheme: dark) {
+    svg[type="document"] { color: #ff5a4f; }
+    svg[type="group"], svg[type="story"] { color: #9a9a9a; }
+  }
 </style>

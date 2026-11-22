@@ -33,15 +33,19 @@ rudiments."
 
 | Name | Hex | Use |
 | ---- | --- | --- |
-| Ink | `#141413` | Text, tile, primary button |
-| Paper | `#F7F5F0` | Chrome background, glyph on ink |
-| Stone | `#E7E4DC` | Hairlines and borders |
-| Muted | `#6B6862` | Secondary text and labels |
-| Persimmon | `#FF5A1F` | The point and small accents. Fill only, because it fails text contrast. |
-| Persimmon Deep | `#B93A0E` | Selected states and link underlines. Text-safe: 5.7:1 against white. |
-| Night | `#0E0E0D` | Dark chrome background |
+| Ink | `#141414` | Text, tile, primary button |
+| Canvas | `#F5F5F5` | Chrome background, glyph on ink |
+| Surface | `#FFFFFF` | Content panels, toolbar, inputs |
+| Line | `#E5E5E5` | Hairlines and borders |
+| Muted | `#666666` | Secondary text and labels |
+| Red | `#E5322D` | The point and small accents. Fill only: 4.35:1 against white fails body text. |
+| Red Deep | `#C8201B` | Selected states and link underlines on light. Text-safe: 5.7:1 against white. |
+| Red Bright | `#FF5A4F` | Selected states on dark. Text-safe: 5.8:1 against Night Raised. |
+| Night | `#0E0E0E` | Dark chrome background |
+| Night Raised | `#171717` | Dark content panels and toolbar |
 
-Persimmon is the only accent. Use it sparingly, as a single point in each view.
+Greys are pure neutrals with no warm or cool cast, so the red is the only hue
+in the chrome. Use it sparingly, as a single point in each view.
 
 ## Type
 
@@ -60,5 +64,5 @@ transform and opacity, and gate all motion behind
 ## Lockup
 
 Pair the mark with **rudiment** set in Geist 600, followed by **/ui** in Geist
-Mono in the muted color. On dark backgrounds, invert the tile to paper and the
-glyph to ink. The point stays persimmon in every version.
+Mono in the muted color. On dark backgrounds, invert the tile to canvas and the
+glyph to ink. The point stays red in every version.

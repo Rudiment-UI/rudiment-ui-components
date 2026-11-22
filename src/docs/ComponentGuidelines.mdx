@@ -27,6 +27,7 @@ Practical do/don't guidance for each interactive component. Following these patt
 - **Do** pass `statusLabel` with `status` (for example, "Busy") so the status is part of the accessible name, not just a colored dot
 - **Don't** use Avatar without either `src` or `name`. An empty circle with no context is meaningless. Without `alt` or `name` it is treated as decorative and hidden from screen readers.
 - **Don't** rely on the image alone for identification. Pair Avatar with a visible name label in lists and profiles.
+- **Do** use `icon` with `tint` for entity tiles (a page-title icon for "Shipments"), and `tint="auto"` to give each person or organization a stable color from its name. Keep `name` set so the tile has an accessible name.
 
 ## Badge
 
@@ -136,6 +137,7 @@ These two components look similar but serve different purposes:
 
 - **Do** say what is empty and what to do next, with at most one primary action
 - **Do** use `size="sm"` inside table cells and cards, and set `headingLevel` to fit the page outline
+- **Do** use `illustration` for a spot illustration on page-level empty states. It is decorative, so the title must carry the meaning
 - **Don't** use EmptyState for errors or loading. Use **Alert** or a progress indicator instead.
 - **Don't** put long prose in `description`. Keep it to one or two sentences.
 

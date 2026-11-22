@@ -98,4 +98,31 @@ describe('EmptyState', () => {
     )
     expect(await axe(container)).toHaveNoViolations()
   })
+
+  describe('illustration', () => {
+    const src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"/%3E'
+
+    it('renders a decorative image with an empty alt', async () => {
+      const { container } = render(<RudiEmptyState illustration={src} title="No devices" />)
+      const img = container.querySelector('img.rudi-empty-state__illustration')
+      expect(img).toHaveAttribute('src', src)
+      expect(img).toHaveAttribute('alt', '')
+      expect(screen.queryByRole('img')).not.toBeInTheDocument()
+      expect(await axe(container)).toHaveNoViolations()
+    })
+
+    it('replaces the icon when both are given', () => {
+      const { container } = render(
+        <RudiEmptyState illustration={src} icon="lucide:inbox" title="No devices" />,
+      )
+      expect(container.querySelector('.rudi-empty-state__illustration')).toBeInTheDocument()
+      expect(container.querySelector('.rudi-empty-state__icon')).not.toBeInTheDocument()
+    })
+
+    it('renders above the title', () => {
+      const { container } = render(<RudiEmptyState illustration={src} title="No devices" />)
+      const root = container.firstChild as HTMLElement
+      expect(root.firstElementChild).toHaveClass('rudi-empty-state__illustration')
+    })
+  })
 })

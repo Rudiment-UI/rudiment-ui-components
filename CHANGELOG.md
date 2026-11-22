@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **`RudiAvatar` `icon` and `tint`:** `icon` shows an Iconify icon instead of the initials when there is no loaded image, for entity tiles such as a page-title icon. The accessible name still comes from `alt`, then `name`. `tint` takes any CSS color (including `var(...)`) or `'auto'`: the background becomes a translucent wash of the tint (`--rudi-component-avatar-tint-bg-amount`, 16%) and the initials or icon take the tint mixed 55% toward the text color (`--rudi-component-avatar-tint-text-amount`, `--rudi-component-avatar-tint-text-base`), so initials clear 4.5:1 for light and saturated tints alike. `'auto'` picks one of the 8 dataviz series colors (`--rudi-component-avatar-auto-tint-1` to `-8`) from a stable hash of `name`. Without `tint` the avatar looks as before.
+- **`RudiEmptyState` `illustration`:** an image URL rendered as a decorative `<img alt="">` above the title, in place of `icon`. Its width comes from `--rudi-component-empty-state-illustration-width-sm` (6rem) and `-md` (10rem).
+
 ## [0.6.2] - 2026-11-21
 
 ### Added

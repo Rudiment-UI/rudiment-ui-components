@@ -26,6 +26,17 @@
   height: var(--rudi-component-empty-state-icon-size-sm);
 }
 
+.rudi-empty-state__illustration {
+  display: block;
+  width: var(--rudi-component-empty-state-illustration-width-md);
+  max-width: 100%;
+  height: auto;
+}
+
+.rudi-empty-state--sm .rudi-empty-state__illustration {
+  width: var(--rudi-component-empty-state-illustration-width-sm);
+}
+
 .rudi-empty-state__description {
   max-width: var(--rudi-component-empty-state-description-max-width);
 }

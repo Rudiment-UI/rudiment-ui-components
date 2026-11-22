@@ -3,6 +3,9 @@ import { RudiEmptyState } from './EmptyState'
 import { RudiButton } from '../Button/Button'
 import { RudiCluster } from '../../layouts/Cluster/Cluster'
 
+const illustrationSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120"><ellipse cx="80" cy="104" rx="56" ry="8" fill="#94a3b8" opacity=".25"/><rect x="40" y="36" width="80" height="60" rx="8" fill="#e2e8f0"/><path d="M40 52h80" stroke="#94a3b8" stroke-width="4"/><rect x="66" y="22" width="28" height="22" rx="4" fill="#60a5fa"/><circle cx="80" cy="72" r="10" fill="#fff" stroke="#94a3b8" stroke-width="4"/></svg>`
+const illustration = `data:image/svg+xml,${encodeURIComponent(illustrationSvg)}`
+
 const meta = {
   title: 'Components/EmptyState',
   component: RudiEmptyState,
@@ -11,7 +14,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'A centered placeholder for a list, table or section with nothing to show. Pairs an optional icon with a heading, a short explanation and an optional call to action. Use `size="sm"` inside table cells and cards.',
+          'A centered placeholder for a list, table or section with nothing to show. Pairs an optional icon or spot illustration with a heading, a short explanation and an optional call to action. Use `size="sm"` inside table cells and cards.',
       },
     },
   },
@@ -34,6 +37,10 @@ const meta = {
       table: { category: 'Appearance' },
     },
     icon: {
+      control: 'text',
+      table: { category: 'Content' },
+    },
+    illustration: {
       control: 'text',
       table: { category: 'Content' },
     },
@@ -100,4 +107,24 @@ export const Small: Story = {
 export const TitleOnly: Story = {
   name: 'Title only',
   args: { icon: undefined, description: undefined, title: 'Nothing here' },
+}
+
+export const WithIllustration: Story = {
+  name: 'With illustration',
+  args: {
+    illustration,
+    title: 'No devices registered',
+    description: 'Register a data logger to start tracking temperatures.',
+    action: <RudiButton variant="primary">Register device</RudiButton>,
+  },
+}
+
+export const SmallWithIllustration: Story = {
+  name: 'Small with illustration',
+  args: {
+    size: 'sm',
+    illustration,
+    title: 'No devices registered',
+    description: 'Devices you register will appear here.',
+  },
 }

@@ -291,7 +291,21 @@
       "font-weight": { "$value": "{font.weight.medium}" },
       "status-size": { "$value": "0.625rem" },
       "status-border-color": { "$value": "{color.background.surface}" },
-      "status-border-width": { "$value": "2px" }
+      "status-border-width": { "$value": "2px" },
+      "icon-size-sm": { "$value": "1rem" },
+      "icon-size-md": { "$value": "1.25rem" },
+      "icon-size-lg": { "$value": "1.5rem" },
+      "tint-bg-amount": { "$value": "16%" },
+      "tint-text-amount": { "$value": "55%" },
+      "tint-text-base": { "$value": "{color.text.default}" },
+      "auto-tint-1": { "$value": "{color.dataviz.series-1}" },
+      "auto-tint-2": { "$value": "{color.dataviz.series-2}" },
+      "auto-tint-3": { "$value": "{color.dataviz.series-3}" },
+      "auto-tint-4": { "$value": "{color.dataviz.series-4}" },
+      "auto-tint-5": { "$value": "{color.dataviz.series-5}" },
+      "auto-tint-6": { "$value": "{color.dataviz.series-6}" },
+      "auto-tint-7": { "$value": "{color.dataviz.series-7}" },
+      "auto-tint-8": { "$value": "{color.dataviz.series-8}" }
     },
     "stat-card": {
       "gap": { "$value": "{spacing.1}" },
@@ -607,6 +621,8 @@
       "icon-size-sm": { "$value": "2rem" },
       "icon-size-md": { "$value": "3rem" },
       "icon-color": { "$value": "{color.text.subtle}" },
+      "illustration-width-sm": { "$value": "6rem" },
+      "illustration-width-md": { "$value": "10rem" },
       "description-max-width": { "$value": "28rem" },
       "action-margin-top": { "$value": "{spacing.2}" }
     },

@@ -1,5 +1,7 @@
 .rudi-textarea {
   display: grid;
+  /* Keep the control its own height when a grid row stretches the field (a neighbour has help text). */
+  align-content: start;
   gap: var(--rudi-component-textarea-gap);
   font-size: var(--rudi-component-textarea-font-size);
 }

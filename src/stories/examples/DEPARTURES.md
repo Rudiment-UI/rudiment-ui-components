@@ -385,6 +385,9 @@ which only shows up once real data, real forms and real keyboard use meet the co
   - Field hints kept the browser's paragraph margin.
   - Badges stretched full width in stacks.
   - Table hover matched the stripe color.
+- **Control heights (fixed in 0.5.0):**
+  - Fields were 35px while a medium button was 39px (26px compact, 47px roomy), so no theme lined them up.
+  - A field in a grid row grew taller when a neighbour had help text, because the field's own grid stretched its control. In the contact form, comboboxes reached 49px.
 
 **Lesson:** demo pages exercise how a component looks, not how it behaves under typing, scrolling,
 narrow screens or assistive tech. Every one of the bugs above passed the existing unit, axe and

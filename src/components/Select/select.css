@@ -1,5 +1,7 @@
 .rudi-select {
   display: grid;
+  /* Keep the control its own height when a grid row stretches the field (a neighbour has help text). */
+  align-content: start;
   gap: var(--rudi-component-select-gap);
   font-size: var(--rudi-component-select-trigger-font-size);
 }
@@ -11,6 +13,8 @@
 }
 
 .rudi-select__trigger {
+  box-sizing: border-box;
+  min-block-size: var(--rudi-component-select-trigger-height);
   display: flex;
   align-items: center;
   justify-content: space-between;

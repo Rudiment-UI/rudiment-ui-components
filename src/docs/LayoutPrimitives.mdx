@@ -1,4 +1,12 @@
-import { Meta } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas } from '@storybook/addon-docs/blocks'
+import * as StackStories from '../layouts/Stack/Stack.stories'
+import * as BoxStories from '../layouts/Box/Box.stories'
+import * as ClusterStories from '../layouts/Cluster/Cluster.stories'
+import * as GridStories from '../layouts/Grid/Grid.stories'
+import * as SidebarStories from '../layouts/Sidebar/Sidebar.stories'
+import * as CenterStories from '../layouts/Center/Center.stories'
+import * as CoverStories from '../layouts/Cover/Cover.stories'
+import * as SwitcherStories from '../layouts/Switcher/Switcher.stories'
 
 <Meta title="Getting Started/Layout Primitives" />
 
@@ -35,6 +43,58 @@ Not sure which primitive to reach for? Start here:
 - **Full-screen section with a centered hero?** Use **Cover**, and wrap the principal element in `RudiCover.Centered`
 - **Row that should become a column on small screens?** Use **Switcher**
 - **Need padding or a border around a section?** Use **Box**
+
+## See them in action
+
+Each example is the primitive's default story. Resize the browser to watch the intrinsic ones (Cluster, Grid, Sidebar, Switcher) reflow without media queries. Open a primitive's page under **Layouts** for its props and variants.
+
+### Stack
+
+Vertical rhythm between children.
+
+<Canvas of={StackStories.Default} />
+
+### Box
+
+Padding and an optional border around content.
+
+<Canvas of={BoxStories.Default} />
+
+### Cluster
+
+Inline items that wrap onto new rows as space runs out.
+
+<Canvas of={ClusterStories.Default} />
+
+### Grid
+
+Equal columns that add or drop with the container width, with no breakpoints.
+
+<Canvas of={GridStories.Default} />
+
+### Sidebar
+
+A fixed-width side next to a fluid main panel. It wraps to a column when the main panel gets too narrow.
+
+<Canvas of={SidebarStories.Default} />
+
+### Center
+
+A centered column with a max width.
+
+<Canvas of={CenterStories.Default} />
+
+### Cover
+
+A full-height region whose principal element is centered vertically.
+
+<Canvas of={CoverStories.Default} />
+
+### Switcher
+
+A row that becomes a column once the container is narrower than the threshold.
+
+<Canvas of={SwitcherStories.Default} />
 
 ## Combining primitives
 

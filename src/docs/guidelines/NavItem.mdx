@@ -1,0 +1,4 @@
+- **Do** use `href` for real page navigation so the browser handles it natively (and users can right-click to open in a new tab)
+- **Do** use `onPress` for SPA navigation where you control the routing
+- **Don't** provide both `href` and `onPress` for the same navigation action. Pick the appropriate mechanism.
+- **Don't** use NavItem outside of a sidebar or navigation context. For in-page actions, use **Button** instead.

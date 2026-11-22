@@ -7,10 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-11-22
+
+### Added
+
+- **`RudiDrawer`:** a modal panel that slides in from the `start` or `end` edge of the viewport (logical, so it flips in right-to-left layouts), full height, in `sm`, `md` and `lg` widths. It has the same contract as `RudiDialog`: controlled `isOpen`/`onClose`, a required `title` as the accessible name, `isDismissable`, `closeLabel`, and a `RudiDrawer.Footer` pinned below the scrolling body. It traps focus, restores focus on close and locks page scroll. It slides out before it unmounts, and doesn't animate under `prefers-reduced-motion`. Styled by the new `--rudi-component-drawer-*` tokens. Tagged `new` in Storybook, which moves the badge off `RudiDescriptionList` and `RudiSparkline`.
+- **Live token browser in Storybook:** the Token Architecture page lists all 1,036 `--rudi-*` tokens by tier, with a preview, the live value, the token each one aliases, and a copy-as-`var()` button. A theme picker shows each theme's values and aliases, and a filter searches by name or value. It replaces the hand-written dataviz and surface value tables, which could drift from the build. A unit test fails if the browser's token names stop matching `tokens/build/tokens.css`.
+- **Theme comparison in Storybook:** the Theming page shows the same form in all 8 built-in themes side by side.
+- **Layout examples in Storybook:** the Layout Primitives page embeds each primitive's default story.
+- **Usage guidelines on component docs pages:** each component's docs page now shows its do/don't guidance under **Usage guidelines**, after the primary example. The guidance moved from one long section in `ComponentGuidelines.mdx` to one file per component in `src/docs/guidelines/`. The Component Guidelines page imports the same files, so the guidance is written once. A unit test fails if a component story has no guidelines file, or if a file isn't used by any story or by the overview page.
+- **Agent docs on the Storybook site:** `llms.txt`, `llms-full.txt` and `components.json` are served from the Storybook site root, so an agent can read the API reference from the docs URL without installing the package. They're generated from the source at build time and match the files in the package. The Introduction page links them.
+- **Changelog page in Storybook:** **Getting Started → Changelog** renders `CHANGELOG.md`.
+- **Patterns section in Storybook:** five recipes that sit between single-component stories and the Vitrea app: **Validated Form** (`RudiForm` error summary with field messages), **Filterable Table** (search and status filters over `RudiTable` with `RudiPagination`, a live result count and an empty state), **Data States** (one panel in its loading, empty, error and loaded states), **Confirm Dialog** (a destructive confirmation with a pending state and focus handling after the row is gone) and **Settings Page** (`RudiTabs` with an explicit-save form and immediate switches). Each docs page shows the whole recipe file, importing from `'rudiment-ui'`, so it can be copied into an app. Unit tests cover each recipe's behavior, and the gaps they turned up are logged in `DEPARTURES.md` Part 7. No component, token or published file changes.
+- **`new` and `beta` sidebar badges:** components whose stories are tagged `new` or `beta` show a badge in the Storybook sidebar. `RudiDescriptionList` and `RudiSparkline` (added in 0.6.0) are tagged `new`.
+- **`RudiAppShell` and `RudiTopBar` stories are back, with docs pages.** They were removed because they had no docs page. AppShell's docs preview renders in an iframe so the 900px drawer breakpoint follows the preview width, and a `MobileDrawer` story opens the drawer on a phone viewport. Full-bleed stories (`layout: 'fullscreen'`) no longer get the preview's 2rem padding.
+
 ### Changed
 
 - **Vitrea replaces the Storybook examples:** the 26 `Examples/*` pages (CRM, Project Management, eCommerce and Biotech) are removed. A new **Getting Started → Vitrea** page features [Vitrea](https://vitrea-rudiment.netlify.app), a demo cold-chain shipping app built entirely with Rudiment UI, with soft-theme screenshots, a live demo link, code excerpts from the app, the components each screen relies on and how its brand is built from token overrides. The gap analysis moved from `src/stories/examples/DEPARTURES.md` to `DEPARTURES.md` at the repository root. No component, token or published file changes.
 - **Storybook brand identity:** Storybook now has a Rudiment UI mark (a lowercase "r" built from a bar, an arc and a point), a favicon, light and dark chrome themes that follow the OS, Geist typography for docs prose, and a hero on the Introduction page. This is presentation only: no component, token or published file changes. See `.storybook/brand/BRAND.md`.
+
+### Fixed
+
+- **`RudiSelect` dropdown is anchored to the trigger's left edge:** the listbox opened centered under the trigger and only 8rem wide. It now opens from the trigger's start edge, 4px below it, and is at least as wide as the trigger, the same as `RudiComboBox`.
+- **`RudiAlert` title is bold:** `--rudi-component-alert-title-font-weight` now aliases `--rudi-font-weight-bold` (700) instead of `medium` (500). `RudiToast` titles alias the alert token, so they are bold too.
 
 ## [0.7.0] - 2026-11-22
 

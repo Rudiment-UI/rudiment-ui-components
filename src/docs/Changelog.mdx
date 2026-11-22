@@ -1,0 +1,8 @@
+import { Meta, Markdown } from '@storybook/addon-docs/blocks'
+import changelog from '../../CHANGELOG.md?raw'
+
+<Meta title="Getting Started/Changelog" />
+
+{/* Keep a Changelog writes release headings as reference links ("## [0.7.0]") with no link definitions, so drop the brackets. */}
+
+<Markdown>{changelog.replace(/^(#+ )\[([^\]]+)\]/gm, '$1$2')}</Markdown>

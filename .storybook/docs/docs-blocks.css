@@ -1,0 +1,139 @@
+/* Storybook-only blocks embedded in the Getting Started pages (token browser,
+   theme matrix). Styled from tokens so they follow whichever theme wraps them. */
+
+.sb-tokens,
+.sb-matrix__cell {
+  background: var(--rudi-color-background-surface);
+  color: var(--rudi-color-text-default);
+  font-family: var(--rudi-font-family-sans);
+}
+
+.sb-tokens {
+  display: grid;
+  gap: var(--rudi-spacing-6);
+  padding: var(--rudi-spacing-4);
+  border-radius: var(--rudi-radius-md);
+}
+
+.sb-tokens__search {
+  flex: 1 1 16rem;
+}
+
+.sb-tokens__theme {
+  flex: 0 1 14rem;
+}
+
+.sb-tokens__count,
+.sb-tokens__group-count,
+.sb-tokens__empty {
+  color: var(--rudi-color-text-subtle);
+  font-size: var(--rudi-font-size-sm);
+}
+
+.sb-tokens__group-title {
+  margin: 0 0 var(--rudi-spacing-2);
+  font-family: var(--rudi-font-family-mono);
+  font-size: var(--rudi-font-size-sm);
+  font-weight: var(--rudi-font-weight-semibold);
+}
+
+details.sb-tokens__group > summary {
+  cursor: pointer;
+  padding-block: var(--rudi-spacing-1);
+}
+
+/* Fixed layout so columns line up across the per-group tables. */
+.sb-tokens__table {
+  inline-size: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: var(--rudi-font-size-sm);
+}
+
+.sb-tokens__table th:nth-child(2) {
+  inline-size: 38%;
+}
+
+.sb-tokens__table th:nth-child(3) {
+  inline-size: 22%;
+}
+
+.sb-tokens__table th:nth-child(5) {
+  inline-size: 3rem;
+}
+
+.sb-tokens__table th {
+  text-align: start;
+  font-weight: var(--rudi-font-weight-medium);
+  color: var(--rudi-color-text-subtle);
+  padding: var(--rudi-spacing-2);
+  border-block-end: 1px solid var(--rudi-color-border-default);
+}
+
+.sb-tokens__table td {
+  padding: var(--rudi-spacing-1) var(--rudi-spacing-2);
+  border-block-end: 1px solid var(--rudi-color-border-default);
+  vertical-align: middle;
+}
+
+.sb-tokens__table code {
+  font-family: var(--rudi-font-family-mono);
+  font-size: var(--rudi-font-size-xs);
+  overflow-wrap: anywhere;
+}
+
+.sb-tokens__ref,
+.sb-tokens__value {
+  color: var(--rudi-color-text-subtle);
+}
+
+.sb-tokens__preview-col {
+  inline-size: 4.5rem;
+}
+
+.sb-tokens__swatch,
+.sb-tokens__box {
+  display: block;
+  inline-size: 2.5rem;
+  block-size: 1.75rem;
+  border: 1px solid var(--rudi-color-border-default);
+  border-radius: var(--rudi-radius-sm);
+}
+
+.sb-tokens__box {
+  background: var(--rudi-color-background-surface-raised);
+}
+
+.sb-tokens__bar {
+  display: block;
+  max-inline-size: 4rem;
+  block-size: 0.5rem;
+  border-radius: var(--rudi-radius-full);
+  background: var(--rudi-color-brand-primary);
+}
+
+.sb-tokens__type {
+  display: block;
+  line-height: 1;
+}
+
+.sb-tokens__sr-only {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.sb-matrix__cell {
+  padding: var(--rudi-spacing-4);
+  border: 1px solid var(--rudi-color-border-default);
+  border-radius: var(--rudi-radius-lg);
+}
+
+.sb-matrix__attr {
+  font-family: var(--rudi-font-family-mono);
+  font-size: var(--rudi-font-size-xs);
+  color: var(--rudi-color-text-subtle);
+}

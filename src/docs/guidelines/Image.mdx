@@ -1,0 +1,6 @@
+- **Do** set an `aspectRatio` (for example, `aspectRatio="16 / 9"`) to reserve space and prevent layout shift as the image loads
+- **Do** write descriptive `alt` text (it's required); use an empty string only when the image is purely decorative
+- **Do** use `loading="lazy"` for below-the-fold images
+- **Don't** use `fit="cover"` when cropping would hide important detail. Use `fit="contain"` instead.
+- **Do** pass a `fallback` (or rely on the default placeholder) for images that may be missing, such as user uploads. The fallback keeps the `alt` text as its accessible name.
+- **Don't** put essential controls only in the `overlay` slot without making them reachable by keyboard.

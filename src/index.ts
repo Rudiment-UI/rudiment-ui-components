@@ -60,6 +60,9 @@ export { Separator as RudiSeparator } from 'react-aria-components'
 export { RudiDialog } from './components/Dialog/Dialog'
 export type { RudiDialogProps } from './components/Dialog/Dialog'
 
+export { RudiDrawer } from './components/Drawer/Drawer'
+export type { RudiDrawerProps } from './components/Drawer/Drawer'
+
 export { RudiSwitch } from './components/Switch/Switch'
 export type { RudiSwitchProps } from './components/Switch/Switch'
 

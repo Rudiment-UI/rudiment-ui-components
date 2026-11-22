@@ -1,0 +1,134 @@
+.rudi-drawer__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: flex-end;
+  background-color: var(--rudi-component-drawer-overlay-bg);
+  animation: rudi-drawer-fade var(--rudi-component-drawer-duration) var(--rudi-motion-easing-standard);
+}
+
+/* flex-start/flex-end follow the writing direction, so start/end are RTL-aware. */
+.rudi-drawer__overlay--start {
+  justify-content: flex-start;
+}
+
+.rudi-drawer {
+  /* Off-canvas offset for the slide: end-placed panels enter from the inline end. */
+  --rudi-drawer-offset: 100%;
+  position: relative;
+  z-index: 51;
+  inline-size: 100%;
+  block-size: 100%;
+  background-color: var(--rudi-component-drawer-bg);
+  box-shadow: var(--rudi-component-drawer-shadow);
+  padding: var(--rudi-component-drawer-padding);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: var(--rudi-component-drawer-gap);
+  animation: rudi-drawer-slide var(--rudi-component-drawer-duration) var(--rudi-motion-easing-standard);
+}
+
+.rudi-drawer--start {
+  --rudi-drawer-offset: -100%;
+}
+
+.rudi-drawer:dir(rtl) {
+  --rudi-drawer-offset: -100%;
+}
+
+.rudi-drawer--start:dir(rtl) {
+  --rudi-drawer-offset: 100%;
+}
+
+.rudi-drawer:focus-visible {
+  outline: none;
+}
+
+/* Exit: separate keyframes, because a finished animation doesn't restart when
+   only its direction changes. useExitAnimation unmounts when the panel's ends;
+   `forwards` holds the off-canvas frame until then. */
+.rudi-drawer__overlay[data-exiting] {
+  animation: rudi-drawer-fade-out var(--rudi-component-drawer-duration) var(--rudi-motion-easing-standard) forwards;
+}
+
+.rudi-drawer[data-exiting] {
+  animation: rudi-drawer-slide-out var(--rudi-component-drawer-duration) var(--rudi-motion-easing-standard) forwards;
+}
+
+@keyframes rudi-drawer-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes rudi-drawer-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes rudi-drawer-slide {
+  from {
+    transform: translateX(var(--rudi-drawer-offset));
+  }
+}
+
+@keyframes rudi-drawer-slide-out {
+  to {
+    transform: translateX(var(--rudi-drawer-offset));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rudi-drawer__overlay,
+  .rudi-drawer,
+  .rudi-drawer__overlay[data-exiting],
+  .rudi-drawer[data-exiting] {
+    animation: none;
+  }
+}
+
+/* Sizes */
+.rudi-drawer--sm {
+  max-inline-size: var(--rudi-component-drawer-width-sm);
+}
+
+.rudi-drawer--md {
+  max-inline-size: var(--rudi-component-drawer-width-md);
+}
+
+.rudi-drawer--lg {
+  max-inline-size: var(--rudi-component-drawer-width-lg);
+}
+
+.rudi-drawer__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--rudi-component-drawer-gap);
+}
+
+.rudi-drawer__title {
+  font-size: var(--rudi-component-drawer-title-font-size);
+  font-weight: var(--rudi-component-drawer-title-font-weight);
+  color: var(--rudi-component-drawer-title-color);
+  line-height: var(--rudi-component-drawer-title-line-height);
+  margin: 0;
+}
+
+/* Tall content scrolls inside the body; header and footer stay put. */
+.rudi-drawer__body {
+  min-block-size: 0;
+  overflow-y: auto;
+  font-size: var(--rudi-component-drawer-body-font-size);
+  color: var(--rudi-component-drawer-body-color);
+  line-height: var(--rudi-component-drawer-body-line-height);
+}
+
+.rudi-drawer__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--rudi-component-drawer-footer-gap);
+}

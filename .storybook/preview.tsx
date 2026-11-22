@@ -4,6 +4,8 @@ import { useArgs } from 'storybook/preview-api'
 import { create } from 'storybook/theming/create'
 import '../src/app.css'
 import { brand, fonts } from './brand/brand'
+import { THEMES } from './docs/themes'
+import { AutodocsPage } from './docs/AutodocsPage'
 
 // Light docs theme so the "Show code" Source block renders the dark-on-light
 // `lightSyntaxColors` palette. Without it the block falls back to the dark
@@ -31,6 +33,8 @@ const preview: Preview = {
   parameters: {
     docs: {
       theme: docsTheme,
+      // Default autodocs plus each component's usage guidelines.
+      page: AutodocsPage,
     },
     options: {
       categorySort: {
@@ -48,10 +52,13 @@ const preview: Preview = {
             'Component Guidelines',
             'Theming',
             'Vitrea',
+            'Changelog',
           ],
           'Components',
           'Layouts',
           'Typography',
+          'Patterns',
+          ['Validated Form', 'Filterable Table', 'Data States', 'Confirm Dialog', 'Settings Page'],
         ],
       },
     },
@@ -69,17 +76,7 @@ const preview: Preview = {
       toolbar: {
         title: 'Theme',
         icon: 'paintbrush',
-        items: [
-          { value: 'light', title: 'Default Light', icon: 'sun' },
-          { value: 'dark', title: 'Default Dark', icon: 'moon' },
-          { value: 'roomy', title: 'Roomy Light', icon: 'sun' },
-          { value: 'roomy-dark', title: 'Roomy Dark', icon: 'moon' },
-          { value: 'soft', title: 'Soft Light', icon: 'sun' },
-          { value: 'soft-dark', title: 'Soft Dark', icon: 'moon' },
-          { value: 'compressed', title: 'Compressed Light', icon: 'sun' },
-          { value: 'compressed-dark', title: 'Compressed Dark', icon: 'moon' },
-          { value: 'auto', title: 'Auto (follows OS)', icon: 'mirror' },
-        ],
+        items: THEMES.map(({ value, title, icon }) => ({ value, title, icon })),
         dynamicTitle: true,
       },
     },
@@ -94,10 +91,12 @@ const preview: Preview = {
         document.documentElement.setAttribute('data-theme', theme)
         return () => document.documentElement.removeAttribute('data-theme')
       }, [theme])
+      // Full-bleed stories (AppShell, TopBar, Footer) sit flush to the frame.
+      const fullscreen = context.parameters.layout === 'fullscreen'
       return (
         <div
           style={{
-            padding: '2rem',
+            padding: fullscreen ? 0 : '2rem',
             backgroundColor: 'var(--rudi-color-background-surface)',
             color: 'var(--rudi-color-text-default)',
             fontFamily: 'var(--rudi-font-family-sans)',

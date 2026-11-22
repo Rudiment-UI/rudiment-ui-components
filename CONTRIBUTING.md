@@ -45,6 +45,7 @@ Every story file must include:
    - `Content` for content props (label, children, placeholder)
 5. **No JSON controls**: Complex props should use `control: false`
 6. **Autodocs**: Include `tags: ['autodocs']` in the meta
+7. **Sidebar badges**: Add `'new'` to `tags` for a component added in the latest minor release that added components, and remove it when the next such release ships. Add `'beta'` when the component's API may still change.
 
 ### Documenting the Public API
 

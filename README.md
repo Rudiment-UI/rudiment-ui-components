@@ -10,7 +10,7 @@ Install it as a package, or clone it, swap the tokens, and ship your own design 
 
 | Category              | Components                                                                                                                                                                               |
 | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **UI Components**     | Button, Input, Checkbox, CheckboxGroup, Select, Dialog, Switch, RadioGroup, Tooltip, Alert, IconButton, Badge, Tag, Avatar, Card, Icon, NavItem, ProgressBar, StatCard, CircularProgress |
+| **UI Components**     | Button, Input, Checkbox, CheckboxGroup, Select, Dialog, Drawer, Switch, RadioGroup, Tooltip, Alert, IconButton, Badge, Tag, Avatar, Card, Icon, NavItem, ProgressBar, StatCard, CircularProgress |
 | **Charts**            | BarChart, LineChart, DonutChart, Sparkline                                                                                                                                               |
 | **Kanban**            | KanbanBoard, KanbanColumn, KanbanCard                                                                                                                                                    |
 | **Typography**        | Heading, Text, Prose                                                                                                                                                                     |
@@ -290,6 +290,7 @@ const roles = [
 | ---------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
 | `RudiCard`                                                           | `variant?: 'default' \| 'outlined' \| 'elevated'` (`'default'`), `padding?: 'none' \| 'sm' \| 'md' \| 'lg'` (`'md'`) |
 | `RudiDialog`                                                         | `isOpen`, `onClose`, `title` **(all required)**, `isDismissable?` (`true`, adds a close button), `size?: 'sm' \| 'md' \| 'lg'` (`'md'`); part `RudiDialog.Footer` for actions |
+| `RudiDrawer`                                                         | Same as `RudiDialog`, plus `placement?: 'start' \| 'end'` (`'end'`); a full-height panel that slides in from that edge; part `RudiDrawer.Footer` for actions |
 | `RudiTooltipTrigger` / `RudiTooltip`                                     | `delay?` (`500`ms), `closeDelay?` (`0`ms); children must be exactly `[trigger, tooltip]`                             |
 | `RudiMenuTrigger` / `RudiMenu` / `RudiMenuItem` / `RudiMenuSection` / `RudiKeyboard` | React Aria menu primitives; `RudiMenuItem` adds `isDestructive?`                                                         |
 
@@ -303,7 +304,7 @@ const roles = [
 </RudiCard>
 ```
 
-`RudiDialog` is fully controlled — it has no internal open state:
+`RudiDialog` and `RudiDrawer` are fully controlled. Neither has internal open state:
 
 ```tsx
 const [isOpen, setIsOpen] = useState(false)

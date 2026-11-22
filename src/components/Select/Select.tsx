@@ -82,10 +82,20 @@ function Popover({
   popoverRef,
   children,
 }: PopoverInternalProps) {
-  const { popoverProps } = usePopover({ triggerRef, popoverRef }, state)
+  // usePopover centers under the trigger by default; anchor to its start edge instead.
+  const { popoverProps } = usePopover(
+    { triggerRef, popoverRef, placement: 'bottom start', offset: 4 },
+    state,
+  )
+  // The hooks API doesn't set --trigger-width (only react-aria-components does), so supply it.
+  const triggerWidth = triggerRef.current?.offsetWidth
   return (
     <div
       {...popoverProps}
+      style={{
+        ...popoverProps.style,
+        ...(triggerWidth ? { '--trigger-width': `${triggerWidth}px` } : {}),
+      } as React.CSSProperties}
       ref={popoverRef}
       className="rudi-select__popover"
     >

@@ -65,6 +65,10 @@
   --rudi-component-dialog-max-width-sm: 24rem;
   --rudi-component-dialog-max-width-md: 32rem;
   --rudi-component-dialog-max-width-lg: 48rem;
+  --rudi-component-drawer-shadow: 0 10px 30px 0 rgb(0 0 0 / 0.25);
+  --rudi-component-drawer-width-sm: 20rem;
+  --rudi-component-drawer-width-md: 28rem;
+  --rudi-component-drawer-width-lg: 40rem;
   --rudi-component-tooltip-max-width: 16rem;
   --rudi-component-badge-dot-size-sm: 0.375rem;
   --rudi-component-badge-dot-size-md: 0.5rem;
@@ -271,6 +275,15 @@
   --rudi-component-dialog-body-font-size: var(--rudi-font-size-sm);
   --rudi-component-dialog-body-line-height: var(--rudi-font-line-height-normal);
   --rudi-component-dialog-footer-gap: var(--rudi-spacing-2);
+  --rudi-component-drawer-padding: var(--rudi-spacing-6);
+  --rudi-component-drawer-gap: var(--rudi-spacing-4);
+  --rudi-component-drawer-duration: var(--rudi-motion-duration-slow);
+  --rudi-component-drawer-title-font-size: var(--rudi-font-size-lg);
+  --rudi-component-drawer-title-font-weight: var(--rudi-font-weight-semibold);
+  --rudi-component-drawer-title-line-height: var(--rudi-font-line-height-tight);
+  --rudi-component-drawer-body-font-size: var(--rudi-font-size-sm);
+  --rudi-component-drawer-body-line-height: var(--rudi-font-line-height-normal);
+  --rudi-component-drawer-footer-gap: var(--rudi-spacing-2);
   --rudi-component-tooltip-bg: var(--rudi-color-neutral-200);
   --rudi-component-tooltip-text: var(--rudi-color-neutral-900);
   --rudi-component-tooltip-font-size: var(--rudi-font-size-xs);
@@ -356,7 +369,7 @@
   --rudi-component-alert-gap: var(--rudi-spacing-1);
   --rudi-component-alert-font-size: var(--rudi-font-size-sm);
   --rudi-component-alert-line-height: var(--rudi-font-line-height-normal);
-  --rudi-component-alert-title-font-weight: var(--rudi-font-weight-medium);
+  --rudi-component-alert-title-font-weight: var(--rudi-font-weight-bold);
   --rudi-component-alert-info-bg: var(--rudi-color-feedback-info-surface);
   --rudi-component-alert-success-bg: var(--rudi-color-feedback-success-surface);
   --rudi-component-alert-warning-bg: var(--rudi-color-feedback-warning-surface);
@@ -656,6 +669,9 @@
   --rudi-component-dialog-overlay-bg: var(--rudi-color-background-overlay);
   --rudi-component-dialog-title-color: var(--rudi-color-text-default);
   --rudi-component-dialog-body-color: var(--rudi-color-text-subtle);
+  --rudi-component-drawer-overlay-bg: var(--rudi-color-background-overlay);
+  --rudi-component-drawer-title-color: var(--rudi-color-text-default);
+  --rudi-component-drawer-body-color: var(--rudi-color-text-default);
   --rudi-component-badge-default-bg: var(--rudi-color-background-surface-raised);
   --rudi-component-badge-default-text: var(--rudi-color-text-default);
   --rudi-component-badge-success-text: var(--rudi-color-feedback-success-text);
@@ -950,6 +966,7 @@
   --rudi-component-checkbox-control-bg: var(--rudi-color-background-surface);
   --rudi-component-radio-control-bg: var(--rudi-color-background-surface);
   --rudi-component-switch-thumb-bg: var(--rudi-color-background-surface);
+  --rudi-component-drawer-bg: var(--rudi-color-background-surface);
   --rudi-component-avatar-status-border-color: var(--rudi-color-background-surface);
   --rudi-component-chart-tooltip-bg: var(--rudi-color-background-surface);
   --rudi-component-menu-popover-bg: var(--rudi-color-background-surface);

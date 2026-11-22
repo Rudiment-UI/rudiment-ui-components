@@ -4,7 +4,8 @@
 > project-management) that Parts 1–5 audit have been removed. Vitrea, the app in Part 6, replaces
 > them as the library's stress test and is featured on the Storybook page **Getting Started →
 > Vitrea**. Parts 1–5 are kept as history: file paths under `src/stories/examples/` in them no
-> longer exist. Log new gaps found in Vitrea in Part 6.
+> longer exist. Log new gaps found in Vitrea in Part 6, and gaps found writing
+> the Storybook Patterns recipes in Part 7.
 
 The example apps that lived under `src/stories/examples/` (biotech, ecommerce, crm, project-management)
 existed to stress-test the library: to find the points where a developer had to reach **outside**
@@ -411,6 +412,19 @@ story tests.
 - **Content:** no line-break-preserving `RudiText`, and no caption slot on `RudiStatCard`.
 - **Missing component:** no address autocomplete.
 - **Theming:** subtree theming still doesn't reach portaled overlays.
+
+---
+
+## Part 7 — Storybook Patterns recipes (Unreleased)
+
+The **Patterns** section in Storybook (`src/stories/patterns/`) has five recipes written only against the public API: a validated form, a filterable table, data states, a confirm dialog and a settings page. Writing them surfaced these gaps:
+
+- **No loading indicator.** There's no spinner or skeleton component (`RudiButton`'s spinner is internal), so the Data States recipe's loading state is a line of text in a `role="status"` element.
+- **`RudiForm` summary entries can't link to their fields.** `errors` is `string[]`, so the summary can't link each message to its field the way the GOV.UK error summary does. Users have to find the field themselves.
+- **`RudiCard` takes no ARIA or DOM props.** Data States wraps the card in a raw `<div aria-busy>` because `RudiCard` has a closed prop interface. This is the same root cause as the missing `as` noted in Part 6.
+- **`RudiDialog` can't choose where focus goes on close.** When the action removes the trigger (deleting a row), focus falls to `<body>`. The Confirm Dialog recipe moves focus to the list heading in an effect after the close commits, because the heading is inert while the modal is open and a `setTimeout` can run before React commits. A `returnFocusTo` (or `onClosed`) prop would make this one line.
+- **`rudiToast` has no action button.** Toasts can't offer **Undo**, which is the usual alternative to a confirm dialog for reversible actions.
+- **`RudiOption` docs say "key (or id)", but `id` doesn't type-check.** It's react-stately's `Item`, which takes only `key`.
 
 ## Recommended remediation order
 

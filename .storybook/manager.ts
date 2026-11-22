@@ -1,3 +1,4 @@
+import { createElement, type CSSProperties } from 'react'
 import { addons } from 'storybook/manager-api'
 import { create } from 'storybook/theming/create'
 import { brand, fonts, lockupHtml } from './brand/brand'
@@ -64,6 +65,42 @@ const dark = create({
   buttonBorder: brand.nightLine,
   booleanBg: brand.night,
   booleanSelectedBg: brand.nightLine,
+})
+
+// Sidebar badges for components whose stories meta carries `tags: ['new']` or
+// `tags: ['beta']`. `new` marks components added in the latest minor release
+// that added any; remove it when the next one ships. `beta` marks components
+// whose API may still change.
+const badgeBase: CSSProperties = {
+  marginInlineStart: 6,
+  padding: '0 5px',
+  borderRadius: 4,
+  fontSize: 10,
+  fontWeight: 700,
+  lineHeight: '15px',
+  letterSpacing: '0.04em',
+  textTransform: 'uppercase',
+  verticalAlign: '1px',
+}
+const badges: Record<string, CSSProperties> = {
+  new: { ...badgeBase, background: brand.redDeep, color: '#fff' },
+  beta: { ...badgeBase, boxShadow: 'inset 0 0 0 1px currentColor', opacity: 0.8 },
+}
+
+addons.setConfig({
+  sidebar: {
+    renderLabel: (item) => {
+      if (item.type !== 'component') return item.name
+      const tags = Object.keys(badges).filter((tag) => item.tags?.includes(tag))
+      if (tags.length === 0) return item.name
+      return createElement(
+        'span',
+        null,
+        item.name,
+        ...tags.map((tag) => createElement('span', { key: tag, style: badges[tag] }, tag)),
+      )
+    },
+  },
 })
 
 // Storybook chrome follows the OS appearance. The component theme is chosen

@@ -1,0 +1,7 @@
+- **Do** provide a `renderCard` prop to control card content. Compose with Badge, Avatar, and other components as needed
+- **Do** keep column counts manageable (3–7 columns). Horizontal scrolling with too many columns hurts usability.
+- **Do** test keyboard drag-and-drop: Space to grab, arrow keys to move, Space to drop, Escape to cancel
+- **Do** apply `onCardMove` exactly as documented: remove the card at `fromIndex`, then insert it at `toIndex`. `toIndex` is the card's final position, and it matches the dashed drop slot shown during the drag.
+- **Do** pass `getCardLabel` (and `label` on each card) so drag announcements name the card instead of its id
+- **Don't** put complex interactive elements (dialogs, forms) inside KanbanCard. Cards should be scannable at a glance.
+- **Don't** use KanbanBoard for simple lists. It's designed for multi-column workflows with drag-and-drop reordering.

@@ -1,0 +1,6 @@
+- **Do** provide a `name` prop so the component can generate initials as a fallback when the image fails to load
+- **Do** use the `status` prop sparingly. It works best for presence indicators (online/offline) or assignment states
+- **Do** pass `statusLabel` with `status` (for example, "Busy") so the status is part of the accessible name, not just a colored dot
+- **Don't** use Avatar without either `src` or `name`. An empty circle with no context is meaningless. Without `alt` or `name` it is treated as decorative and hidden from screen readers.
+- **Don't** rely on the image alone for identification. Pair Avatar with a visible name label in lists and profiles.
+- **Do** use `icon` with `tint` for entity tiles (a page-title icon for "Shipments"), and `tint="auto"` to give each person or organization a stable color from its name. Keep `name` set so the tile has an accessible name.

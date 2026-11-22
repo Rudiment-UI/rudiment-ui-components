@@ -1,4 +1,5 @@
-import { Meta } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas } from '@storybook/addon-docs/blocks'
+import * as DocBlocks from '../../.storybook/docs/DocBlocks.stories'
 
 <Meta title="Getting Started/Token Architecture" />
 
@@ -29,6 +30,10 @@ These are the raw values — the full palette of options available to the system
 
 Think of primitives as the complete set of crayons in the box. You probably won't use all of them — that's fine.
 
+Every primitive, with its live value. Filter by name or value, pick a theme to see what it changes, and copy any token as a `var()` reference:
+
+<Canvas of={DocBlocks.PrimitiveTokens} />
+
 #### Motion primitives
 
 Timing and easing values used across all interactive components.
@@ -45,16 +50,7 @@ Timing and easing values used across all interactive components.
 
 An 8-color categorical palette for chart series and data visualizations.
 
-| Token | Light | Dark |
-|---|---|---|
-| `color.dataviz.1` | `#2563EB` | `#60A5FA` |
-| `color.dataviz.2` | `#D946EF` | `#E879F9` |
-| `color.dataviz.3` | `#F59E0B` | `#FCD34D` |
-| `color.dataviz.4` | `#10B981` | `#34D399` |
-| `color.dataviz.5` | `#EF4444` | `#F87171` |
-| `color.dataviz.6` | `#8B5CF6` | `#A78BFA` |
-| `color.dataviz.7` | `#06B6D4` | `#22D3EE` |
-| `color.dataviz.8` | `#F97316` | `#FB923C` |
+<Canvas of={DocBlocks.DatavizPalette} />
 
 Use the semantic aliases (`color.dataviz.series-1` through `series-8`) in your components so they automatically adjust per theme.
 
@@ -72,16 +68,22 @@ These give purpose-based names to primitive values. Instead of saying "use neutr
 
 Semantic tokens are the layer that makes theming possible. A designer can say "change the brand color" and only this layer needs updating.
 
+The **Aliases** column shows the primitive each semantic token points to. Switch the theme to see the dark and modifier themes re-point them:
+
+<Canvas of={DocBlocks.SemanticTokens} />
+
 #### Surface tokens
 
 Surface tokens control background colors at different elevation levels.
 
-| Token | Light | Dark | Usage |
-|---|---|---|---|
-| `color.background.surface-base` | `#FFFFFF` | `#171717` | Page-level background |
-| `color.background.surface-raised` | `#FAFAFA` | `#262626` | Cards, dialogs, popovers |
-| `color.background.surface-sunken` | `#F5F5F5` | `#171717` | Inset areas, wells |
-| `color.background.surface-overlay` | `rgb(0 0 0 / 0.5)` | `rgb(0 0 0 / 0.7)` | Modal backdrops |
+<Canvas of={DocBlocks.SurfaceTokens} />
+
+| Token | Usage |
+|---|---|
+| `color.background.surface-base` | Page-level background |
+| `color.background.surface-raised` | Cards, dialogs, popovers |
+| `color.background.surface-sunken` | Inset areas, wells |
+| `color.background.surface-overlay` | Modal backdrops |
 
 ### 3. Component tokens
 
@@ -95,6 +97,10 @@ These are scoped to individual components and reference semantic tokens.
 | `component.input.border` | `color.border.default` |
 
 Component tokens let you fine-tune a specific component without affecting the rest of the system.
+
+They are grouped by component below. Open a group, or type in the filter to search them all:
+
+<Canvas of={DocBlocks.ComponentTokens} />
 
 ## Dark mode
 

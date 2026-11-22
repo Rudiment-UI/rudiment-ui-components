@@ -1,9 +1,16 @@
 import type { StorybookConfig } from '@storybook/react-vite'
-import type { InlineConfig } from 'vite'
+import type { InlineConfig, Plugin } from 'vite'
 import remarkGfm from 'remark-gfm'
 
 const config: StorybookConfig = {
-  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(ts|tsx)'],
+  stories: [
+    // Top level only: src/docs/guidelines/*.mdx are snippets imported by
+    // pages, not pages themselves.
+    '../src/docs/*.mdx',
+    '../src/**/*.stories.@(ts|tsx)',
+    // Live blocks for the Getting Started pages (token browser, theme matrix).
+    './docs/*.stories.@(ts|tsx)',
+  ],
   addons: [
     '@chromatic-com/storybook',
     '@storybook/addon-vitest',
@@ -20,6 +27,10 @@ const config: StorybookConfig = {
     },
   ],
   framework: '@storybook/react-vite',
+  // Hide Storybook's "Level up" onboarding checklist in the sidebar.
+  features: {
+    sidebarOnboardingChecklist: false,
+  },
   // Brand assets for the Storybook chrome only (favicon.svg is picked up
   // automatically). Not part of the library build.
   staticDirs: ['./public'],
@@ -30,6 +41,7 @@ const config: StorybookConfig = {
   async viteFinal(config: InlineConfig) {
     return {
       ...config,
+      plugins: [...(config.plugins ?? []), agentDocs()],
       server: {
         ...config.server,
         headers: {
@@ -38,6 +50,54 @@ const config: StorybookConfig = {
       },
     }
   },
+}
+
+/**
+ * Serves the agent-facing API reference (the same files the package ships in
+ * dist/) from the site root, so an agent can read /llms.txt from the Storybook
+ * URL before installing anything. Generated from src on demand: on each
+ * request in dev, once in `storybook build`. Vitest never requests or bundles
+ * them, so the test run pays nothing.
+ */
+function agentDocs(): Plugin {
+  const render = async () => {
+    // @ts-expect-error: untyped .mjs build scripts
+    const { buildManifest } = await import('../scripts/component-docs.mjs')
+    // @ts-expect-error: untyped .mjs build scripts
+    const { renderMarkdown } = await import('../mcp/render.mjs')
+    const api = buildManifest()
+    return {
+      'llms.txt': renderMarkdown(api, { full: false }),
+      'llms-full.txt': renderMarkdown(api),
+      'components.json': JSON.stringify(api, null, 2) + '\n',
+    } as Record<string, string>
+  }
+  const types: Record<string, string> = {
+    'llms.txt': 'text/plain; charset=utf-8',
+    'llms-full.txt': 'text/plain; charset=utf-8',
+    'components.json': 'application/json; charset=utf-8',
+  }
+  return {
+    name: 'rudiment-agent-docs',
+    configureServer(server) {
+      server.middlewares.use(async (req, res, next) => {
+        const file = req.url?.split('?')[0].replace(/^\//, '') ?? ''
+        if (!(file in types)) return next()
+        try {
+          const body = (await render())[file]
+          res.setHeader('Content-Type', types[file])
+          res.end(body)
+        } catch (error) {
+          next(error)
+        }
+      })
+    },
+    async generateBundle() {
+      for (const [fileName, source] of Object.entries(await render())) {
+        this.emitFile({ type: 'asset', fileName, source })
+      }
+    },
+  }
 }
 
 function socialMeta() {

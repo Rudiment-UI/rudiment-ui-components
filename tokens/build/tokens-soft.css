@@ -85,6 +85,7 @@
   --rudi-component-avatar-icon-size-md: 1.25rem;
   --rudi-component-avatar-icon-size-lg: 1.5rem;
   --rudi-component-avatar-tint-bg-amount: 16%;
+  --rudi-component-avatar-tint-text-amount: 55%;
   --rudi-component-nav-item-icon-size: 1.25rem;
   --rudi-component-chart-tooltip-border: rgba(0, 0, 0, 0);
   --rudi-component-circular-progress-size-sm: 2.5rem;
@@ -689,6 +690,7 @@
   --rudi-component-progress-value-color: var(--rudi-color-text-subtle);
   --rudi-component-avatar-bg: var(--rudi-color-background-surface-raised);
   --rudi-component-avatar-text: var(--rudi-color-text-subtle);
+  --rudi-component-avatar-tint-text-base: var(--rudi-color-text-default);
   --rudi-component-avatar-auto-tint-1: var(--rudi-color-dataviz-series-1);
   --rudi-component-avatar-auto-tint-2: var(--rudi-color-dataviz-series-2);
   --rudi-component-avatar-auto-tint-3: var(--rudi-color-dataviz-series-3);

@@ -296,6 +296,8 @@
       "icon-size-md": { "$value": "1.25rem" },
       "icon-size-lg": { "$value": "1.5rem" },
       "tint-bg-amount": { "$value": "16%" },
+      "tint-text-amount": { "$value": "55%" },
+      "tint-text-base": { "$value": "{color.text.default}" },
       "auto-tint-1": { "$value": "{color.dataviz.series-1}" },
       "auto-tint-2": { "$value": "{color.dataviz.series-2}" },
       "auto-tint-3": { "$value": "{color.dataviz.series-3}" },

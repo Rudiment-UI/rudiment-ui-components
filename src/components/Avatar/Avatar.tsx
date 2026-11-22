@@ -23,7 +23,7 @@ export interface RudiAvatarProps {
   statusLabel?: string
   /** Iconify icon name shown instead of the initials when there is no loaded image, e.g. for an entity type rather than a person. Decorative: the accessible name still comes from `alt`, then `name`. */
   icon?: string
-  /** Accent color: the background becomes a translucent wash of it and the initials or icon take the color itself. Any CSS color, including `var(...)` for theme-aware custom properties, or `'auto'` to pick one of the 8 categorical dataviz series colors from a stable hash of `name` (no tint without `name`). Unset keeps the neutral look. */
+  /** Accent color: the background becomes a translucent wash of it and the initials or icon take the color, deepened toward the text color so they stay readable. Any CSS color, including `var(...)` for theme-aware custom properties, or `'auto'` to pick one of the 8 categorical dataviz series colors from a stable hash of `name` (no tint without `name`). Unset keeps the neutral look. */
   tint?: string
   /** Extra class names, merged with the component's own classes rather than replacing them. */
   className?: string

@@ -76,5 +76,6 @@
 
 .rudi-avatar--tinted .rudi-avatar__initials {
   background-color: color-mix(in srgb, var(--avatar-tint) var(--rudi-component-avatar-tint-bg-amount), transparent);
-  color: var(--avatar-tint);
+  /* Pulled toward the text color so initials clear 4.5:1 on the wash for light and saturated tints alike. */
+  color: color-mix(in srgb, var(--avatar-tint) var(--rudi-component-avatar-tint-text-amount), var(--rudi-component-avatar-tint-text-base));
 }

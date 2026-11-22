@@ -50,6 +50,7 @@
   --rudi-component-avatar-icon-size-md: 1.25rem;
   --rudi-component-avatar-icon-size-lg: 1.5rem;
   --rudi-component-avatar-tint-bg-amount: 16%;
+  --rudi-component-avatar-tint-text-amount: 55%;
   --rudi-component-nav-item-icon-size: 1.25rem;
   --rudi-component-circular-progress-size-sm: 2.5rem;
   --rudi-component-circular-progress-size-md: 4rem;
@@ -651,6 +652,7 @@
   --rudi-component-progress-value-color: var(--rudi-color-text-subtle);
   --rudi-component-avatar-bg: var(--rudi-color-background-surface-raised);
   --rudi-component-avatar-text: var(--rudi-color-text-subtle);
+  --rudi-component-avatar-tint-text-base: var(--rudi-color-text-default);
   --rudi-component-stat-card-label-color: var(--rudi-color-text-subtle);
   --rudi-component-stat-card-value-font-family: var(--rudi-font-family-display);
   --rudi-component-stat-card-value-color: var(--rudi-color-text-default);

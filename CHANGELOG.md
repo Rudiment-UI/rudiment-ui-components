@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.1] - 2026-11-21
+
 ### Changed
 
 - **`RudiText` props:** `RudiTextProps` now extends `AllHTMLAttributes`, so element-specific attributes type-check with `as`, such as `href` with `as="a"` and `htmlFor` with `as="label"`.

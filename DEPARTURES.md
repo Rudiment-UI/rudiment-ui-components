@@ -1,7 +1,13 @@
-# Library Departures — Where Rudiment UI Broke Down in the Examples
+# Library Departures — Where Rudiment UI Broke Down in Real Screens
 
-The example apps under `src/stories/examples/` (biotech, ecommerce, crm, project-management)
-exist to stress-test the library: to find the points where a developer had to reach **outside**
+> **Status (Unreleased).** The Storybook example pages (biotech, ecommerce, crm,
+> project-management) that Parts 1–5 audit have been removed. Vitrea, the app in Part 6, replaces
+> them as the library's stress test and is featured on the Storybook page **Getting Started →
+> Vitrea**. Parts 1–5 are kept as history: file paths under `src/stories/examples/` in them no
+> longer exist. Log new gaps found in Vitrea in Part 6.
+
+The example apps that lived under `src/stories/examples/` (biotech, ecommerce, crm, project-management)
+existed to stress-test the library: to find the points where a developer had to reach **outside**
 the components, **extend** them, or **work around** their APIs to build a real screen.
 
 This document catalogs every such departure found across all four example domains. It is a

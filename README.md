@@ -15,9 +15,10 @@ Install it as a package, or clone it, swap the tokens, and ship your own design 
 | **Kanban**            | KanbanBoard, KanbanColumn, KanbanCard                                                                                                                                                    |
 | **Typography**        | Heading, Text, Prose                                                                                                                                                                     |
 | **Layout Primitives** | Box, Stack, Cluster, Grid, Sidebar, Center, Cover, Switcher                                                                                                                              |
-| **Page Examples**     | App Shell, App Header, App Footer, Settings Page, Sign-In Form, Marketing Hero, Sidebar Layout, Article Page, Simple Form, Empty State                                                   |
 
 Also included: a three-tier design token architecture, eight built-in themes (Default plus the Roomy, Soft, and Compressed modifier themes, each in light and dark variants), motion tokens, a data visualization palette, surface tokens, a Vitest test suite with accessibility checks, and interactive Storybook documentation.
+
+See it in a real app: [Vitrea](https://vitrea-rudiment.netlify.app), a demo cold-chain shipping app built entirely with Rudiment UI. Storybook's **Getting Started → Vitrea** page walks through it.
 
 ## Quick start
 

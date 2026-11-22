@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Vitrea replaces the Storybook examples:** the 26 `Examples/*` pages (CRM, Project Management, eCommerce and Biotech) are removed. A new **Getting Started → Vitrea** page features [Vitrea](https://vitrea-rudiment.netlify.app), a demo cold-chain shipping app built entirely with Rudiment UI, with soft-theme screenshots, a live demo link, code excerpts from the app, the components each screen relies on and how its brand is built from token overrides. The gap analysis moved from `src/stories/examples/DEPARTURES.md` to `DEPARTURES.md` at the repository root. No component, token or published file changes.
 - **Storybook brand identity:** Storybook now has a Rudiment UI mark (a lowercase "r" built from a bar, an arc and a point), a favicon, light and dark chrome themes that follow the OS, Geist typography for docs prose, and a hero on the Introduction page. This is presentation only: no component, token or published file changes. See `.storybook/brand/BRAND.md`.
 
 ## [0.7.0] - 2026-11-22

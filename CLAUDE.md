@@ -76,10 +76,10 @@ Stories: `title: 'Components/Name'` (or `Layouts/` / `Typography/`), `tags: ['au
 
 Tests: render, `axe` accessibility assertion, keyboard/pointer interaction, and state coverage (disabled/loading/error).
 
-## Docs and examples
+## Docs
 
 - `src/docs/*.mdx` — the "Getting Started" Storybook pages (Token Architecture, Theming, Accessibility, Component Guidelines, Layout Primitives, Typography). Component-level do/don't guidance lives in `ComponentGuidelines.mdx` and should be extended when a component is added.
-- `src/stories/examples/{biotech,crm,ecommerce,project-management}/` — full example apps that exist to stress-test the library. Each has a `shared.tsx` of domain data and local helpers.
-- `src/stories/examples/DEPARTURES.md` — a gap analysis cataloguing every place those examples had to reach outside the components (inline styles, raw HTML, missing primitives). Read it before designing new component APIs; it is the current backlog signal.
+- `src/docs/Vitrea.mdx` — the "Getting Started/Vitrea" page featuring Vitrea, the app that stress-tests the library (separate repo, live demo at https://vitrea-rudiment.netlify.app). Its screenshots live in `.storybook/public/vitrea/` (Storybook-only static files, not shipped).
+- `DEPARTURES.md` — a gap analysis cataloguing every place real screens had to reach outside the components (inline styles, raw HTML, missing primitives), from the former Storybook example pages and from Vitrea. Read it before designing new component APIs; it is the current backlog signal.
 
 Update `CHANGELOG.md` (Keep a Changelog format) for user-facing changes.

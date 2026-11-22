@@ -1,0 +1,162 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Getting Started/Vitrea" />
+
+# <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3em', font: 'inherit', letterSpacing: 'inherit', color: 'inherit' }}><img src="./vitrea/logo.svg" alt="" style={{ display: 'block', width: '1.1em', height: '1.1em', margin: 0 }} />Vitrea</span>
+
+Vitrea is **a demo app** built entirely with Rudiment UI: a cold-chain shipping tool for reproductive medicine. It isn't a real product or service. The clinics, people and shipments are made up, and there's no backend. In the demo, clinics book dry-shipper transport between labs, then follow each shipment's probe temperature from pickup to delivery. Staff run the network from a dashboard, an ops board and admin screens for users, devices, packages and notification templates.
+
+**[Open the live demo →](https://vitrea-rudiment.netlify.app)**
+
+Pick any demo account to sign in. There's no password, and any 6-digit code passes the second step. All data lives in your browser, so you can book, edit and drag shipments freely. **Demo controls** in the top bar move the simulated clock forward so readings, status changes and temperature alerts play out.
+
+The screenshots on this page use the `soft` theme, which is Vitrea's default in light mode, and `soft-dark`.
+
+![Vitrea sign-in: a dark brand panel beside a two-step account picker](./vitrea/login.webp)
+
+## Why it exists
+
+Vitrea is the library's proving ground. Demo pages show how a component looks. A working app shows how it behaves under typing, scrolling, narrow screens and assistive technology. Building Vitrea found bugs that had passed every unit, axe and story test, and it drove most of what shipped in 0.4.0 through 0.7.0: `RudiTable`, `RudiTabs`, `RudiComboBox`, the date pickers, `RudiForm`'s error summary, `RudiToastRegion`, `RudiDescriptionList`, `RudiSparkline`, and the avatar tints and empty-state illustrations.
+
+The rule in the app is that every element is a `Rudi*` component. When the library can't do something, the fix goes into Rudiment UI rather than a local stand-in. Gaps that are found but not yet fixed are logged in `DEPARTURES.md` at the root of this repository.
+
+## What it shows
+
+| Screen | Components doing the work |
+| ------ | ------------------------- |
+| App frame | `RudiAppShell`, `RudiTopBar`, `RudiNavItem`, `RudiBrand`, `RudiMenuTrigger` |
+| Shipments | `RudiTabs`, `RudiTable` with sorting, `RudiInput`, `RudiPageHeader` |
+| Shipment detail | `RudiBreadcrumb`, `RudiAlert` with an action, `RudiSparkline`, `RudiStepper`, `RudiDescriptionList` |
+| Booking | `RudiForm`, `RudiComboBox`, `RudiDatePicker`, `RudiRadioGroup`, `RudiNumberField` |
+| Dashboard | `RudiStatCard`, `RudiBarChart`, `RudiDonutChart`, `RudiTable` |
+| Ops board | `RudiKanbanBoard`, with drag and a keyboard move menu |
+| Empty results | `RudiEmptyState` with an illustration |
+
+![Shipment detail: page header with badges, a temperature alert, summary cards with a sparkline, tabs and a chain-of-custody stepper](./vitrea/shipment-detail.webp)
+
+## From the source
+
+These excerpts are lightly trimmed from Vitrea's code.
+
+### Client-side routing
+
+`RudiRouterProvider` connects every `RudiLink`, `RudiBreadcrumb` and linked table row to the app's router, so they navigate without a page reload. Vitrea mounts it once at the top of the React Router tree:
+
+```tsx
+import { Outlet, useHref, useNavigate } from 'react-router'
+import { RudiRouterProvider } from 'rudiment-ui'
+
+function Root() {
+  const navigate = useNavigate()
+  return (
+    <RudiRouterProvider navigate={navigate} useHref={useHref}>
+      <Outlet />
+    </RudiRouterProvider>
+  )
+}
+```
+
+### Probe temperature card
+
+The summary card on a shipment page is a `RudiStatCard` with a `RudiSparkline` as its child. The threshold draws the dashed alert line, and the tone switches to `error` once readings cross it:
+
+```tsx
+<RudiStatCard
+  label="Probe temperature"
+  value={formatTemperature(summary.latest)}
+  delta={`${summary.excursions} readings above ${formatTemperature(setPoint)}`}
+  trend={summary.excursions ? 'down' : 'up'}
+>
+  <RudiSparkline
+    label={`Probe temperature trace, alert threshold ${formatTemperature(setPoint)}`}
+    data={trace}
+    threshold={setPoint}
+    tone={summary.excursions ? 'error' : 'brand'}
+    showEndpoint
+  />
+</RudiStatCard>
+```
+
+### Empty table results
+
+`RudiTableBody` renders its empty state inside the table, so the column headers stay in place. Vitrea uses a different illustration and an action depending on whether filters are applied:
+
+```tsx
+<RudiTableBody
+  items={rows}
+  renderEmptyState={() => (
+    <RudiEmptyState
+      size="sm"
+      illustration={filterCount ? '/illustrations/no-results.svg' : '/illustrations/empty-box.svg'}
+      title={filterCount ? 'Nothing matches those filters' : 'No pending shipments yet'}
+      action={
+        filterCount ? (
+          <RudiButton variant="secondary" size="sm" onPress={clearFilters}>
+            Clear filters
+          </RudiButton>
+        ) : undefined
+      }
+    />
+  )}
+>
+  {(row) => (
+    <RudiTableRow id={row.id} href={`/shipments/${row.id}`} columns={columns}>
+      {/* cells */}
+    </RudiTableRow>
+  )}
+</RudiTableBody>
+```
+
+![Ops board: pending, active and complete columns of shipment cards](./vitrea/board.webp)
+
+## Theming without forking
+
+Vitrea doesn't change any library source. Its whole brand is one stylesheet of `--rudi-*` overrides loaded after `rudiment-ui/styles`.
+
+Some overrides apply in every theme:
+
+- A green-gray neutral ramp and a muted blue ramp. Semantic tokens reference the primitive ramps through `var()`, so replacing a ramp recolors every surface, border and text color in light and dark at once.
+- Instrument Sans for body text and JetBrains Mono for monospace.
+- Tighter heading tracking, and shadows tinted with the brand ink instead of black.
+
+The brand color and dataviz series are set once for the light themes and once for the dark ones. Because theme blocks redeclare every token at the same specificity as `:root`, each selector is listed explicitly:
+
+```css
+/* Light themes: spruce */
+:root,
+[data-theme='roomy'],
+[data-theme='soft'],
+[data-theme='compressed'] {
+  --rudi-color-brand-primary: #1f5c4f;
+  --rudi-color-brand-primary-hover: #184b40;
+  --rudi-color-brand-primary-active: #123a32;
+  --rudi-color-text-on-brand: #ffffff;
+  --rudi-color-border-focus: #2b7a67;
+  --rudi-color-dataviz-series-1: #1f7a66;
+  /* … series 2–8 */
+}
+
+/* Dark themes: frost on ink */
+[data-theme='dark'],
+[data-theme='roomy-dark'],
+[data-theme='soft-dark'],
+[data-theme='compressed-dark'] {
+  --rudi-color-brand-primary: #7ccbb5;
+  --rudi-color-brand-primary-hover: #9ad8c6;
+  --rudi-color-brand-primary-active: #62b9a2;
+  --rudi-color-text-on-brand: #0b1a15;
+  --rudi-color-border-focus: #7ccbb5;
+}
+```
+
+The Light and Dark themes go further, with a Figtree display face through `--rudi-font-family-display`, pill buttons, rounder cards and a custom type scale. Soft and Compact keep the library's own shapes and type, so the screenshots here show the library's look in Vitrea's colors.
+
+The app's theme picker offers Match system, Light, Dark, Soft and Compact. Match system resolves to `soft` or `soft-dark` from the operating system. [Theming](?path=/docs/getting-started-theming--docs) explains the override pattern.
+
+![Vitrea dashboard in the soft-dark theme](./vitrea/dashboard-dark.webp)
+
+## Related documentation
+
+- [Introduction](?path=/docs/getting-started-introduction--docs): install the package and import the stylesheet
+- [Theming](?path=/docs/getting-started-theming--docs): override tokens for your own brand
+- [Component Guidelines](?path=/docs/getting-started-component-guidelines--docs): do/don't guidance for each component

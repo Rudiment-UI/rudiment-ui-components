@@ -31,7 +31,6 @@ const meta = {
   argTypes: {
     innerRadius: {
       control: { type: 'range', min: 0, max: 100, step: 5 },
-      description: 'Inner radius of the donut ring',
       table: { category: 'Appearance' },
     },
     showLabels: {

@@ -25,45 +25,34 @@ const meta = {
   argTypes: {
     children: {
       control: 'text',
-      description: 'The label text displayed next to the checkbox',
       table: { category: 'Content' },
     },
     className: {
       control: 'text',
-      description:
-        'Additional CSS class names to apply to the checkbox wrapper',
       table: { category: 'Appearance' },
     },
     isSelected: {
       control: 'boolean',
-      description: 'Whether the checkbox is checked (controlled)',
       table: { category: 'State' },
     },
     defaultSelected: {
       control: 'boolean',
-      description: 'Whether the checkbox is initially checked (uncontrolled)',
       table: { category: 'State' },
     },
     isIndeterminate: {
       control: 'boolean',
-      description:
-        'Whether the checkbox displays a mixed or partial selection state',
       table: { category: 'State' },
     },
     isDisabled: {
       control: 'boolean',
-      description: 'Whether the checkbox is disabled and non-interactive',
       table: { category: 'State' },
     },
     value: {
       control: 'text',
-      description:
-        'The value submitted with a form when the checkbox is checked',
       table: { category: 'State' },
     },
     onChange: {
       action: 'changed',
-      description: 'Called when the checked state changes',
       table: { category: 'Events' },
     },
   },

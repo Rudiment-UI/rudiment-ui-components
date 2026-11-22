@@ -103,4 +103,23 @@ describe('CircularProgress', () => {
     )
     expect(await axe(container)).toHaveNoViolations()
   })
+
+  it('clamps out-of-range values', () => {
+    const { container, rerender } = render(<RudiCircularProgress label="L" value={150} showValueLabel />)
+    expect(screen.getByText('100%')).toBeInTheDocument()
+    expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '100')
+    rerender(<RudiCircularProgress label="L" value={-20} showValueLabel />)
+    expect(screen.getByText('0%')).toBeInTheDocument()
+    expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '0')
+    const fill = container.querySelector('.rudi-circular-progress__fill')!
+    expect(fill.getAttribute('stroke-dashoffset')).toBe(fill.getAttribute('stroke-dasharray'))
+  })
+
+  it('does not produce NaN when min equals max', () => {
+    const { container } = render(
+      <RudiCircularProgress label="L" value={5} minValue={5} maxValue={5} showValueLabel />,
+    )
+    expect(screen.getByText('0%')).toBeInTheDocument()
+    expect(container.innerHTML).not.toContain('NaN')
+  })
 })

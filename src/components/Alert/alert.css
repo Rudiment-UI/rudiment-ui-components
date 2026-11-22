@@ -54,6 +54,25 @@
   gap: var(--rudi-component-alert-gap);
 }
 
+/* Text and action share a wrapping row, so the action drops below the text when the alert is narrow. */
+.rudi-alert__main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--rudi-component-alert-action-gap);
+  min-inline-size: 0;
+}
+
+.rudi-alert__main > .rudi-alert__body {
+  flex: 1 1 16rem;
+  min-inline-size: 0;
+}
+
+.rudi-alert__action {
+  flex: 0 0 auto;
+  margin-inline-start: auto;
+}
+
 .rudi-alert__title {
   font-weight: var(--rudi-component-alert-title-font-weight);
 }

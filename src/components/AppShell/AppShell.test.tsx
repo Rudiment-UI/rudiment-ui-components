@@ -65,6 +65,29 @@ describe('AppShell', () => {
     expect(root).not.toHaveClass('rudi-app-shell--sidebar-open')
   })
 
+  it('exposes the drawer state on the menu button', async () => {
+    const user = userEvent.setup()
+    render(<Shell />)
+    const button = screen.getByRole('button', { name: 'Open navigation' })
+    const sidebar = screen.getByRole('complementary')
+    expect(button).toHaveAttribute('aria-expanded', 'false')
+    expect(button).toHaveAttribute('aria-controls', sidebar.id)
+    await user.click(button)
+    expect(button).toHaveAttribute('aria-expanded', 'true')
+  })
+
+  it('closes the drawer on Escape and returns focus to the menu button', async () => {
+    const user = userEvent.setup()
+    const { container } = render(<Shell />)
+    const root = container.firstChild as HTMLElement
+    const button = screen.getByRole('button', { name: 'Open navigation' })
+    await user.click(button)
+    await user.tab()
+    await user.keyboard('{Escape}')
+    expect(root).not.toHaveClass('rudi-app-shell--sidebar-open')
+    expect(button).toHaveFocus()
+  })
+
   it('supports a controlled open state', () => {
     const { container } = render(
       <RudiAppShell isSidebarOpen>

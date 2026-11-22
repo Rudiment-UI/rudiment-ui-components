@@ -17,7 +17,7 @@
   outline-offset: 2px;
 }
 
-.rudi-button[aria-disabled='true'] {
+.rudi-button:is(:disabled, [aria-disabled='true']) {
   cursor: not-allowed;
   opacity: 0.5;
 }
@@ -29,6 +29,9 @@
   font-size: var(--rudi-component-button-font-size-sm);
 }
 .rudi-button--md {
+  /* Same height as the single-line fields, so a button lines up beside them. */
+  box-sizing: border-box;
+  min-block-size: var(--rudi-component-button-height-md);
   padding: var(--rudi-component-button-padding-y-md)
     var(--rudi-component-button-padding-x-md);
   font-size: var(--rudi-component-button-font-size-md);
@@ -44,7 +47,7 @@
   background-color: var(--rudi-component-button-primary-bg);
   color: var(--rudi-component-button-primary-text);
 }
-.rudi-button--primary:hover:not([aria-disabled='true']) {
+.rudi-button--primary:hover:not(:is(:disabled, [aria-disabled='true'])) {
   background-color: var(--rudi-component-button-primary-hover-bg);
 }
 
@@ -53,7 +56,7 @@
   color: var(--rudi-component-button-secondary-text);
   border-color: var(--rudi-component-button-secondary-border);
 }
-.rudi-button--secondary:hover:not([aria-disabled='true']) {
+.rudi-button--secondary:hover:not(:is(:disabled, [aria-disabled='true'])) {
   background-color: var(--rudi-component-button-secondary-hover-bg);
 }
 
@@ -66,7 +69,7 @@
   background-color: transparent;
   color: var(--rudi-component-button-ghost-text);
 }
-.rudi-button--ghost:hover:not([aria-disabled='true']) {
+.rudi-button--ghost:hover:not(:is(:disabled, [aria-disabled='true'])) {
   background-color: var(--rudi-component-button-ghost-hover-bg);
 }
 

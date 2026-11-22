@@ -15,27 +15,21 @@ const meta = {
   },
   argTypes: {
     children: {
-      description: 'The content rendered inside the heading',
       table: { category: 'Content' },
     },
     level: {
       control: { type: 'select' },
       options: [1, 2, 3, 4, 5, 6],
-      description:
-        'The semantic heading level — determines the HTML element (h1-h6) and document outline',
       table: { category: 'Appearance' },
     },
     size: {
       control: { type: 'select' },
       options: [1, 2, 3, 4, 5, 6],
-      description:
-        'The visual size of the heading, independent of semantic level. Defaults to match the level.',
       table: { category: 'Appearance' },
     },
     weight: {
       control: 'select',
       options: [undefined, 'regular', 'medium', 'semibold', 'bold'],
-      description: 'Font weight, overriding the size default',
       table: { category: 'Appearance' },
     },
     tone: {
@@ -52,22 +46,18 @@ const meta = {
         'error',
         'info',
       ],
-      description: 'Semantic text color',
       table: { category: 'Appearance' },
     },
     align: {
       control: 'select',
       options: [undefined, 'start', 'center', 'end', 'justify'],
-      description: 'Text alignment',
       table: { category: 'Appearance' },
     },
     noMargin: {
       control: 'boolean',
-      description: "Removes the element's default block margin",
       table: { category: 'Appearance' },
     },
     className: {
-      description: 'Additional CSS class names to apply to the heading element',
       table: { category: 'Appearance' },
     },
   },

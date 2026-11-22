@@ -1,5 +1,8 @@
 /* Dot — status / category indicator */
 .rudi-dot {
+  /* Contains the visually hidden label, which is absolutely positioned. Without this
+     it escapes overflow containers (e.g. a scrolling kanban) and widens the page. */
+  position: relative;
   display: inline-block;
   flex-shrink: 0;
   border-radius: var(--rudi-radius-full);

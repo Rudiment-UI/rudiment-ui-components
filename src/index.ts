@@ -48,6 +48,13 @@ export type { RudiKeyboardProps } from './components/Menu/Keyboard'
 export { RudiSubmenuTrigger } from './components/Menu/SubmenuTrigger'
 export type { RudiSubmenuTriggerProps } from './components/Menu/SubmenuTrigger'
 
+/**
+ * React Aria's `Separator`, re-exported unchanged and unstyled. Prefer
+ * `RudiMenuSeparator` inside a `RudiMenu` and `RudiDivider` between page content.
+ *
+ * @example
+ * <RudiSeparator />
+ */
 export { Separator as RudiSeparator } from 'react-aria-components'
 
 export { RudiDialog } from './components/Dialog/Dialog'
@@ -58,6 +65,8 @@ export type { RudiSwitchProps } from './components/Switch/Switch'
 
 export { RudiRadioGroup } from './components/RadioGroup/RadioGroup'
 export type { RudiRadioGroupProps } from './components/RadioGroup/RadioGroup'
+export { RudiRadio } from './components/RadioGroup/Radio'
+export type { RudiRadioProps } from './components/RadioGroup/Radio'
 
 export { RudiTooltipTrigger, RudiTooltip } from './components/Tooltip/Tooltip'
 export type { RudiTooltipTriggerProps, RudiTooltipProps } from './components/Tooltip/Tooltip'
@@ -142,7 +151,10 @@ export { RudiBarChart } from './components/Charts/BarChart/BarChart'
 export type { RudiBarChartProps } from './components/Charts/BarChart/BarChart'
 
 export { RudiLineChart } from './components/Charts/LineChart/LineChart'
-export type { RudiLineChartProps } from './components/Charts/LineChart/LineChart'
+export type { RudiLineChartProps, RudiChartReferenceLine } from './components/Charts/LineChart/LineChart'
+
+export { RudiSparkline } from './components/Charts/Sparkline/Sparkline'
+export type { RudiSparklineProps } from './components/Charts/Sparkline/Sparkline'
 
 export { RudiDonutChart } from './components/Charts/DonutChart/DonutChart'
 export type { RudiDonutChartProps, RudiDonutChartDatum } from './components/Charts/DonutChart/DonutChart'
@@ -196,7 +208,81 @@ export { RudiCenter } from './layouts/Center/Center'
 export type { RudiCenterProps } from './layouts/Center/Center'
 
 export { RudiCover } from './layouts/Cover/Cover'
-export type { RudiCoverProps } from './layouts/Cover/Cover'
+export type { RudiCoverProps, RudiCoverCenteredProps } from './layouts/Cover/Cover'
 
 export { RudiSwitcher } from './layouts/Switcher/Switcher'
 export type { RudiSwitcherProps } from './layouts/Switcher/Switcher'
+
+export { RudiAppShell } from './components/AppShell/AppShell'
+export type {
+  RudiAppShellProps,
+  RudiAppShellSidebarProps,
+  RudiAppShellContentProps,
+  RudiAppShellMainProps,
+  RudiAppShellMenuButtonProps,
+} from './components/AppShell/AppShell'
+
+export { RudiTopBar } from './components/TopBar/TopBar'
+export type { RudiTopBarProps } from './components/TopBar/TopBar'
+
+export { RudiDescriptionList } from './components/DescriptionList/DescriptionList'
+export type {
+  RudiDescriptionListProps,
+  RudiDescriptionListItem,
+} from './components/DescriptionList/DescriptionList'
+
+export { RudiPageHeader } from './components/PageHeader/PageHeader'
+export type { RudiPageHeaderProps } from './components/PageHeader/PageHeader'
+
+export { RudiSectionHeader } from './components/SectionHeader/SectionHeader'
+export type { RudiSectionHeaderProps } from './components/SectionHeader/SectionHeader'
+
+export { RudiRouterProvider } from './components/RouterProvider/RouterProvider'
+export type { RudiRouterProviderProps } from './components/RouterProvider/RouterProvider'
+
+export { RudiBrand } from './components/Brand/Brand'
+export type { RudiBrandProps } from './components/Brand/Brand'
+
+export { RudiForm } from './components/Form/Form'
+export type { RudiFormProps } from './components/Form/Form'
+
+export { RudiTabs } from './components/Tabs/Tabs'
+export type { RudiTabsProps } from './components/Tabs/Tabs'
+export { RudiTabList } from './components/Tabs/TabList'
+export type { RudiTabListProps } from './components/Tabs/TabList'
+export { RudiTab } from './components/Tabs/Tab'
+export type { RudiTabProps } from './components/Tabs/Tab'
+export { RudiTabPanel } from './components/Tabs/TabPanel'
+export type { RudiTabPanelProps } from './components/Tabs/TabPanel'
+
+export { RudiEmptyState } from './components/EmptyState/EmptyState'
+export type { RudiEmptyStateProps } from './components/EmptyState/EmptyState'
+
+export { RudiComboBox } from './components/ComboBox/ComboBox'
+export type { RudiComboBoxProps } from './components/ComboBox/ComboBox'
+
+export { RudiToastRegion } from './components/Toast/Toast'
+export type { RudiToastRegionProps } from './components/Toast/Toast'
+export { rudiToast } from './components/Toast/toastQueue'
+export type { RudiToastVariant, RudiToastOptions, RudiToastAddOptions } from './components/Toast/toastQueue'
+
+export { RudiTable } from './components/Table/Table'
+export type { RudiTableProps } from './components/Table/Table'
+export { RudiTableHeader } from './components/Table/TableHeader'
+export type { RudiTableHeaderProps } from './components/Table/TableHeader'
+export { RudiTableColumn } from './components/Table/TableColumn'
+export type { RudiTableColumnProps, RudiTableAlign } from './components/Table/TableColumn'
+export { RudiTableBody } from './components/Table/TableBody'
+export type { RudiTableBodyProps } from './components/Table/TableBody'
+export { RudiTableRow } from './components/Table/TableRow'
+export type { RudiTableRowProps } from './components/Table/TableRow'
+export { RudiTableCell } from './components/Table/TableCell'
+export type { RudiTableCellProps } from './components/Table/TableCell'
+
+export { RudiDatePicker } from './components/DatePicker/DatePicker'
+export type { RudiDatePickerProps } from './components/DatePicker/DatePicker'
+export { RudiDateRangePicker } from './components/DatePicker/DateRangePicker'
+export type { RudiDateRangePickerProps, RudiDateRange } from './components/DatePicker/DateRangePicker'
+
+export { RudiNumberField } from './components/NumberField/NumberField'
+export type { RudiNumberFieldProps } from './components/NumberField/NumberField'

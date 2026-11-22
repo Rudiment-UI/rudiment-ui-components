@@ -1,5 +1,7 @@
 .rudi-textarea {
   display: grid;
+  /* Keep the control its own height when a grid row stretches the field (a neighbour has help text). */
+  align-content: start;
   gap: var(--rudi-component-textarea-gap);
   font-size: var(--rudi-component-textarea-font-size);
 }
@@ -75,4 +77,10 @@
   color: var(--rudi-component-textarea-error-text-color);
   font-size: var(--rudi-component-textarea-error-font-size);
   line-height: var(--rudi-font-line-height-normal);
+}
+
+/* Hint and error text render as <p>; drop the browser's paragraph margin. */
+.rudi-textarea__description,
+.rudi-textarea__error {
+  margin: 0;
 }

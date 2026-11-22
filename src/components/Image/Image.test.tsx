@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { axe } from 'vitest-axe'
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { RudiImage } from './Image'
 
 const SRC =
@@ -60,5 +60,45 @@ describe('Image', () => {
       <RudiImage src={SRC} alt="A meaningful photo" aspectRatio="4 / 3" />,
     )
     expect(await axe(container)).toHaveNoViolations()
+  })
+
+  describe('load failure', () => {
+    it('renders a labelled placeholder and calls onError', async () => {
+      const onError = vi.fn()
+      const { container } = render(
+        <RudiImage src={SRC} alt="Broken" aspectRatio="4 / 3" radius="lg" onError={onError} />,
+      )
+      fireEvent.error(container.querySelector('img')!)
+      expect(onError).toHaveBeenCalledTimes(1)
+      expect(container.querySelector('img')).not.toBeInTheDocument()
+      expect(screen.getByRole('img', { name: 'Broken' })).toBeInTheDocument()
+      expect(container.firstChild).toHaveClass('rudi-image--radius-lg')
+      expect((container.firstChild as HTMLElement).style.aspectRatio).toBe('4 / 3')
+      expect(await axe(container)).toHaveNoViolations()
+    })
+
+    it('is aria-hidden when alt is empty', async () => {
+      const { container } = render(<RudiImage src={SRC} alt="" />)
+      fireEvent.error(container.querySelector('img')!)
+      expect(screen.queryByRole('img')).not.toBeInTheDocument()
+      expect(container.querySelector('.rudi-image__fallback')).toHaveAttribute('aria-hidden', 'true')
+      expect(await axe(container)).toHaveNoViolations()
+    })
+
+    it('renders a custom fallback', () => {
+      const { container } = render(
+        <RudiImage src={SRC} alt="x" fallback={<span>Nope</span>} />,
+      )
+      fireEvent.error(container.querySelector('img')!)
+      expect(screen.getByText('Nope')).toBeInTheDocument()
+    })
+
+    it('resets when src changes', () => {
+      const { container, rerender } = render(<RudiImage src={SRC} alt="x" />)
+      fireEvent.error(container.querySelector('img')!)
+      expect(container.querySelector('img')).not.toBeInTheDocument()
+      rerender(<RudiImage src="/other.jpg" alt="x" />)
+      expect(container.querySelector('img')).toBeInTheDocument()
+    })
   })
 })

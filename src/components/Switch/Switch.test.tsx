@@ -86,4 +86,17 @@ describe('Switch', () => {
     const { container } = render(<RudiSwitch isDisabled>Dark mode</RudiSwitch>)
     expect(await axe(container)).toHaveNoViolations()
   })
+  it('takes an accessible name from aria-label', async () => {
+    const { container } = render(
+      <RudiSwitch aria-label="Active: Ana Diaz">Active</RudiSwitch>,
+    )
+    expect(screen.getByRole('switch', { name: 'Active: Ana Diaz' })).toBeInTheDocument()
+    expect(await axe(container)).toHaveNoViolations()
+  })
+
+  it('renders without visible text when aria-label is given', () => {
+    const { container } = render(<RudiSwitch aria-label="Admin" />)
+    expect(screen.getByRole('switch', { name: 'Admin' })).toBeInTheDocument()
+    expect(container.querySelector('.rudi-switch__label')).toBeNull()
+  })
 })

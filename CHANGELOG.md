@@ -7,6 +7,146 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.1] - 2026-11-21
+
+### Changed
+
+- **`RudiText` props:** `RudiTextProps` now extends `AllHTMLAttributes`, so element-specific attributes type-check with `as`, such as `href` with `as="a"` and `htmlFor` with `as="label"`.
+
+### Fixed
+
+- **`RudiStepper` node icons:** the check on a complete step, and any custom `icon`, now take the node's color. Before, they used the icon token (`text-default`), so the check was dark on the filled brand circle and nearly invisible.
+- **`RudiDialog` `isDismissable={false}`:** Escape no longer closes the dialog, as documented. Before, only the close button and outside click were disabled.
+- JSDoc corrections on `RudiDatePicker`, `RudiDateRangePicker`, `RudiTable` header and row, `RudiSelect`, `RudiToastRegion`, `RudiAppShell`, `RudiKanbanCard`, `RudiCircularProgress`, `RudiCover`, `RudiLink` and `RudiNumberField`, where the docs described behavior the code doesn't have.
+
+## [0.6.0] - 2026-11-21
+
+### Added
+
+- **`RudiDescriptionList`:** a semantic `<dl>` from an `items` array of `{ term, description, id? }`. `layout="stacked"` (term above description, with `columns` up to N auto-fitting responsively) or `layout="inline"` (two-column rows with a 12rem term column that collapse to stacked through a container query, not a viewport media query). `dividers` draws a hairline between rows.
+- **`RudiSparkline`:** a small inline-SVG trend line. `label` is required and becomes the `role="img"` name. Optional `width`, `height`, `threshold` (dashed reference line, included in the y domain), `tone` (`neutral`, `brand`, `error`, `success`) and `showEndpoint`. Empty data and a single point render without error.
+- **`RudiPageHeader` `eyebrow` and `meta`:** `eyebrow` renders in a `div` above the title (a breadcrumb or overline) and `meta` in a `div` below the subtitle (badges or key facts). Tokens `page-header-eyebrow-gap` and `page-header-meta-gap`.
+- **`RudiAlert` `action`:** content at the inline-end of the alert, which wraps below the text in a narrow alert. Token `alert-action-gap`.
+- Stack story "Nested".
+- **Agent-readable API reference.** The package now ships `dist/llms.txt` (conventions and an index), `dist/llms-full.txt` (the full prop reference) and `dist/components.json`. They are generated from the TypeScript source on every build and exported under the same names. They list every component, compound part, prop, default, inherited React Aria prop and `ref` target, along with the library's conventions (`onPress`, value-based `onChange`, required `label`, Iconify icon names, theming). Point a coding agent at `node_modules/rudiment-ui/dist/llms.txt`.
+- JSDoc on every exported component, prop and supporting type, so the `.d.ts` files and editor hovers carry descriptions, defaults and usage examples. A unit test fails on undocumented exports or `@default` tags that don't match the implementation.
+- **MCP server, `rudiment-ui-mcp`.** A zero-dependency MCP server ships in the package and serves the installed version's API to coding agents. Its tools are `get_conventions`, `list_components`, `get_component` and `search`. Register it with `claude mcp add rudiment-ui -- npx --no rudiment-ui-mcp`; `mcp/README.md` has setup for Cursor, VS Code, Codex and Claude Desktop.
+- **`RudiSelect` `name`:** the selected key now submits with a native form. `isRequired` shows the same asterisk as `RudiInput`, styled by the new token `select-required-color`, which aliases `input-required-color`.
+- **`RudiTextarea` `name`, `onBlur`, `isReadOnly`, `maxLength`, `autoFocus`:** these bring it to parity with `RudiInput`.
+- **`RudiCheckbox` `name`:** the prop is now declared. A standalone checked checkbox submits `name=value`.
+- **`closeLabel` on `RudiDialog` and `RudiToastRegion`:** sets the close buttons' accessible name, for localisation. Defaults to `'Close'`.
+- **`RudiStatCard` trend:** the trend is shown by an icon as well as colour, plus screen-reader text such as "Increased +12.5%". `trendLabel` overrides that text.
+- **`RudiAvatar` `statusLabel`:** adds the status to the avatar's accessible name ("Ada Lovelace, Busy").
+- **`RudiImage` `fallback` and `onError`:** a failed image shows a placeholder in the same frame, with `role="img"` and the `alt` text. The placeholder can be replaced, and it resets when `src` changes. Tokens: `image-fallback-color` and `image-fallback-min-size`.
+
+### Changed
+
+- **Getting Started docs:**
+  - Introduction: package-first setup, the full export list, correct theme values (there is no `light`; `auto` is new), and an "AI coding agents" section.
+  - Accessibility: keyboard support for Rating and KanbanBoard, color-independent status, and localizable labels.
+  - Component Guidelines: the new props, plus DescriptionList and Sparkline.
+  - Layout Primitives: Switcher `limit`.
+- Storybook prop descriptions now come from the components' JSDoc. Duplicated `argTypes` descriptions were removed from 43 story files; inherited React Aria props keep theirs.
+
+### Fixed
+
+- **`RudiKanbanBoard` drag and drop:**
+  - The dragged card stays under the pointer. The overlay is now rendered in `document.body`, so a transformed ancestor such as a Storybook docs block or an animated panel no longer offsets it.
+  - During a drag, the card moves into the column it is over. Its original slot shows as a dashed placeholder at the exact drop position, and the target column is outlined.
+  - `toIndex` is the card's final index once it has been removed from its source. A downward move within one column previously landed one slot short.
+  - Token `kanban-placeholder-bg` added. `kanban-card-dragging-opacity` removed, since the placeholder replaced the faded card.
+- **`RudiBadge` with `dot`:** the children are still announced, inside visually hidden text. A dot with no children is `aria-hidden`.
+- **`RudiAvatar` with neither `alt` nor `name`:** it is now decorative (`aria-hidden`) instead of an unnamed `role="img"`.
+- **`RudiTag`:** with `onPress` and `dismissible` together, the dismiss control is no longer nested inside the tag's button.
+  - The root is now always a `span.rudi-tag`. The pressable is a sibling `button.rudi-tag__main`.
+  - `isDisabled` now disables the dismiss button.
+  - Both controls use React Aria `onPress`.
+  - CSS that targeted `button.rudi-tag` should target `.rudi-tag__main` instead.
+- **`RudiRating` (interactive):** it is a real radio group.
+  - It has one tab stop.
+  - Arrow keys move and select, and Home/End jump to the ends.
+  - Each star is a native radio input.
+- **`RudiCircularProgress`:** values outside `minValue`–`maxValue` are clamped. `minValue === maxValue` no longer produces `NaN` in the ring or in `aria-valuetext`.
+- **`RudiSwitcher` `limit`:** this prop is now implemented. More children than `limit` stacks every child at full width, and `limit` is no longer written to the DOM as an attribute.
+- **`RudiKanbanBoard`:** the drag overlay renders a presentational copy of the card. It no longer mounts a second `useSortable` with the same id or nests a card inside a card, and the copy is hidden from assistive technology.
+- **`RudiPagination`:** the buttons use React Aria `onPress`. An out-of-range `page` is clamped, and `onPageChange` is never called with an out-of-range value.
+- **`RudiAlert`:** the dismiss button uses React Aria `onPress`.
+- `RudiStack` spaces its children with `gap` instead of `> * + *` margins. A nested `RudiStack` with its own `space` used its own value for its distance from the previous sibling; it now uses the parent's. `recursive` still uses margins.
+
+## [0.5.0] - 2026-11-21
+
+### Added
+
+- **`--rudi-component-input-height`:** one height for single-line fields and medium buttons: 38px by default, 44px in roomy, 32px in compressed. `RudiInput`, `RudiSelect`, `RudiComboBox`, `RudiNumberField`, `RudiDatePicker` and `RudiButton size="md"` read it through their own tokens (`select-trigger-height`, `combo-box-height`, `number-field-field-height`, `date-picker-field-height`, `button-height-md`), so overriding it once resizes them all.
+
+### Changed
+
+- Fields and medium buttons now share a height in every theme. Fields were 35px, medium buttons 39px (26px compressed, 47px roomy). `--rudi-component-button-padding-y-md` drops from `spacing.2` to `spacing.1`, since the height now comes from `min-block-size`. Compressed fields use `0.25rem` vertical padding.
+- The affected controls set `box-sizing: border-box`.
+
+### Fixed
+
+- A field in a grid row no longer stretches when a neighbouring field has a description or error. `RudiInput`, `RudiSelect`, `RudiComboBox`, `RudiNumberField`, `RudiDatePicker` and `RudiTextarea` set `align-content: start`.
+
+## [0.4.0] - 2026-11-21
+
+Built out while rebuilding the IVFCryo shipping app on Rudiment UI. See Part 6 of `src/stories/examples/DEPARTURES.md`.
+
+### Added
+
+- `RudiKanbanCard` `label` names the drag handle ("Move REF-1042"; was "Drag handle for card <id>"). `RudiKanbanBoard` `getCardLabel` names cards in announcements.
+- `RudiNumberField`: `labelHidden` keeps the label as the accessible name but hides it visually, for fields inside table cells.
+- `RudiSwitch`: `aria-label` and `aria-labelledby` props, and `children` is now optional when one of them names the switch. Use it for switches repeated per table row.
+- **`RudiCheckbox` `errorMessage`:** a standalone checkbox (an agreement, say) can show and announce an error.
+- **`RudiBox` `sticky`:** keeps a box in view while its container scrolls; pass a string for the top offset (`sticky="1rem"`).
+- **`RudiDatePicker`, `RudiDateRangePicker`:** a segmented date field with a calendar popover. Values are plain ISO strings (`YYYY-MM-DD`, or `YYYY-MM-DDTHH:mm` with `granularity="minute"`), with `minValue`/`maxValue` and `isDateUnavailable(date: string)`; ranges are `{ start, end }`. Consumers never import `@internationalized/date`.
+- **`RudiNumberField`:** a locale-aware number input with − / + steppers and `formatOptions` (currency, percent). It clamps to `minValue`/`maxValue` on blur, and `onChange` gets a number or `null`.
+- **`RudiTable`, `RudiTableHeader`, `RudiTableColumn`, `RudiTableBody`, `RudiTableRow`, `RudiTableCell`:** an accessible data table (React Aria) with controlled sorting, row links (`href`) and `onRowAction`, checkbox selection, `renderEmptyState`, horizontal scrolling, `stickyHeader` with `maxHeight`, `compact` density, optional striping, and per-column `align` / `width`.
+- **`RudiComboBox`:** a searchable select that filters `RudiOption` items as you type (case-insensitive "contains" on `textValue`), with `menuTrigger`, `allowsCustomValue`, `emptyMessage`, controlled or uncontrolled `selectedKey` and `inputValue`, and the same field states as `RudiSelect`.
+- **`RudiToastRegion` and `rudiToast`:** toasts in four variants, queued from anywhere with `rudiToast.success/info/warning/error/add` (each returns a key for `rudiToast.close(key)`). Screen readers announce them, errors stay until closed, and animation is skipped under reduced motion.
+- **`RudiTabs`, `RudiTabList`, `RudiTab`, `RudiTabPanel`:** accessible tabs (React Aria) with controlled or uncontrolled selection, underline and pill variants, vertical orientation, icons, count badges, link tabs via `RudiRouterProvider`, and tab lists that scroll horizontally instead of wrapping.
+- **`RudiEmptyState`:** a centered placeholder with icon, title, description and one action, sized for page sections (`md`) or table cells (`sm`).
+- **`RudiForm`:** passes `onSubmit` the form's `FormData` without reloading, and when `errors` is non-empty shows an error summary ("2 problems to fix") at the top and moves focus to it.
+- **`RudiLineChart` reference lines, y-domain and unit:** `referenceLines` (`{ y, label, tone? }`, dashed and labelled, in feedback colors), `yDomain` and `unit`. `useChartTheme` now also returns `tones`. `RudiChartReferenceLine` is exported.
+- **`RudiDialog.Footer`:** an action row after the body (primary action last). Dismissable dialogs now show a close button, and tall content scrolls inside the body while the title and footer stay visible.
+- **`RudiCover.Centered`:** marks the child that sits in the vertical middle of a `RudiCover`. Previously consumers had to add the internal `rudi-cover__centered` class by hand.
+- **`RudiInput` form attributes:** `name`, `autoComplete`, `inputMode`, `maxLength`, `isReadOnly`, `autoFocus` and `onBlur` pass through to the input, so it works with native forms, password managers and one-time-code autofill.
+- **`data-theme="auto"`:** follows the OS color scheme in pure CSS, using the dark tokens under `prefers-color-scheme: dark` and the defaults otherwise. `useChartTheme` now also re-resolves when the OS scheme changes. Built from the dark config as `tokens/build/tokens-auto-dark.css`.
+- **`RudiBrand`:** a logo lockup (mark + name, `sm` / `md` / `lg`), optionally a home link. The mark is decorative and the name is always the accessible name, visible unless `hideName`. New `component.brand.*` tokens.
+- **`RudiRouterProvider`:** connects Rudi links to your router (pass `navigate`, and optionally `useHref`) so `RudiLink`, `RudiNavItem` and `RudiBreadcrumb` navigate client-side instead of reloading the page. It re-exports React Aria's `RouterProvider`, so apps don't import `react-aria` directly.
+- **App chrome is now exported:** `RudiAppShell` (with `.Sidebar`, `.Content`, `.Main`, `.MenuButton`), `RudiTopBar`, `RudiPageHeader` and `RudiSectionHeader`, plus their Props types. Before export, the shell's mobile drawer gained `aria-expanded` / `aria-controls` on the menu button, closes on Escape (returning focus to the menu button), and is hidden from keyboard and assistive tech while off-canvas. `RudiFooter` stays internal.
+- **`RudiRadio`:** the option component for `RudiRadioGroup` is now exported (with `RudiRadioProps`). Previously the group was unusable from the package because nothing could be rendered inside it; the only radio item lived in a story.
+
+### Fixed
+
+- Contrast (WCAG 1.4.3), from an axe pass over the IVFCryo app:
+  - Destructive `RudiButton` / `RudiIconButton`: white on `red.500` was 3.76:1. They now use `red.600` with text fixed to white in every theme (4.83:1). Dark themes used `text.on-brand`, which is near-black.
+  - Empty `RudiDatePicker` segments ("mm/dd/yyyy"): `text.disabled` was 2.52:1. They now use `text.subtle`.
+- `RudiDot` contains its visually hidden label. The label was positioned against the page, so a dot inside a horizontally scrolling container (a `RudiKanbanBoard` on a phone) widened the whole page.
+- `RudiForm` no longer grows wider than its container. Its grid column was `auto`, so a wide child (e.g. a `RudiTabs` list with five tabs) pushed a 375px page out to about 600px instead of scrolling within the form.
+- `RudiKanbanBoard` columns are visible in dark themes. `column-bg` resolved to the page color there; dark themes now use `surface-raised`.
+- `RudiStatCard` trends in dark themes are green and red again. They used `feedback.*-text`, which in dark is a near-white tint meant for alert surfaces. Dark themes now use the new `color.green.400` / `color.red.400` primitives, about 5.5:1 or better on the card.
+- `RudiBadge` keeps its own width inside `RudiStack` and other stretching parents. It no longer becomes a full-width bar.
+- `RudiKanbanBoard` columns share the board width equally, with `column-min-width` as the floor. Before, each column grew to its longest unwrapped line, so three columns with real card text overflowed a 1200px page.
+- `RudiBarChart` `layout="horizontal"`: the category axis is sized to the longest label (up to 220px) instead of clipping at Recharts' 60px default. Grid lines now run across the value axis only in both layouts; before, they were inverted for horizontal bars.
+- Chart legends (`RudiBarChart`, `RudiDonutChart`, `RudiLineChart`): label text now uses `component.chart.legend-color`. Only the swatch carries the series color; before, Recharts painted the text in series hues such as amber, which fall well under 4.5:1 contrast.
+- `RudiKanbanBoard` announced every drag twice: once from its own live region and again from dnd-kit's default messages, which used raw ids. Announcements now go only through dnd-kit's `accessibility.announcements`, naming the card and its position ("REF-1042 is over Active, position 2 of 3"), and cancelling is announced.
+- `RudiButton` and `RudiIconButton` with `isDisabled` now look disabled. The dimmed style and the hover guard only matched `aria-disabled` (set while loading), but `isDisabled` renders the native `disabled` attribute.
+- Field hint and error text no longer carry the browser's paragraph margin. `RudiInput`, `RudiTextarea`, `RudiSelect`, `RudiComboBox`, `RudiRadioGroup`, `RudiCheckbox` and `RudiCheckboxGroup` sat their hints 12px further from the field than `RudiNumberField` did.
+- `RudiTableCell`: a text field inside a cell keeps its arrow keys, Home/End and typing. Focusing it puts the grid in React Aria's edit mode, so the caret moves instead of focus jumping to another cell or a type-ahead row match. Tab still leaves the field.
+- `RudiTable`: hovered rows are now distinguishable from striped rows. `component.table.row-hover-bg` uses `surface-sunken` in light themes and `neutral.700` in dark themes (both previously matched the stripe color).
+- **Form controls meet WCAG 1.4.11 non-text contrast.** Input, textarea, select, checkbox and radio borders, and the switch's off track, used `#e5e5e5`/`#d4d4d4` on white (about 1.3:1 and 1.5:1). They now use a new semantic `color.border.control` (`neutral.500`, about 4.7:1); the date, number and combo fields follow through the input tokens. Decorative borders (cards, tables, top bar) keep `color.border.default`.
+- **`RudiSidebar side="right"` no longer always wraps.** The sidebar (last child) kept the content's `contentMin` minimum from the base rule, so both columns needed it and they never sat side by side.
+- **`RudiCheckboxGroup` now drives its checkboxes.** The group's `value`, `defaultValue` and `onChange` never reached the `RudiCheckbox` children (no shared state), so groups only worked as a label. Checkboxes inside a group now use the group's state (give each a `value`).
+- **Group errors are announced.** `RudiRadioGroup` and `RudiCheckboxGroup` mark themselves invalid and link `errorMessage` to the group when it's set.
+- **`RudiForm` moves focus to the summary only after a submit,** not whenever `errors` changes, so live validation no longer pulls focus away from the field being edited.
+- **Layout primitives rendered as lists drop browser list styling.** `RudiStack`, `RudiCluster` and `RudiGrid` with `as="ul"` / `"ol"` keep list semantics without bullets or indent. `RudiEmptyState` also accepts `headingLevel={1}`, for not-found pages.
+- **`RudiNavItem` announces the current page.** An active item now sets `aria-current` (`page` on links, `true` on buttons); before, "active" was visual only.
+- **`RudiLink` and `RudiBreadcrumb` links now honor a router.** They rendered plain anchors, so every click was a full page load in a single-page app. They now use React Aria's `useLink`, like `RudiNavItem`.
+- **README uses the real export names.** Usage examples, prop tables and inline references now use the `Rudi`-prefixed names (`RudiButton`, not `Button`), and the Select example uses `RudiOption` instead of `react-stately`'s `Item`. The old examples did not compile.
+- **`RudiDialog` now has an accessible name when opened after mount.** React Aria resolves the title id once, on mount, and the dialog mounted its hooks while closed, so a dialog toggled open (the normal case) rendered `role="dialog"` with no `aria-labelledby`. The panel now mounts only while open.
+- **`rudiment-ui/styles` type-checks on TypeScript 6+.** The export now has a `types` condition pointing to an empty declaration, so `import 'rudiment-ui/styles'` no longer fails with TS2882 under `noUncheckedSideEffectImports` (the default since TypeScript 6).
+
 ## [0.3.0] - 2026-08-04
 
 ### Changed

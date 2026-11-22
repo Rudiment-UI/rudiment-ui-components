@@ -23,28 +23,23 @@ const meta = {
   argTypes: {
     label: {
       control: 'text',
-      description: 'The descriptive label for the metric',
       table: { category: 'Content' },
     },
     value: {
       control: 'text',
-      description: 'The primary metric value to display',
       table: { category: 'Content' },
     },
     delta: {
       control: 'text',
-      description: 'An optional change indicator (e.g. "+12.5%")',
       table: { category: 'Content' },
     },
     trend: {
       control: 'select',
       options: ['up', 'down', 'neutral'],
-      description: 'The visual direction of the trend indicator',
       table: { category: 'Appearance' },
     },
     className: {
       control: 'text',
-      description: 'Additional CSS class names to apply to the card wrapper',
       table: { category: 'Appearance' },
     },
   },

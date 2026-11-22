@@ -16,24 +16,19 @@ const meta = {
   argTypes: {
     as: {
       control: 'text',
-      description:
-        "The HTML element to render (e.g., 'p', 'span', 'label', 'strong')",
       table: { category: 'Content' },
     },
     children: {
-      description: 'The content rendered inside the text element',
       table: { category: 'Content' },
     },
     variant: {
       control: 'select',
       options: ['body', 'body-sm', 'caption', 'overline', 'code'],
-      description: 'The typographic style to apply',
       table: { category: 'Appearance' },
     },
     weight: {
       control: 'select',
       options: [undefined, 'regular', 'medium', 'semibold', 'bold'],
-      description: 'Font weight, overriding the variant default',
       table: { category: 'Appearance' },
     },
     tone: {
@@ -50,22 +45,18 @@ const meta = {
         'error',
         'info',
       ],
-      description: 'Semantic text color',
       table: { category: 'Appearance' },
     },
     align: {
       control: 'select',
       options: [undefined, 'start', 'center', 'end', 'justify'],
-      description: 'Text alignment',
       table: { category: 'Appearance' },
     },
     noMargin: {
       control: 'boolean',
-      description: "Removes the element's default block margin",
       table: { category: 'Appearance' },
     },
     className: {
-      description: 'Additional CSS class names to apply to the text element',
       table: { category: 'Appearance' },
     },
   },

@@ -50,4 +50,36 @@ describe('Textarea', () => {
     )
     expect(await axe(container)).toHaveNoViolations()
   })
+
+  it('submits its name in a native form', () => {
+    const { container } = render(
+      <form>
+        <RudiTextarea label="Bio" name="bio" defaultValue="hello" />
+      </form>,
+    )
+    expect(new FormData(container.querySelector('form')!).get('bio')).toBe('hello')
+  })
+
+  it('calls onBlur', async () => {
+    const onBlur = vi.fn()
+    render(<RudiTextarea label="Bio" onBlur={onBlur} />)
+    await userEvent.click(screen.getByRole('textbox'))
+    await userEvent.tab()
+    expect(onBlur).toHaveBeenCalledTimes(1)
+  })
+
+  it('supports isReadOnly', () => {
+    render(<RudiTextarea label="Bio" isReadOnly />)
+    expect(screen.getByRole('textbox')).toHaveAttribute('readonly')
+  })
+
+  it('supports maxLength', () => {
+    render(<RudiTextarea label="Bio" maxLength={5} />)
+    expect(screen.getByRole('textbox')).toHaveAttribute('maxlength', '5')
+  })
+
+  it('supports autoFocus', () => {
+    render(<RudiTextarea label="Bio" autoFocus />)
+    expect(screen.getByRole('textbox')).toHaveFocus()
+  })
 })

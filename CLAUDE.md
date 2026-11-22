@@ -39,7 +39,7 @@ Components read **only** tier 3/tier 2 custom properties. No hardcoded colors, s
 
 ### Themes are token-filtered overlays
 
-Eight themes: default (`:root`, no attribute) plus `dark`, `roomy`, `roomy-dark`, `soft`, `soft-dark`, `compressed`, `compressed-dark`, each activated by `data-theme` on any ancestor element. Each theme has its own `tokens/style-dictionary.config.<theme>.mjs` whose `filter` decides which tokens get re-emitted under that selector; everything filtered out cascades from `:root`. Example: the `compressed` config emits only spacing/radius (colors and fonts inherit), while `dark` emits semantic + component colors but excludes theme-invariant primitives. Adding a theme means adding a config, a `tokens/themes/<name>/` directory, an `@import` in both `src/styles.css` and `src/app.css`, a `build:tokens` entry in package.json, and a toolbar item in `.storybook/preview.tsx`.
+Eight themes: default (`:root`, no attribute) plus `dark`, `roomy`, `roomy-dark`, `soft`, `soft-dark`, `compressed`, `compressed-dark`, each activated by `data-theme` on any ancestor element. Each theme has its own `tokens/style-dictionary.config.<theme>.mjs` whose `filter` decides which tokens get re-emitted under that selector; everything filtered out cascades from `:root`. Example: the `compressed` config emits only spacing/radius (colors and fonts inherit), while `dark` emits semantic + component colors but excludes theme-invariant primitives. `auto` is not a separate theme: the dark config also emits `tokens-auto-dark.css` under `[data-theme="auto"]`, which `src/styles.css` and `src/app.css` import inside `(prefers-color-scheme: dark)`. Adding a theme means adding a config, a `tokens/themes/<name>/` directory, an `@import` in both `src/styles.css` and `src/app.css`, a `build:tokens` entry in package.json, and a toolbar item in `.storybook/preview.tsx`.
 
 Because `:root` and `[data-theme=...]` have equal specificity and theme blocks come later in the stylesheet, a consumer's `:root` override loses inside a themed subtree — overrides must be repeated per theme.
 
@@ -49,27 +49,30 @@ Each component imports its own stylesheet (`import './button.css'`) so the CSS r
 
 Class names are BEM: `rudi-button`, `rudi-button--primary`, `rudi-button__icon`. `className` is merged, never replaced, via `cn()` (`clsx` + `tailwind-merge`) from `src/utils/cn.ts`.
 
-Note: `CONTRIBUTING.md` still says to style with Tailwind utilities — that is stale. The actual convention is BEM classes + token custom properties.
-
 ### Library build
 
 `vite.config.ts` externalizes every bare specifier (only relative and `@/` imports stay bundled), so consumers resolve their own React Aria copy — duplicates break React Aria's context. Output is a single ES file with a `'use client'` banner so the package drops into a Next.js App Router Server Component without a re-export barrel. `vite-plugin-dts` emits types from `src`, excluding tests, stories, and `src/stories/**`.
 
+### Agent-facing API reference
+
+`npm run build` then runs `scripts/component-docs.mjs`, which walks every export of `src/index.ts` with the TypeScript checker and writes `dist/llms.txt` (`scripts/llms-intro.md` + a component index), `dist/llms-full.txt` (plus every prop table) and `dist/components.json`. All three ship in the package and are exported under the same names (`rudiment-ui/llms.txt`, …). **JSDoc on the Props interfaces is the single source.** Defaults are read from the props destructuring, compound parts from `Object.assign`, and inherited React Aria props are listed by name. `mcp/server.mjs` (bin `rudiment-ui-mcp`) is a zero-dependency stdio MCP server that serves the same manifest with the shared renderer `mcp/render.mjs`. `mcp/server.test.mjs` drives it over stdio, and `mcp/README.md` covers client setup. `scripts/component-docs.test.mjs` (in the `unit` project) fails when an export, part, own prop, or exported type field has no description, or when a `@default` tag doesn't match the destructured default. Edit `scripts/llms-intro.md` when a library-wide convention changes.
+
 ## Component conventions
 
-- **Every export is `Rudi`-prefixed**: `RudiButton`, `RudiButtonProps`, `RudiStack`. The README's usage examples and prop tables drop the prefix (`Button`, `Input`) — the real exported names in `src/index.ts` all carry it.
+- **Every export is `Rudi`-prefixed**: `RudiButton`, `RudiButtonProps`, `RudiStack`. Keep README examples and prop tables on the prefixed names too.
 - Interactive components wrap React Aria hooks (`useButton`, `useRadio`, …) and take `onPress`, not `onClick`. `onChange` handlers receive a **value**, not an event.
 - `label` is a required prop (not children) on `Input`, `Select`, `RadioGroup`, `CheckboxGroup`, `ProgressBar`, and the charts.
 - Icons are Iconify name strings (`icon="mdi:close"`), never imported components.
 - `React.forwardRef` + `useObjectRef` where a DOM ref is meaningful.
 - Layout primitives (`src/layouts/`) and typography (`src/typography/`) are polymorphic (`as` prop) and spread DOM props; they pass tunable values down as CSS custom properties on `style` (e.g. `--box-padding`). Regular components have closed prop interfaces and do not spread.
-- Compound components use `Object.assign` (`RudiCard.Header`, `RudiCard.Footer`).
+- Compound components use `Object.assign` (`RudiCard.Header`, `RudiCard.Footer`). Document each part with JSDoc on its property in the `Object.assign` literal.
+- **JSDoc is required** on every exported component (summary + `@example`), every prop it declares (description + `@default` matching the destructuring), and every exported supporting type. Rules: CONTRIBUTING.md → "Documenting the Public API".
 
 ### Adding a component
 
 `src/components/Name/` containing `Name.tsx`, `name.css`, `Name.stories.tsx`, `Name.test.tsx`; then export the component **and** its Props type from `src/index.ts`. Multi-part components (Menu, Select, Kanban, Charts) put each part in its own file with one shared stylesheet and one combined test/story file.
 
-Stories: `title: 'Components/Name'` (or `Layouts/` / `Typography/`), `tags: ['autodocs']`, a `parameters.docs.description.component` blurb, a description on every argType, and `table.category` of `Appearance` / `Content` / `Layout` / `State` / `Events` (that order is enforced in `.storybook/preview.tsx`). A preview decorator auto-syncs controlled args (`value`, `isSelected`, `selectedKey`) with `onChange`, so controlled props in `meta.args` stay interactive.
+Stories: `title: 'Components/Name'` (or `Layouts/` / `Typography/`), `tags: ['autodocs']`, a `parameters.docs.description.component` blurb, and `table.category` of `Appearance` / `Content` / `Layout` / `State` / `Events` (that order is enforced in `.storybook/preview.tsx`). Prop descriptions come from JSDoc via Storybook's `react-docgen`. Give an argType a `description` only when docgen can't see the prop, which means inherited React Aria props and story-only args. A preview decorator auto-syncs controlled args (`value`, `isSelected`, `selectedKey`) with `onChange`, so controlled props in `meta.args` stay interactive.
 
 Tests: render, `axe` accessibility assertion, keyboard/pointer interaction, and state coverage (disabled/loading/error).
 

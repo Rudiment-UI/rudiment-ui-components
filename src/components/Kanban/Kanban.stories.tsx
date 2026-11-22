@@ -156,7 +156,7 @@ const meta = {
 } satisfies Meta<typeof RudiKanbanBoard>
 
 export default meta
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<typeof RudiKanbanBoard>
 
 export const Default: Story = {
   render: ({}) => <InteractiveBoard />,

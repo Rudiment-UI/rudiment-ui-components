@@ -21,7 +21,7 @@ This approach is inspired by [Every Layout](https://every-layout.dev) and uses i
 | **Sidebar** | Two-panel layout (one fixed, one flexible) | Nav + content, filters + results |
 | **Center** | Centered content with a max-width | Article content, hero text |
 | **Cover** | Full-height layout with a centered principal element | Hero sections, login pages |
-| **Switcher** | Row that switches to a column when space runs out | Form field groups, pricing cards |
+| **Switcher** | Row that switches to a column when space runs out, or always stacks once it has more than `limit` children | Form field groups, pricing cards |
 
 ## Decision guide
 
@@ -32,7 +32,7 @@ Not sure which primitive to reach for? Start here:
 - **Need a responsive grid of equal items?** Use **Grid**
 - **Two panels, one narrow and one wide?** Use **Sidebar**
 - **Centering content on the page?** Use **Center**
-- **Full-screen section with a centered hero?** Use **Cover**
+- **Full-screen section with a centered hero?** Use **Cover**, and wrap the principal element in `RudiCover.Centered`
 - **Row that should become a column on small screens?** Use **Switcher**
 - **Need padding or a border around a section?** Use **Box**
 

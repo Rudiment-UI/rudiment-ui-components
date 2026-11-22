@@ -14,8 +14,16 @@
       "popover-shadow": { "$value": "0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3)" }
     },
     "kanban": {
+      "column-bg": { "$value": "{color.background.surface-raised}" },
       "card-shadow": { "$value": "0 1px 2px 0 rgb(0 0 0 / 0.2)" },
       "card-dragging-shadow": { "$value": "0 4px 12px 0 rgb(0 0 0 / 0.4)" }
+    },
+    "stat-card": {
+      "delta-up-color": { "$value": "{color.green.400}" },
+      "delta-down-color": { "$value": "{color.red.400}" }
+    },
+    "table": {
+      "row-hover-bg": { "$value": "{color.neutral.700}" }
     },
     "card": {
       "bg": { "$value": "{color.background.surface-raised}" },

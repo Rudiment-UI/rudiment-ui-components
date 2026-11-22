@@ -6,13 +6,21 @@ import { RudiIcon } from '@/components/Icon/Icon'
 import './nav-item.css'
 
 export interface RudiNavItemProps {
+  /** Visible text and accessible name of the item. */
   label: string
+  /** Iconify icon name shown before the label, such as `"mdi:home"`. */
   icon?: string
+  /** Marks the item as the current location and applies the active style; sets `aria-current`. */
   isActive?: boolean
+  /** Renders the item as a link to this URL; without it the item is a button. Routes client-side under `RudiRouterProvider`. */
   href?: string
+  /** Called when the item is activated by pointer, keyboard, or touch. Use this, not `onClick`. */
   onPress?: () => void
+  /** Content shown after the label, such as a count. */
   badge?: React.ReactNode
+  /** Prevents interaction and applies the disabled style. */
   isDisabled?: boolean
+  /** Extra class names, merged with the built-in classes. */
   className?: string
 }
 
@@ -54,6 +62,7 @@ const NavItemLink = forwardRef<HTMLAnchorElement, RudiNavItemProps>(
         {...linkProps}
         ref={ref}
         href={href}
+        aria-current={isActive ? 'page' : undefined}
         className={getClasses(isActive, className)}
       >
         {renderContent(icon, label, badge)}
@@ -77,6 +86,7 @@ const NavItemButton = forwardRef<HTMLButtonElement, RudiNavItemProps>(
       <button
         {...buttonProps}
         ref={ref}
+        aria-current={isActive ? 'true' : undefined}
         className={getClasses(isActive, className)}
       >
         {renderContent(icon, label, badge)}
@@ -85,6 +95,12 @@ const NavItemButton = forwardRef<HTMLButtonElement, RudiNavItemProps>(
   },
 )
 
+/**
+ * Navigation entry for a sidebar: an `a` when `href` is set, otherwise a `button`. Use it inside `RudiAppShell.Sidebar`; it does not spread DOM props. The ref points to whichever element renders.
+ *
+ * @example
+ * <RudiNavItem label="Projects" icon="mdi:folder" href="/projects" isActive />
+ */
 export const RudiNavItem = forwardRef<HTMLElement, RudiNavItemProps>(
   function RudiNavItem(props, forwardedRef) {
     if (props.href) {

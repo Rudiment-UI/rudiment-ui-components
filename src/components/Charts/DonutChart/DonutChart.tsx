@@ -10,21 +10,52 @@ import { useChartTheme } from '@/hooks/useChartTheme'
 import { cn } from '@/utils/cn'
 import '../charts.css'
 
+/** One slice of a `RudiDonutChart`. */
 export interface RudiDonutChartDatum {
+  /** Slice name, used in the legend, tooltip, and slice labels. */
   name: string
+  /** Size of the slice, relative to the sum of all values. */
   value: number
 }
 
+/** Props for `RudiDonutChart`. */
 export interface RudiDonutChartProps {
+  /** Slices to draw, in order. */
   data: RudiDonutChartDatum[]
+  /**
+   * Radius of the center hole in px. The ring is 30px thick.
+   * @default 60
+   */
   innerRadius?: number
+  /**
+   * Shows each slice's name beside it.
+   * @default false
+   */
   showLabels?: boolean
+  /**
+   * Shows the legend.
+   * @default true
+   */
   showLegend?: boolean
+  /**
+   * Chart height in px.
+   * @default 300
+   */
   height?: number
+  /** Accessible name describing the chart. */
   label: string
+  /** Extra class names, merged with the component's own classes rather than replacing them. */
   className?: string
 }
 
+/**
+ * Donut chart showing parts of a whole, built on Recharts and the library chart theme. Slice colors come from the chart theme in order.
+ * `label` is required; the chart is exposed as a single `role="img"` with that name, so summarize the data in it.
+ * @example
+ * ```tsx
+ * <RudiDonutChart label="Tickets by status" data={[{ name: 'Open', value: 14 }, { name: 'Closed', value: 52 }]} />
+ * ```
+ */
 export function RudiDonutChart({
   data,
   innerRadius = 60,
@@ -73,6 +104,9 @@ export function RudiDonutChart({
           {showLegend && (
             <Legend
               wrapperStyle={{ color: theme.legendColor }}
+              // Recharts colours each label like its series; keep the swatch coloured
+              // and the text readable (series hues can fall well under 4.5:1).
+              formatter={(value) => <span style={{ color: theme.legendColor }}>{value}</span>}
             />
           )}
         </PieChart>

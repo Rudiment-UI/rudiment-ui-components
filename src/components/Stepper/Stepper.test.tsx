@@ -28,6 +28,13 @@ describe('Stepper', () => {
     expect(container.querySelectorAll('.rudi-stepper__node--filled')).toHaveLength(2)
   })
 
+  it('colors node icons from the node, so the check shows on a filled node', () => {
+    const { container } = render(<RudiStepper steps={steps} />)
+    const icons = container.querySelectorAll<HTMLElement>('.rudi-stepper__node .rudi-icon')
+    expect(icons.length).toBeGreaterThan(0)
+    icons.forEach((icon) => expect(icon.style.color).toBe('currentcolor'))
+  })
+
   it('supports the vertical orientation', () => {
     const { container } = render(
       <RudiStepper steps={steps} orientation="vertical" />,

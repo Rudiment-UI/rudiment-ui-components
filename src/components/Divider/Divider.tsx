@@ -2,19 +2,32 @@ import type { ReactNode } from 'react'
 import { cn } from '@/utils/cn'
 import './divider.css'
 
+/** Props for `RudiDivider`. */
 export interface RudiDividerProps {
-  /** Layout direction of the rule. */
-  orientation?: 'horizontal' | 'vertical'
-  /** Margin applied on the block/inline axis around the rule. */
-  spacing?: 'none' | 'sm' | 'md' | 'lg'
   /**
-   * Optional centered label. Only meaningful for a horizontal divider — it
-   * renders a rule / text / rule row instead of a bare line.
+   * Direction of the rule.
+   * @default 'horizontal'
    */
+  orientation?: 'horizontal' | 'vertical'
+  /**
+   * Margin around the rule, on the block axis when horizontal and the inline axis when vertical.
+   * @default 'md'
+   */
+  spacing?: 'none' | 'sm' | 'md' | 'lg'
+  /** Centered label rendered between two rules. Horizontal only; ignored when vertical. */
   label?: ReactNode
+  /** Extra class names, merged with the component's own classes rather than replacing them. */
   className?: string
 }
 
+/**
+ * Thin rule that separates sections of content. Renders a native `hr` for a plain horizontal rule, and a `role="separator"` element when vertical or labelled.
+ * A `label` only applies to horizontal dividers; it is ignored when `orientation="vertical"`.
+ * @example
+ * ```tsx
+ * <RudiDivider label="or" />
+ * ```
+ */
 export function RudiDivider({
   orientation = 'horizontal',
   spacing = 'md',

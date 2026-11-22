@@ -22,28 +22,21 @@ const meta = {
   argTypes: {
     as: {
       control: 'text',
-      description: 'The HTML element to render',
       table: { category: 'Content' },
     },
     children: {
       table: { category: 'Content' },
-      description: 'Content to display inside the center layout',
     },
     intrinsic: {
       control: 'boolean',
-      description:
-        'When enabled, children shrink-wrap to their content width instead of filling the container',
       table: { category: 'Appearance' },
     },
     maxWidth: {
       control: 'text',
-      description: "The maximum width of the centered content (e.g., '60rem')",
       table: { category: 'Layout' },
     },
     gutters: {
       control: 'text',
-      description:
-        "Horizontal padding on each side to prevent content touching edges (e.g., '1rem')",
       table: { category: 'Layout' },
     },
   },

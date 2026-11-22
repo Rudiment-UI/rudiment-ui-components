@@ -27,44 +27,36 @@ const meta = {
   argTypes: {
     label: {
       control: 'text',
-      description: 'Accessible label describing the progress',
       table: { category: 'Content' },
     },
     showValueLabel: {
       control: 'boolean',
-      description: 'Whether to display the current percentage in the center',
       table: { category: 'Content' },
     },
     variant: {
       control: 'select',
       options: ['default', 'success', 'warning', 'error'],
-      description: 'The color variant of the progress ring',
       table: { category: 'Appearance' },
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'The size of the circular progress',
       table: { category: 'Appearance' },
     },
     className: {
       control: 'text',
-      description: 'Additional CSS class names',
       table: { category: 'Appearance' },
     },
     value: {
       control: { type: 'range', min: 0, max: 100, step: 1 },
-      description: 'The current progress value',
       table: { category: 'State' },
     },
     minValue: {
       control: 'number',
-      description: 'The minimum allowed value',
       table: { category: 'State' },
     },
     maxValue: {
       control: 'number',
-      description: 'The maximum allowed value',
       table: { category: 'State' },
     },
   },

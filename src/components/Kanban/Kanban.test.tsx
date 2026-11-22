@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { axe } from 'vitest-axe'
 import { describe, it, expect, vi } from 'vitest'
 import { RudiKanbanBoard } from './KanbanBoard'
 import { RudiKanbanCard } from './KanbanCard'
+import { KanbanOverlayContext } from './KanbanOverlayContext'
 
 const sampleColumns = [
   {
@@ -79,7 +81,7 @@ describe('KanbanBoard', () => {
         renderCard={renderCard}
       />,
     )
-    const handles = screen.getAllByRole('button', { name: /Drag handle/ })
+    const handles = screen.getAllByRole('button', { name: /^Move card-/ })
     expect(handles).toHaveLength(3)
   })
 
@@ -128,5 +130,111 @@ describe('KanbanBoard', () => {
       />,
     )
     expect(await axe(container)).toHaveNoViolations()
+  })
+
+  it('names handles and announcements with the card label', async () => {
+    const user = userEvent.setup()
+    render(
+      <RudiKanbanBoard
+        columns={sampleColumns}
+        onCardMove={vi.fn()}
+        getCardLabel={(item) => String(item.title)}
+        renderCard={(item) => (
+          <RudiKanbanCard key={item.id} id={item.id} label={String(item.title)}>
+            <span>{String(item.title)}</span>
+          </RudiKanbanCard>
+        )}
+      />,
+    )
+    const handle = screen.getByRole('button', { name: 'Move Design homepage' })
+    handle.focus()
+    await user.keyboard(' ')
+    // dnd-kit reports the starting position straight after pick-up, replacing the pick-up message.
+    expect(await screen.findByText('Design homepage is over To Do, position 1 of 2.')).toBeInTheDocument()
+    await user.keyboard('{Escape}')
+    expect(await screen.findByText('Cancelled. Design homepage was not moved.')).toBeInTheDocument()
+  })
+})
+
+describe('KanbanBoard drag overlay', () => {
+  it('renders one exposed, un-nested card while a keyboard drag is active', async () => {
+    const user = userEvent.setup()
+    const { container } = render(
+      <RudiKanbanBoard
+        columns={sampleColumns}
+        onCardMove={vi.fn()}
+        renderCard={(item) => (
+          <RudiKanbanCard key={item.id} id={item.id} label={String(item.title)}>
+            {String(item.title)}
+          </RudiKanbanCard>
+        )}
+      />,
+    )
+    const handle = screen.getByRole('button', { name: 'Move Design homepage' })
+    handle.focus()
+    await user.keyboard(' ')
+
+    const overlay = container.ownerDocument.querySelector('.rudi-kanban__card--overlay')
+    expect(overlay).not.toBeNull()
+    expect(overlay).toHaveAttribute('aria-hidden', 'true')
+    // Only the original handle is exposed to assistive tech.
+    expect(screen.getAllByRole('button', { name: 'Move Design homepage' })).toHaveLength(1)
+    expect(
+      container.ownerDocument.querySelector('.rudi-kanban__card .rudi-kanban__card'),
+    ).toBeNull()
+    expect(overlay!.querySelector('button')).toHaveAttribute('tabindex', '-1')
+  })
+
+  it('renders a static, hidden card inside the overlay context without dnd hooks', async () => {
+    const { container } = render(
+      <KanbanOverlayContext.Provider value>
+        <RudiKanbanCard id="x" label="X">
+          Body
+        </RudiKanbanCard>
+      </KanbanOverlayContext.Provider>,
+    )
+    const card = container.querySelector('.rudi-kanban__card')!
+    expect(card).toHaveClass('rudi-kanban__card--overlay')
+    expect(card).toHaveAttribute('aria-hidden', 'true')
+    expect(card.querySelector('button')).not.toHaveAttribute('aria-roledescription')
+    expect(await axe(container)).toHaveNoViolations()
+  })
+})
+
+describe('KanbanBoard drag feedback', () => {
+  const startKeyboardDrag = async () => {
+    const user = userEvent.setup()
+    const result = render(
+      <RudiKanbanBoard
+        columns={sampleColumns}
+        onCardMove={vi.fn()}
+        renderCard={(item) => (
+          <RudiKanbanCard key={item.id} id={item.id} label={String(item.title)}>
+            {String(item.title)}
+          </RudiKanbanCard>
+        )}
+      />,
+    )
+    screen.getByRole('button', { name: 'Move Design homepage' }).focus()
+    await user.keyboard(' ')
+    return { user, ...result }
+  }
+
+  it('portals the drag overlay to <body>, outside any transformed ancestor', async () => {
+    const { container } = await startKeyboardDrag()
+    const overlay = document.querySelector('.rudi-kanban__card--overlay')!
+    expect(container.contains(overlay)).toBe(false)
+    expect(overlay.closest('.rudi-kanban')).toBeNull()
+  })
+
+  it('marks the dragged card as the drop slot and highlights its column', async () => {
+    const { user } = await startKeyboardDrag()
+    const slot = document.querySelector('.rudi-kanban__card--dragging')!
+    expect(slot).not.toBeNull()
+    expect(slot.closest('.rudi-kanban__column')).toHaveClass('rudi-kanban__column--over')
+    expect(screen.getByRole('region', { name: 'In Progress' })).not.toHaveClass('rudi-kanban__column--over')
+    await user.keyboard('{Escape}')
+    expect(document.querySelector('.rudi-kanban__card--dragging')).toBeNull()
+    expect(document.querySelector('.rudi-kanban__column--over')).toBeNull()
   })
 })

@@ -1,0 +1,261 @@
+/* ---- Field: mirrors .rudi-input so date fields line up with text fields ---- */
+
+.rudi-date-picker {
+  display: grid;
+  /* Keep the control its own height when a grid row stretches the field (a neighbour has help text). */
+  align-content: start;
+  gap: var(--rudi-component-date-picker-gap);
+  font-size: var(--rudi-component-date-picker-font-size);
+}
+
+.rudi-date-picker__label {
+  font-weight: var(--rudi-component-date-picker-label-font-weight);
+  color: var(--rudi-component-date-picker-label-color);
+  line-height: var(--rudi-component-date-picker-label-line-height);
+}
+
+.rudi-date-picker__required {
+  color: var(--rudi-component-date-picker-required-color);
+}
+
+.rudi-date-picker__field {
+  box-sizing: border-box;
+  min-block-size: var(--rudi-component-date-picker-field-height);
+  display: flex;
+  align-items: center;
+  gap: var(--rudi-component-date-picker-field-gap);
+  width: 100%;
+  padding: var(--rudi-component-date-picker-field-padding-y)
+    var(--rudi-component-date-picker-field-padding-x);
+  background-color: var(--rudi-component-date-picker-field-bg);
+  color: var(--rudi-component-date-picker-field-text);
+  border: 1px solid var(--rudi-component-date-picker-field-border);
+  border-radius: var(--rudi-component-date-picker-field-radius);
+  line-height: var(--rudi-component-date-picker-field-line-height);
+  transition: border-color var(--rudi-motion-duration-base) var(--rudi-motion-easing-standard);
+}
+
+.rudi-date-picker__field[data-focus-within] {
+  outline: 2px solid var(--rudi-component-date-picker-focus-outline-color);
+  outline-offset: 2px;
+}
+
+.rudi-date-picker__field[data-invalid] {
+  border-color: var(--rudi-component-date-picker-error-border);
+}
+
+.rudi-date-picker__field[data-invalid][data-focus-within] {
+  outline-color: var(--rudi-component-date-picker-error-border);
+}
+
+.rudi-date-picker__field[data-disabled] {
+  background-color: var(--rudi-component-date-picker-disabled-bg);
+  color: var(--rudi-component-date-picker-disabled-text);
+  cursor: not-allowed;
+}
+
+.rudi-date-picker__input {
+  display: inline-flex;
+  align-items: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.rudi-date-picker__field > .rudi-date-picker__input:last-of-type {
+  flex: 1;
+}
+
+.rudi-date-picker__segment {
+  border-radius: var(--rudi-component-date-picker-segment-radius);
+  outline: none;
+}
+
+.rudi-date-picker__segment[data-placeholder] {
+  color: var(--rudi-component-date-picker-placeholder-color);
+}
+
+.rudi-date-picker__segment[data-focused] {
+  background-color: var(--rudi-component-date-picker-segment-focus-bg);
+  color: var(--rudi-component-date-picker-segment-focus-text);
+}
+
+.rudi-date-picker__range-separator {
+  color: var(--rudi-component-date-picker-range-separator-color);
+}
+
+.rudi-date-picker__trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-inline-start: auto;
+  padding: var(--rudi-component-date-picker-trigger-padding);
+  background: none;
+  border: 0;
+  border-radius: var(--rudi-component-date-picker-trigger-radius);
+  color: var(--rudi-component-date-picker-trigger-color);
+  cursor: pointer;
+}
+
+.rudi-date-picker__trigger[data-hovered] {
+  background-color: var(--rudi-component-date-picker-trigger-hover-bg);
+}
+
+.rudi-date-picker__trigger[data-focus-visible] {
+  outline: 2px solid var(--rudi-component-date-picker-focus-outline-color);
+  outline-offset: 1px;
+}
+
+.rudi-date-picker__trigger[data-disabled] {
+  color: var(--rudi-component-date-picker-disabled-text);
+  cursor: not-allowed;
+}
+
+.rudi-date-picker__description {
+  color: var(--rudi-component-date-picker-description-color);
+  font-size: var(--rudi-component-date-picker-description-font-size);
+  line-height: var(--rudi-font-line-height-normal);
+}
+
+.rudi-date-picker__error {
+  color: var(--rudi-component-date-picker-error-text-color);
+  font-size: var(--rudi-component-date-picker-error-font-size);
+  line-height: var(--rudi-font-line-height-normal);
+}
+
+/* ---- Popover + calendar ---- */
+
+.rudi-date-picker__popover {
+  z-index: 50;
+  background-color: var(--rudi-component-date-picker-popover-bg);
+  border: 1px solid var(--rudi-component-date-picker-popover-border);
+  border-radius: var(--rudi-component-date-picker-popover-radius);
+  box-shadow: var(--rudi-component-date-picker-popover-shadow);
+  font-size: var(--rudi-component-date-picker-font-size);
+  color: var(--rudi-component-date-picker-cell-text);
+}
+
+.rudi-date-picker__dialog {
+  padding: var(--rudi-component-date-picker-popover-padding);
+  outline: none;
+}
+
+.rudi-date-picker__calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-block-end: var(--rudi-component-date-picker-field-gap);
+}
+
+.rudi-date-picker__heading {
+  margin: 0;
+  font-size: var(--rudi-component-date-picker-heading-font-size);
+  font-weight: var(--rudi-component-date-picker-heading-font-weight);
+  color: var(--rudi-component-date-picker-heading-color);
+}
+
+.rudi-date-picker__nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--rudi-component-date-picker-nav-size);
+  height: var(--rudi-component-date-picker-nav-size);
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: var(--rudi-component-date-picker-nav-radius);
+  color: var(--rudi-component-date-picker-nav-color);
+  cursor: pointer;
+}
+
+.rudi-date-picker__nav[data-hovered] {
+  background-color: var(--rudi-component-date-picker-nav-hover-bg);
+}
+
+.rudi-date-picker__nav[data-focus-visible] {
+  outline: 2px solid var(--rudi-component-date-picker-focus-outline-color);
+  outline-offset: 1px;
+}
+
+.rudi-date-picker__nav[data-disabled] {
+  color: var(--rudi-component-date-picker-cell-unavailable-text);
+  cursor: not-allowed;
+}
+
+.rudi-date-picker__grid {
+  border-collapse: collapse;
+}
+
+.rudi-date-picker__grid td {
+  padding: 0;
+}
+
+.rudi-date-picker__weekday {
+  width: var(--rudi-component-date-picker-cell-size);
+  height: var(--rudi-component-date-picker-cell-size);
+  color: var(--rudi-component-date-picker-weekday-color);
+  font-size: var(--rudi-component-date-picker-weekday-font-size);
+  font-weight: var(--rudi-component-date-picker-weekday-font-weight);
+  text-align: center;
+}
+
+.rudi-date-picker__cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--rudi-component-date-picker-cell-size);
+  height: var(--rudi-component-date-picker-cell-size);
+  border-radius: var(--rudi-component-date-picker-cell-radius);
+  font-size: var(--rudi-component-date-picker-cell-font-size);
+  color: var(--rudi-component-date-picker-cell-text);
+  cursor: pointer;
+  outline: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.rudi-date-picker__cell[data-hovered] {
+  background-color: var(--rudi-component-date-picker-cell-hover-bg);
+}
+
+.rudi-date-picker__cell[data-today] {
+  box-shadow: inset 0 0 0 1px var(--rudi-component-date-picker-cell-today-border);
+  font-weight: var(--rudi-component-date-picker-cell-today-font-weight);
+}
+
+.rudi-date-picker__cell[data-outside-month] {
+  visibility: hidden;
+}
+
+.rudi-date-picker__cell[data-selected] {
+  background-color: var(--rudi-component-date-picker-cell-selected-bg);
+  color: var(--rudi-component-date-picker-cell-selected-text);
+}
+
+/* Range interior: flat band between the rounded endpoints */
+.rudi-date-picker__calendar--range
+  .rudi-date-picker__cell[data-selected]:not([data-selection-start]):not([data-selection-end]) {
+  background-color: var(--rudi-component-date-picker-cell-range-bg);
+  color: var(--rudi-component-date-picker-cell-range-text);
+  border-radius: 0;
+}
+
+.rudi-date-picker__cell[data-focus-visible] {
+  outline: 2px solid var(--rudi-component-date-picker-focus-outline-color);
+  outline-offset: 1px;
+  position: relative;
+  z-index: 1;
+}
+
+.rudi-date-picker__cell[data-disabled],
+.rudi-date-picker__cell[data-unavailable] {
+  color: var(--rudi-component-date-picker-cell-unavailable-text);
+  background-color: transparent;
+  cursor: not-allowed;
+}
+
+.rudi-date-picker__cell[data-unavailable] {
+  text-decoration: line-through;
+}
+
+.rudi-date-picker__cell[data-invalid][data-selected] {
+  background-color: var(--rudi-component-date-picker-error-border);
+  color: var(--rudi-component-date-picker-cell-selected-text);
+}

@@ -26,6 +26,43 @@ describe('PageHeader', () => {
     expect(container.querySelector('.rudi-page-header__subtitle')).toBeNull()
   })
 
+  it('renders eyebrow above the title and meta below the subtitle as divs', () => {
+    const { container } = render(
+      <RudiPageHeader
+        title="Shipment"
+        subtitle="REF-1042"
+        eyebrow={<nav aria-label="Breadcrumb">Shipments</nav>}
+        meta={<span>In transit</span>}
+      />,
+    )
+    const eyebrow = container.querySelector('.rudi-page-header__eyebrow')!
+    const meta = container.querySelector('.rudi-page-header__meta')!
+    expect(eyebrow.tagName).toBe('DIV')
+    expect(meta.tagName).toBe('DIV')
+    expect(container.querySelector('.rudi-page-header__subtitle')!.tagName).toBe('P')
+    const heading = screen.getByRole('heading', { level: 1 })
+    expect(eyebrow.compareDocumentPosition(heading) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+    expect(meta.compareDocumentPosition(heading) & Node.DOCUMENT_POSITION_PRECEDING).toBeTruthy()
+  })
+
+  it('omits eyebrow and meta elements when not provided', () => {
+    const { container } = render(<RudiPageHeader title="Dashboard" />)
+    expect(container.querySelector('.rudi-page-header__eyebrow')).toBeNull()
+    expect(container.querySelector('.rudi-page-header__meta')).toBeNull()
+  })
+
+  it('has no accessibility violations with eyebrow and meta', async () => {
+    const { container } = render(
+      <RudiPageHeader
+        title="Shipment"
+        subtitle="REF-1042"
+        eyebrow={<nav aria-label="Breadcrumb">Shipments</nav>}
+        meta={<span>In transit</span>}
+      />,
+    )
+    expect(await axe(container)).toHaveNoViolations()
+  })
+
   it('renders actions when provided', () => {
     render(
       <RudiPageHeader

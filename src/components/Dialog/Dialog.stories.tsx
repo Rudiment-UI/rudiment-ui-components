@@ -27,24 +27,19 @@ const meta: Meta<DialogStoryArgs> = {
   argTypes: {
     title: {
       control: 'text',
-      description: 'The heading displayed at the top of the dialog',
       table: { category: 'Content' },
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'The width of the dialog panel',
       table: { category: 'Appearance' },
     },
     className: {
       control: 'text',
-      description: 'Additional CSS class names to apply to the dialog panel',
       table: { category: 'Appearance' },
     },
     isDismissable: {
       control: 'boolean',
-      description:
-        'Whether the dialog can be closed by clicking the overlay or pressing Escape',
       table: { category: 'State' },
     },
   },
@@ -67,10 +62,10 @@ export const Default: Story = {
     title="Confirm action"
   >
     <p>Are you sure you want to continue? This cannot be undone.</p>
-    <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1.5rem', justifyContent: 'flex-end' }}>
+    <Dialog.Footer>
       <Button variant="secondary" onPress={() => setIsOpen(false)}>Cancel</Button>
       <Button variant="primary" onPress={() => setIsOpen(false)}>Confirm</Button>
-    </div>
+    </Dialog.Footer>
   </Dialog>
 </>`,
       },
@@ -87,21 +82,14 @@ export const Default: Story = {
           title="Confirm action"
         >
           <p>Are you sure you want to continue? This cannot be undone.</p>
-          <div
-            style={{
-              display: 'flex',
-              gap: '0.5rem',
-              marginTop: '1.5rem',
-              justifyContent: 'flex-end',
-            }}
-          >
+          <RudiDialog.Footer>
             <RudiButton variant="secondary" onPress={() => setIsOpen(false)}>
               Cancel
             </RudiButton>
             <RudiButton variant="primary" onPress={() => setIsOpen(false)}>
               Confirm
             </RudiButton>
-          </div>
+          </RudiDialog.Footer>
         </RudiDialog>
       </>
     )
@@ -123,10 +111,10 @@ export const Small: Story = {
     size="sm"
   >
     <p>This item will be permanently deleted.</p>
-    <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1.5rem', justifyContent: 'flex-end' }}>
+    <Dialog.Footer>
       <Button variant="secondary" onPress={() => setIsOpen(false)}>Cancel</Button>
       <Button variant="destructive" onPress={() => setIsOpen(false)}>Delete</Button>
-    </div>
+    </Dialog.Footer>
   </Dialog>
 </>`,
       },
@@ -144,21 +132,14 @@ export const Small: Story = {
           size="sm"
         >
           <p>This item will be permanently deleted.</p>
-          <div
-            style={{
-              display: 'flex',
-              gap: '0.5rem',
-              marginTop: '1.5rem',
-              justifyContent: 'flex-end',
-            }}
-          >
+          <RudiDialog.Footer>
             <RudiButton variant="secondary" onPress={() => setIsOpen(false)}>
               Cancel
             </RudiButton>
             <RudiButton variant="destructive" onPress={() => setIsOpen(false)}>
               Delete
             </RudiButton>
-          </div>
+          </RudiDialog.Footer>
         </RudiDialog>
       </>
     )
@@ -183,10 +164,10 @@ export const Large: Story = {
     <p style={{ marginTop: '1rem', color: 'var(--rudi-color-text-subtle)', fontSize: '0.875rem' }}>
       Lorem ipsum dolor sit amet...
     </p>
-    <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1.5rem', justifyContent: 'flex-end' }}>
+    <Dialog.Footer>
       <Button variant="secondary" onPress={() => setIsOpen(false)}>Decline</Button>
       <Button variant="primary" onPress={() => setIsOpen(false)}>Accept</Button>
-    </div>
+    </Dialog.Footer>
   </Dialog>
 </>`,
       },
@@ -216,21 +197,14 @@ export const Large: Story = {
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
             aliquip ex ea commodo consequat.
           </p>
-          <div
-            style={{
-              display: 'flex',
-              gap: '0.5rem',
-              marginTop: '1.5rem',
-              justifyContent: 'flex-end',
-            }}
-          >
+          <RudiDialog.Footer>
             <RudiButton variant="secondary" onPress={() => setIsOpen(false)}>
               Decline
             </RudiButton>
             <RudiButton variant="primary" onPress={() => setIsOpen(false)}>
               Accept
             </RudiButton>
-          </div>
+          </RudiDialog.Footer>
         </RudiDialog>
       </>
     )
@@ -252,9 +226,9 @@ export const NonDismissable: Story = {
     isDismissable={false}
   >
     <p>You must complete this step before continuing.</p>
-    <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1.5rem', justifyContent: 'flex-end' }}>
+    <Dialog.Footer>
       <Button variant="primary" onPress={() => setIsOpen(false)}>Got it</Button>
-    </div>
+    </Dialog.Footer>
   </Dialog>
 </>`,
       },
@@ -274,18 +248,11 @@ export const NonDismissable: Story = {
           isDismissable={false}
         >
           <p>You must complete this step before continuing.</p>
-          <div
-            style={{
-              display: 'flex',
-              gap: '0.5rem',
-              marginTop: '1.5rem',
-              justifyContent: 'flex-end',
-            }}
-          >
+          <RudiDialog.Footer>
             <RudiButton variant="primary" onPress={() => setIsOpen(false)}>
               Got it
             </RudiButton>
-          </div>
+          </RudiDialog.Footer>
         </RudiDialog>
       </>
     )

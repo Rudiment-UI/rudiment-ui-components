@@ -23,30 +23,24 @@ const meta = {
   argTypes: {
     children: {
       control: 'text',
-      description: 'The text or content displayed inside the badge',
       table: { category: 'Content' },
     },
     variant: {
       control: 'select',
       options: ['default', 'success', 'warning', 'error', 'info'],
-      description: 'The visual style and semantic meaning of the badge',
       table: { category: 'Appearance' },
     },
     size: {
       control: 'select',
       options: ['sm', 'md'],
-      description: 'The size of the badge',
       table: { category: 'Appearance' },
     },
     dot: {
       control: 'boolean',
-      description:
-        'When true, renders as a small circular dot indicator without text',
       table: { category: 'Appearance' },
     },
     className: {
       control: 'text',
-      description: 'Additional CSS class names to apply to the badge',
       table: { category: 'Appearance' },
     },
   },

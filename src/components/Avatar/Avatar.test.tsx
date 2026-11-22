@@ -79,4 +79,25 @@ describe('Avatar', () => {
     const { container } = render(<RudiAvatar name="John Doe" />)
     expect(await axe(container)).toHaveNoViolations()
   })
+
+  it('is decorative with neither alt nor name', async () => {
+    const { container } = render(<RudiAvatar />)
+    const root = container.firstChild as HTMLElement
+    expect(root).toHaveAttribute('aria-hidden', 'true')
+    expect(root).not.toHaveAttribute('role')
+    expect(await axe(container)).toHaveNoViolations()
+  })
+
+  it('includes statusLabel in the accessible name', async () => {
+    const { container } = render(
+      <RudiAvatar name="Ada Lovelace" status="warning" statusLabel="Busy" />,
+    )
+    expect(screen.getByRole('img', { name: 'Ada Lovelace, Busy' })).toBeInTheDocument()
+    expect(await axe(container)).toHaveNoViolations()
+  })
+
+  it('keeps the plain name when status has no statusLabel', () => {
+    render(<RudiAvatar name="Ada Lovelace" status="warning" />)
+    expect(screen.getByRole('img', { name: 'Ada Lovelace' })).toBeInTheDocument()
+  })
 })

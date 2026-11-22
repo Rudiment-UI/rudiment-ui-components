@@ -1,5 +1,7 @@
 .rudi-input {
   display: grid;
+  /* Keep the control its own height when a grid row stretches the field (a neighbour has help text). */
+  align-content: start;
   gap: var(--rudi-component-input-gap);
   font-size: var(--rudi-component-input-font-size);
 }
@@ -15,6 +17,8 @@
 }
 
 .rudi-input__field {
+  box-sizing: border-box;
+  min-block-size: var(--rudi-component-input-height);
   width: 100%;
   padding: var(--rudi-component-input-padding-y)
     var(--rudi-component-input-padding-x);
@@ -60,4 +64,10 @@
   color: var(--rudi-component-input-error-text-color);
   font-size: var(--rudi-component-input-error-font-size);
   line-height: var(--rudi-font-line-height-normal);
+}
+
+/* Hint and error text render as <p>; drop the browser's paragraph margin. */
+.rudi-input__description,
+.rudi-input__error {
+  margin: 0;
 }

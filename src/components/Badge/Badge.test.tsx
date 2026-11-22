@@ -27,10 +27,10 @@ describe('Badge', () => {
     expect(container.firstChild).toHaveClass('rudi-badge--sm')
   })
 
-  it('renders dot indicator and hides children', () => {
+  it('renders dot indicator with visually hidden children', () => {
     const { container } = render(<RudiBadge dot>Hidden</RudiBadge>)
     expect(container.firstChild).toHaveClass('rudi-badge--dot')
-    expect(screen.queryByText('Hidden')).not.toBeInTheDocument()
+    expect(screen.getByText('Hidden')).toBeInTheDocument()
   })
 
   it('merges a custom className', () => {
@@ -43,6 +43,19 @@ describe('Badge', () => {
 
   it('has no accessibility violations', async () => {
     const { container } = render(<RudiBadge>Status</RudiBadge>)
+    expect(await axe(container)).toHaveNoViolations()
+  })
+
+  it('keeps children as screen-reader text when dot is set', async () => {
+    const { container } = render(<RudiBadge dot>Online</RudiBadge>)
+    expect(screen.getByText('Online')).toBeInTheDocument()
+    expect(container.firstChild).not.toHaveAttribute('aria-hidden')
+    expect(await axe(container)).toHaveNoViolations()
+  })
+
+  it('marks a dot without children as decorative', async () => {
+    const { container } = render(<RudiBadge dot />)
+    expect(container.firstChild).toHaveAttribute('aria-hidden', 'true')
     expect(await axe(container)).toHaveNoViolations()
   })
 })

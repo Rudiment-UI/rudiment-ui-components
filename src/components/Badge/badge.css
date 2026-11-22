@@ -1,6 +1,8 @@
 /* Badge */
 .rudi-badge {
   display: inline-flex;
+  /* Hug the label even inside a stretching parent (RudiStack, a grid cell). */
+  width: fit-content;
   align-items: center;
   justify-content: center;
   border-radius: var(--rudi-component-badge-radius);

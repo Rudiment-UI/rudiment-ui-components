@@ -34,6 +34,12 @@ const meta = {
     height: 300,
   },
   argTypes: {
+    referenceLines: {
+      control: 'object',
+      table: { category: 'Content' },
+    },
+    yDomain: { control: 'object', table: { category: 'Layout' } },
+    unit: { control: 'text', table: { category: 'Content' } },
     curved: {
       control: 'boolean',
       table: { category: 'Appearance' },
@@ -93,5 +99,24 @@ export const Minimal: Story = {
     showLegend: false,
     showDots: false,
     label: 'Minimal line chart',
+  },
+}
+
+export const WithReferenceLine: Story = {
+  args: {
+    data: [
+      { time: '00:00', probe: -191.2 },
+      { time: '04:00', probe: -190.6 },
+      { time: '08:00', probe: -143.8 },
+      { time: '12:00', probe: -189.9 },
+      { time: '16:00', probe: -191.0 },
+    ],
+    dataKeys: ['probe'],
+    indexKey: 'time',
+    label: 'Probe temperature against the alert set-point',
+    unit: '°C',
+    yDomain: [-200, -100],
+    referenceLines: [{ y: -150, label: 'Set-point', tone: 'error' }],
+    showLegend: false,
   },
 }

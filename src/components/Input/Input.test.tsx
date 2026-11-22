@@ -2,7 +2,7 @@ import { createRef } from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'vitest-axe'
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { RudiInput } from './Input'
 
 describe('Input', () => {
@@ -72,5 +72,31 @@ describe('Input', () => {
       <RudiInput label="Email" errorMessage="Required" />,
     )
     expect(await axe(container)).toHaveNoViolations()
+  })
+  it('passes form attributes through to the input', () => {
+    render(
+      <RudiInput
+        label="Code"
+        name="otp"
+        autoComplete="one-time-code"
+        inputMode="numeric"
+        maxLength={6}
+        isReadOnly
+      />,
+    )
+    const input = screen.getByLabelText('Code')
+    expect(input).toHaveAttribute('name', 'otp')
+    expect(input).toHaveAttribute('autocomplete', 'one-time-code')
+    expect(input).toHaveAttribute('inputmode', 'numeric')
+    expect(input).toHaveAttribute('maxlength', '6')
+    expect(input).toHaveAttribute('readonly')
+  })
+
+  it('calls onBlur when focus leaves', async () => {
+    const onBlur = vi.fn()
+    render(<RudiInput label="Email" onBlur={onBlur} />)
+    await userEvent.click(screen.getByLabelText('Email'))
+    await userEvent.tab()
+    expect(onBlur).toHaveBeenCalledTimes(1)
   })
 })

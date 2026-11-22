@@ -54,3 +54,19 @@
 .rudi-image--radius-full {
   border-radius: var(--rudi-radius-full);
 }
+
+/* Fallback shown when the image fails to load */
+.rudi-image__fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 100%;
+  block-size: 100%;
+  min-block-size: var(--rudi-component-image-fallback-min-size);
+  color: var(--rudi-component-image-fallback-color);
+}
+
+.rudi-image[style*='aspect-ratio'] .rudi-image__fallback {
+  position: absolute;
+  inset: 0;
+}

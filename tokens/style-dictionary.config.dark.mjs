@@ -2,6 +2,22 @@
 const PRIMITIVE_GROUPS = new Set(['blue', 'neutral', 'red', 'green', 'amber'])
 const PRIMITIVE_CATEGORIES = new Set(['spacing', 'radius', 'font', 'motion'])
 
+const darkFilter = (token) => {
+  const category = token.path[0]
+  // Exclude theme-invariant primitives (spacing, radius, font, motion)
+  if (PRIMITIVE_CATEGORIES.has(category)) return false
+  // Exclude primitive color ramps but include semantic + component color tokens
+  if (category === 'color') {
+    const group = token.path[1]
+    if (group === 'dataviz') {
+      return String(token.path[2]).startsWith('series')
+    }
+    return !PRIMITIVE_GROUPS.has(group)
+  }
+  // Include component and typography tokens so they re-resolve in dark scope
+  return true
+}
+
 export default {
   source: [
     'tokens/tokens.json',
@@ -22,21 +38,18 @@ export default {
             selector: '[data-theme="dark"]',
             outputReferences: true,
           },
-          filter: (token) => {
-            const category = token.path[0]
-            // Exclude theme-invariant primitives (spacing, radius, font, motion)
-            if (PRIMITIVE_CATEGORIES.has(category)) return false
-            // Exclude primitive color ramps but include semantic + component color tokens
-            if (category === 'color') {
-              const group = token.path[1]
-              if (group === 'dataviz') {
-                return String(token.path[2]).startsWith('series')
-              }
-              return !PRIMITIVE_GROUPS.has(group)
-            }
-            // Include component and typography tokens so they re-resolve in dark scope
-            return true
+          filter: darkFilter,
+        },
+        {
+          // Same tokens under [data-theme="auto"]; src/styles.css imports this file
+          // inside (prefers-color-scheme: dark), so "auto" follows the OS setting.
+          destination: 'tokens-auto-dark.css',
+          format: 'css/variables',
+          options: {
+            selector: '[data-theme="auto"]',
+            outputReferences: true,
           },
+          filter: darkFilter,
         },
       ],
     },

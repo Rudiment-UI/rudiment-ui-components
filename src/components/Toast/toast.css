@@ -1,0 +1,139 @@
+/* Region: fixed stack in a viewport corner */
+.rudi-toast-region {
+  position: fixed;
+  z-index: var(--rudi-component-toast-region-z);
+  display: flex;
+  gap: var(--rudi-component-toast-region-gap);
+  width: min(var(--rudi-component-toast-width), calc(100vw - 2 * var(--rudi-component-toast-region-offset)));
+  outline: none;
+}
+
+.rudi-toast-region[data-focus-visible] {
+  outline: 2px solid var(--rudi-component-toast-focus-outline-color);
+  outline-offset: 2px;
+}
+
+/* Newest toast sits nearest the viewport edge. The queue lists newest first. */
+.rudi-toast-region--top-end {
+  top: var(--rudi-component-toast-region-offset);
+  inset-inline-end: var(--rudi-component-toast-region-offset);
+  flex-direction: column;
+}
+
+.rudi-toast-region--bottom-end {
+  bottom: var(--rudi-component-toast-region-offset);
+  inset-inline-end: var(--rudi-component-toast-region-offset);
+  flex-direction: column-reverse;
+}
+
+.rudi-toast-region--bottom-center {
+  bottom: var(--rudi-component-toast-region-offset);
+  left: 50%;
+  transform: translateX(-50%);
+  flex-direction: column-reverse;
+}
+
+/* Toast */
+.rudi-toast {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+  gap: var(--rudi-component-toast-gap);
+  padding: var(--rudi-component-toast-padding-y) var(--rudi-component-toast-padding-x);
+  border: 1px solid transparent;
+  border-radius: var(--rudi-component-toast-radius);
+  box-shadow: var(--rudi-component-toast-shadow);
+  font-size: var(--rudi-component-toast-font-size);
+  line-height: var(--rudi-component-toast-line-height);
+  view-transition-class: rudi-toast;
+}
+
+.rudi-toast[data-focus-visible] {
+  outline: 2px solid var(--rudi-component-toast-focus-outline-color);
+  outline-offset: 2px;
+}
+
+.rudi-toast__icon {
+  margin-top: 0.125em;
+  color: inherit;
+}
+
+.rudi-toast__content {
+  display: grid;
+  gap: var(--rudi-component-toast-content-gap);
+  min-width: 0;
+}
+
+.rudi-toast__title {
+  font-weight: var(--rudi-component-toast-title-font-weight);
+}
+
+.rudi-toast__description {
+  overflow-wrap: anywhere;
+}
+
+.rudi-toast__close {
+  color: inherit;
+}
+
+/* Variants: same token references as RudiAlert */
+.rudi-toast--info {
+  background-color: var(--rudi-component-toast-info-bg);
+  border-color: var(--rudi-component-toast-info-border);
+  color: var(--rudi-component-toast-info-text);
+}
+
+.rudi-toast--success {
+  background-color: var(--rudi-component-toast-success-bg);
+  border-color: var(--rudi-component-toast-success-border);
+  color: var(--rudi-component-toast-success-text);
+}
+
+.rudi-toast--warning {
+  background-color: var(--rudi-component-toast-warning-bg);
+  border-color: var(--rudi-component-toast-warning-border);
+  color: var(--rudi-component-toast-warning-text);
+}
+
+.rudi-toast--error {
+  background-color: var(--rudi-component-toast-error-bg);
+  border-color: var(--rudi-component-toast-error-border);
+  color: var(--rudi-component-toast-error-text);
+}
+
+/*
+ * Enter/exit animation via the View Transitions API (see toastQueue.ts).
+ * toastQueue skips the transition entirely under prefers-reduced-motion;
+ * the media query below is a second guard for the CSS side.
+ */
+::view-transition-new(.rudi-toast):only-child {
+  animation: rudi-toast-enter var(--rudi-component-toast-motion-duration)
+    var(--rudi-component-toast-motion-easing);
+}
+
+::view-transition-old(.rudi-toast):only-child {
+  animation: rudi-toast-exit var(--rudi-component-toast-motion-duration)
+    var(--rudi-component-toast-motion-easing) forwards;
+}
+
+@keyframes rudi-toast-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+}
+
+@keyframes rudi-toast-exit {
+  to {
+    opacity: 0;
+    transform: translateX(1rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(.rudi-toast),
+  ::view-transition-new(.rudi-toast),
+  ::view-transition-old(.rudi-toast) {
+    animation: none;
+  }
+}

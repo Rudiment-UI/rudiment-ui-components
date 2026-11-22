@@ -10,8 +10,19 @@
 .rudi-page-header__text {
   display: flex;
   flex-direction: column;
-  gap: var(--rudi-component-page-header-title-gap);
   min-inline-size: 0;
+}
+
+.rudi-page-header__text > .rudi-page-header__eyebrow {
+  margin-block-end: var(--rudi-component-page-header-eyebrow-gap);
+}
+
+.rudi-page-header__text > .rudi-page-header__subtitle {
+  margin-block-start: var(--rudi-component-page-header-title-gap);
+}
+
+.rudi-page-header__text > .rudi-page-header__meta {
+  margin-block-start: var(--rudi-component-page-header-meta-gap);
 }
 
 .rudi-page-header__subtitle {

@@ -10,3 +10,8 @@
   flex-grow: 1;
   flex-basis: calc((var(--switcher-threshold) - 100%) * 999);
 }
+
+/* More children than `limit`: always stack, one per row at full width. */
+.rudi-switcher--stacked > * {
+  flex-basis: 100%;
+}

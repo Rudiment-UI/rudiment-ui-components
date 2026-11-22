@@ -18,6 +18,7 @@ const meta = {
     page: 1,
     pageCount: 10,
     siblingCount: 1,
+    onPageChange: () => {},
   },
   argTypes: {
     pageCount: { control: 'number', table: { category: 'Content' } },

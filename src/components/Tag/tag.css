@@ -52,6 +52,21 @@
   filter: brightness(0.95);
 }
 
+/* Main pressable (sibling of the close button) */
+.rudi-tag__main {
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rudi-component-tag-gap);
+  cursor: pointer;
+  border-radius: var(--rudi-component-tag-radius);
+}
+
+.rudi-tag__main:focus-visible {
+  outline: 2px solid var(--rudi-component-tag-focus-outline-color);
+  outline-offset: 2px;
+}
+
 /* Disabled */
 .rudi-tag[aria-disabled='true'] {
   opacity: 0.5;

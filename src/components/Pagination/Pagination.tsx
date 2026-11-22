@@ -1,17 +1,28 @@
+import { useRef } from 'react'
+import { useButton } from 'react-aria'
 import { cn } from '@/utils/cn'
 import { RudiIcon } from '@/components/Icon/Icon'
 import './pagination.css'
 
+/** Props for `RudiPagination`. */
 export interface RudiPaginationProps {
   /** Current page (1-based). */
   page: number
   /** Total number of pages. */
   pageCount: number
+  /** Called with the new 1-based page number when the user picks a page. Not called when the target is the current page. */
   onPageChange: (page: number) => void
-  /** Pages to show on each side of the current page before truncating. */
+  /**
+   * Pages shown on each side of the current page before truncating.
+   * @default 1
+   */
   siblingCount?: number
-  /** Accessible label for the nav landmark. */
+  /**
+   * Accessible label for the nav landmark.
+   * @default 'Pagination'
+   */
   label?: string
+  /** Extra class names, merged with the component's own classes rather than replacing them. */
   className?: string
 }
 
@@ -49,6 +60,34 @@ function paginationRange(
   return tokens
 }
 
+interface PaginationButtonProps {
+  className: string
+  'aria-label': string
+  'aria-current'?: 'page'
+  isDisabled?: boolean
+  onPress: () => void
+  children: React.ReactNode
+}
+
+/** Button with React Aria press handling, shared by the page, previous and next controls. */
+function PaginationButton({ className, children, ...ariaProps }: PaginationButtonProps) {
+  const ref = useRef<HTMLButtonElement>(null)
+  const { buttonProps } = useButton(ariaProps, ref)
+  return (
+    <button ref={ref} {...buttonProps} className={className}>
+      {children}
+    </button>
+  )
+}
+
+/**
+ * Page navigation with previous and next buttons and numbered pages, truncated with ellipses for long ranges. Controlled: the parent owns `page`. A `page` outside 1 to `pageCount` is clamped for rendering.
+ * Renders nothing when `pageCount` is 1 or less.
+ * @example
+ * ```tsx
+ * <RudiPagination page={page} pageCount={12} onPageChange={setPage} />
+ * ```
+ */
 export function RudiPagination({
   page,
   pageCount,
@@ -59,42 +98,41 @@ export function RudiPagination({
 }: RudiPaginationProps) {
   if (pageCount <= 1) return null
 
-  const tokens = paginationRange(page, pageCount, siblingCount)
+  const current = Math.min(Math.max(page, 1), pageCount)
+  const tokens = paginationRange(current, pageCount, siblingCount)
   const goTo = (p: number) => {
     const clamped = Math.min(Math.max(p, 1), pageCount)
-    if (clamped !== page) onPageChange(clamped)
+    if (clamped !== current) onPageChange(clamped)
   }
 
   return (
     <nav aria-label={label} className={cn('rudi-pagination', className)}>
       <ul className="rudi-pagination__list">
         <li>
-          <button
-            type="button"
+          <PaginationButton
             className="rudi-pagination__control"
             aria-label="Go to previous page"
-            disabled={page <= 1}
-            onClick={() => goTo(page - 1)}
+            isDisabled={current <= 1}
+            onPress={() => goTo(current - 1)}
           >
             <RudiIcon icon="lucide:chevron-left" size="sm" />
-          </button>
+          </PaginationButton>
         </li>
 
         {tokens.map((token) =>
           typeof token === 'number' ? (
             <li key={token}>
-              <button
-                type="button"
+              <PaginationButton
                 className={cn(
                   'rudi-pagination__page',
-                  token === page && 'rudi-pagination__page--active',
+                  token === current && 'rudi-pagination__page--active',
                 )}
                 aria-label={`Go to page ${token}`}
-                aria-current={token === page ? 'page' : undefined}
-                onClick={() => goTo(token)}
+                aria-current={token === current ? 'page' : undefined}
+                onPress={() => goTo(token)}
               >
                 {token}
-              </button>
+              </PaginationButton>
             </li>
           ) : (
             <li key={token} className="rudi-pagination__ellipsis" aria-hidden="true">
@@ -104,15 +142,14 @@ export function RudiPagination({
         )}
 
         <li>
-          <button
-            type="button"
+          <PaginationButton
             className="rudi-pagination__control"
             aria-label="Go to next page"
-            disabled={page >= pageCount}
-            onClick={() => goTo(page + 1)}
+            isDisabled={current >= pageCount}
+            onPress={() => goTo(current + 1)}
           >
             <RudiIcon icon="lucide:chevron-right" size="sm" />
-          </button>
+          </PaginationButton>
         </li>
       </ul>
     </nav>

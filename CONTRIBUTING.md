@@ -47,6 +47,16 @@ Every story file must include:
 6. **Autodocs**: Include `tags: ['autodocs']` in the meta
 7. **Sidebar badges**: Add `'new'` to `tags` for a component added in the latest minor release that added components, and remove it when the next such release ships. Add `'beta'` when the component's API may still change.
 
+### Writing Component Docs
+
+Each docs page is built from the story file by `.storybook/docs/AutodocsPage.tsx`, in this order: summary, primary example, one section per story, usage guidelines, API reference, Customizing (the component's tokens), then previous/next links. The stories are the page's sections, so write them for a reader with a task in mind, not as a prop-by-prop listing.
+
+1. **Name stories after tasks**: "Variants", "Sizes", "With icons", "Loading state", "Controlled", "Responsive". Avoid names that only echo a prop value, such as "Small" or "Large".
+2. **Describe every story**: set `parameters.docs.description.story` to 1–2 sentences saying when and why to use the example, not what the prop is called. `.storybook/docs/storyDocs.test.ts` fails on a story without one.
+3. **Compare side by side**: show the related options in one story (all four button variants in a row) rather than one story each. The storybook test project still renders every story with an a11y check, so a combined story must be valid markup and give each control an accessible name.
+4. **Put guidance next to its example**: when a do/don't from `src/docs/guidelines/<Name>.mdx` applies to one example, move it into that story's description. Leave only page-wide guidance in the guidelines file.
+5. **Keep the shown code clean**: code is shown by default, so leave empty-string defaults (`className: ''`) out of `meta.args`, and when a story sets `source.code` by hand, use the `Rudi`-prefixed names.
+
 ### Documenting the Public API
 
 JSDoc on exported components, Props interfaces and supporting types is the single source for editor hovers, the shipped `.d.ts` files, and the generated agent reference (`dist/llms.txt`, `dist/llms-full.txt`, `dist/components.json`, built by `scripts/component-docs.mjs`). `scripts/component-docs.test.mjs` fails on any gap.

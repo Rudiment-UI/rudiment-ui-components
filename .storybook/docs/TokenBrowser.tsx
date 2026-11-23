@@ -107,7 +107,14 @@ export function TokenBrowser({
   const count = groups.reduce((n, [, list]) => n + list.length, 0)
 
   return (
-    <div ref={rootRef} className="sb-tokens" data-theme={themeAttr(theme)}>
+    // `sb-unstyled` opts out of Storybook's docs typography, which otherwise
+    // forces dark ink and light row stripes onto the table when the block sits
+    // directly on a docs page (the component "Customizing" section).
+    <div
+      ref={rootRef}
+      className="sb-tokens sb-unstyled"
+      data-theme={themeAttr(theme)}
+    >
       <RudiCluster
         space="var(--rudi-spacing-4)"
         align="flex-end"

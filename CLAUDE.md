@@ -76,6 +76,8 @@ Class names are BEM: `rudi-button`, `rudi-button--primary`, `rudi-button__icon`.
 
 Stories: `title: 'Components/Name'` (or `Layouts/` / `Typography/`), `tags: ['autodocs']` (add `'new'` for a component added in the latest minor release that added any, and drop it when the next one ships; `'beta'` for an API that may still change; both render as sidebar badges from `.storybook/manager.ts`), a `parameters.docs.description.component` blurb, and `table.category` of `Appearance` / `Content` / `Layout` / `State` / `Events` (that order is enforced in `.storybook/preview.tsx`). Prop descriptions come from JSDoc via Storybook's `react-docgen`. Give an argType a `description` only when docgen can't see the prop, which means inherited React Aria props and story-only args. A preview decorator auto-syncs controlled args (`value`, `isSelected`, `selectedKey`) with `onChange`, so controlled props in `meta.args` stay interactive.
 
+Each story is a section of the docs page (CONTRIBUTING.md → "Writing Component Docs"). Name it after the reader's task ("Variants", "With icons", "Loading state"), not a prop value, and give it 1–2 sentences of `parameters.docs.description.story` on when and why. `.storybook/docs/storyDocs.test.ts` enforces this, except for the pages still listed in its `UNMIGRATED` set. Show related options side by side in one story, and move a do/don't from `src/docs/guidelines/<Name>.mdx` into the description of the example it applies to.
+
 Tests: render, `axe` accessibility assertion, keyboard/pointer interaction, and state coverage (disabled/loading/error).
 
 ## Docs

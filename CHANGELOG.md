@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **Hover in `RudiSelect`, `RudiComboBox` and `RudiMenu` popovers in the soft themes:** soft and soft-dark raise the popover to `surface-raised` but left the option and item hover color on that same token, so pointing at an option showed no change. `--rudi-component-select-option-hover-bg` and `--rudi-component-menu-item-hover-bg` now use `--rudi-color-background-control` in soft and soft-dark. `RudiComboBox` picks this up through its alias to the select token. Other themes are unchanged.
+
 ## [0.8.0] - 2026-11-22
 
 ### Added

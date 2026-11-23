@@ -29,7 +29,8 @@
       "trigger-error-border": { "$value": "transparent", "$type": "color" },
       "popover-border": { "$value": "transparent", "$type": "color" },
       "trigger-bg": { "$value": "{color.background.control}" },
-      "popover-bg": { "$value": "{color.background.surface-raised}" }
+      "popover-bg": { "$value": "{color.background.surface-raised}" },
+      "option-hover-bg": { "$value": "{color.background.control}" }
     },
     "checkbox": {
       "control-radius": { "$value": "{radius.md}" },
@@ -76,7 +77,8 @@
       "popover-radius": { "$value": "{radius.lg}" },
       "item-radius": { "$value": "{radius.md}" },
       "popover-border": { "$value": "transparent", "$type": "color" },
-      "popover-bg": { "$value": "{color.background.surface-raised}" }
+      "popover-bg": { "$value": "{color.background.surface-raised}" },
+      "item-hover-bg": { "$value": "{color.background.control}" }
     },
     "kanban": {
       "column-radius": { "$value": "{radius.lg}" },

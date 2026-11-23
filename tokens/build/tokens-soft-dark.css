@@ -669,7 +669,7 @@
   --rudi-component-select-option-padding-x: var(--rudi-component-input-padding-x);
   --rudi-component-select-option-selected-bg: var(--rudi-color-brand-primary);
   --rudi-component-select-option-selected-text: var(--rudi-color-text-on-brand);
-  --rudi-component-select-option-hover-bg: var(--rudi-color-background-surface-raised);
+  --rudi-component-select-option-hover-bg: var(--rudi-color-background-control);
   --rudi-component-select-label-color: var(--rudi-color-text-default);
   --rudi-component-select-description-color: var(--rudi-color-text-subtle);
   --rudi-component-select-error-text-color: var(--rudi-color-feedback-error-text);
@@ -757,7 +757,7 @@
   --rudi-component-menu-popover-bg: var(--rudi-color-background-surface-raised);
   --rudi-component-menu-item-padding-x: var(--rudi-component-input-padding-x);
   --rudi-component-menu-item-text: var(--rudi-color-text-default);
-  --rudi-component-menu-item-hover-bg: var(--rudi-color-background-surface-raised);
+  --rudi-component-menu-item-hover-bg: var(--rudi-color-background-control);
   --rudi-component-menu-item-disabled-text: var(--rudi-color-text-disabled);
   --rudi-component-menu-item-destructive-text: var(--rudi-color-feedback-error);
   --rudi-component-menu-item-icon-color: var(--rudi-color-text-subtle);

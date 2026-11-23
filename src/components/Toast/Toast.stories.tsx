@@ -84,10 +84,6 @@ const meta = {
       },
     },
   },
-  args: {
-    placement: 'bottom-end',
-    className: '',
-  },
   argTypes: {
     placement: {
       control: 'inline-radio',
@@ -108,14 +104,68 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {}
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Press a button to queue a toast of that variant. Keep titles short and put the detail in `description`. Change `placement` in the API reference below to move the region.',
+      },
+    },
+  },
+}
 
-export const TopEnd: Story = {
-  name: 'Top end',
+export const Placement: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Choose `top-end`, `bottom-end` or `bottom-center` to keep toasts clear of the controls and content your screen relies on. Mount only one region per app, as every toast renders in it.',
+      },
+    },
+  },
   args: { placement: 'top-end' },
 }
 
-export const BottomCenter: Story = {
-  name: 'Bottom center',
-  args: { placement: 'bottom-center' },
+function TimeoutButtons() {
+  return (
+    <RudiCluster>
+      <RudiButton
+        variant="secondary"
+        onPress={() => {
+          rudiToast.info('Syncing shipments', { timeout: 10000 })
+        }}
+      >
+        Stay for 10 seconds
+      </RudiButton>
+      <RudiButton
+        variant="secondary"
+        onPress={() => {
+          rudiToast.success('Report exported', {
+            description: 'It stays until you close it.',
+            timeout: 0,
+          })
+        }}
+      >
+        Stay until closed
+      </RudiButton>
+    </RudiCluster>
+  )
+}
+
+export const Timeouts: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Pass `timeout` in milliseconds to change how long a toast stays, or `0` to keep it until closed. A toast always disappears eventually, so never make it the only path to a required action. Use an alert or a dialog for that.',
+      },
+    },
+  },
+  render: (args) => (
+    <>
+      <TimeoutButtons />
+      <RudiToastRegion {...args} />
+    </>
+  ),
 }

@@ -16,11 +16,8 @@ const meta = {
   },
   args: {
     variant: 'info',
-    isPolite: false,
-    children: 'This is an alert message.',
-    className: '',
-    dismissible: false,
-    icon: '',
+    title: 'Did you know?',
+    children: 'Alerts sit inline with the page content and are announced to screen readers.',
   },
   argTypes: {
     title: {
@@ -66,75 +63,27 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Info: Story = {
-  args: {
-    variant: 'info',
-    title: 'Did you know?',
-    children: 'This is an informational alert with some helpful context.',
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A single info alert with a title. Change the props in the API reference below to try every option on this example.',
+      },
+    },
   },
 }
 
-export const Success: Story = {
-  args: {
-    variant: 'success',
-    title: 'Changes saved',
-    children: 'Your profile has been updated successfully.',
+export const Variants: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Match the variant to the severity of the message: `success` for confirmations, `warning` for risks, `error` for problems the user must fix. Don\'t use `error` for informational messages, it causes unnecessary alarm. Add an `icon` so the meaning does not rely on color alone.',
+      },
+    },
   },
-}
-
-export const Warning: Story = {
-  args: {
-    variant: 'warning',
-    title: 'Proceed with caution',
-    children: 'This action may have unintended side effects.',
-  },
-}
-
-export const Error: Story = {
-  args: {
-    variant: 'error',
-    title: 'Something went wrong',
-    children: 'We could not process your request. Please try again.',
-  },
-}
-
-export const WithoutTitle: Story = {
-  args: {
-    variant: 'info',
-    children: 'A simple alert without a title.',
-  },
-}
-
-export const WithIcon: Story = {
-  args: {
-    variant: 'info',
-    icon: 'mdi:information',
-    title: 'Did you know?',
-    children: 'This alert includes an icon for extra visual emphasis.',
-  },
-}
-
-export const Polite: Story = {
-  args: {
-    variant: 'success',
-    title: 'Auto-saved',
-    isPolite: true,
-    children: 'Your draft was saved automatically.',
-  },
-}
-
-export const Dismissible: Story = {
-  args: {
-    variant: 'info',
-    icon: 'mdi:information',
-    title: 'Did you know?',
-    dismissible: true,
-    children: 'This alert can be dismissed by clicking the close button.',
-  },
-}
-
-export const AllVariants: Story = {
-  render: ({}) => (
+  render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       <RudiAlert variant="info" icon="mdi:information" title="Info">
         This is an info alert.
@@ -152,7 +101,64 @@ export const AllVariants: Story = {
   ),
 }
 
+export const WithoutTitle: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Leave out `title` when the message is a single short sentence and a heading would repeat it.',
+      },
+    },
+  },
+  args: {
+    title: undefined,
+    children: 'A simple alert without a title.',
+  },
+}
+
+export const Dismissible: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Set `dismissible` for messages the user can safely clear, such as tips. Dismissal is internal: the alert stays hidden until it remounts. Press the close button to try it.',
+      },
+    },
+  },
+  args: {
+    icon: 'mdi:information',
+    dismissible: true,
+    children: 'This alert can be dismissed by clicking the close button.',
+  },
+}
+
+export const Polite: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Set `isPolite` for non-urgent updates such as an auto-save, so screen readers announce them without interrupting. The default `role="alert"` announces assertively. Don\'t overuse alerts: when everything is highlighted, nothing stands out.',
+      },
+    },
+  },
+  args: {
+    variant: 'success',
+    title: 'Auto-saved',
+    isPolite: true,
+    children: 'Your draft was saved automatically.',
+  },
+}
+
 export const WithAction: Story = {
+  name: 'With action',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `action` for the one follow-up the message calls for, such as a button. It sits at the inline-end and wraps below the text when space is tight, as in the narrow example.',
+      },
+    },
+  },
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       <RudiAlert

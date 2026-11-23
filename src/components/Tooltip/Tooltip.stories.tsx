@@ -73,26 +73,34 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   parameters: {
     docs: {
+      description: {
+        story:
+          'Hover or focus the button and wait for the delay to pass. Change `delay` and `closeDelay` in the API reference below to try them on this example.',
+      },
       source: {
-        code: `<TooltipTrigger>
-  <Button variant="secondary">Hover me</Button>
-  <Tooltip>This is a helpful tooltip</Tooltip>
-</TooltipTrigger>`,
+        code: `<RudiTooltipTrigger>
+  <RudiButton variant="secondary">Hover me</RudiButton>
+  <RudiTooltip>This is a helpful tooltip</RudiTooltip>
+</RudiTooltipTrigger>`,
       },
     },
   },
 }
 
-export const OnIconButton: Story = {
+export const IconOnlyButton: Story = {
   parameters: {
     docs: {
+      description: {
+        story:
+          'Use a tooltip to name or explain an icon-only button, and keep the text under 80 characters. The button still needs its own `aria-label`, because the tooltip is supplementary and only appears on hover or focus.',
+      },
       source: {
-        code: `<TooltipTrigger>
-  <IconButton aria-label="More information" variant="ghost">
+        code: `<RudiTooltipTrigger>
+  <RudiIconButton aria-label="More information" variant="ghost">
     <InfoIcon />
-  </IconButton>
-  <Tooltip>Additional context about this field</Tooltip>
-</TooltipTrigger>`,
+  </RudiIconButton>
+  <RudiTooltip>Additional context about this field</RudiTooltip>
+</RudiTooltipTrigger>`,
       },
     },
   },
@@ -106,45 +114,76 @@ export const OnIconButton: Story = {
   ),
 }
 
-export const NoDelay: Story = {
-  args: {
-    delay: 0,
-  },
+export const OpenDelay: Story = {
   parameters: {
     docs: {
+      description: {
+        story:
+          'The default 500 ms delay avoids flashing tooltips as the pointer crosses the page. Set `delay={0}` for a small, dense set of controls where people expect an immediate label.',
+      },
       source: {
-        code: `<TooltipTrigger delay={0}>
-  <Button variant="secondary">Instant tooltip</Button>
-  <Tooltip>Appears immediately on hover</Tooltip>
-</TooltipTrigger>`,
+        code: `<>
+  <RudiTooltipTrigger>
+    <RudiButton variant="secondary">Default delay</RudiButton>
+    <RudiTooltip>Appears after 500 ms</RudiTooltip>
+  </RudiTooltipTrigger>
+  <RudiTooltipTrigger delay={0}>
+    <RudiButton variant="secondary">No delay</RudiButton>
+    <RudiTooltip>Appears immediately on hover</RudiTooltip>
+  </RudiTooltipTrigger>
+</>`,
       },
     },
   },
-  render: (args) => (
-    <RudiTooltipTrigger {...(args as RudiTooltipTriggerProps)}>
-      <RudiButton variant="secondary">Instant tooltip</RudiButton>
-      <RudiTooltip>Appears immediately on hover</RudiTooltip>
-    </RudiTooltipTrigger>
+  decorators: [
+    (Story) => (
+      <div
+        style={{
+          padding: '4rem',
+          display: 'flex',
+          gap: '1rem',
+          justifyContent: 'center',
+        }}
+      >
+        <Story />
+      </div>
+    ),
+  ],
+  render: ({}) => (
+    <>
+      <RudiTooltipTrigger>
+        <RudiButton variant="secondary">Default delay</RudiButton>
+        <RudiTooltip>Appears after 500 ms</RudiTooltip>
+      </RudiTooltipTrigger>
+      <RudiTooltipTrigger delay={0}>
+        <RudiButton variant="secondary">No delay</RudiButton>
+        <RudiTooltip>Appears immediately on hover</RudiTooltip>
+      </RudiTooltipTrigger>
+    </>
   ),
 }
 
-export const MultipleTooltips: Story = {
+export const ActionToolbar: Story = {
   parameters: {
     docs: {
+      description: {
+        story:
+          'Each trigger owns its tooltip, so a row of actions can explain what each one does without extra state. Don\'t put links or buttons inside a tooltip, and keep anything needed to finish the task on the page.',
+      },
       source: {
         code: `<>
-  <TooltipTrigger>
-    <Button variant="primary">Save</Button>
-    <Tooltip>Save all changes</Tooltip>
-  </TooltipTrigger>
-  <TooltipTrigger>
-    <Button variant="secondary">Preview</Button>
-    <Tooltip>Preview before publishing</Tooltip>
-  </TooltipTrigger>
-  <TooltipTrigger>
-    <Button variant="ghost">Discard</Button>
-    <Tooltip>Discard unsaved changes</Tooltip>
-  </TooltipTrigger>
+  <RudiTooltipTrigger>
+    <RudiButton variant="primary">Save</RudiButton>
+    <RudiTooltip>Save all changes</RudiTooltip>
+  </RudiTooltipTrigger>
+  <RudiTooltipTrigger>
+    <RudiButton variant="secondary">Preview</RudiButton>
+    <RudiTooltip>Preview before publishing</RudiTooltip>
+  </RudiTooltipTrigger>
+  <RudiTooltipTrigger>
+    <RudiButton variant="ghost">Discard</RudiButton>
+    <RudiTooltip>Discard unsaved changes</RudiTooltip>
+  </RudiTooltipTrigger>
 </>`,
       },
     },

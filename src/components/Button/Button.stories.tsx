@@ -11,8 +11,6 @@ const meta = {
   tags: ['autodocs'],
   parameters: {
     docs: {
-      // Show the JSX each example renders, not the story object around it.
-      source: { type: 'dynamic' },
       description: {
         component:
           'A button for actions on the page: saving, deleting, opening a dialog. Use a link for navigation, and `RudiIconButton` when there is no visible label.',

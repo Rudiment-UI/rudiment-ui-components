@@ -49,7 +49,7 @@ Every story file must include:
 
 ### Writing Component Docs
 
-Each docs page is built from the story file by `.storybook/docs/AutodocsPage.tsx`, in this order: summary, primary example, one section per story, usage guidelines, API reference, Customizing (the component's tokens), then previous/next links. The stories are the page's sections, so write them for a reader with a task in mind, not as a prop-by-prop listing.
+Each docs page is built from the story file by `.storybook/docs/AutodocsPage.tsx`, in this order: summary, the first story with its description, the API reference (its controls drive that first story), Customizing (the component's tokens), usage guidelines, a section for each remaining story under "Examples", then previous/next links. Make the first story the plain, args-driven one. The remaining stories are the page's sections, so write them for a reader with a task in mind, not as a prop-by-prop listing.
 
 1. **Name stories after tasks**: "Variants", "Sizes", "With icons", "Loading state", "Controlled", "Responsive". Avoid names that only echo a prop value, such as "Small" or "Large".
 2. **Describe every story**: set `parameters.docs.description.story` to 1–2 sentences saying when and why to use the example, not what the prop is called. `.storybook/docs/storyDocs.test.ts` fails on a story without one.

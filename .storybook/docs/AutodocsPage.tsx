@@ -33,18 +33,17 @@ const GUIDELINES = Object.fromEntries(
 /**
  * The page every component, layout and typography entry renders, in the order
  * a reader needs it (plans/tailwind-grade-docs.md, "Page anatomy"):
- * summary → primary example → task sections (the stories) → usage guidelines →
- * API reference → Customizing (component tokens) → previous / next.
- * Pattern recipes don't repeat their primary story under "Examples". A page
+ * summary → primary example → API reference (its controls drive the primary
+ * example, so it sits right below) → Customizing (component tokens) → usage
+ * guidelines → the remaining examples → previous / next. A page
  * whose meta sets `parameters.devicePreview` gets a device switcher for its
  * Default story, since Storybook hides the toolbar's viewport tool on docs pages.
  */
 export function AutodocsPage() {
-  const { preparedMeta } = useOf('meta', ['meta'])
+  const { preparedMeta, csfFile } = useOf('meta', ['meta'])
+  const primary = Object.values(csfFile.stories)[0]
   const key = guidelineKey(preparedMeta.title)
   const Guidelines = key ? GUIDELINES[key] : undefined
-  // A recipe's primary story already shows the whole recipe and its source;
-  // listing it again under "Examples" would repeat both.
   const isRecipe = preparedMeta.title.startsWith('Patterns/')
   const hasDevicePreview = Boolean(preparedMeta.parameters?.devicePreview)
   const tokenPrefixes = componentTokenPrefixes(preparedMeta.title)
@@ -55,18 +54,12 @@ export function AutodocsPage() {
       <Title />
       <Subtitle />
       <Description />
+      {primary && <Description of={primary.moduleExport} />}
       <Primary />
       {hasDevicePreview && (
         <>
           <Heading>Device preview</Heading>
           <DevicePreview storyId={`${preparedMeta.id}--default`} />
-        </>
-      )}
-      <Stories title="Examples" includePrimary={!isRecipe} />
-      {Guidelines && (
-        <>
-          <Heading>Usage guidelines</Heading>
-          <Guidelines />
         </>
       )}
       {!isRecipe && (
@@ -84,6 +77,14 @@ export function AutodocsPage() {
           <ComponentTokens name={name} prefixes={tokenPrefixes} />
         </>
       )}
+      {Guidelines && (
+        <>
+          <Heading>Usage guidelines</Heading>
+          <Guidelines />
+        </>
+      )}
+      {/* The primary example is already shown, with its controls, above. */}
+      <Stories title="Examples" includePrimary={false} />
       <PrevNext docsId={`${preparedMeta.id}--docs`} />
     </>
   )

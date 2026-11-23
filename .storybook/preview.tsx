@@ -48,7 +48,8 @@ const preview: Preview = {
       canvas: { sourceState: 'shown' },
       // Action argTypes render as `onPress={() => {}}` in generated code. They
       // keep logging to the Actions panel, but readers shouldn't copy them.
-      source: { transform: stripActionStubs },
+      // `dynamic` shows the JSX a story renders rather than the story object.
+      source: { type: 'dynamic', transform: stripActionStubs },
     },
     options: {
       categorySort: {

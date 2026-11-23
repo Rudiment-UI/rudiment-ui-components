@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { RudiInput } from './Input'
+import { RudiStack } from '@/layouts/Stack/Stack'
 
 const meta = {
   title: 'Components/Input',
@@ -9,20 +11,13 @@ const meta = {
     docs: {
       description: {
         component:
-          'A labeled text input for collecting user data. Supports multiple input types, helper text, validation errors, and required and disabled states.',
+          'A single-line text field for collecting user data. It has a required label, optional help text and an inline error message. Use `RudiTextarea` for multi-line text and `RudiNumberField` for numbers.',
       },
     },
   },
   args: {
-    label: 'Label',
-    type: 'text',
-    isRequired: false,
-    isDisabled: false,
-    description: '',
-    errorMessage: '',
-    defaultValue: '',
-    className: '',
-    value: '',
+    label: 'Full name',
+    placeholder: 'Jane Smith',
   },
   argTypes: {
     label: {
@@ -77,31 +72,71 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    label: 'Full name',
-    placeholder: 'Jane Smith',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A text field with a label and a placeholder. Change the props in the API reference below to try every option on this example.',
+      },
+    },
   },
 }
 
-export const WithDescription: Story = {
-  args: {
-    label: 'Email address',
-    type: 'email',
-    placeholder: 'you@example.com',
-    description: 'We will never share your email with anyone.',
+export const Types: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Set `type` to get the right on-screen keyboard, browser validation and autofill. Use `password` to mask the value. For numbers, use [`RudiNumberField`](?path=/docs/components-numberfield--docs) instead of `type="number"`.',
+      },
+    },
   },
+  render: () => (
+    <RudiStack space="content">
+      <RudiInput label="Email address" type="email" placeholder="you@example.com" />
+      <RudiInput label="Password" type="password" />
+      <RudiInput label="Website" type="url" placeholder="https://example.com" />
+      <RudiInput label="Phone" type="tel" />
+    </RudiStack>
+  ),
 }
 
-export const WithError: Story = {
-  args: {
-    label: 'Email address',
-    type: 'email',
-    defaultValue: 'not-an-email',
-    errorMessage: 'Please enter a valid email address.',
+export const DescriptionAndErrors: Story = {
+  name: 'Description and errors',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `description` for context people need before they type, such as a format or a rule. Setting `errorMessage` marks the field invalid and replaces the description. Say what went wrong and how to fix it, and leave `errorMessage` unset while the value is valid.',
+      },
+    },
   },
+  render: () => (
+    <RudiStack space="content">
+      <RudiInput
+        label="Password"
+        type="password"
+        description="Must be at least 8 characters."
+      />
+      <RudiInput
+        label="Email address"
+        type="email"
+        defaultValue="not-an-email"
+        errorMessage="Enter an email address such as you@example.com."
+      />
+    </RudiStack>
+  ),
 }
 
 export const Required: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Set `isRequired` to add an asterisk to the label and mark the field required for assistive technology. Always keep a visible label. A placeholder disappears as soon as people start typing, so it can\'t replace one.',
+      },
+    },
+  },
   args: {
     label: 'Username',
     placeholder: 'Choose a username',
@@ -110,6 +145,14 @@ export const Required: Story = {
 }
 
 export const Disabled: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `isDisabled` for a value that can\'t be changed right now. Disabled fields are skipped by keyboard navigation, so use `isReadOnly` when people still need to focus and copy the value.',
+      },
+    },
+  },
   args: {
     label: 'Account ID',
     defaultValue: 'usr_1234567890',
@@ -117,10 +160,40 @@ export const Disabled: Story = {
   },
 }
 
-export const Password: Story = {
-  args: {
-    label: 'Password',
-    type: 'password',
-    placeholder: '••••••••',
+function EmailField() {
+  const [email, setEmail] = useState('')
+  return (
+    <RudiInput
+      label="Email address"
+      type="email"
+      value={email}
+      onChange={setEmail}
+      description={`You typed ${email.length} characters.`}
+    />
+  )
+}
+
+export const Controlled: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Pass `value` and `onChange` to keep the text in your own state. `onChange` receives the new string, not an event.',
+      },
+      source: {
+        code: `function EmailField() {
+  const [email, setEmail] = useState('')
+  return (
+    <RudiInput
+      label="Email address"
+      type="email"
+      value={email}
+      onChange={setEmail}
+    />
+  )
+}`,
+      },
+    },
   },
+  render: () => <EmailField />,
 }

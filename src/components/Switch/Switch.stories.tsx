@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { RudiSwitch } from './Switch'
+import { RudiStack } from '@/layouts/Stack/Stack'
 
 const meta = {
   title: 'Components/Switch',
@@ -9,16 +11,12 @@ const meta = {
     docs: {
       description: {
         component:
-          'A toggle switch for binary on/off settings. Visually distinct from a checkbox — best used for settings that take effect immediately.',
+          'A toggle for an on/off setting that takes effect immediately. For a choice that is applied when a form is submitted, use [`RudiCheckbox`](?path=/docs/components-checkbox--docs).',
       },
     },
   },
   args: {
-    isDisabled: false,
-    defaultSelected: false,
     children: 'Enable notifications',
-    isSelected: false,
-    className: '',
   },
   argTypes: {
     children: {
@@ -52,42 +50,115 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    children: 'Enable notifications',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'An off switch with a label. Change the props in the API reference below to try every option on this example.',
+      },
+    },
   },
 }
 
-export const On: Story = {
-  args: {
-    children: 'Dark mode',
-    defaultSelected: true,
+export const OnAndOff: Story = {
+  name: 'On and off',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `defaultSelected` to start a switch on when the setting is already enabled. Word the label as the setting itself ("Dark mode"), so that on and off both make sense.',
+      },
+    },
   },
+  render: () => (
+    <RudiStack space="content">
+      <RudiSwitch>Dark mode</RudiSwitch>
+      <RudiSwitch defaultSelected>Email notifications</RudiSwitch>
+    </RudiStack>
+  ),
+}
+
+function NotificationSetting() {
+  const [enabled, setEnabled] = useState(false)
+  return (
+    <RudiStack space="content">
+      <RudiSwitch isSelected={enabled} onChange={setEnabled}>
+        Push notifications
+      </RudiSwitch>
+      <p>{enabled ? 'Notifications are on.' : 'Notifications are off.'}</p>
+    </RudiStack>
+  )
+}
+
+export const Controlled: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Pass `isSelected` and `onChange` to apply the setting as soon as it changes, for example by saving it. `onChange` receives a boolean, not an event.',
+      },
+      source: {
+        code: `function NotificationSetting() {
+  const [enabled, setEnabled] = useState(false)
+
+  return (
+    <RudiSwitch isSelected={enabled} onChange={setEnabled}>
+      Push notifications
+    </RudiSwitch>
+  )
+}`,
+      },
+    },
+  },
+  render: () => <NotificationSetting />,
+}
+
+export const WithoutVisibleLabel: Story = {
+  name: 'Without a visible label',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'When the surrounding layout already names the setting, such as one switch per table row, leave out the children and set `aria-label` so each switch has a distinct accessible name.',
+      },
+    },
+  },
+  render: () => (
+    <RudiStack space="content">
+      <RudiSwitch aria-label="Notify Ana Lopez" defaultSelected />
+      <RudiSwitch aria-label="Notify Ben Carter" />
+    </RudiStack>
+  ),
 }
 
 export const Disabled: Story = {
-  args: {
-    children: 'Feature unavailable',
-    isDisabled: true,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A disabled switch keeps its on or off position, so use it for a setting people can see but not change, such as one locked by an admin. Say why it is unavailable in nearby text.',
+      },
+    },
   },
-}
-
-export const DisabledOn: Story = {
-  args: {
-    children: 'Required setting',
-    isDisabled: true,
-    defaultSelected: true,
-  },
-}
-
-export const AllStates: Story = {
-  render: ({}) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-      <RudiSwitch>Off by default</RudiSwitch>
-      <RudiSwitch defaultSelected>On by default</RudiSwitch>
-      <RudiSwitch isDisabled>Disabled off</RudiSwitch>
+  render: () => (
+    <RudiStack space="content">
+      <RudiSwitch isDisabled>Feature unavailable</RudiSwitch>
       <RudiSwitch isDisabled defaultSelected>
-        Disabled on
+        Setting managed by your admin
       </RudiSwitch>
-    </div>
+    </RudiStack>
   ),
+}
+
+export const CheckboxOrSwitch: Story = {
+  name: 'Checkbox or Switch',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use a switch for a setting that takes effect immediately. For a choice that is submitted with a form, such as "I agree to the terms", use [`RudiCheckbox`](?path=/docs/components-checkbox--docs).',
+      },
+    },
+  },
+  render: () => <RudiSwitch defaultSelected>Auto-save drafts</RudiSwitch>,
 }

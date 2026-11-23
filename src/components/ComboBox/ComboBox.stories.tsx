@@ -2,10 +2,10 @@ import { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import type { Key } from 'react-aria'
 import { RudiComboBox, type RudiComboBoxProps } from './ComboBox'
-import { RudiOption } from '../Select/Option'
-import { RudiCenter } from '../../layouts/Center/Center'
-import { RudiStack } from '../../layouts/Stack/Stack'
-import { RudiText } from '../../typography/Text/Text'
+import { RudiOption } from '@/components/Select/Option'
+import { RudiCenter } from '@/layouts/Center/Center'
+import { RudiStack } from '@/layouts/Stack/Stack'
+import { RudiText } from '@/typography/Text/Text'
 
 interface Clinic {
   id: string
@@ -45,7 +45,7 @@ const meta: Meta<ComboBoxStoryArgs> = {
     docs: {
       description: {
         component:
-          'A searchable select: type to filter a list of options, then pick one with the mouse or the arrow keys and Enter. Options are `RudiOption` elements, exactly as in `RudiSelect`. Filtering is a case-insensitive "contains" match on each option\'s text; for options with rich content, pass `textValue` on `RudiOption` so they can still be filtered.',
+          'A searchable select: type to filter a list of options, then pick one with the mouse or the arrow keys and Enter. Options are `RudiOption` elements, as in [`RudiSelect`](?path=/docs/components-select--docs). Filtering is a case-insensitive "contains" match on each option\'s text. Use it instead of `RudiSelect` once a list is long enough that scrolling it is tedious, roughly ten options or more.',
       },
     },
   },
@@ -53,14 +53,6 @@ const meta: Meta<ComboBoxStoryArgs> = {
     label: 'Pickup clinic',
     items: clinics,
     placeholder: 'Search clinics',
-    description: '',
-    errorMessage: '',
-    emptyMessage: 'No matches',
-    menuTrigger: 'input',
-    allowsCustomValue: false,
-    isRequired: false,
-    isDisabled: false,
-    className: '',
   },
   argTypes: {
     className: {
@@ -138,17 +130,60 @@ const meta: Meta<ComboBoxStoryArgs> = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {}
-
-export const WithDescription: Story = {
-  name: 'With description',
-  args: {
-    description: 'Where the patient will collect their cryo shipment.',
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Type to filter the list, then press Enter or click to choose. Change the props in the API reference below to try every option on this example.',
+      },
+    },
   },
+}
+
+export const DescriptionAndErrors: Story = {
+  name: 'Description and errors',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `description` for help text under the field. Set `errorMessage` to mark the field invalid and replace the help text with the problem, and `isRequired` when the form needs a value.',
+      },
+    },
+  },
+  render: () => (
+    <RudiStack space="group">
+      <RudiComboBox
+        label="Pickup clinic"
+        items={clinics}
+        placeholder="Search clinics"
+        description="Where the patient will collect their cryo shipment."
+      >
+        {(item) => <RudiOption key={item.id}>{item.name}</RudiOption>}
+      </RudiComboBox>
+      <RudiComboBox
+        label="Delivery clinic"
+        items={clinics}
+        placeholder="Search clinics"
+        isRequired
+        errorMessage="Choose a delivery clinic before continuing."
+      >
+        {(item) => <RudiOption key={item.id}>{item.name}</RudiOption>}
+      </RudiComboBox>
+    </RudiStack>
+  ),
 }
 
 export const CustomValue: Story = {
   name: 'Custom value',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Set `allowsCustomValue` only when free text is a valid answer, such as a clinic that is not in the list yet. Otherwise the field only accepts one of the options.',
+      },
+    },
+  },
   args: {
     label: 'Referring clinic',
     placeholder: 'Search or type a new clinic',
@@ -159,43 +194,100 @@ export const CustomValue: Story = {
 
 export const EmptyResults: Story = {
   name: 'Empty results',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'When nothing matches, the list shows `emptyMessage`. Write it for the situation ("No clinics match your search") instead of keeping the generic default. Focus the field to see it here.',
+      },
+    },
+  },
   args: {
     defaultInputValue: 'Zzz',
     menuTrigger: 'focus',
     emptyMessage: 'No clinics match your search',
-    description: 'Focus the field to see the empty message.',
   },
 }
 
-export const WithError: Story = {
-  name: 'Error',
-  args: {
-    isRequired: true,
-    errorMessage: 'Choose a pickup clinic before continuing.',
+export const OptionsWithRichContent: Story = {
+  name: 'Options with rich content',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Pass `textValue` on `RudiOption` when its content is not plain text, so filtering and screen readers still have a string to work with.',
+      },
+    },
   },
+  render: () => (
+    <RudiComboBox label="Pickup clinic" items={clinics} placeholder="Search clinics">
+      {(item) => (
+        <RudiOption key={item.id} textValue={item.name}>
+          <strong>{item.name}</strong> ({item.id.toUpperCase()})
+        </RudiOption>
+      )}
+    </RudiComboBox>
+  ),
 }
 
 export const Disabled: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A disabled combo box keeps its value visible but cannot be focused or changed.',
+      },
+    },
+  },
   args: {
     defaultSelectedKey: 'bos',
     isDisabled: true,
   },
 }
 
+function ClinicPicker() {
+  const [selectedKey, setSelectedKey] = useState<Key | null>('sea')
+  return (
+    <RudiStack>
+      <RudiComboBox
+        label="Pickup clinic"
+        items={clinics}
+        placeholder="Search clinics"
+        selectedKey={selectedKey}
+        onSelectionChange={setSelectedKey}
+      >
+        {(item) => <RudiOption key={item.id}>{item.name}</RudiOption>}
+      </RudiComboBox>
+      <RudiText>Selected key: {selectedKey ?? 'none'}</RudiText>
+    </RudiStack>
+  )
+}
+
 export const Controlled: Story = {
-  render: (args) => {
-    const [selectedKey, setSelectedKey] = useState<Key | null>('sea')
-    return (
-      <RudiStack>
-        <RudiComboBox
-          {...(args as RudiComboBoxProps<Clinic>)}
-          selectedKey={selectedKey}
-          onSelectionChange={setSelectedKey}
-        >
-          {(item) => <RudiOption key={item.id}>{item.name}</RudiOption>}
-        </RudiComboBox>
-        <RudiText>Selected key: {selectedKey ?? 'none'}</RudiText>
-      </RudiStack>
-    )
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Pass `selectedKey` and `onSelectionChange` when other parts of the page depend on the choice. Use `defaultSelectedKey` for an initial value only.',
+      },
+      source: {
+        code: `function ClinicPicker() {
+  const [selectedKey, setSelectedKey] = useState<Key | null>('sea')
+
+  return (
+    <RudiComboBox
+      label="Pickup clinic"
+      items={clinics}
+      placeholder="Search clinics"
+      selectedKey={selectedKey}
+      onSelectionChange={setSelectedKey}
+    >
+      {(item) => <RudiOption key={item.id}>{item.name}</RudiOption>}
+    </RudiComboBox>
+  )
+}`,
+      },
+    },
   },
+  render: () => <ClinicPicker />,
 }

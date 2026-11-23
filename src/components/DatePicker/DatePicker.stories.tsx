@@ -30,19 +30,12 @@ const meta = {
     docs: {
       description: {
         component:
-          'A segmented date (or date-and-time) field with a calendar popover. Values are plain ISO strings: `YYYY-MM-DD`, or `YYYY-MM-DDTHH:mm` with `granularity="minute"`. Use `isDateUnavailable` to block specific days such as weekends and holidays. `RudiDateRangePicker` shares the same field and calendar for start/end ranges.',
+          'A segmented date (or date-and-time) field with a calendar popover. Values are plain ISO strings, so you never need `@internationalized/date`: `YYYY-MM-DD`, or `YYYY-MM-DDTHH:mm` with `granularity="minute"`. `RudiDateRangePicker` shares the same field and calendar for start and end dates. For a date far in the past or future that people know exactly, such as a birthday, typing the segments is faster than paging through the calendar.',
       },
     },
   },
   args: {
     label: 'Pickup date',
-    granularity: 'day',
-    description: '',
-    errorMessage: '',
-    isRequired: false,
-    isDisabled: false,
-    isReadOnly: false,
-    className: '',
   },
   argTypes: {
     label: {
@@ -118,13 +111,26 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    description: 'Month, day, year',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A date field with a calendar popover. Change the props in the API reference below to try every option on this example.',
+      },
+    },
   },
 }
 
 export const WithTime: Story = {
   name: 'With time',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Set `granularity="minute"` when a time matters, instead of adding a separate time input. The value then reads `YYYY-MM-DDTHH:mm`.',
+      },
+    },
+  },
   args: {
     label: 'Pickup window starts',
     granularity: 'minute',
@@ -132,8 +138,16 @@ export const WithTime: Story = {
   },
 }
 
-export const UnavailableWeekends: Story = {
-  name: 'Unavailable weekends',
+export const UnavailableDates: Story = {
+  name: 'Unavailable dates',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `isDateUnavailable` for business rules such as weekends and holidays. The calendar disables those days, and typing one into the field marks it invalid.',
+      },
+    },
+  },
   args: {
     label: 'Courier pickup',
     description: 'Couriers do not pick up on weekends or US holidays.',
@@ -142,8 +156,16 @@ export const UnavailableWeekends: Story = {
   },
 }
 
-export const MinMax: Story = {
-  name: 'Min/max',
+export const MinAndMax: Story = {
+  name: 'Minimum and maximum',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `minValue` and `maxValue` to limit the range of dates. A value outside the range marks the field invalid, so say the range in `description`.',
+      },
+    },
+  },
   args: {
     label: 'Ship date',
     description: 'Between March 5 and March 20, 2026.',
@@ -153,8 +175,16 @@ export const MinMax: Story = {
   },
 }
 
-export const ErrorState: Story = {
-  name: 'Error',
+export const ErrorMessage: Story = {
+  name: 'Error message',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Set `errorMessage` to mark the field invalid and replace the help text with the problem. Say how to fix it ("Choose a weekday.") rather than only that the value is wrong.',
+      },
+    },
+  },
   args: {
     label: 'Pickup date',
     defaultValue: '2026-03-14',
@@ -163,19 +193,22 @@ export const ErrorState: Story = {
   },
 }
 
-export const Range: Story = {
-  args: {
-    label: 'Pickup date between',
+export const DateRange: Story = {
+  name: 'Date range',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `RudiDateRangePicker` for a start and end date, such as a filter. It takes the same props as `RudiDatePicker`, with a `{ start, end }` value.',
+      },
+    },
   },
-  render: (args) => (
+  render: () => (
     <RudiDateRangePicker
-      label={args.label}
+      label="Pickup date between"
       description="Filter shipments by scheduled pickup."
       defaultValue={{ start: '2026-03-02', end: '2026-03-06' }}
       isDateUnavailable={isWeekendOrHoliday}
-      isDisabled={args.isDisabled}
-      isRequired={args.isRequired}
-      errorMessage={args.errorMessage}
     />
   ),
 }

@@ -1,4 +1,2 @@
-- **Do** pass and read plain ISO strings; you never need `@internationalized/date`
-- **Do** use `isDateUnavailable` for business rules such as weekends and holidays; typed unavailable dates also mark the field invalid
-- **Do** use `granularity="minute"` when a time matters, instead of a separate time input
-- **Don't** use a date picker for distant known dates like a birthday; typing the segments is faster
+- **Do** pass and read plain ISO strings. You never need `@internationalized/date`.
+- **Don't** use a date picker for distant known dates like a birthday. Typing the segments is faster than paging through the calendar.

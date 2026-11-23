@@ -23,7 +23,18 @@ const meta = {
       },
     },
   },
-  args: { children: null },
+  args: {
+    'aria-label': 'Contact',
+    children: (
+      <>
+        <RudiInput label="Email" name="email" type="email" />
+        <RudiInput label="Reference" name="reference" />
+        <RudiCluster justify="flex-end">
+          <RudiButton type="submit">Save</RudiButton>
+        </RudiCluster>
+      </>
+    ),
+  },
   argTypes: {
     errors: { control: 'object', table: { category: 'State' } },
     errorTitle: { control: false, table: { category: 'Content' } },
@@ -35,48 +46,91 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const WithValidation: Story = {
-  render: () => {
-    const [errors, setErrors] = useState<string[]>([])
-    const [values, setValues] = useState({ email: '', reference: '' })
-    return (
-      <RudiForm
-        aria-label="Contact"
-        errors={errors}
-        onSubmit={() =>
-          setErrors([
-            ...(values.email ? [] : ['Email is required.']),
-            ...(values.reference ? [] : ['Reference is required.']),
-          ])
-        }
-      >
-        <RudiInput
-          label="Email"
-          name="email"
-          type="email"
-          value={values.email}
-          onChange={(email) => setValues((v) => ({ ...v, email }))}
-          errorMessage={errors.includes('Email is required.') ? 'Email is required.' : undefined}
-        />
-        <RudiInput
-          label="Reference"
-          name="reference"
-          value={values.reference}
-          onChange={(reference) => setValues((v) => ({ ...v, reference }))}
-          errorMessage={errors.includes('Reference is required.') ? 'Reference is required.' : undefined}
-        />
-        <RudiCluster justify="flex-end">
-          <RudiButton type="submit">Save</RudiButton>
-        </RudiCluster>
-      </RudiForm>
-    )
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A form with two fields and a submit button. Change the props in the API reference below to try every option on this example, such as adding `errors` to see the summary.',
+      },
+    },
   },
 }
 
-/**
- * Every single-line field and a medium button share one height (`--rudi-component-input-height`),
- * and a field keeps that height when a neighbour's help text makes the grid row taller.
- */
+const EMAIL_ERROR = 'Enter your email address'
+const REFERENCE_ERROR = 'Enter a reference'
+
+function ContactForm() {
+  const [errors, setErrors] = useState<string[]>([])
+
+  function validate(data: FormData) {
+    setErrors([
+      ...(data.get('email') ? [] : [EMAIL_ERROR]),
+      ...(data.get('reference') ? [] : [REFERENCE_ERROR]),
+    ])
+  }
+
+  return (
+    <RudiForm aria-label="Contact" errors={errors} onSubmit={validate}>
+      <RudiInput
+        label="Email"
+        name="email"
+        type="email"
+        errorMessage={errors.includes(EMAIL_ERROR) ? EMAIL_ERROR : undefined}
+      />
+      <RudiInput
+        label="Reference"
+        name="reference"
+        errorMessage={errors.includes(REFERENCE_ERROR) ? REFERENCE_ERROR : undefined}
+      />
+      <RudiCluster justify="flex-end">
+        <RudiButton type="submit">Save</RudiButton>
+      </RudiCluster>
+    </RudiForm>
+  )
+}
+
+export const Validation: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Validate in `onSubmit`, pass the problems as `errors`, and also set `errorMessage` on each field. The summary lists the problems and takes focus after a submit; the fields show where they are. Write each message as a fix ("Enter your email address"), not a code. Keep `errors` as they are while people type and recompute them on the next submit, so the summary does not change under them. Press Save with empty fields to try it.',
+      },
+      source: {
+        code: `function ContactForm() {
+  const [errors, setErrors] = useState<string[]>([])
+
+  function validate(data: FormData) {
+    setErrors([
+      ...(data.get('email') ? [] : ['Enter your email address']),
+      ...(data.get('reference') ? [] : ['Enter a reference']),
+    ])
+  }
+
+  return (
+    <RudiForm aria-label="Contact" errors={errors} onSubmit={validate}>
+      <RudiInput
+        label="Email"
+        name="email"
+        type="email"
+        errorMessage={errors.includes('Enter your email address') ? 'Enter your email address' : undefined}
+      />
+      <RudiInput
+        label="Reference"
+        name="reference"
+        errorMessage={errors.includes('Enter a reference') ? 'Enter a reference' : undefined}
+      />
+      <RudiButton type="submit">Save</RudiButton>
+    </RudiForm>
+  )
+}`,
+      },
+    },
+  },
+  render: () => <ContactForm />,
+}
+
 const services = [
   { id: 'air', name: 'Air' },
   { id: 'ground', name: 'Ground' },
@@ -87,11 +141,12 @@ const countries = [
 ]
 
 export const FieldRowAlignment: Story = {
+  name: 'Field row alignment',
   parameters: {
     docs: {
       description: {
         story:
-          'Text, number, date, select and combo box fields line up with a medium button, including in a grid row where one field has a description.',
+          'Every single-line field and a medium button share one height (`--rudi-component-input-height`), so a filter row lines up. A field keeps that height when a neighbour\'s help text makes the grid row taller.',
       },
     },
   },

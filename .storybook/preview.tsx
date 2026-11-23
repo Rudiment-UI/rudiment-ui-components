@@ -7,6 +7,7 @@ import { brand, fonts } from './brand/brand'
 import { THEMES } from './docs/themes'
 import { AutodocsPage } from './docs/AutodocsPage'
 import { VIEWPORTS } from './viewports'
+import { stripActionStubs } from './docs/sourceTransform'
 
 // Light docs theme so the "Show code" Source block renders the dark-on-light
 // `lightSyntaxColors` palette. Without it the block falls back to the dark
@@ -45,6 +46,9 @@ const preview: Preview = {
       },
       // Code under every example, open by default, the way Tailwind shows it.
       canvas: { sourceState: 'shown' },
+      // Action argTypes render as `onPress={() => {}}` in generated code. They
+      // keep logging to the Actions panel, but readers shouldn't copy them.
+      source: { transform: stripActionStubs },
     },
     options: {
       categorySort: {

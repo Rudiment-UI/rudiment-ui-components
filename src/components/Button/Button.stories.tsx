@@ -1,5 +1,9 @@
+import { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { RudiButton } from './Button'
+import { RudiIconButton } from '@/components/IconButton/IconButton'
+import { RudiIcon } from '@/components/Icon/Icon'
+import { RudiCluster } from '@/layouts/Cluster/Cluster'
 
 const meta = {
   title: 'Components/Button',
@@ -7,21 +11,16 @@ const meta = {
   tags: ['autodocs'],
   parameters: {
     docs: {
+      // Show the JSX each example renders, not the story object around it.
+      source: { type: 'dynamic' },
       description: {
         component:
-          'A clickable button for triggering actions. Supports four visual styles, three sizes, and loading and disabled states.',
+          'A button for actions on the page: saving, deleting, opening a dialog. Use a link for navigation, and `RudiIconButton` when there is no visible label.',
       },
     },
   },
   args: {
-    variant: 'primary',
-    size: 'md',
-    isLoading: false,
-    isDisabled: false,
-    children: 'Button',
-    iconBefore: '',
-    iconAfter: '',
-    className: '',
+    children: 'Save changes',
   },
   argTypes: {
     children: {
@@ -80,108 +79,175 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Primary: Story = {
-  args: {
-    variant: 'primary',
-    children: 'Save changes',
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A primary, medium button. Change the props in the API reference below to try every option on this example.',
+      },
+    },
   },
 }
 
-export const Secondary: Story = {
-  args: {
-    variant: 'secondary',
-    children: 'Cancel',
+export const Variants: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Use `primary` for the one action you want people to take, and only one per section; two primaries leave people unsure which is the main action. Use `secondary` for the alternatives, `destructive` for actions that can't be undone, and `ghost` for low-emphasis actions such as \"Learn more\". Ghost buttons are easy to overlook, so don't use them for anything important.",
+      },
+    },
   },
-}
-
-export const Destructive: Story = {
-  args: {
-    variant: 'destructive',
-    children: 'Delete account',
-  },
-}
-
-export const Ghost: Story = {
-  args: {
-    variant: 'ghost',
-    children: 'Learn more',
-  },
-}
-
-export const Small: Story = {
-  args: {
-    size: 'sm',
-    children: 'Small',
-  },
-}
-
-export const Large: Story = {
-  args: {
-    size: 'lg',
-    children: 'Large',
-  },
-}
-
-export const Loading: Story = {
-  args: {
-    isLoading: true,
-    children: 'Saving…',
-  },
-}
-
-export const Disabled: Story = {
-  args: {
-    isDisabled: true,
-    children: 'Unavailable',
-  },
-}
-
-export const WithIconBefore: Story = {
-  args: {
-    iconBefore: 'mdi:plus',
-    children: 'Add item',
-  },
-}
-
-export const WithIconAfter: Story = {
-  args: {
-    iconAfter: 'mdi:arrow-right',
-    children: 'Next',
-  },
-}
-
-export const WithBothIcons: Story = {
-  args: {
-    iconBefore: 'mdi:download',
-    iconAfter: 'mdi:arrow-down',
-    children: 'Download',
-  },
-}
-
-export const AllVariants: Story = {
-  render: ({}) => (
-    <div
-      style={{
-        display: 'flex',
-        gap: '0.75rem',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-      }}
-    >
-      <RudiButton variant="primary">Primary</RudiButton>
-      <RudiButton variant="secondary">Secondary</RudiButton>
-      <RudiButton variant="destructive">Destructive</RudiButton>
-      <RudiButton variant="ghost">Ghost</RudiButton>
-    </div>
+  render: () => (
+    <RudiCluster space="inline">
+      <RudiButton variant="primary">Save changes</RudiButton>
+      <RudiButton variant="secondary">Cancel</RudiButton>
+      <RudiButton variant="destructive">Delete account</RudiButton>
+      <RudiButton variant="ghost">Learn more</RudiButton>
+    </RudiCluster>
   ),
 }
 
-export const AllSizes: Story = {
-  render: ({}) => (
-    <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+export const PairingActions: Story = {
+  name: 'Pairing actions',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'In a form or dialog footer, pair the primary action with a secondary one for the way out. Put the primary action last, at the end people read towards.',
+      },
+    },
+  },
+  render: () => (
+    <RudiCluster space="inline" justify="flex-end">
+      <RudiButton variant="secondary">Cancel</RudiButton>
+      <RudiButton variant="primary">Save changes</RudiButton>
+    </RudiCluster>
+  ),
+}
+
+export const Sizes: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '`md` suits most forms and toolbars. Use `sm` in dense places such as table rows and card headers, and `lg` for a single call to action on a sparse page.',
+      },
+    },
+  },
+  render: () => (
+    <RudiCluster space="inline">
       <RudiButton size="sm">Small</RudiButton>
       <RudiButton size="md">Medium</RudiButton>
       <RudiButton size="lg">Large</RudiButton>
-    </div>
+    </RudiCluster>
+  ),
+}
+
+export const WithIcons: Story = {
+  name: 'With icons',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Pass an Iconify name to `iconBefore` or `iconAfter`. An icon before the label reinforces the action (add, download); one after it suggests direction (next, open). The label stays the accessible name, so the icons are hidden from screen readers.',
+      },
+    },
+  },
+  render: () => (
+    <RudiCluster space="inline">
+      <RudiButton iconBefore="mdi:plus">Add item</RudiButton>
+      <RudiButton variant="secondary" iconAfter="mdi:arrow-right">
+        Next
+      </RudiButton>
+      <RudiButton variant="secondary" iconBefore="mdi:download">
+        Download
+      </RudiButton>
+    </RudiCluster>
+  ),
+}
+
+export const IconOnly: Story = {
+  name: 'Icon only',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '`RudiButton` always has a visible label. For an icon with no text, such as a toolbar or a close control, use [`RudiIconButton`](?path=/docs/components-iconbutton--docs), which requires an `aria-label`.',
+      },
+    },
+  },
+  render: () => (
+    <RudiCluster space="inline">
+      <RudiIconButton aria-label="Edit" variant="ghost">
+        <RudiIcon icon="mdi:pencil" />
+      </RudiIconButton>
+      <RudiIconButton aria-label="Delete" variant="ghost">
+        <RudiIcon icon="mdi:trash-can-outline" />
+      </RudiIconButton>
+    </RudiCluster>
+  ),
+}
+
+function SaveButton() {
+  const [isSaving, setIsSaving] = useState(false)
+  const save = () => {
+    setIsSaving(true)
+    window.setTimeout(() => setIsSaving(false), 2000)
+  }
+  return (
+    <RudiButton isLoading={isSaving} onPress={save}>
+      {isSaving ? 'Saving…' : 'Save changes'}
+    </RudiButton>
+  )
+}
+
+export const LoadingState: Story = {
+  name: 'Loading state',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Set `isLoading` while an async action such as a form submission runs. It shows a spinner, sets `aria-busy` and blocks a second press. Press the button to try it.',
+      },
+      source: {
+        code: `function SaveButton() {
+  const [isSaving, setIsSaving] = useState(false)
+
+  async function save() {
+    setIsSaving(true)
+    await saveChanges()
+    setIsSaving(false)
+  }
+
+  return (
+    <RudiButton isLoading={isSaving} onPress={save}>
+      {isSaving ? 'Saving…' : 'Save changes'}
+    </RudiButton>
+  )
+}`,
+      },
+    },
+  },
+  render: () => <SaveButton />,
+}
+
+export const Disabled: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "A disabled button can't be focused, so keyboard and screen-reader users may not find it or learn why it's unavailable. Where you can, leave the button enabled and explain what's missing when it's pressed, for example with form validation.",
+      },
+    },
+  },
+  render: () => (
+    <RudiCluster space="inline">
+      <RudiButton isDisabled>Save changes</RudiButton>
+      <RudiButton variant="secondary" isDisabled>
+        Cancel
+      </RudiButton>
+    </RudiCluster>
   ),
 }

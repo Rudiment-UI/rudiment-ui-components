@@ -28,7 +28,6 @@ const UNMIGRATED = new Set<string>([
   'Components/Badge',
   'Components/Brand',
   'Components/Breadcrumb',
-  'Components/Button',
   'Components/Card',
   'Components/Charts/BarChart',
   'Components/Charts/DonutChart',

@@ -36,6 +36,15 @@ const preview: Preview = {
       theme: docsTheme,
       // Default autodocs plus each component's usage guidelines.
       page: AutodocsPage,
+      // "On this page" outline on every docs page. Headings inside rendered
+      // stories and live doc blocks (.docs-story) are skipped.
+      toc: {
+        title: 'On this page',
+        headingSelector: 'h2, h3',
+        ignoreSelector: '.docs-story *, .skip-toc, .sb-tokens *, .sb-matrix *',
+      },
+      // Code under every example, open by default, the way Tailwind shows it.
+      canvas: { sourceState: 'shown' },
     },
     options: {
       categorySort: {

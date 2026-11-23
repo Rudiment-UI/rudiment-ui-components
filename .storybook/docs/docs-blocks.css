@@ -192,3 +192,54 @@ details.sb-tokens__group > summary {
   color: var(--rudi-color-text-subtle);
   font-size: var(--rudi-font-size-sm);
 }
+
+/* Previous / next links at the foot of a docs page. The docs page itself stays
+   light whatever the toolbar theme, so these use the Storybook brand palette
+   (passed in from brand.ts as --sb-pager-*), not --rudi-* tokens, which would
+   turn light-on-white under a dark theme. */
+.sb-pager {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 1rem;
+  margin-block-start: 3rem;
+  padding-block-start: 1.5rem;
+  border-block-start: 1px solid var(--sb-pager-line);
+}
+
+.sb-pager .sb-pager__link {
+  display: grid;
+  gap: 0.25rem;
+  padding: 1rem;
+  border: 1px solid var(--sb-pager-line);
+  border-radius: 12px;
+  color: var(--sb-pager-ink);
+  text-decoration: none;
+}
+
+.sb-pager .sb-pager__link:hover {
+  border-color: var(--sb-pager-muted);
+}
+
+.sb-pager .sb-pager__link:focus-visible {
+  outline: 2px solid var(--sb-pager-focus);
+  outline-offset: 2px;
+}
+
+.sb-pager__link--next {
+  text-align: end;
+}
+
+.sb-pager__dir,
+.sb-pager__section {
+  color: var(--sb-pager-muted);
+  font-size: 0.875rem;
+}
+
+.sb-pager__title {
+  font-weight: 600;
+}
+
+/* API reference: the stock prop table is wider than a phone. */
+.sb-api {
+  overflow-x: auto;
+}

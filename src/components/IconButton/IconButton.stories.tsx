@@ -1,58 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { RudiIconButton } from './IconButton'
-
-// Minimal inline SVG icons for demonstration purposes
-const CloseIcon = () => (
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
-    aria-hidden="true"
-  >
-    <path
-      d="M12 4L4 12M4 4l8 8"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-    />
-  </svg>
-)
-
-const PlusIcon = () => (
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
-    aria-hidden="true"
-  >
-    <path
-      d="M8 3v10M3 8h10"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-    />
-  </svg>
-)
-
-const TrashIcon = () => (
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
-    aria-hidden="true"
-  >
-    <path
-      d="M2 4h12M5 4V2h6v2M6 7v5M10 7v5M3 4l1 9h8l1-9"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-)
+import { RudiIcon } from '@/components/Icon/Icon'
+import { RudiCluster } from '@/layouts/Cluster/Cluster'
 
 const meta = {
   title: 'Components/IconButton',
@@ -67,12 +16,8 @@ const meta = {
     },
   },
   args: {
-    variant: 'secondary',
-    size: 'md',
-    isLoading: false,
-    isDisabled: false,
-    'aria-label': 'Action',
-    className: '',
+    'aria-label': 'Close',
+    children: <RudiIcon icon="mdi:close" />,
   },
   argTypes: {
     'aria-label': {
@@ -128,75 +73,103 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    'aria-label': 'Close',
-    children: <CloseIcon />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A secondary, medium icon button. Change the props in the API reference below to try every option on this example.',
+      },
+    },
   },
 }
 
-export const Primary: Story = {
-  args: {
-    'aria-label': 'Add item',
-    variant: 'primary',
-    children: <PlusIcon />,
+export const Variants: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'The variants match `RudiButton`: `primary` for the main action, `secondary` for alternatives, `destructive` for actions that cannot be undone, and `ghost` for low-emphasis controls such as toolbar buttons.',
+      },
+    },
   },
+  render: () => (
+    <RudiCluster space="inline">
+      <RudiIconButton aria-label="Add item" variant="primary">
+        <RudiIcon icon="mdi:plus" />
+      </RudiIconButton>
+      <RudiIconButton aria-label="Edit" variant="secondary">
+        <RudiIcon icon="mdi:pencil" />
+      </RudiIconButton>
+      <RudiIconButton aria-label="Delete" variant="destructive">
+        <RudiIcon icon="mdi:trash-can-outline" />
+      </RudiIconButton>
+      <RudiIconButton aria-label="Close" variant="ghost">
+        <RudiIcon icon="mdi:close" />
+      </RudiIconButton>
+    </RudiCluster>
+  ),
 }
 
-export const Destructive: Story = {
-  args: {
-    'aria-label': 'Delete item',
-    variant: 'destructive',
-    children: <TrashIcon />,
+export const Sizes: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '`md` suits most toolbars. Use `sm` in dense places such as table rows and card headers, and `lg` where the control needs a larger touch target.',
+      },
+    },
   },
+  render: () => (
+    <RudiCluster space="inline">
+      <RudiIconButton aria-label="Close small" size="sm">
+        <RudiIcon icon="mdi:close" />
+      </RudiIconButton>
+      <RudiIconButton aria-label="Close medium" size="md">
+        <RudiIcon icon="mdi:close" />
+      </RudiIconButton>
+      <RudiIconButton aria-label="Close large" size="lg">
+        <RudiIcon icon="mdi:close" />
+      </RudiIconButton>
+    </RudiCluster>
+  ),
 }
 
-export const Ghost: Story = {
-  args: {
-    'aria-label': 'Close',
-    variant: 'ghost',
-    children: <CloseIcon />,
+export const Labelling: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'The `aria-label` is the only name a screen reader announces, so describe the result of the action ("Close dialog"), not the icon. Use an icon alone only when its meaning is universally understood, such as close, search, or menu. For anything less obvious, use a [`RudiButton`](?path=/docs/components-button--docs) with a visible label.',
+      },
+    },
   },
-}
-
-export const Small: Story = {
-  args: {
-    'aria-label': 'Close',
-    size: 'sm',
-    children: <CloseIcon />,
-  },
-}
-
-export const Large: Story = {
-  args: {
-    'aria-label': 'Close',
-    size: 'lg',
-    children: <CloseIcon />,
-  },
+  render: () => (
+    <RudiCluster space="inline">
+      <RudiIconButton aria-label="Close dialog" variant="ghost">
+        <RudiIcon icon="mdi:close" />
+      </RudiIconButton>
+      <RudiIconButton aria-label="Search" variant="ghost">
+        <RudiIcon icon="mdi:magnify" />
+      </RudiIconButton>
+      <RudiIconButton aria-label="Open menu" variant="ghost">
+        <RudiIcon icon="mdi:menu" />
+      </RudiIconButton>
+    </RudiCluster>
+  ),
 }
 
 export const Disabled: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "A disabled icon button can't be focused, and with no visible label there is little to explain why it is unavailable. Where you can, leave it enabled and explain what's missing when it's pressed.",
+      },
+    },
+  },
   args: {
     'aria-label': 'Add item',
     isDisabled: true,
-    children: <PlusIcon />,
+    children: <RudiIcon icon="mdi:plus" />,
   },
-}
-
-export const AllVariants: Story = {
-  render: ({}) => (
-    <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-      <RudiIconButton aria-label="Add item" variant="primary">
-        <PlusIcon />
-      </RudiIconButton>
-      <RudiIconButton aria-label="Close" variant="secondary">
-        <CloseIcon />
-      </RudiIconButton>
-      <RudiIconButton aria-label="Delete" variant="destructive">
-        <TrashIcon />
-      </RudiIconButton>
-      <RudiIconButton aria-label="Close" variant="ghost">
-        <CloseIcon />
-      </RudiIconButton>
-    </div>
-  ),
 }

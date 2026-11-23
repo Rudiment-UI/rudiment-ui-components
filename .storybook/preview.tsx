@@ -135,14 +135,15 @@ const preview: Preview = {
     },
     // Sync controlled-prop args with onChange so form elements (Checkbox,
     // Switch, Input, RadioGroup, Select) remain interactive when a controlled
-    // prop like `value`, `isSelected`, or `selectedKey` is set in meta.args.
+    // prop like `value`, `isSelected`, `selectedKey` or `page` is set in meta.args.
     (Story) => {
       const [args, updateArgs] = useArgs<Record<string, unknown>>()
       const hasIsSelected = 'isSelected' in args
       const hasValue = 'value' in args
       const hasSelectedKey = 'selectedKey' in args
+      const hasPage = 'page' in args
 
-      if (!hasIsSelected && !hasValue && !hasSelectedKey) {
+      if (!hasIsSelected && !hasValue && !hasSelectedKey && !hasPage) {
         return <Story />
       }
 
@@ -150,6 +151,9 @@ const preview: Preview = {
         | ((v: unknown) => void)
         | undefined
       const originalOnSelectionChange = args.onSelectionChange as
+        | ((v: unknown) => void)
+        | undefined
+      const originalOnPageChange = args.onPageChange as
         | ((v: unknown) => void)
         | undefined
 
@@ -167,6 +171,13 @@ const preview: Preview = {
         override.onSelectionChange = (newValue: unknown) => {
           updateArgs({ selectedKey: newValue })
           originalOnSelectionChange?.(newValue)
+        }
+      }
+
+      if (hasPage) {
+        override.onPageChange = (newValue: unknown) => {
+          updateArgs({ page: newValue })
+          originalOnPageChange?.(newValue)
         }
       }
 

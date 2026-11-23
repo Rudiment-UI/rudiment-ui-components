@@ -18,15 +18,28 @@ const meta = {
     docs: {
       description: {
         component:
-          'Tabs switch between related views in place. Compose `RudiTabs` (selection + orientation) with `RudiTabList` (`aria-label`, variant), `RudiTab` (label, optional icon, badge or `href`) and `RudiTabPanel` (matching `id`). Arrow keys move between tabs, Home/End jump to the ends, and disabled tabs are skipped. Horizontal lists scroll instead of wrapping on narrow screens.',
+          'Tabs switch between related views in place. Compose `RudiTabs` (selection and orientation) with `RudiTabList` (`aria-label`, variant), `RudiTab` (label, optional icon, badge or `href`) and `RudiTabPanel` (matching `id`). Arrow keys move between tabs, Home and End jump to the ends, and disabled tabs are skipped. Horizontal lists scroll instead of wrapping on narrow screens.',
       },
     },
   },
   args: {
-    orientation: 'horizontal',
     defaultSelectedKey: 'pending',
-    keyboardActivation: 'automatic',
-    isDisabled: false,
+    children: [
+      <RudiTabList key="list" aria-label="Shipment status">
+        <RudiTab id="pending">Pending</RudiTab>
+        <RudiTab id="active">Active</RudiTab>
+        <RudiTab id="complete">Complete</RudiTab>
+      </RudiTabList>,
+      <RudiTabPanel key="pending" id="pending">
+        <RudiText noMargin>Shipments awaiting pickup.</RudiText>
+      </RudiTabPanel>,
+      <RudiTabPanel key="active" id="active">
+        <RudiText noMargin>Shipments in transit.</RudiText>
+      </RudiTabPanel>,
+      <RudiTabPanel key="complete" id="complete">
+        <RudiText noMargin>Delivered shipments.</RudiText>
+      </RudiTabPanel>,
+    ],
   },
   argTypes: {
     orientation: {
@@ -62,7 +75,7 @@ const meta = {
     keyboardActivation: {
       control: 'inline-radio',
       options: ['automatic', 'manual'],
-      description: 'Whether arrow-key focus also selects the tab (`automatic`) or requires Enter/Space (`manual`).',
+      description: 'Whether arrow-key focus also selects the tab (`automatic`) or requires Enter or Space (`manual`).',
       table: { category: 'State' },
     },
     className: {
@@ -80,39 +93,119 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-function Panels() {
-  return (
-    <>
-      <RudiTabPanel id="pending">
-        <RudiText noMargin>Shipments awaiting pickup.</RudiText>
-      </RudiTabPanel>
-      <RudiTabPanel id="active">
-        <RudiText noMargin>Shipments in transit.</RudiText>
-      </RudiTabPanel>
-      <RudiTabPanel id="complete">
-        <RudiText noMargin>Delivered shipments.</RudiText>
-      </RudiTabPanel>
-    </>
-  )
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A horizontal list of three tabs with the first selected. Change the props in the API reference below to try every option on this example.',
+      },
+    },
+  },
 }
 
-export const Default: Story = {
-  render: (args) => (
-    <RudiTabs {...args}>
-      <RudiTabList aria-label="Shipment status">
-        <RudiTab id="pending">Pending</RudiTab>
-        <RudiTab id="active">Active</RudiTab>
-        <RudiTab id="complete">Complete</RudiTab>
-      </RudiTabList>
-      <Panels />
-    </RudiTabs>
+export const Variants: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'The `underline` list is the default and suits page sections. Use `pill` for compact switches inside a card or toolbar, where an underline would compete with nearby borders. Pick one variant per page.',
+      },
+    },
+  },
+  render: () => (
+    <RudiStack space="section">
+      <RudiTabs defaultSelectedKey="pending">
+        <RudiTabList aria-label="Shipment status, underline" variant="underline">
+          <RudiTab id="pending">Pending</RudiTab>
+          <RudiTab id="active">Active</RudiTab>
+          <RudiTab id="complete">Complete</RudiTab>
+        </RudiTabList>
+        <RudiTabPanel id="pending">
+          <RudiText noMargin>Shipments awaiting pickup.</RudiText>
+        </RudiTabPanel>
+        <RudiTabPanel id="active">
+          <RudiText noMargin>Shipments in transit.</RudiText>
+        </RudiTabPanel>
+        <RudiTabPanel id="complete">
+          <RudiText noMargin>Delivered shipments.</RudiText>
+        </RudiTabPanel>
+      </RudiTabs>
+      <RudiTabs defaultSelectedKey="pending">
+        <RudiTabList aria-label="Shipment status, pill" variant="pill">
+          <RudiTab id="pending">Pending</RudiTab>
+          <RudiTab id="active">Active</RudiTab>
+          <RudiTab id="complete">Complete</RudiTab>
+        </RudiTabList>
+        <RudiTabPanel id="pending">
+          <RudiText noMargin>Shipments awaiting pickup.</RudiText>
+        </RudiTabPanel>
+        <RudiTabPanel id="active">
+          <RudiText noMargin>Shipments in transit.</RudiText>
+        </RudiTabPanel>
+        <RudiTabPanel id="complete">
+          <RudiText noMargin>Delivered shipments.</RudiText>
+        </RudiTabPanel>
+      </RudiTabs>
+    </RudiStack>
+  ),
+}
+
+export const Orientation: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Horizontal tabs suit a few short labels above their content. Set `orientation="vertical"` on `RudiTabs` (not the list) for a settings-style layout with many sections, where the list sits beside the panels and Up and Down arrows move between tabs.',
+      },
+    },
+  },
+  render: () => (
+    <RudiStack space="section">
+      <RudiTabs defaultSelectedKey="pending">
+        <RudiTabList aria-label="Shipment status">
+          <RudiTab id="pending">Pending</RudiTab>
+          <RudiTab id="active">Active</RudiTab>
+        </RudiTabList>
+        <RudiTabPanel id="pending">
+          <RudiText noMargin>Shipments awaiting pickup.</RudiText>
+        </RudiTabPanel>
+        <RudiTabPanel id="active">
+          <RudiText noMargin>Shipments in transit.</RudiText>
+        </RudiTabPanel>
+      </RudiTabs>
+      <RudiTabs orientation="vertical" defaultSelectedKey="general">
+        <RudiTabList aria-label="Settings sections">
+          <RudiTab id="general">General</RudiTab>
+          <RudiTab id="notifications">Notifications</RudiTab>
+          <RudiTab id="members">Members</RudiTab>
+        </RudiTabList>
+        <RudiTabPanel id="general">
+          <RudiText noMargin>General settings.</RudiText>
+        </RudiTabPanel>
+        <RudiTabPanel id="notifications">
+          <RudiText noMargin>Notification preferences.</RudiText>
+        </RudiTabPanel>
+        <RudiTabPanel id="members">
+          <RudiText noMargin>Team members.</RudiText>
+        </RudiTabPanel>
+      </RudiTabs>
+    </RudiStack>
   ),
 }
 
 export const WithBadges: Story = {
   name: 'With badges',
-  render: (args) => (
-    <RudiTabs {...args}>
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Pass a `RudiBadge` to `badge` to show a count on a tab. Put counts in `badge` rather than in the label so they are read as part of the tab name ("Pending 7").',
+      },
+    },
+  },
+  render: () => (
+    <RudiTabs defaultSelectedKey="pending">
       <RudiTabList aria-label="Shipment status">
         <RudiTab id="pending" badge={<RudiBadge size="sm" variant="warning">7</RudiBadge>}>
           Pending
@@ -124,16 +217,31 @@ export const WithBadges: Story = {
           Complete
         </RudiTab>
       </RudiTabList>
-      <Panels />
+      <RudiTabPanel id="pending">
+        <RudiText noMargin>Shipments awaiting pickup.</RudiText>
+      </RudiTabPanel>
+      <RudiTabPanel id="active">
+        <RudiText noMargin>Shipments in transit.</RudiText>
+      </RudiTabPanel>
+      <RudiTabPanel id="complete">
+        <RudiText noMargin>Delivered shipments.</RudiText>
+      </RudiTabPanel>
     </RudiTabs>
   ),
 }
 
 export const WithIcons: Story = {
   name: 'With icons',
-  args: { defaultSelectedKey: 'overview' },
-  render: (args) => (
-    <RudiTabs {...args}>
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Pass an Iconify name to `icon` to help people scan a longer list of sections. The label stays visible and is the accessible name.',
+      },
+    },
+  },
+  render: () => (
+    <RudiTabs defaultSelectedKey="overview">
       <RudiTabList aria-label="Shipment sections">
         <RudiTab id="overview" icon="lucide:layout-dashboard">Overview</RudiTab>
         <RudiTab id="samples" icon="lucide:test-tube">Samples</RudiTab>
@@ -148,73 +256,69 @@ export const WithIcons: Story = {
   ),
 }
 
-export const Pill: Story = {
-  render: (args) => (
-    <RudiTabs {...args}>
-      <RudiTabList aria-label="Shipment status" variant="pill">
-        <RudiTab id="pending" badge={<RudiBadge size="sm">7</RudiBadge>}>Pending</RudiTab>
-        <RudiTab id="active" badge={<RudiBadge size="sm">4</RudiBadge>}>Active</RudiTab>
-        <RudiTab id="complete" badge={<RudiBadge size="sm">8</RudiBadge>}>Complete</RudiTab>
-      </RudiTabList>
-      <Panels />
-    </RudiTabs>
-  ),
-}
-
-export const Vertical: Story = {
-  args: { orientation: 'vertical', defaultSelectedKey: 'general' },
-  render: (args) => (
-    <RudiTabs {...args}>
-      <RudiTabList aria-label="Settings">
-        <RudiTab id="general" icon="lucide:settings">General</RudiTab>
-        <RudiTab id="notifications" icon="lucide:bell">Notifications</RudiTab>
-        <RudiTab id="members" icon="lucide:users" badge={<RudiBadge size="sm">12</RudiBadge>}>
-          Members
-        </RudiTab>
-      </RudiTabList>
-      <RudiTabPanel id="general"><RudiText noMargin>General settings.</RudiText></RudiTabPanel>
-      <RudiTabPanel id="notifications"><RudiText noMargin>Notification preferences.</RudiText></RudiTabPanel>
-      <RudiTabPanel id="members"><RudiText noMargin>Team members.</RudiText></RudiTabPanel>
-    </RudiTabs>
-  ),
+function ShipmentLinkTabs() {
+  // Stand-in for a router: in an app, pass your router's navigate and derive selectedKey from the URL.
+  const [path, setPath] = useState('/shipments/pending')
+  return (
+    <RudiRouterProvider navigate={setPath}>
+      <RudiStack space="content">
+        <RudiTabs selectedKey={path}>
+          <RudiTabList aria-label="Shipment status">
+            <RudiTab id="/shipments/pending" href="/shipments/pending">Pending</RudiTab>
+            <RudiTab id="/shipments/active" href="/shipments/active">Active</RudiTab>
+            <RudiTab id="/shipments/complete" href="/shipments/complete">Complete</RudiTab>
+          </RudiTabList>
+        </RudiTabs>
+        <RudiText variant="caption" tone="subtle" noMargin>
+          Current route: {path}
+        </RudiText>
+      </RudiStack>
+    </RudiRouterProvider>
+  )
 }
 
 export const LinkTabs: Story = {
   name: 'Link tabs',
-  render: function LinkTabsStory(args) {
-    // Stand-in for a router: in an app, pass your router's navigate and derive selectedKey from the URL.
-    const [path, setPath] = useState('/shipments/pending')
-    return (
-      <RudiRouterProvider navigate={setPath}>
-        <RudiStack space="content">
-          <RudiTabs {...args} selectedKey={path} defaultSelectedKey={undefined}>
-            <RudiTabList aria-label="Shipment status">
-              <RudiTab id="/shipments/pending" href="/shipments/pending">Pending</RudiTab>
-              <RudiTab id="/shipments/active" href="/shipments/active">Active</RudiTab>
-              <RudiTab id="/shipments/complete" href="/shipments/complete">Complete</RudiTab>
-            </RudiTabList>
-          </RudiTabs>
-          <RudiText variant="caption" tone="subtle" noMargin>
-            Current route: {path}
-          </RudiText>
-        </RudiStack>
-      </RudiRouterProvider>
-    )
-  },
   parameters: {
     docs: {
       description: {
         story:
-          'Tabs with `href` render as links and navigate through `RudiRouterProvider`. Derive `selectedKey` from the current route so the selected tab tracks the URL.',
+          'When each tab is its own URL, give the tab an `href` and take `selectedKey` from the current route so the selected tab tracks the address bar. Tabs with `href` render as links and navigate through `RudiRouterProvider`.',
+      },
+      source: {
+        code: `function ShipmentLinkTabs() {
+  const { pathname, navigate } = useYourRouter()
+
+  return (
+    <RudiRouterProvider navigate={navigate}>
+      <RudiTabs selectedKey={pathname}>
+        <RudiTabList aria-label="Shipment status">
+          <RudiTab id="/shipments/pending" href="/shipments/pending">Pending</RudiTab>
+          <RudiTab id="/shipments/active" href="/shipments/active">Active</RudiTab>
+          <RudiTab id="/shipments/complete" href="/shipments/complete">Complete</RudiTab>
+        </RudiTabList>
+      </RudiTabs>
+    </RudiRouterProvider>
+  )
+}`,
       },
     },
   },
+  render: () => <ShipmentLinkTabs />,
 }
 
-export const DisabledTab: Story = {
-  name: 'Disabled tab',
-  render: (args) => (
-    <RudiTabs {...args}>
+export const DisabledTabs: Story = {
+  name: 'Disabled tabs',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Set `isDisabled` on a `RudiTab` for a section that is not available yet. Keyboard focus skips it. Use `isDisabled` on `RudiTabs` to disable every tab, and say why in nearby text.',
+      },
+    },
+  },
+  render: () => (
+    <RudiTabs defaultSelectedKey="pending">
       <RudiTabList aria-label="Shipment status">
         <RudiTab id="pending">Pending</RudiTab>
         <RudiTab id="active" isDisabled>
@@ -222,36 +326,72 @@ export const DisabledTab: Story = {
         </RudiTab>
         <RudiTab id="complete">Complete</RudiTab>
       </RudiTabList>
-      <Panels />
+      <RudiTabPanel id="pending">
+        <RudiText noMargin>Shipments awaiting pickup.</RudiText>
+      </RudiTabPanel>
+      <RudiTabPanel id="active">
+        <RudiText noMargin>Shipments in transit.</RudiText>
+      </RudiTabPanel>
+      <RudiTabPanel id="complete">
+        <RudiText noMargin>Delivered shipments.</RudiText>
+      </RudiTabPanel>
     </RudiTabs>
   ),
 }
 
+function ShipmentTabs() {
+  const [selected, setSelected] = useState<Key>('active')
+  return (
+    <RudiStack space="content">
+      <RudiTabs selectedKey={selected} onSelectionChange={setSelected}>
+        <RudiTabList aria-label="Shipment status">
+          <RudiTab id="pending">Pending</RudiTab>
+          <RudiTab id="active">Active</RudiTab>
+          <RudiTab id="complete">Complete</RudiTab>
+        </RudiTabList>
+        <RudiTabPanel id="pending">
+          <RudiText noMargin>Shipments awaiting pickup.</RudiText>
+        </RudiTabPanel>
+        <RudiTabPanel id="active">
+          <RudiText noMargin>Shipments in transit.</RudiText>
+        </RudiTabPanel>
+        <RudiTabPanel id="complete">
+          <RudiText noMargin>Delivered shipments.</RudiText>
+        </RudiTabPanel>
+      </RudiTabs>
+      <RudiText variant="caption" tone="subtle" noMargin>
+        Selected: {String(selected)}
+      </RudiText>
+    </RudiStack>
+  )
+}
+
 export const Controlled: Story = {
-  render: function ControlledStory(args) {
-    const [selected, setSelected] = useState<Key>('active')
-    return (
-      <RudiStack space="content">
-        <RudiTabs
-          {...args}
-          defaultSelectedKey={undefined}
-          selectedKey={selected}
-          onSelectionChange={(key) => {
-            setSelected(key)
-            args.onSelectionChange?.(key)
-          }}
-        >
-          <RudiTabList aria-label="Shipment status">
-            <RudiTab id="pending">Pending</RudiTab>
-            <RudiTab id="active">Active</RudiTab>
-            <RudiTab id="complete">Complete</RudiTab>
-          </RudiTabList>
-          <Panels />
-        </RudiTabs>
-        <RudiText variant="caption" tone="subtle" noMargin>
-          Selected: {String(selected)}
-        </RudiText>
-      </RudiStack>
-    )
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Pass `selectedKey` and `onSelectionChange` when other UI depends on the selected tab or you need to change it from code. `onSelectionChange` receives the tab `id`, not an event. Use `defaultSelectedKey` when nothing else needs it.',
+      },
+      source: {
+        code: `function ShipmentTabs() {
+  const [selected, setSelected] = useState<Key>('active')
+
+  return (
+    <RudiTabs selectedKey={selected} onSelectionChange={setSelected}>
+      <RudiTabList aria-label="Shipment status">
+        <RudiTab id="pending">Pending</RudiTab>
+        <RudiTab id="active">Active</RudiTab>
+        <RudiTab id="complete">Complete</RudiTab>
+      </RudiTabList>
+      <RudiTabPanel id="pending">Shipments awaiting pickup.</RudiTabPanel>
+      <RudiTabPanel id="active">Shipments in transit.</RudiTabPanel>
+      <RudiTabPanel id="complete">Delivered shipments.</RudiTabPanel>
+    </RudiTabs>
+  )
+}`,
+      },
+    },
   },
+  render: () => <ShipmentTabs />,
 }

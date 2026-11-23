@@ -1,3 +1,5 @@
+import { RESPONSIVE_CATEGORIES } from './responsive-categories.mjs'
+
 // Roomy (light): default layout with an enlarged spacing scale, a slightly
 // rounded radius scale, a moderately soft warm palette, a muted slate brand
 // accent, and the Rubik typeface. Base primitive color ramps cascade from
@@ -11,6 +13,7 @@ export default {
   log: { warnings: 'disabled' },
   source: [
     'tokens/tokens.json',
+    'tokens/responsive.json',
     'tokens/semantic.json',
     'tokens/themes/roomy/semantic.json',
     'tokens/components.json',
@@ -27,6 +30,7 @@ export default {
           format: 'css/variables',
           options: { selector: '[data-theme="roomy"]', outputReferences: true },
           filter: (token) => {
+            if (RESPONSIVE_CATEGORIES.has(token.path[0])) return false
             const category = token.path[0]
             if (category === 'motion') return false
             if (category === 'font') return token.path[1] === 'family'

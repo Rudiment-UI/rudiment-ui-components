@@ -14,6 +14,7 @@ Rudiment UI generates CSS files from your token definitions:
 | File | Selector | Purpose |
 |---|---|---|
 | `tokens/build/tokens.css` | `:root` | Base (light) theme |
+| `tokens/build/tokens-responsive.css` | `:root, [data-theme]` with `@media (min-width)` blocks | Named spacing steps and breakpoints, shared by every theme |
 | `tokens/build/tokens-dark.css` | `[data-theme="dark"]` | Dark theme overrides |
 | `tokens/build/tokens-auto-dark.css` | `[data-theme="auto"]` inside `@media (prefers-color-scheme: dark)` | Follows the OS: dark tokens when it prefers dark |
 | `tokens/build/tokens-roomy.css` | `[data-theme="roomy"]` | Roomy light theme |

@@ -1,12 +1,13 @@
 import { forwardRef } from 'react'
 import { cn } from '@/utils/cn'
+import { resolveSpace, type RudiSpace } from '@/utils/space'
 import './cover.css'
 
 export interface RudiCoverProps extends React.HTMLAttributes<HTMLElement> {
   /** Minimum block size of the cover; any CSS length. Falls back to the `--rudi-layout-cover-min-height` token (100vh). */
   minHeight?: string
-  /** Minimum vertical space between the cover's children; any CSS length. Falls back to the `--rudi-layout-cover-space` token (1.5rem). */
-  space?: string
+  /** Minimum vertical space between the cover's children: a step of the spacing scale (`"inline"`, `"content"`, `"group"`, `"section"`, `"gutter"`, or a fixed step: `0`, `1`, `2`, `3`, `4`, `6`, `8`, `12`) or any CSS length. Falls back to the `--rudi-layout-cover-space` token (`group`). */
+  space?: RudiSpace
   /**
    * Element or component to render as the root.
    *
@@ -55,7 +56,8 @@ const CoverRoot = forwardRef<HTMLElement, RudiCoverProps>(function RudiCover(
 ) {
   const customProperties: Record<string, string> = {}
   if (minHeight) customProperties['--cover-min-height'] = minHeight
-  if (space) customProperties['--cover-space'] = space
+  const spaceValue = resolveSpace(space)
+  if (spaceValue) customProperties['--cover-space'] = spaceValue
 
   return (
     <Element

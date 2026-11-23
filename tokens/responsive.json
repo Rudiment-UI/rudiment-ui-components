@@ -1,0 +1,37 @@
+{
+  "breakpoint": {
+    "sm": { "$value": "40rem", "$type": "dimension", "$description": "Large phones in landscape, small tablets" },
+    "md": { "$value": "48rem", "$type": "dimension", "$description": "Tablets" },
+    "lg": { "$value": "64rem", "$type": "dimension", "$description": "Laptops" },
+    "xl": { "$value": "80rem", "$type": "dimension", "$description": "Desktops" }
+  },
+  "space": {
+    "inline": {
+      "$value": "{spacing.2}",
+      "$type": "dimension",
+      "$description": "Between controls in a row: buttons, tags, icon + label"
+    },
+    "content": {
+      "$value": "{spacing.4}",
+      "$type": "dimension",
+      "$description": "Between fields, paragraphs, list items; padding inside a box"
+    },
+    "group": {
+      "$value": "{spacing.6}",
+      "$type": "dimension",
+      "$description": "Between related blocks: cards in a grid, form sections, panels"
+    },
+    "section": {
+      "$value": "{spacing.8}",
+      "$type": "dimension",
+      "$description": "Between page sections",
+      "$extensions": { "rudi.responsive": { "md": "{spacing.12}" } }
+    },
+    "gutter": {
+      "$value": "{spacing.4}",
+      "$type": "dimension",
+      "$description": "Page edge padding",
+      "$extensions": { "rudi.responsive": { "md": "{spacing.6}", "lg": "{spacing.8}" } }
+    }
+  }
+}

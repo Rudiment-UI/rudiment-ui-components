@@ -552,12 +552,8 @@
   --rudi-component-pagination-padding-x: var(--rudi-spacing-2);
   --rudi-component-pagination-radius: var(--rudi-radius-sm);
   --rudi-component-pagination-font-size: var(--rudi-font-size-sm);
-  --rudi-layout-stack-space-default: var(--rudi-spacing-6);
   --rudi-layout-stack-space-dense: var(--rudi-spacing-3);
   --rudi-layout-stack-space-loose: var(--rudi-spacing-12);
-  --rudi-layout-center-gutters: var(--rudi-spacing-4);
-  --rudi-layout-cluster-space: var(--rudi-spacing-4);
-  --rudi-layout-box-padding: var(--rudi-spacing-4);
   --rudi-layout-box-border-radius: var(--rudi-radius-md);
   --rudi-typography-heading-1-size: var(--rudi-font-size-2xl);
   --rudi-typography-heading-1-weight: var(--rudi-font-weight-bold);
@@ -927,10 +923,10 @@
   --rudi-component-pagination-active-bg: var(--rudi-color-brand-primary);
   --rudi-component-pagination-active-color: var(--rudi-color-text-on-brand);
   --rudi-component-pagination-disabled-color: var(--rudi-color-text-disabled);
-  --rudi-layout-sidebar-space: var(--rudi-layout-stack-space-default);
-  --rudi-layout-grid-space: var(--rudi-layout-stack-space-default);
-  --rudi-layout-cover-space: var(--rudi-layout-stack-space-default);
-  --rudi-layout-switcher-space: var(--rudi-layout-stack-space-default);
+  --rudi-layout-stack-space-default: var(--rudi-space-group);
+  --rudi-layout-center-gutters: var(--rudi-space-gutter);
+  --rudi-layout-cluster-space: var(--rudi-space-content);
+  --rudi-layout-box-padding: var(--rudi-space-content);
   --rudi-layout-box-border-color: var(--rudi-color-border-default);
   --rudi-layout-box-invert-bg: var(--rudi-color-background-inverted);
   --rudi-layout-box-invert-text: var(--rudi-color-text-on-inverted);
@@ -1007,6 +1003,10 @@
   --rudi-component-date-picker-popover-bg: var(--rudi-color-background-surface);
   --rudi-component-number-field-field-bg: var(--rudi-color-background-surface);
   --rudi-component-textarea-bg: var(--rudi-color-background-surface);
+  --rudi-layout-sidebar-space: var(--rudi-layout-stack-space-default);
+  --rudi-layout-grid-space: var(--rudi-layout-stack-space-default);
+  --rudi-layout-cover-space: var(--rudi-layout-stack-space-default);
+  --rudi-layout-switcher-space: var(--rudi-layout-stack-space-default);
   --rudi-typography-prose-caption-color: var(--rudi-typography-caption-color);
   --rudi-component-combo-box-bg: var(--rudi-component-input-bg);
   --rudi-component-combo-box-popover-bg: var(--rudi-component-select-popover-bg);

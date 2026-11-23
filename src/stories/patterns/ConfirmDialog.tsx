@@ -76,7 +76,7 @@ export function ConfirmDialog() {
           </RudiButton>
         </RudiCluster>
       ) : (
-        <RudiStack as="ul" space="var(--rudi-spacing-3)">
+        <RudiStack as="ul" space={3}>
           {shipments.map((s) => (
             <li key={s.id}>
               <RudiCluster justify="space-between">
@@ -105,7 +105,7 @@ export function ConfirmDialog() {
         size="sm"
         title={`Delete shipment ${pending?.id}?`}
       >
-        <RudiStack space="var(--rudi-spacing-2)">
+        <RudiStack space="inline">
           <RudiText noMargin>Its temperature log and documents will be deleted too.</RudiText>
           <RudiText noMargin>The receiving clinic is notified. This can't be undone.</RudiText>
         </RudiStack>

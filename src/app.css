@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import '../tokens/build/tokens.css';
+@import '../tokens/build/tokens-responsive.css';
 @import '../tokens/build/tokens-dark.css';
 @import '../tokens/build/tokens-auto-dark.css' (prefers-color-scheme: dark);
 @import '../tokens/build/tokens-roomy.css';

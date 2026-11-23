@@ -1,10 +1,11 @@
 import { Children, cloneElement, forwardRef, isValidElement } from 'react'
 import { cn } from '@/utils/cn'
+import { resolveSpace, type RudiSpace } from '@/utils/space'
 import './stack.css'
 
 export interface RudiStackProps extends React.HTMLAttributes<HTMLElement> {
-  /** CSS spacing value. Defaults to --rudi-layout-stack-space-default token. */
-  space?: string
+  /** Gap between children: a step of the spacing scale (`"inline"`, `"content"`, `"group"`, `"section"`, `"gutter"`, or a fixed step: `0`, `1`, `2`, `3`, `4`, `6`, `8`, `12`) or any CSS length. Falls back to the `--rudi-layout-stack-space-default` token (`group`). */
+  space?: RudiSpace
   /**
    * Apply spacing recursively to all nested elements, not just direct children.
    *
@@ -28,7 +29,7 @@ export interface RudiStackProps extends React.HTMLAttributes<HTMLElement> {
  * Polymorphic through `as` (use `"ul"` or `"ol"` for a list; bullets and indent are removed); unrecognised DOM props are spread onto the root element, and `className` is merged with the built-in class, not replaced.
  *
  * @example
- * <RudiStack space="1rem">
+ * <RudiStack space="content">
  *   <RudiInput label="Name" />
  *   <RudiInput label="Email" />
  * </RudiStack>
@@ -47,7 +48,8 @@ export const RudiStack = forwardRef<HTMLElement, RudiStackProps>(function RudiSt
   ref,
 ) {
   const customProperties: Record<string, string> = {}
-  if (space) customProperties['--stack-space'] = space
+  const spaceValue = resolveSpace(space)
+  if (spaceValue) customProperties['--stack-space'] = spaceValue
 
   // Apply margin-block-end: auto to the splitAfter child via React.
   // CSS :nth-child() does not accept custom properties, so this must

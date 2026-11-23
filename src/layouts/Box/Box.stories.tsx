@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { RudiBox } from './Box'
+import { spaceArgType } from '../../stories/spaceArgType'
 
 const meta = {
   title: 'Layouts/Box',
@@ -16,7 +17,7 @@ const meta = {
   args: {
     bordered: false,
     invert: false,
-    padding: '1rem',
+    padding: 'content',
     as: 'div',
   },
   argTypes: {
@@ -35,10 +36,7 @@ const meta = {
       control: 'boolean',
       table: { category: 'Appearance' },
     },
-    padding: {
-      control: 'text',
-      table: { category: 'Layout' },
-    },
+    padding: spaceArgType,
   },
 } satisfies Meta<typeof RudiBox>
 
@@ -67,13 +65,13 @@ export const BorderedAndInverted: Story = {
 }
 
 export const CustomPadding: Story = {
-  args: { bordered: true, padding: '2rem' },
-  render: (args) => <RudiBox {...args}>Box with custom padding (2rem)</RudiBox>,
+  args: { bordered: true, padding: 8 },
+  render: (args) => <RudiBox {...args}>Box with custom padding (fixed step 8)</RudiBox>,
 }
 
 export const AsSection: Story = {
   render: ({}) => (
-    <RudiBox as="section" bordered padding="1.5rem">
+    <RudiBox as="section" bordered padding="group">
       Rendered as a <code>&lt;section&gt;</code> element
     </RudiBox>
   ),

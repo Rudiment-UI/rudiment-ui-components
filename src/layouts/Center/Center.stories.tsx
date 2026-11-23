@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { RudiCenter } from './Center'
+import { spaceArgType } from '../../stories/spaceArgType'
 
 const meta = {
   title: 'Layouts/Center',
@@ -16,7 +17,7 @@ const meta = {
   args: {
     intrinsic: false,
     maxWidth: '60rem',
-    gutters: '1rem',
+    gutters: 'gutter',
     as: 'div',
   },
   argTypes: {
@@ -35,10 +36,7 @@ const meta = {
       control: 'text',
       table: { category: 'Layout' },
     },
-    gutters: {
-      control: 'text',
-      table: { category: 'Layout' },
-    },
+    gutters: spaceArgType,
   },
 } satisfies Meta<typeof RudiCenter>
 
@@ -80,7 +78,7 @@ export const WideMaxWidth: Story = {
 }
 
 export const WithGutters: Story = {
-  args: { gutters: '3rem' },
+  args: { gutters: 12 },
   render: (args) => (
     <RudiCenter {...args}>
       <Placeholder label="Content with large gutters" />

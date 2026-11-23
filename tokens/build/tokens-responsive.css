@@ -1,0 +1,32 @@
+/**
+ * Do not edit directly, this file was auto-generated.
+ * Source: tokens/responsive.json
+ */
+
+:root {
+  --rudi-breakpoint-sm: 40rem; /* Large phones in landscape, small tablets */
+  --rudi-breakpoint-md: 48rem; /* Tablets */
+  --rudi-breakpoint-lg: 64rem; /* Laptops */
+  --rudi-breakpoint-xl: 80rem; /* Desktops */
+}
+
+:root, [data-theme] {
+  --rudi-space-inline: var(--rudi-spacing-2); /* Between controls in a row: buttons, tags, icon + label */
+  --rudi-space-content: var(--rudi-spacing-4); /* Between fields, paragraphs, list items; padding inside a box */
+  --rudi-space-group: var(--rudi-spacing-6); /* Between related blocks: cards in a grid, form sections, panels */
+  --rudi-space-section: var(--rudi-spacing-8); /* Between page sections */
+  --rudi-space-gutter: var(--rudi-spacing-4); /* Page edge padding */
+}
+
+@media (min-width: 48rem) {
+  :root, [data-theme] {
+    --rudi-space-section: var(--rudi-spacing-12);
+    --rudi-space-gutter: var(--rudi-spacing-6);
+  }
+}
+
+@media (min-width: 64rem) {
+  :root, [data-theme] {
+    --rudi-space-gutter: var(--rudi-spacing-8);
+  }
+}

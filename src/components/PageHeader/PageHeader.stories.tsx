@@ -48,7 +48,7 @@ export const Default: Story = {}
 export const WithActions: Story = {
   args: {
     actions: (
-      <RudiCluster space="0.5rem">
+      <RudiCluster space="inline">
         <RudiButton variant="secondary">Import</RudiButton>
         <RudiButton>New customer</RudiButton>
       </RudiCluster>
@@ -70,7 +70,7 @@ export const WithEyebrowAndMeta: Story = {
       />
     ),
     meta: (
-      <RudiCluster space="0.5rem">
+      <RudiCluster space="inline">
         <RudiBadge variant="info">In transit</RudiBadge>
         <RudiBadge variant="success">Cryo verified</RudiBadge>
       </RudiCluster>

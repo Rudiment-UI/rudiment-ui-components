@@ -6,6 +6,7 @@ import '../src/app.css'
 import { brand, fonts } from './brand/brand'
 import { THEMES } from './docs/themes'
 import { AutodocsPage } from './docs/AutodocsPage'
+import { VIEWPORTS } from './viewports'
 
 // Light docs theme so the "Show code" Source block renders the dark-on-light
 // `lightSyntaxColors` palette. Without it the block falls back to the dark
@@ -48,6 +49,7 @@ const preview: Preview = {
             'Accessibility',
             'Token Architecture',
             'Layout Primitives',
+            'Responsive Spacing',
             'Typography',
             'Component Guidelines',
             'Theming',
@@ -58,7 +60,16 @@ const preview: Preview = {
           'Layouts',
           'Typography',
           'Patterns',
-          ['Validated Form', 'Filterable Table', 'Data States', 'Confirm Dialog', 'Settings Page'],
+          [
+            'Validated Form',
+            'Filterable Table',
+            'Data States',
+            'Confirm Dialog',
+            'Settings Page',
+            'Portfolio Dashboard',
+            'Product Landing',
+            'Patient Summary',
+          ],
         ],
       },
     },
@@ -69,6 +80,8 @@ const preview: Preview = {
       },
     },
     a11y: {},
+    // Device presets for the toolbar's viewport tool, named by spacing breakpoint.
+    viewport: { options: VIEWPORTS },
   },
   globalTypes: {
     theme: {

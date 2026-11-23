@@ -33,6 +33,8 @@ Three tiers of JSON compile to `--rudi-*` CSS custom properties via Style Dictio
 2. `tokens/semantic.json` — intent aliases referencing primitives (`color.brand.primary` → `{color.neutral.900}`)
 3. `tokens/components.json` — per-component tokens referencing semantics (`component.button.primary-bg` → `{color.brand.primary}`)
 
+`tokens/responsive.json` holds the breakpoints and the named spacing steps (`space.inline|content|group|section|gutter`, per-breakpoint values in `$extensions["rudi.responsive"]`). Its own config (`style-dictionary.config.responsive.mjs`) emits `tokens-responsive.css` on `:root, [data-theme]` plus one `@media` block per breakpoint, so the steps re-resolve against each density theme's spacing. Every other config sources the file for references but filters those categories out (`tokens/responsive-categories.mjs`). Layout spacing props take a `RudiSpace` (`src/utils/space.ts`): named step → `--rudi-space-*`, number → `--rudi-spacing-*`, other strings pass through.
+
 Components read **only** tier 3/tier 2 custom properties. No hardcoded colors, spacing, or sizes in CSS or TSX.
 
 `tokens/build/*.css` is **generated but committed** — after editing any token JSON, run `npm run build:tokens` and commit the regenerated CSS or the change won't ship.
@@ -78,7 +80,7 @@ Tests: render, `axe` accessibility assertion, keyboard/pointer interaction, and 
 
 ## Docs
 
-- `src/stories/patterns/` — the Storybook **Patterns** recipes. Each recipe is one consumer-style file importing from `../../index`, and its story shows the whole file as the source (`?raw`, with the import rewritten to `'rudiment-ui'` by `recipeStory.tsx`). Recipes use only the public API; when one has to reach outside it, log the gap in `DEPARTURES.md`. `src/stories/**` is excluded from the type declarations and the library build. `patterns.test.tsx` covers their behavior.
+- `src/stories/patterns/` — the Storybook **Patterns** recipes. Each recipe is one consumer-style file importing from `../../index`, and its story shows the whole file as the source (`?raw`, with the import rewritten to `'rudiment-ui'` by `recipeStory.tsx`). Recipes use only the public API; when one has to reach outside it, log the gap in `DEPARTURES.md`. `src/stories/**` is excluded from the type declarations and the library build. `patterns.test.tsx` covers their behavior. A recipe with its own stylesheet (the responsive spacing recipes) passes it to `recipeParameters` so the docs page shows the CSS too; those stylesheets scope their rules to a class so they don't leak into other stories. Viewport presets live in `.storybook/viewports.ts`, named by spacing breakpoint.
 
 - `src/docs/*.mdx` — the "Getting Started" Storybook pages (Token Architecture, Theming, Accessibility, Component Guidelines, Layout Primitives, Typography). Component-level do/don't guidance lives in `src/docs/guidelines/<Name>.mdx` (body only, no heading). Each file appears on its component's autodocs page (template: `.storybook/docs/AutodocsPage.tsx`) and is imported under a heading in `ComponentGuidelines.mdx`. When you add a component, add its file and import it there. Components that share a section are mapped in `.storybook/docs/guidelineKeys.ts`, and `guidelineKeys.test.ts` fails if a component story has no file.
 - `src/docs/Vitrea.mdx` — the "Getting Started/Vitrea" page featuring Vitrea, the app that stress-tests the library (separate repo, live demo at https://vitrea-rudiment.netlify.app). Its screenshots live in `.storybook/public/vitrea/` (Storybook-only static files, not shipped).

@@ -1,0 +1,212 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import { DevicePreview } from '../../.storybook/docs/DevicePreview'
+
+<Meta title="Getting Started/Responsive Spacing" />
+
+# Responsive Spacing
+
+Layout primitives take their spacing from a shared scale. The named steps of that scale are CSS custom properties whose values you set once per breakpoint. Components refer to a step by name, so they never mention a breakpoint or a pixel value.
+
+```jsx
+<RudiStack space="section">
+  <RudiPageHeader title="Claims" />
+  <RudiGrid space="group">{cards}</RudiGrid>
+</RudiStack>
+```
+
+A claims dashboard and a marketing page can use this same JSX. Each app defines what `section` and `group` mean at each screen size.
+
+## Spacing values
+
+Every spacing prop on a layout primitive accepts a `RudiSpace` value. The props are `space` on Stack, Cluster, Grid, Sidebar, Cover, and Switcher, `padding` on Box, and `gutters` on Center. A `RudiSpace` value takes one of three forms.
+
+| Form | Example | Resolves to | Changes at breakpoints | Follows density themes |
+|---|---|---|---|---|
+| Named step | `space="group"` | `var(--rudi-space-group)` | Yes | Yes |
+| Fixed step | `space={4}` | `var(--rudi-spacing-4)` | No | Yes |
+| CSS length | `space="1.25rem"` | `1.25rem` | No | No |
+
+Use a named step by default. Use a fixed step for small, local spacing that has no layout meaning, such as the gap inside a list of links. Use a CSS length only when neither scale fits. In TypeScript, the editor autocompletes the named steps.
+
+### Named steps
+
+Each step is named for what it separates. Choose a step by that relationship.
+
+| Step | Use it for | Base | `md` (48rem) | `lg` (64rem) |
+|---|---|---|---|---|
+| `inline` | Controls in a row: buttons, tags, an icon and its label | 0.5rem | | |
+| `content` | Fields, paragraphs, and list items; padding inside a box | 1rem | | |
+| `group` | Related blocks: cards in a grid, form sections, panels | 1.5rem | | |
+| `section` | Page sections | 2rem | 3rem | |
+| `gutter` | Padding at the page edge | 1rem | 1.5rem | 2rem |
+
+Values are for the default theme. An empty cell keeps the value from the previous column. Each step references a primitive (`--rudi-spacing-6`, for example), so the `compressed` and `roomy` themes scale all five steps.
+
+### Fixed steps
+
+The fixed steps are `0`, `1`, `2`, `3`, `4`, `6`, `8`, and `12`. They map to the `spacing.*` primitives (`spacing.4` is 1rem in the default theme). They follow density themes and do not change at breakpoints.
+
+## Breakpoints
+
+| Token | Value | Typical screen |
+|---|---|---|
+| `--rudi-breakpoint-sm` | 40rem (640px) | Large phones in landscape, small tablets |
+| `--rudi-breakpoint-md` | 48rem (768px) | Tablets |
+| `--rudi-breakpoint-lg` | 64rem (1024px) | Laptops |
+| `--rudi-breakpoint-xl` | 80rem (1280px) | Desktops |
+
+Rules are mobile-first. A value set at `md` applies from 48rem upward until a larger breakpoint replaces it. Breakpoints measure the viewport.
+
+CSS can't read a custom property inside a media query condition. `@media (min-width: var(--rudi-breakpoint-md))` does not work. The breakpoint tokens exist for reference and for JavaScript (`getComputedStyle`). Write the value itself in your media queries.
+
+## Setting your own spacing rules
+
+Override the step tokens in your own stylesheet. Load it after the Rudiment UI styles.
+
+```css
+/* app/spacing.css */
+:root, [data-theme] {
+  --rudi-space-group: var(--rudi-spacing-4);
+  --rudi-space-section: var(--rudi-spacing-6);
+}
+
+@media (min-width: 64rem) {
+  :root, [data-theme] {
+    --rudi-space-group: var(--rudi-spacing-6);
+    --rudi-space-section: var(--rudi-spacing-12);
+  }
+}
+```
+
+Every layout primitive that uses `group` or `section`, including the defaults described below, now follows these rules.
+
+Four rules keep overrides working:
+
+1. **Use the selector `:root, [data-theme]`.** A custom property that holds `var(--rudi-spacing-6)` is computed on the element that declares it. Declaring the steps on every element with a `data-theme` attribute makes them pick up that theme's spacing scale. A rule on `:root` alone is computed with the default scale and passed down unchanged, so a `compressed` region inside the page would keep default spacing.
+2. **Reference primitives, not lengths.** `var(--rudi-spacing-6)` follows the density themes. `1.5rem` does not.
+3. **Restate every breakpoint for a step you override.** Your base rule loads after the Rudiment UI breakpoint rules and has the same specificity, so it wins at every width. If you override `section` and still want it to grow at `md`, add your own `md` rule.
+4. **Load your file after the library styles.** Equal specificity means the later rule wins.
+
+### Rules for part of a page
+
+The steps are ordinary custom properties, so any selector can scope them. This gives one region of an app different rules.
+
+```css
+.marketing-site {
+  --rudi-space-section: var(--rudi-spacing-8);
+}
+
+@media (min-width: 64rem) {
+  .marketing-site {
+    --rudi-space-section: calc(var(--rudi-spacing-12) * 2);
+  }
+}
+```
+
+A descendant with its own `data-theme` attribute goes back to the global rules, because the library redeclares the steps on every themed element. Repeat the scoped rule for that element if it needs the same values (`.marketing-site, .marketing-site [data-theme]`).
+
+A scoped rule changes the props that name a step, such as `space="section"`. It does not change a primitive's default when the prop is omitted. The defaults go through component tokens that are computed once on `:root` and on each themed element. Inside a scoped region, pass the step explicitly.
+
+### Examples by product type
+
+These are starting points. Adjust them to your own screens. Each one is also a working page under **Patterns**:
+
+- [Portfolio Dashboard](?path=/docs/patterns-portfolio-dashboard--docs): dense rules for a fintech overview
+- [Product Landing](?path=/docs/patterns-product-landing--docs): rules that open up on large screens, for a marketing page
+- [Patient Summary](?path=/docs/patterns-patient-summary--docs): a clinical summary that uses the library defaults with no spacing CSS
+
+A data-dense product, such as a trading desk, a claims queue, a clinical record, or a lab inventory. Spacing stays tight at every width so more rows fit on screen. Pair it with the `compressed` theme for smaller controls.
+
+```css
+:root, [data-theme] {
+  --rudi-space-content: var(--rudi-spacing-3);
+  --rudi-space-group: var(--rudi-spacing-4);
+  --rudi-space-section: var(--rudi-spacing-6);
+  --rudi-space-gutter: var(--rudi-spacing-3);
+}
+
+@media (min-width: 64rem) {
+  :root, [data-theme] {
+    --rudi-space-section: var(--rudi-spacing-8);
+    --rudi-space-gutter: var(--rudi-spacing-6);
+  }
+}
+```
+
+A content or marketing product, such as a campaign site, a patient education portal, or a product tour. Section spacing grows on large screens. Pair it with the `roomy` theme for larger controls.
+
+```css
+:root, [data-theme] {
+  --rudi-space-section: var(--rudi-spacing-12);
+  --rudi-space-gutter: var(--rudi-spacing-4);
+}
+
+@media (min-width: 48rem) {
+  :root, [data-theme] {
+    --rudi-space-group: var(--rudi-spacing-8);
+    --rudi-space-section: calc(var(--rudi-spacing-12) * 1.5);
+    --rudi-space-gutter: var(--rudi-spacing-8);
+  }
+}
+
+@media (min-width: 80rem) {
+  :root, [data-theme] {
+    --rudi-space-section: calc(var(--rudi-spacing-12) * 2);
+    --rudi-space-gutter: var(--rudi-spacing-12);
+  }
+}
+```
+
+## Device previews in Storybook
+
+Breakpoint rules respond to the width of the page that renders a story. Storybook shows the toolbar's **viewport** tool only in story view, not on docs pages. On a docs page, use the device buttons below, which render the story in a frame at the chosen width. The same switcher appears on each pattern's docs page.
+
+<DevicePreview storyId="patterns-product-landing--default" />
+
+In story view, the toolbar's viewport tool has the same presets. Each preset names the breakpoint that applies at its width:
+
+| Preset | Width | Breakpoint |
+|---|---|---|
+| Phone | 375px | base |
+| Large phone | 430px | base |
+| Phone landscape | 667px | `sm` |
+| Tablet | 768px | `md` |
+| Tablet landscape | 1024px | `lg` |
+| Laptop | 1280px | `xl` |
+| Desktop | 1440px | `xl` |
+
+Each pattern also has **Phone** and **Tablet** stories locked to those presets.
+
+## Layout primitive defaults
+
+When a spacing prop is omitted, each primitive reads a component token. That token points at a named step, so your spacing rules also change the defaults.
+
+| Primitive | Prop | Component token | Step |
+|---|---|---|---|
+| Stack | `space` | `--rudi-layout-stack-space-default` | `group` |
+| Grid | `space` | `--rudi-layout-grid-space` | `group` |
+| Sidebar | `space` | `--rudi-layout-sidebar-space` | `group` |
+| Switcher | `space` | `--rudi-layout-switcher-space` | `group` |
+| Cover | `space` | `--rudi-layout-cover-space` | `group` |
+| Cluster | `space` | `--rudi-layout-cluster-space` | `content` |
+| Box | `padding` | `--rudi-layout-box-padding` | `content` |
+| Center | `gutters` | `--rudi-layout-center-gutters` | `gutter` |
+
+To change the default of one primitive without changing the step, override its component token instead.
+
+## Responsive layouts without breakpoints
+
+Spacing is the only part of the layout system that uses breakpoints. Grid, Sidebar, Switcher, and Cluster change their arrangement based on the space available to them, so they need no breakpoint props. The same Grid shows one column inside a narrow drawer and several on a wide page. See [Layout Primitives](?path=/docs/getting-started-layout-primitives--docs).
+
+## Changing the shipped scale
+
+To change the shipped values or breakpoints in a fork of Rudiment UI, edit `tokens/responsive.json` and run `npm run build:tokens`. Breakpoint overrides for a step go in its `$extensions["rudi.responsive"]` object, keyed by breakpoint name:
+
+```json
+"section": {
+  "$value": "{spacing.8}",
+  "$extensions": { "rudi.responsive": { "md": "{spacing.12}" } }
+}
+```
+
+The build writes `tokens/build/tokens-responsive.css` and fails if a key names a breakpoint that doesn't exist.

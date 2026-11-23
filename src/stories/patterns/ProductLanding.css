@@ -1,0 +1,30 @@
+/*
+ * Spacing rules for a content or marketing product: sections open up as the
+ * screen grows, and the page edge gets wider gutters on large screens.
+ *
+ * In an app, write these on `:root, [data-theme]` so they apply everywhere.
+ * This recipe scopes them to `.landing-site` so it can share Storybook with
+ * the other recipes.
+ */
+.landing-site,
+.landing-site [data-theme] {
+  --rudi-space-section: var(--rudi-spacing-12);
+  --rudi-space-gutter: var(--rudi-spacing-4);
+}
+
+@media (min-width: 48rem) {
+  .landing-site,
+  .landing-site [data-theme] {
+    --rudi-space-group: var(--rudi-spacing-8);
+    --rudi-space-section: calc(var(--rudi-spacing-12) * 1.5);
+    --rudi-space-gutter: var(--rudi-spacing-8);
+  }
+}
+
+@media (min-width: 80rem) {
+  .landing-site,
+  .landing-site [data-theme] {
+    --rudi-space-section: calc(var(--rudi-spacing-12) * 2);
+    --rudi-space-gutter: var(--rudi-spacing-12);
+  }
+}

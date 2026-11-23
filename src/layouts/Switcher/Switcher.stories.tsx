@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { RudiSwitcher } from './Switcher'
+import { spaceArgType } from '../../stories/spaceArgType'
 
 const meta = {
   title: 'Layouts/Switcher',
@@ -25,10 +26,7 @@ const meta = {
       control: 'text',
       table: { category: 'Layout' },
     },
-    space: {
-      control: 'text',
-      table: { category: 'Layout' },
-    },
+    space: spaceArgType,
     limit: {
       control: 'number',
       table: { category: 'Layout' },
@@ -80,7 +78,7 @@ export const WideThreshold: Story = {
 }
 
 export const Dense: Story = {
-  args: { space: '0.5rem' },
+  args: { space: 'inline' },
   render: (args) => (
     <RudiSwitcher {...args}>
       <Placeholder label="First" />
@@ -91,7 +89,7 @@ export const Dense: Story = {
 }
 
 export const Loose: Story = {
-  args: { space: '3rem' },
+  args: { space: 'section' },
   render: (args) => (
     <RudiSwitcher {...args}>
       <Placeholder label="First" />

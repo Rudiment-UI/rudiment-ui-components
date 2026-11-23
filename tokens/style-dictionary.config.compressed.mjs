@@ -1,3 +1,5 @@
+import { RESPONSIVE_CATEGORIES } from './responsive-categories.mjs'
+
 // Compressed (light): default palette + typeface, with a very tight spacing
 // scale and a very small radius scale. Colors + font cascade from :root; only
 // spacing, radius, and the tokens that reference them are emitted.
@@ -8,6 +10,7 @@ export default {
   log: { warnings: 'disabled' },
   source: [
     'tokens/tokens.json',
+    'tokens/responsive.json',
     'tokens/semantic.json',
     'tokens/components.json',
     'tokens/themes/compressed/tokens.json',
@@ -23,6 +26,7 @@ export default {
           format: 'css/variables',
           options: { selector: '[data-theme="compressed"]', outputReferences: true },
           filter: (token) => {
+            if (RESPONSIVE_CATEGORIES.has(token.path[0])) return false
             const category = token.path[0]
             if (category === 'color' || category === 'font' || category === 'motion') return false
             return true

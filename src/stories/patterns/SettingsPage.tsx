@@ -94,7 +94,7 @@ function NotificationSettings() {
       <RudiText tone="subtle" noMargin>
         Changes apply right away.
       </RudiText>
-      <RudiStack space="var(--rudi-spacing-3)">
+      <RudiStack space={3}>
         {notificationOptions.map((o) => (
           <RudiSwitch
             key={o.id}

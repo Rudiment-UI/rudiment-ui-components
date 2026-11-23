@@ -1,3 +1,5 @@
+import { withoutResponsive } from './responsive-categories.mjs'
+
 // Primitive token groups that are theme-invariant and should be excluded from dark output
 const PRIMITIVE_GROUPS = new Set(['blue', 'neutral', 'red', 'green', 'amber'])
 const PRIMITIVE_CATEGORIES = new Set(['spacing', 'radius', 'font', 'motion'])
@@ -25,6 +27,7 @@ export default {
   log: { warnings: 'disabled' },
   source: [
     'tokens/tokens.json',
+    'tokens/responsive.json',
     'tokens/themes/dark/semantic.json',
     'tokens/components.json',
     'tokens/themes/dark/components.json',
@@ -42,7 +45,7 @@ export default {
             selector: '[data-theme="dark"]',
             outputReferences: true,
           },
-          filter: darkFilter,
+          filter: withoutResponsive(darkFilter),
         },
         {
           // Same tokens under [data-theme="auto"]; src/styles.css imports this file
@@ -53,7 +56,7 @@ export default {
             selector: '[data-theme="auto"]',
             outputReferences: true,
           },
-          filter: darkFilter,
+          filter: withoutResponsive(darkFilter),
         },
       ],
     },

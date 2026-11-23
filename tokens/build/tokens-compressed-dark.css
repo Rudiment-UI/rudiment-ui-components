@@ -571,9 +571,7 @@
   --rudi-layout-stack-space-dense: var(--rudi-spacing-1);
   --rudi-layout-stack-space-loose: var(--rudi-spacing-4);
   --rudi-layout-grid-space: var(--rudi-spacing-2);
-  --rudi-layout-center-gutters: var(--rudi-spacing-4);
   --rudi-layout-cluster-space: var(--rudi-spacing-2);
-  --rudi-layout-box-padding: var(--rudi-spacing-4);
   --rudi-layout-box-border-radius: var(--rudi-radius-md);
   --rudi-typography-heading-1-size: var(--rudi-font-size-2xl);
   --rudi-typography-heading-1-weight: var(--rudi-font-weight-bold);
@@ -917,8 +915,10 @@
   --rudi-component-pagination-active-color: var(--rudi-color-text-on-brand);
   --rudi-component-pagination-disabled-color: var(--rudi-color-text-disabled);
   --rudi-layout-sidebar-space: var(--rudi-layout-stack-space-default);
+  --rudi-layout-center-gutters: var(--rudi-space-gutter);
   --rudi-layout-cover-space: var(--rudi-layout-stack-space-default);
   --rudi-layout-switcher-space: var(--rudi-layout-stack-space-default);
+  --rudi-layout-box-padding: var(--rudi-space-content);
   --rudi-layout-box-border-color: var(--rudi-color-border-default);
   --rudi-layout-box-invert-bg: var(--rudi-color-background-inverted);
   --rudi-layout-box-invert-text: var(--rudi-color-text-on-inverted);

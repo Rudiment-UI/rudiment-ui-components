@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { RudiSidebar } from './Sidebar'
+import { spaceArgType } from '../../stories/spaceArgType'
 
 const meta = {
   title: 'Layouts/Sidebar',
@@ -42,10 +43,7 @@ const meta = {
       control: 'text',
       table: { category: 'Layout' },
     },
-    space: {
-      control: 'text',
-      table: { category: 'Layout' },
-    },
+    space: spaceArgType,
   },
 } satisfies Meta<typeof RudiSidebar>
 
@@ -118,7 +116,7 @@ export const NoStretch: Story = {
 }
 
 export const TightGap: Story = {
-  args: { space: '0.5rem' },
+  args: { space: 'inline' },
   render: (args) => (
     <RudiSidebar {...args}>
       <SidebarPane label="Sidebar" />
@@ -128,7 +126,7 @@ export const TightGap: Story = {
 }
 
 export const WideGap: Story = {
-  args: { space: '3rem' },
+  args: { space: 'section' },
   render: (args) => (
     <RudiSidebar {...args}>
       <SidebarPane label="Sidebar" />

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { RudiCluster } from './Cluster'
+import { spaceArgType } from '../../stories/spaceArgType'
 
 const meta = {
   title: 'Layouts/Cluster',
@@ -15,7 +16,7 @@ const meta = {
   },
   args: {
     as: 'div',
-    space: '0.5rem',
+    space: 'inline',
     justify: 'flex-start',
     align: 'flex-start',
   },
@@ -27,10 +28,7 @@ const meta = {
     children: {
       table: { category: 'Content' },
     },
-    space: {
-      control: 'text',
-      table: { category: 'Layout' },
-    },
+    space: spaceArgType,
     justify: {
       control: 'select',
       options: [
@@ -74,7 +72,7 @@ export const Default: Story = {
 }
 
 export const Dense: Story = {
-  args: { space: '0.25rem' },
+  args: { space: 1 },
   render: (args) => (
     <RudiCluster {...args}>
       <Tag label="Design" />
@@ -87,7 +85,7 @@ export const Dense: Story = {
 }
 
 export const Loose: Story = {
-  args: { space: '2rem' },
+  args: { space: 8 },
   render: (args) => (
     <RudiCluster {...args}>
       <Tag label="Design" />
@@ -125,7 +123,7 @@ export const SpaceBetween: Story = {
 
 export const AsUnorderedList: Story = {
   render: () => (
-    <RudiCluster as="ul" space="0.75rem" role="list">
+    <RudiCluster as="ul" space={3} role="list">
       <li>First item</li>
       <li>Second item</li>
       <li>Third item</li>

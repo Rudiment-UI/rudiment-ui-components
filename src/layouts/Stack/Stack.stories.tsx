@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { RudiStack } from './Stack'
+import { spaceArgType } from '../../stories/spaceArgType'
 
 const meta = {
   title: 'Layouts/Stack',
@@ -28,10 +29,7 @@ const meta = {
       control: 'boolean',
       table: { category: 'Appearance' },
     },
-    space: {
-      control: 'text',
-      table: { category: 'Layout' },
-    },
+    space: spaceArgType,
     splitAfter: {
       control: 'number',
       table: { category: 'Layout' },
@@ -61,7 +59,7 @@ export const Default: Story = {
 }
 
 export const Dense: Story = {
-  args: { space: '0.5rem' },
+  args: { space: 'inline' },
   render: (args) => (
     <RudiStack {...args}>
       <Placeholder label="First" />
@@ -72,7 +70,7 @@ export const Dense: Story = {
 }
 
 export const Loose: Story = {
-  args: { space: '3rem' },
+  args: { space: 'section' },
   render: (args) => (
     <RudiStack {...args}>
       <Placeholder label="First" />
@@ -102,7 +100,7 @@ export const SplitAfterSecond: Story = {
 
 export const AsUnorderedList: Story = {
   render: () => (
-    <RudiStack as="ul" space="0.75rem" role="list">
+    <RudiStack as="ul" space={3} role="list">
       <li>First item</li>
       <li>Second item</li>
       <li>Third item</li>
@@ -112,13 +110,13 @@ export const AsUnorderedList: Story = {
 
 export const Nested: Story = {
   render: () => (
-    <RudiStack space="3rem">
-      <RudiStack space="1rem">
+    <RudiStack space="section">
+      <RudiStack space="content">
         <Placeholder label="Group 1, item 1" />
         <Placeholder label="Group 1, item 2" />
         <Placeholder label="Group 1, item 3" />
       </RudiStack>
-      <RudiStack space="1rem">
+      <RudiStack space="content">
         <Placeholder label="Group 2, item 1" />
         <Placeholder label="Group 2, item 2" />
       </RudiStack>

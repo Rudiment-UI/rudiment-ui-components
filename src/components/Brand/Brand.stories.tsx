@@ -44,7 +44,7 @@ export const AsHomeLink: Story = { args: { href: '/' } }
 
 export const Sizes: Story = {
   render: (args) => (
-    <RudiStack space="1rem">
+    <RudiStack space="content">
       <RudiBrand {...args} size="sm" />
       <RudiBrand {...args} size="md" />
       <RudiBrand {...args} size="lg" />

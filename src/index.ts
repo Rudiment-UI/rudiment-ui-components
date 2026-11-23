@@ -3,6 +3,7 @@ import './styles.css'
 
 // Utils
 export { cn } from './utils/cn'
+export type { RudiSpace, RudiSpaceStep, RudiSpaceScale } from './utils/space'
 
 // Hooks
 export { useLoadingButton } from './hooks/useLoadingButton'

@@ -165,6 +165,7 @@ All tokens become CSS custom properties following this pattern:
 |---|---|
 | `tokens/tokens.json` | Primitive values (colors, spacing, typography, motion) |
 | `tokens/semantic.json` | Semantic aliases (brand, text, background, border, feedback, dataviz) |
+| `tokens/responsive.json` | Breakpoints and the named spacing steps (`space.*`) with their per-breakpoint values |
 | `tokens/components.json` | Component-scoped tokens |
 | `tokens/themes/dark/semantic.json` | Dark mode semantic overrides |
 | `tokens/themes/dark/components.json` | Dark mode component overrides |
@@ -176,7 +177,9 @@ All tokens become CSS custom properties following this pattern:
 
 **Generated CSS (do not edit)**
 
-Each source theme builds to a file in `tokens/build/`. Eight files are generated: `tokens.css` (light/base, `:root`) plus one per theme — `tokens-dark.css`, `tokens-roomy.css`, `tokens-roomy-dark.css`, `tokens-soft.css`, `tokens-soft-dark.css`, `tokens-compressed.css`, and `tokens-compressed-dark.css` — each scoped to its `[data-theme="…"]` selector.
+`tokens/responsive.json` builds to `tokens-responsive.css`. It declares the named spacing steps on `:root, [data-theme]` with one `@media (min-width)` block per breakpoint. See [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs).
+
+Each source theme builds to a file in `tokens/build/`. Eight theme files are generated: `tokens.css` (light/base, `:root`) plus one per theme — `tokens-dark.css`, `tokens-roomy.css`, `tokens-roomy-dark.css`, `tokens-soft.css`, `tokens-soft-dark.css`, `tokens-compressed.css`, and `tokens-compressed-dark.css` — each scoped to its `[data-theme="…"]` selector.
 
 ## How to customize
 

@@ -1,12 +1,13 @@
 import { forwardRef } from 'react'
 import { cn } from '@/utils/cn'
+import { resolveSpace, type RudiSpace } from '@/utils/space'
 import './center.css'
 
 export interface RudiCenterProps extends React.HTMLAttributes<HTMLElement> {
   /** Maximum content width; any CSS length, such as `"45rem"`. Falls back to the `--rudi-layout-center-max-width` token (60rem). */
   maxWidth?: string
-  /** Minimum inline padding on each side, so content never touches the viewport edge; any CSS length. Falls back to the `--rudi-layout-center-gutters` token (1rem). */
-  gutters?: string
+  /** Minimum inline padding on each side, so content never touches the viewport edge: a step of the spacing scale (`"inline"`, `"content"`, `"group"`, `"section"`, `"gutter"`, or a fixed step: `0`, `1`, `2`, `3`, `4`, `6`, `8`, `12`) or any CSS length. Falls back to the `--rudi-layout-center-gutters` token (`gutter`, which widens at the `md` and `lg` breakpoints). */
+  gutters?: RudiSpace
   /**
    * Also centers each child horizontally by its own content width, as a column flex container.
    *
@@ -47,7 +48,8 @@ export const RudiCenter = forwardRef<HTMLElement, RudiCenterProps>(function Rudi
 ) {
   const customProperties: Record<string, string> = {}
   if (maxWidth) customProperties['--center-max-width'] = maxWidth
-  if (gutters) customProperties['--center-gutters'] = gutters
+  const guttersValue = resolveSpace(gutters)
+  if (guttersValue) customProperties['--center-gutters'] = guttersValue
 
   return (
     <Element

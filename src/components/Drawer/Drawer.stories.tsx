@@ -53,7 +53,7 @@ type Story = StoryObj<typeof meta>
 function EditForm({ onDone }: { onDone: () => void }) {
   return (
     <>
-      <RudiStack space="var(--rudi-spacing-4)">
+      <RudiStack space="content">
         <RudiInput label="Reference" defaultValue="SHP-20418" />
         <RudiInput label="Carrier" defaultValue="DHL Medical Express" />
         <RudiTextarea label="Handling notes" defaultValue="Keep between 2 and 8 °C." />
@@ -79,7 +79,7 @@ export const Default: Story = {
 <>
   <RudiButton onPress={() => setIsOpen(true)}>Edit shipment</RudiButton>
   <RudiDrawer isOpen={isOpen} onClose={() => setIsOpen(false)} title="Edit shipment">
-    <RudiStack space="var(--rudi-spacing-4)">
+    <RudiStack space="content">
       <RudiInput label="Reference" defaultValue="SHP-20418" />
       <RudiInput label="Carrier" defaultValue="DHL Medical Express" />
       <RudiTextarea label="Handling notes" defaultValue="Keep between 2 and 8 °C." />
@@ -125,7 +125,7 @@ export const StartPlacement: Story = {
           Show filters
         </RudiButton>
         <RudiDrawer {...args} isOpen={isOpen} onClose={() => setIsOpen(false)}>
-          <RudiStack space="var(--rudi-spacing-4)">
+          <RudiStack space="content">
             <RudiInput label="Origin" />
             <RudiInput label="Destination" />
           </RudiStack>

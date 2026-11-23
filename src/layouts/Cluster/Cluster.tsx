@@ -1,10 +1,11 @@
 import { forwardRef } from 'react'
 import { cn } from '@/utils/cn'
+import { resolveSpace, type RudiSpace } from '@/utils/space'
 import './cluster.css'
 
 export interface RudiClusterProps extends React.HTMLAttributes<HTMLElement> {
-  /** Gap between items, both horizontally and between wrapped rows; any CSS length. Falls back to the `--rudi-layout-cluster-space` token (1rem). */
-  space?: string
+  /** Gap between items, both horizontally and between wrapped rows: a step of the spacing scale (`"inline"`, `"content"`, `"group"`, `"section"`, `"gutter"`, or a fixed step: `0`, `1`, `2`, `3`, `4`, `6`, `8`, `12`) or any CSS length. Falls back to the `--rudi-layout-cluster-space` token (`content`). */
+  space?: RudiSpace
   /** Horizontal distribution of items along each row (`justify-content`). Defaults to `flex-start` in CSS. */
   justify?:
     | 'flex-start'
@@ -29,7 +30,7 @@ export interface RudiClusterProps extends React.HTMLAttributes<HTMLElement> {
  * Polymorphic through `as`; unrecognised DOM props (`id`, `aria-*`, `data-*`, handlers) are spread onto the root element, and `className` is merged with the built-in class, not replaced.
  *
  * @example
- * <RudiCluster space="0.5rem" justify="flex-end">
+ * <RudiCluster space="inline" justify="flex-end">
  *   <RudiButton onPress={cancel}>Cancel</RudiButton>
  *   <RudiButton onPress={save}>Save</RudiButton>
  * </RudiCluster>
@@ -48,7 +49,8 @@ export const RudiCluster = forwardRef<HTMLElement, RudiClusterProps>(function Ru
   ref,
 ) {
   const customProperties: Record<string, string> = {}
-  if (space) customProperties['--cluster-space'] = space
+  const spaceValue = resolveSpace(space)
+  if (spaceValue) customProperties['--cluster-space'] = spaceValue
   if (justify) customProperties['--cluster-justify'] = justify
   if (align) customProperties['--cluster-align'] = align
 

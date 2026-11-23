@@ -186,7 +186,7 @@ export const LinkTabs: Story = {
     const [path, setPath] = useState('/shipments/pending')
     return (
       <RudiRouterProvider navigate={setPath}>
-        <RudiStack space="1rem">
+        <RudiStack space="content">
           <RudiTabs {...args} selectedKey={path} defaultSelectedKey={undefined}>
             <RudiTabList aria-label="Shipment status">
               <RudiTab id="/shipments/pending" href="/shipments/pending">Pending</RudiTab>
@@ -231,7 +231,7 @@ export const Controlled: Story = {
   render: function ControlledStory(args) {
     const [selected, setSelected] = useState<Key>('active')
     return (
-      <RudiStack space="1rem">
+      <RudiStack space="content">
         <RudiTabs
           {...args}
           defaultSelectedKey={undefined}

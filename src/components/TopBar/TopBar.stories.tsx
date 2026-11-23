@@ -38,7 +38,7 @@ export const AppHeader: Story = {
     <RudiTopBar
       {...args}
       end={
-        <RudiCluster space="0.5rem">
+        <RudiCluster space="inline">
           <RudiIconButton aria-label="Notifications" variant="ghost">
             <RudiIcon icon="lucide:bell" />
           </RudiIconButton>
@@ -64,7 +64,7 @@ export const MarketingHeader: Story = {
         </RudiText>
       }
       end={
-        <RudiCluster space="0.5rem">
+        <RudiCluster space="inline">
           <RudiIconButton aria-label="Search" variant="ghost">
             <RudiIcon icon="lucide:search" />
           </RudiIconButton>

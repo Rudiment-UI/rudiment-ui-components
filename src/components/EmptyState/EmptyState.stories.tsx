@@ -87,7 +87,7 @@ export const WithMultipleActions: Story = {
     title: 'No results',
     description: 'No shipments match your filters.',
     action: (
-      <RudiCluster space="0.5rem" justify="center">
+      <RudiCluster space="inline" justify="center">
         <RudiButton variant="secondary">Clear filters</RudiButton>
         <RudiButton variant="primary">Create shipment</RudiButton>
       </RudiCluster>

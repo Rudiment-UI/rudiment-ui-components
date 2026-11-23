@@ -66,7 +66,7 @@ export function ValidatedForm() {
 
   return (
     <RudiStack>
-      <RudiStack space="var(--rudi-spacing-1)">
+      <RudiStack space={1}>
         <RudiHeading level={2} noMargin>
           Request access
         </RudiHeading>

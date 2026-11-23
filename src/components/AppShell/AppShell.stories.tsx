@@ -49,7 +49,7 @@ function DemoShell({ defaultSidebarOpen }: { defaultSidebarOpen?: boolean }) {
         <RudiText variant="overline" noMargin>
           Acme Inc
         </RudiText>
-        <RudiStack space="0.25rem" as="nav" aria-label="Sections">
+        <RudiStack space={1} as="nav" aria-label="Sections">
           {NAV.map((item, i) => (
             <RudiNavItem
               key={item.key}

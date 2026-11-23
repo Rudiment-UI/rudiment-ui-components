@@ -137,3 +137,58 @@ details.sb-tokens__group > summary {
   font-size: var(--rudi-font-size-xs);
   color: var(--rudi-color-text-subtle);
 }
+
+/* Device preview: the docs-page stand-in for the toolbar's viewport tool. */
+.sb-device {
+  display: grid;
+  gap: var(--rudi-spacing-3);
+  margin-block: var(--rudi-spacing-6);
+  font-family: var(--rudi-font-family-sans);
+}
+
+.sb-device__bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rudi-spacing-2);
+}
+
+.sb-device__option {
+  padding: var(--rudi-spacing-1) var(--rudi-spacing-3);
+  border: 1px solid var(--rudi-color-border-default);
+  border-radius: var(--rudi-radius-full);
+  background: var(--rudi-color-background-surface);
+  color: var(--rudi-color-text-default);
+  font: inherit;
+  font-size: var(--rudi-font-size-sm);
+  cursor: pointer;
+}
+
+.sb-device__option[aria-pressed='true'] {
+  border-color: var(--rudi-color-brand-primary);
+  background: var(--rudi-color-brand-primary);
+  color: var(--rudi-color-text-on-brand);
+}
+
+.sb-device__option:focus-visible {
+  outline: 2px solid var(--rudi-color-border-focus);
+  outline-offset: 2px;
+}
+
+.sb-device__stage {
+  overflow: hidden;
+  border-radius: var(--rudi-radius-md);
+  background: var(--rudi-color-background-surface-sunken);
+}
+
+.sb-device__frame {
+  display: block;
+  border: 0;
+  transform-origin: top left;
+  background: var(--rudi-color-background-surface);
+}
+
+.sb-device__caption {
+  margin: 0;
+  color: var(--rudi-color-text-subtle);
+  font-size: var(--rudi-font-size-sm);
+}

@@ -1,9 +1,10 @@
 // The token list behind the Storybook token browser, built from the token
 // JSON sources (not the generated CSS) so each token's tier comes from the file
 // that declares it. tokenData.test.ts checks that every name built here exists
-// in tokens/build/tokens.css and vice versa.
+// in tokens/build/tokens.css (or tokens-responsive.css) and vice versa.
 import primitives from '../../tokens/tokens.json'
 import semantic from '../../tokens/semantic.json'
+import responsive from '../../tokens/responsive.json'
 import components from '../../tokens/components.json'
 
 export type TokenTier = 'primitive' | 'semantic' | 'component'
@@ -55,6 +56,8 @@ function build(): TokenEntry[] {
   const out: TokenEntry[] = []
   walk(primitives as TokenTree, 'primitive', [], out)
   walk(semantic as TokenTree, 'semantic', [], out)
+  // Breakpoints and the named spacing steps sit between primitives and components.
+  walk(responsive as TokenTree, 'semantic', [], out)
   walk(components as TokenTree, 'component', [], out)
   return out
 }
@@ -81,13 +84,21 @@ export type AliasLookup = (name: string, theme: string) => string | undefined
 /**
  * Builds an alias lookup from the generated sheets, keyed by file path:
  * tokens.css → 'light', tokens-dark.css → 'dark', tokens-auto-dark.css → 'auto'.
+ * tokens-responsive.css applies to every theme, so its base declarations (before
+ * the first breakpoint block) are merged into 'light'.
  * A theme sheet only holds the tokens it re-emits; the rest fall back to `:root`.
  */
 export function createAliasLookup(sheets: Record<string, string>): AliasLookup {
   const byTheme: Record<string, AliasMap> = {}
   for (const [file, css] of Object.entries(sheets)) {
     const theme = /tokens-?([\w-]*)\.css$/.exec(file)?.[1] || 'light'
+    if (theme === 'responsive') continue
     byTheme[theme === 'auto-dark' ? 'auto' : theme] = parseAliases(css)
+  }
+  const responsive = Object.entries(sheets).find(([file]) => file.endsWith('tokens-responsive.css'))
+  if (responsive) {
+    const base = parseAliases(responsive[1].split('@media')[0])
+    byTheme.light = new Map([...(byTheme.light ?? []), ...base])
   }
   return (name, theme) => {
     const own = theme === 'light' ? undefined : byTheme[theme]?.get(name)

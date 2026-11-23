@@ -1,11 +1,12 @@
 // src/layouts/Box/Box.tsx
 import { forwardRef } from 'react'
 import { cn } from '@/utils/cn'
+import { resolveSpace, type RudiSpace } from '@/utils/space'
 import './box.css'
 
 export interface RudiBoxProps extends React.HTMLAttributes<HTMLElement> {
-  /** Padding on all four sides; any CSS length, such as `"1rem"` or `"var(--rudi-spacing-6)"`. Falls back to the `--rudi-layout-box-padding` token (1rem). */
-  padding?: string
+  /** Padding on all four sides: a step of the spacing scale (`"inline"`, `"content"`, `"group"`, `"section"`, `"gutter"`, or a fixed step: `0`, `1`, `2`, `3`, `4`, `6`, `8`, `12`) or any CSS length. Falls back to the `--rudi-layout-box-padding` token (`content`). */
+  padding?: RudiSpace
   /**
    * Draws a 1px border with the themed border color and radius.
    *
@@ -39,7 +40,7 @@ export interface RudiBoxProps extends React.HTMLAttributes<HTMLElement> {
  * Polymorphic through `as`; unrecognised DOM props (`id`, `aria-*`, `data-*`, handlers) are spread onto the root element, and `className` is merged with the built-in class, not replaced.
  *
  * @example
- * <RudiBox padding="1.5rem" bordered>
+ * <RudiBox padding="group" bordered>
  *   <RudiText>Panel content</RudiText>
  * </RudiBox>
  */
@@ -58,7 +59,8 @@ export const RudiBox = forwardRef<HTMLElement, RudiBoxProps>(function RudiBox(
   ref,
 ) {
   const customProperties: Record<string, string> = {}
-  if (padding) customProperties['--box-padding'] = padding
+  const paddingValue = resolveSpace(padding)
+  if (paddingValue) customProperties['--box-padding'] = paddingValue
   if (typeof sticky === 'string') customProperties['--box-sticky-top'] = sticky
 
   return (

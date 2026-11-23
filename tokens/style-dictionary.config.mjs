@@ -1,6 +1,9 @@
+import { withoutResponsive } from './responsive-categories.mjs'
+
 export default {
   source: [
     'tokens/tokens.json',
+    'tokens/responsive.json',
     'tokens/semantic.json',
     'tokens/components.json',
   ],
@@ -13,6 +16,7 @@ export default {
         {
           destination: 'tokens.css',
           format: 'css/variables',
+          filter: withoutResponsive(),
           options: {
             outputReferences: true,
           },

@@ -1,3 +1,5 @@
+import { RESPONSIVE_CATEGORIES } from './responsive-categories.mjs'
+
 // Compressed dark: the dark palette plus the compressed spacing + radius
 // scales. Emits dark semantic colors alongside the tight scales.
 const PRIMITIVE_GROUPS = new Set(['blue', 'neutral', 'red', 'green', 'amber'])
@@ -9,6 +11,7 @@ export default {
   log: { warnings: 'disabled' },
   source: [
     'tokens/tokens.json',
+    'tokens/responsive.json',
     'tokens/themes/dark/semantic.json',
     'tokens/components.json',
     'tokens/themes/dark/components.json',
@@ -25,6 +28,7 @@ export default {
           format: 'css/variables',
           options: { selector: '[data-theme="compressed-dark"]', outputReferences: true },
           filter: (token) => {
+            if (RESPONSIVE_CATEGORIES.has(token.path[0])) return false
             const category = token.path[0]
             if (category === 'font' || category === 'motion') return false
             if (category === 'color') {

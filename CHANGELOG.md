@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Responsive spacing scale:** five named steps, `inline`, `content`, `group`, `section`, and `gutter`, as `--rudi-space-*` tokens. Each can take a different value at the new `sm`, `md`, `lg`, and `xl` breakpoints (40, 48, 64, and 80rem, also emitted as `--rudi-breakpoint-*`). Override a step on `:root, [data-theme]` in your own CSS to set it per breakpoint for the whole app. The steps reference the `spacing.*` primitives, so the `compressed` and `roomy` themes still scale them. Source: `tokens/responsive.json`, built to `tokens/build/tokens-responsive.css`. A new Getting Started page, Responsive Spacing, covers the scale and the override rules.
+- **Responsive spacing patterns in Storybook:** Portfolio Dashboard (dense rules for fintech), Product Landing (rules that grow on large screens), and Patient Summary (library defaults, no CSS). Each docs page shows the recipe's spacing CSS next to its code, and each recipe has Phone and Tablet stories locked to those devices.
+- **Device presets for the Storybook viewport tool:** phone, large phone, phone landscape, tablet, tablet landscape, laptop, and desktop, each labeled with the spacing breakpoint that applies at its width. Storybook hides the toolbar's viewport tool on docs pages, so the Responsive Spacing page and the three spacing patterns' docs pages have their own device switcher with the same presets. It renders the story in a frame at the chosen width and scales it down when it doesn't fit.
+- **`RudiSpace` type** (with `RudiSpaceStep` and `RudiSpaceScale`): every layout spacing prop (`space` on Stack, Cluster, Grid, Sidebar, Cover, and Switcher, `padding` on Box, and `gutters` on Center) now accepts a named step (`space="group"`) or a fixed step (`space={4}`, mapped to `--rudi-spacing-4`). CSS length strings still work unchanged.
+
+### Changed
+
+- **Layout defaults point at the named steps:** Stack, Grid, Sidebar, Switcher, and Cover default to `group`, and Cluster and Box to `content`. These have the same values as before. Center's `gutters` default is now `gutter`, which is 1rem as before and widens to 1.5rem at `md` and 2rem at `lg`.
+
 ### Fixed
 
 - **Hover in `RudiSelect`, `RudiComboBox` and `RudiMenu` popovers in the soft themes:** soft and soft-dark raise the popover to `surface-raised` but left the option and item hover color on that same token, so pointing at an option showed no change. `--rudi-component-select-option-hover-bg` and `--rudi-component-menu-item-hover-bg` now use `--rudi-color-background-control` in soft and soft-dark. `RudiComboBox` picks this up through its alias to the select token. Other themes are unchanged.

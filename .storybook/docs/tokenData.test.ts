@@ -12,7 +12,7 @@ const sheets = Object.fromEntries(
     .filter((f) => f.endsWith('.css'))
     .map((f) => [f, readFileSync(resolve(buildDir, f), 'utf8')]),
 )
-const css = sheets['tokens.css']
+const css = sheets['tokens.css'] + sheets['tokens-responsive.css']
 // Vitest blanks CSS imports, so the browser's ?raw glob can't be used here;
 // build the same lookup from the files on disk.
 const aliasOf = createAliasLookup(sheets)

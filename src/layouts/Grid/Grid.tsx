@@ -1,12 +1,13 @@
 import { forwardRef } from 'react'
 import { cn } from '@/utils/cn'
+import { resolveSpace, type RudiSpace } from '@/utils/space'
 import './grid.css'
 
 export interface RudiGridProps extends React.HTMLAttributes<HTMLElement> {
   /** Minimum width of each column before the grid fits fewer columns; any CSS length, capped at 100% of the container. Falls back to the `--rudi-layout-grid-min-cell` token (15rem). */
   minCellWidth?: string
-  /** Gap between rows and columns; any CSS length. Falls back to the `--rudi-layout-grid-space` token (1.5rem). */
-  space?: string
+  /** Gap between rows and columns: a step of the spacing scale (`"inline"`, `"content"`, `"group"`, `"section"`, `"gutter"`, or a fixed step: `0`, `1`, `2`, `3`, `4`, `6`, `8`, `12`) or any CSS length. Falls back to the `--rudi-layout-grid-space` token (`group`). */
+  space?: RudiSpace
   /**
    * Element or component to render as the root. Use `"ul"` or `"ol"` for a list; bullets and indent are removed.
    *
@@ -22,7 +23,7 @@ export interface RudiGridProps extends React.HTMLAttributes<HTMLElement> {
  * Polymorphic through `as`; unrecognised DOM props (`id`, `aria-*`, `data-*`, handlers) are spread onto the root element, and `className` is merged with the built-in class, not replaced.
  *
  * @example
- * <RudiGrid minCellWidth="16rem" space="1rem">
+ * <RudiGrid minCellWidth="16rem" space="content">
  *   <RudiCard>One</RudiCard>
  *   <RudiCard>Two</RudiCard>
  * </RudiGrid>
@@ -41,7 +42,8 @@ export const RudiGrid = forwardRef<HTMLElement, RudiGridProps>(function RudiGrid
 ) {
   const customProperties: Record<string, string> = {}
   if (minCellWidth) customProperties['--grid-min-cell'] = minCellWidth
-  if (space) customProperties['--grid-space'] = space
+  const spaceValue = resolveSpace(space)
+  if (spaceValue) customProperties['--grid-space'] = spaceValue
 
   return (
     <Element

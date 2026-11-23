@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { RudiGrid } from './Grid'
+import { spaceArgType } from '../../stories/spaceArgType'
 
 const meta = {
   title: 'Layouts/Grid',
@@ -25,10 +26,7 @@ const meta = {
       control: 'text',
       table: { category: 'Layout' },
     },
-    space: {
-      control: 'text',
-      table: { category: 'Layout' },
-    },
+    space: spaceArgType,
   },
 } satisfies Meta<typeof RudiGrid>
 
@@ -44,7 +42,7 @@ function Placeholder({ label }: { label: string }) {
 }
 
 export const Default: Story = {
-  args: { minCellWidth: '15rem', space: '1rem', as: 'div' },
+  args: { minCellWidth: '15rem', space: 'content', as: 'div' },
   render: (args) => (
     <RudiGrid {...args}>
       <Placeholder label="Item 1" />
@@ -84,7 +82,7 @@ export const WideCells: Story = {
 }
 
 export const TightGap: Story = {
-  args: { space: '0.5rem' },
+  args: { space: 'inline' },
   render: (args) => (
     <RudiGrid {...args}>
       <Placeholder label="Item 1" />
@@ -98,7 +96,7 @@ export const TightGap: Story = {
 }
 
 export const LooseGap: Story = {
-  args: { space: '3rem' },
+  args: { space: 'section' },
   render: (args) => (
     <RudiGrid {...args}>
       <Placeholder label="Item 1" />

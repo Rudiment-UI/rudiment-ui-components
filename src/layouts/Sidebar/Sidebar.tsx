@@ -1,5 +1,6 @@
 import { forwardRef } from 'react'
 import { cn } from '@/utils/cn'
+import { resolveSpace, type RudiSpace } from '@/utils/space'
 import './sidebar.css'
 
 export interface RudiSidebarProps extends React.HTMLAttributes<HTMLElement> {
@@ -13,8 +14,8 @@ export interface RudiSidebarProps extends React.HTMLAttributes<HTMLElement> {
   sideWidth?: string
   /** Minimum width of the content child, as a CSS length or percentage, before the two panels wrap into a column. Falls back to the `--rudi-layout-sidebar-content-min` token (50%). */
   contentMin?: string
-  /** Gap between the two panels, including after they wrap; any CSS length. Falls back to the `--rudi-layout-sidebar-space` token (1.5rem). */
-  space?: string
+  /** Gap between the two panels, including after they wrap: a step of the spacing scale (`"inline"`, `"content"`, `"group"`, `"section"`, `"gutter"`, or a fixed step: `0`, `1`, `2`, `3`, `4`, `6`, `8`, `12`) or any CSS length. Falls back to the `--rudi-layout-sidebar-space` token (`group`). */
+  space?: RudiSpace
   /**
    * Keeps each panel at its own content height instead of stretching to match the taller one.
    *
@@ -59,7 +60,8 @@ export const RudiSidebar = forwardRef<HTMLElement, RudiSidebarProps>(function Ru
   const customProperties: Record<string, string> = {}
   if (sideWidth) customProperties['--sidebar-width'] = sideWidth
   if (contentMin) customProperties['--sidebar-content-min'] = contentMin
-  if (space) customProperties['--sidebar-space'] = space
+  const spaceValue = resolveSpace(space)
+  if (spaceValue) customProperties['--sidebar-space'] = spaceValue
 
   return (
     <Element

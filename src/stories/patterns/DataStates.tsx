@@ -66,10 +66,10 @@ function Body({ status, onRetry, onCreate }: DataStatesProps) {
       )
     case 'ready':
       return (
-        <RudiStack as="ul" space="var(--rudi-spacing-3)">
+        <RudiStack as="ul" space={3}>
           {alerts.map((a) => (
             <li key={a.id}>
-              <RudiCluster space="var(--rudi-spacing-2)">
+              <RudiCluster space="inline">
                 <RudiBadge size="sm" variant={a.tone}>
                   {a.id}
                 </RudiBadge>

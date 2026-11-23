@@ -931,7 +931,7 @@
   "layout": {
     "stack": {
       "space": {
-        "default": { "$value": "{spacing.6}" },
+        "default": { "$value": "{space.group}" },
         "dense": { "$value": "{spacing.3}" },
         "loose": { "$value": "{spacing.12}" }
       }
@@ -947,7 +947,7 @@
     },
     "center": {
       "max-width": { "$value": "60rem" },
-      "gutters": { "$value": "{spacing.4}" }
+      "gutters": { "$value": "{space.gutter}" }
     },
     "cover": {
       "min-height": { "$value": "100vh" },
@@ -958,10 +958,10 @@
       "space": { "$value": "{layout.stack.space.default}" }
     },
     "cluster": {
-      "space": { "$value": "{spacing.4}" }
+      "space": { "$value": "{space.content}" }
     },
     "box": {
-      "padding": { "$value": "{spacing.4}" },
+      "padding": { "$value": "{space.content}" },
       "border-color": { "$value": "{color.border.default}" },
       "border-radius": { "$value": "{radius.md}" },
       "invert-bg": { "$value": "{color.background.inverted}" },

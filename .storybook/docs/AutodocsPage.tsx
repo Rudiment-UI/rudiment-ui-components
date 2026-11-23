@@ -9,6 +9,7 @@ import {
   Title,
   useOf,
 } from '@storybook/addon-docs/blocks'
+import { DevicePreview } from './DevicePreview'
 import { guidelineKey } from './guidelineKeys'
 
 // The same snippets the Component Guidelines page imports, so the guidance is
@@ -28,7 +29,9 @@ const GUIDELINES = Object.fromEntries(
 /**
  * Storybook's default autodocs layout plus a "Usage guidelines" section for
  * components that have one, placed after the primary example. Pattern recipes
- * don't repeat their primary story under "Stories".
+ * don't repeat their primary story under "Stories". A page whose meta sets
+ * `parameters.devicePreview` gets a device switcher for its Default story, since
+ * Storybook hides the toolbar's viewport tool on docs pages.
  */
 export function AutodocsPage() {
   const { preparedMeta } = useOf('meta', ['meta'])
@@ -37,6 +40,7 @@ export function AutodocsPage() {
   // A recipe's primary story already shows the whole recipe and its source;
   // listing it again under "Stories" would repeat both.
   const isRecipe = preparedMeta.title.startsWith('Patterns/')
+  const hasDevicePreview = Boolean(preparedMeta.parameters?.devicePreview)
 
   return (
     <>
@@ -44,6 +48,12 @@ export function AutodocsPage() {
       <Subtitle />
       <Description />
       <Primary />
+      {hasDevicePreview && (
+        <>
+          <Heading>Device preview</Heading>
+          <DevicePreview storyId={`${preparedMeta.id}--default`} />
+        </>
+      )}
       {Guidelines && (
         <>
           <Heading>Usage guidelines</Heading>

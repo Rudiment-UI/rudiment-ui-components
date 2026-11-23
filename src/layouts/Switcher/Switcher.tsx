@@ -1,12 +1,13 @@
 import { Children, forwardRef } from 'react'
 import { cn } from '@/utils/cn'
+import { resolveSpace, type RudiSpace } from '@/utils/space'
 import './switcher.css'
 
 export interface RudiSwitcherProps extends React.HTMLAttributes<HTMLElement> {
   /** Container width below which the children stack into a single column and above which they share one row; any CSS length. Falls back to the `--rudi-layout-switcher-threshold` token (30rem). */
   threshold?: string
-  /** Gap between children, in both row and column layouts; any CSS length. Falls back to the `--rudi-layout-switcher-space` token (1.5rem). */
-  space?: string
+  /** Gap between children, in both row and column layouts: a step of the spacing scale (`"inline"`, `"content"`, `"group"`, `"section"`, `"gutter"`, or a fixed step: `0`, `1`, `2`, `3`, `4`, `6`, `8`, `12`) or any CSS length. Falls back to the `--rudi-layout-switcher-space` token (`group`). */
+  space?: RudiSpace
   /** Maximum number of children that can share a row. When there are more children than `limit`, they all stack in a single column, each at full width, at any container width. Unset by default, so only `threshold` decides. */
   limit?: number
   /**
@@ -45,7 +46,8 @@ export const RudiSwitcher = forwardRef<HTMLElement, RudiSwitcherProps>(
   ) {
     const customProperties: Record<string, string> = {}
     if (threshold) customProperties['--switcher-threshold'] = threshold
-    if (space) customProperties['--switcher-space'] = space
+    const spaceValue = resolveSpace(space)
+    if (spaceValue) customProperties['--switcher-space'] = spaceValue
 
     return (
       <Element

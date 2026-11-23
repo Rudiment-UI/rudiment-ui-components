@@ -230,7 +230,7 @@ export const Selectable: Story = {
     const [selected, setSelected] = useState<Selection>(new Set(['SH-1044']))
     const count = selected === 'all' ? shipments.length : selected.size
     return (
-      <RudiStack space="0.75rem">
+      <RudiStack space={3}>
         <RudiCluster justify="space-between" align="center">
           <RudiText variant="body-sm" tone="subtle" noMargin>
             {count} selected
@@ -268,7 +268,7 @@ export const ClickableRows: Story = {
     const [path, setPath] = useState('/shipments')
     return (
       <RudiRouterProvider navigate={setPath}>
-        <RudiStack space="0.75rem">
+        <RudiStack space={3}>
           <RudiTable {...args}>
             <ShipmentColumns />
             <RudiTableBody items={shipments}>
@@ -304,7 +304,7 @@ export const EmptyState: Story = {
       <RudiTableBody
         items={[] as Shipment[]}
         renderEmptyState={() => (
-          <RudiStack space="0.5rem">
+          <RudiStack space="inline">
             <RudiText weight="semibold" noMargin>
               No shipments yet
             </RudiText>

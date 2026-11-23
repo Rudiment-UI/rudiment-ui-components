@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { RudiCover } from './Cover'
+import { spaceArgType } from '../../stories/spaceArgType'
 
 const meta = {
   title: 'Layouts/Cover',
@@ -15,7 +16,7 @@ const meta = {
   },
   args: {
     minHeight: '25rem',
-    space: '2rem',
+    space: 8,
     as: 'div',
   },
   argTypes: {
@@ -30,10 +31,7 @@ const meta = {
       control: 'text',
       table: { category: 'Layout' },
     },
-    space: {
-      control: 'text',
-      table: { category: 'Layout' },
-    },
+    space: spaceArgType,
   },
 } satisfies Meta<typeof RudiCover>
 
@@ -99,7 +97,7 @@ export const FullViewport: Story = {
 }
 
 export const CustomSpace: Story = {
-  args: { minHeight: '400px', space: '3rem' },
+  args: { minHeight: '400px', space: 'section' },
   render: (args) => (
     <RudiCover {...args}>
       <Placeholder label="Header" />

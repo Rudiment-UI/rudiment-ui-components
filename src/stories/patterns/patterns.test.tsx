@@ -6,6 +6,9 @@ import { rudiToast } from '../../index'
 import { ConfirmDialog } from './ConfirmDialog'
 import { DataStates } from './DataStates'
 import { FilterableTable } from './FilterableTable'
+import { PatientSummary } from './PatientSummary'
+import { PortfolioDashboard } from './PortfolioDashboard'
+import { ProductLanding } from './ProductLanding'
 import { SettingsPage } from './SettingsPage'
 import { ValidatedForm } from './ValidatedForm'
 
@@ -131,6 +134,54 @@ describe('SettingsPage recipe', () => {
 
   it('has no axe violations', async () => {
     const { container } = render(<SettingsPage />)
+    expect(await axe(container)).toHaveNoViolations()
+  })
+})
+
+// The responsive spacing recipes: layout props name spacing steps, which resolve
+// to --rudi-space-* custom properties the recipe's stylesheet (or the library)
+// sets per breakpoint.
+describe('PortfolioDashboard recipe', () => {
+  it('spaces its layouts with named steps under the recipe scope', () => {
+    const { container } = render(<PortfolioDashboard />)
+    const main = screen.getByRole('main')
+    expect(main).toHaveClass('portfolio-app')
+    expect(main.style.getPropertyValue('--box-padding')).toBe('var(--rudi-space-gutter)')
+    const stats = container.querySelector('.rudi-switcher') as HTMLElement
+    expect(stats.style.getPropertyValue('--switcher-space')).toBe('var(--rudi-space-group)')
+    expect(screen.getByRole('grid', { name: 'Top positions' })).toBeInTheDocument()
+  })
+
+  it('has no axe violations', async () => {
+    const { container } = render(<PortfolioDashboard />)
+    expect(await axe(container)).toHaveNoViolations()
+  })
+})
+
+describe('ProductLanding recipe', () => {
+  it('renders the page sections under the recipe scope', () => {
+    render(<ProductLanding />)
+    expect(screen.getByRole('main')).toHaveClass('landing-site')
+    expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument()
+    expect(screen.getByRole('region', { name: 'Pricing' })).toBeInTheDocument()
+  })
+
+  it('has no axe violations', async () => {
+    const { container } = render(<ProductLanding />)
+    expect(await axe(container)).toHaveNoViolations()
+  })
+})
+
+describe('PatientSummary recipe', () => {
+  it('uses the default steps with no recipe scope', () => {
+    render(<PatientSummary />)
+    const main = screen.getByRole('main')
+    expect(main.className).toBe('rudi-box')
+    expect(screen.getByRole('region', { name: 'Medications' })).toBeInTheDocument()
+  })
+
+  it('has no axe violations', async () => {
+    const { container } = render(<PatientSummary />)
     expect(await axe(container)).toHaveNoViolations()
   })
 })

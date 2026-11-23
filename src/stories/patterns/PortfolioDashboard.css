@@ -1,0 +1,23 @@
+/*
+ * Spacing rules for a data-dense product: tight at every width so more rows
+ * fit on screen, with a little more room from laptop width up.
+ *
+ * In an app, write these on `:root, [data-theme]` so they apply everywhere.
+ * This recipe scopes them to `.portfolio-app` so it can share Storybook with
+ * the other recipes.
+ */
+.portfolio-app,
+.portfolio-app [data-theme] {
+  --rudi-space-content: var(--rudi-spacing-3);
+  --rudi-space-group: var(--rudi-spacing-4);
+  --rudi-space-section: var(--rudi-spacing-6);
+  --rudi-space-gutter: var(--rudi-spacing-3);
+}
+
+@media (min-width: 64rem) {
+  .portfolio-app,
+  .portfolio-app [data-theme] {
+    --rudi-space-section: var(--rudi-spacing-8);
+    --rudi-space-gutter: var(--rudi-spacing-6);
+  }
+}

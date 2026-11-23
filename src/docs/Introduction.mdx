@@ -84,7 +84,7 @@ See [Theming](?path=/docs/getting-started-theming--docs).
 - **`onChange` receives a value**, not an event. For example, `RudiInput` passes a `string` and `RudiCheckbox` passes a `boolean`.
 - **`label` is a required prop** on form fields, progress indicators and charts. It becomes the accessible name.
 - **Icons are Iconify name strings**, such as `icon="mdi:close"`. You don't import icon components.
-- **Layout spacing takes CSS lengths**, such as `space="1.5rem"`. See [Layout Primitives](?path=/docs/getting-started-layout-primitives--docs).
+- **Layout spacing takes a named step**, such as `space="group"`. You set each step's value per breakpoint once, in CSS. A fixed step (`space={4}`) or any CSS length also works. See [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs).
 
 ## Library contents
 
@@ -132,8 +132,9 @@ Setup for Cursor, VS Code, Codex and Claude Desktop is in `mcp/README.md` in the
 - [Theming](?path=/docs/getting-started-theming--docs): customizing brand colors, dark mode, and creating additional themes
 - [Accessibility](?path=/docs/getting-started-accessibility--docs): keyboard, screen reader, and focus support
 - [Layout Primitives](?path=/docs/getting-started-layout-primitives--docs): composition-based layout system
+- [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs): the spacing scale and setting its values per breakpoint
 - [Component Guidelines](?path=/docs/getting-started-component-guidelines--docs): do/don't guidance for each component
 - [Typography](?path=/docs/getting-started-typography--docs): Heading, Text, and Prose components
 - [Vitrea](?path=/docs/getting-started-vitrea--docs): a demo app built entirely with Rudiment UI, with a live demo
-- [Patterns](?path=/docs/patterns-validated-form--docs): copyable recipes for forms, filterable tables, loading and error states, confirmations and settings pages
+- [Patterns](?path=/docs/patterns-validated-form--docs): copyable recipes for forms, filterable tables, loading and error states, confirmations, settings pages, and responsive spacing (a fintech dashboard, a marketing landing page, and a patient summary)
 - [Changelog](?path=/docs/getting-started-changelog--docs): what changed in each release

@@ -16,9 +16,6 @@ const meta = {
   args: {
     variant: 'default',
     children: 'Tag',
-    dismissible: false,
-    isDisabled: false,
-    className: '',
   },
   argTypes: {
     children: {
@@ -39,11 +36,11 @@ const meta = {
       table: { category: 'Content' },
     },
     onDismiss: {
-      action: 'dismissed',
+      control: false,
       table: { category: 'Content' },
     },
     onPress: {
-      action: 'pressed',
+      control: false,
       table: { category: 'Content' },
     },
     isDisabled: {
@@ -57,36 +54,26 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    children: 'Default',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A static label. Change the props in the API reference below to try every option on this example.',
+      },
+    },
   },
 }
 
-export const Dismissible: Story = {
-  args: {
-    children: 'Dismissible',
-    dismissible: true,
-    onPress: undefined,
+export const Variants: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use a variant to group tags by meaning. Use Tag for user-generated labels and filters; use Badge when the label is system-defined and cannot be removed.',
+      },
+    },
   },
-}
-
-export const Interactive: Story = {
-  args: {
-    children: 'Click me',
-    onPress: () => {},
-  },
-}
-
-export const Disabled: Story = {
-  args: {
-    children: 'Disabled',
-    isDisabled: true,
-    onPress: () => {},
-  },
-}
-
-export const AllVariants: Story = {
-  render: ({}) => (
+  render: () => (
     <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
       <RudiTag variant="default">Default</RudiTag>
       <RudiTag variant="success">Success</RudiTag>
@@ -97,24 +84,61 @@ export const AllVariants: Story = {
   ),
 }
 
-export const DismissibleVariants: Story = {
-  render: ({}) => (
+export const RemovableTags: Story = {
+  name: 'Removable tags',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Set `dismissible` and provide `onDismiss` when people can remove a tag, such as an applied filter.',
+      },
+    },
+  },
+  render: () => (
     <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-      <RudiTag variant="default" dismissible>
-        Default
+      <RudiTag variant="default" dismissible onDismiss={() => {}}>Default</RudiTag>
+      <RudiTag variant="success" dismissible onDismiss={() => {}}>Success</RudiTag>
+      <RudiTag variant="warning" dismissible onDismiss={() => {}}>Warning</RudiTag>
+      <RudiTag variant="error" dismissible onDismiss={() => {}}>Error</RudiTag>
+      <RudiTag variant="info" dismissible onDismiss={() => {}}>Info</RudiTag>
+    </div>
+  ),
+}
+
+export const ClickableTags: Story = {
+  name: 'Clickable tags',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Pass `onPress` to make the tag itself a button. With both `onPress` and `dismissible` the tag renders two separate buttons, the tag and its remove button, so each action stays distinct.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+      <RudiTag onPress={() => {}}>Click me</RudiTag>
+      <RudiTag onPress={() => {}} dismissible onDismiss={() => {}}>
+        Click or remove
       </RudiTag>
-      <RudiTag variant="success" dismissible>
-        Success
-      </RudiTag>
-      <RudiTag variant="warning" dismissible>
-        Warning
-      </RudiTag>
-      <RudiTag variant="error" dismissible>
-        Error
-      </RudiTag>
-      <RudiTag variant="info" dismissible>
-        Info
-      </RudiTag>
+    </div>
+  ),
+}
+
+export const DisabledTags: Story = {
+  name: 'Disabled tags',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '`isDisabled` turns off both the tag and its remove button. To keep a tag from being removed, omit `dismissible` instead.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+      <RudiTag isDisabled onPress={() => {}}>Disabled</RudiTag>
+      <RudiTag isDisabled dismissible onDismiss={() => {}}>Disabled and removable</RudiTag>
     </div>
   ),
 }

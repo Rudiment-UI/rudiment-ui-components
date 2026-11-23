@@ -38,34 +38,72 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {}
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A neutral dot. Without a `label` it is hidden from assistive technology. Change the props in the API reference below to try every option on this example.',
+      },
+    },
+  },
+}
 
 export const Tones: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use the semantic `tone` instead of a raw `color` so the indicator stays theme-aware. Pair each dot with a text label so color-blind readers can tell states apart.',
+      },
+    },
+  },
   render: () => (
     <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-      <RudiDot tone="default" />
-      <RudiDot tone="success" />
-      <RudiDot tone="warning" />
-      <RudiDot tone="error" />
-      <RudiDot tone="info" />
+      <RudiDot tone="default" /> Default
+      <RudiDot tone="success" /> Success
+      <RudiDot tone="warning" /> Warning
+      <RudiDot tone="error" /> Error
+      <RudiDot tone="info" /> Info
     </div>
   ),
 }
 
-export const WithLabel: Story = {
+export const StatusIndicator: Story = {
+  name: 'Status indicator',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'When the dot is the only signal of status, give it a `label` so screen readers announce it.',
+      },
+    },
+  },
   args: { tone: 'success', label: 'Online' },
-  render: (args) => (
-    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-      <RudiDot {...args} />
-      <span>Online</span>
-    </div>
-  ),
 }
 
 export const CustomColor: Story = {
+  name: 'Custom color',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Pass an explicit `color` token for domain accents that have no semantic tone, such as chart series or categories.',
+      },
+    },
+  },
   args: { color: 'var(--rudi-color-dataviz-3)' },
 }
 
-export const Pulse: Story = {
+export const LiveIndicator: Story = {
+  name: 'Live indicator',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '`pulse` animates the dot. Reserve it for live or active states, not static ones.',
+      },
+    },
+  },
   args: { tone: 'error', pulse: true, label: 'Live' },
 }

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { RudiDescriptionList } from './DescriptionList'
+import { RudiStack } from '../../layouts/Stack/Stack'
 
 const items = [
   { term: 'Carrier', description: 'FedEx Priority Overnight' },
@@ -51,12 +52,56 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Stacked: Story = {}
-
-export const Inline: Story = { args: { layout: 'inline' } }
-
-export const InlineWithDividers: Story = {
-  args: { layout: 'inline', dividers: true },
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use it for read-only key and value details, such as the attributes of a record or an order summary. Change the props in the API reference below to try every option on this example.',
+      },
+    },
+  },
 }
 
-export const Columns: Story = { args: { columns: 3 } }
+export const Layouts: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `layout="inline"` for short values beside their terms. It falls back to stacked when its container is narrow, so it is safe in sidebars. Add `dividers` to separate long lists.',
+      },
+    },
+  },
+  render: (args) => (
+    <RudiStack space="section">
+      <RudiDescriptionList
+        {...args}
+        items={items.slice(0, 3)}
+        layout="stacked"
+      />
+      <RudiDescriptionList
+        {...args}
+        items={items.slice(0, 3)}
+        layout="inline"
+      />
+      <RudiDescriptionList
+        {...args}
+        items={items.slice(0, 3)}
+        layout="inline"
+        dividers
+      />
+    </RudiStack>
+  ),
+}
+
+export const Columns: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Set `columns` to spread a long list across the width of a wide container. Do not use the list for data with several attributes per row (use Table), and do not put form fields in it (use a Form).',
+      },
+    },
+  },
+  args: { columns: 3 },
+}

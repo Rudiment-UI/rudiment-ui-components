@@ -36,13 +36,39 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {}
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A read-only rating, exposed to assistive technology as a labeled image. Change the props in the API reference below to try every option on this example.',
+      },
+    },
+  },
+}
 
-export const WithValueAndCount: Story = {
-  args: { value: 4.8, showValue: true, count: 128 },
+export const ReadOnlyRating: Story = {
+  name: 'Read-only rating',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Show the numeric score and review count next to the stars with `showValue` and `count`. Without `onChange` the rating is not clickable, so do not style it as if it were. Give it a `label` that says what is rated.',
+      },
+    },
+  },
+  args: { value: 4.8, showValue: true, count: 128, label: 'Customer rating' },
 }
 
 export const Sizes: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `sm` in dense lists and cards, `md` in most layouts and `lg` for a prominent summary. Keep `max` at 5 unless the domain needs finer granularity.',
+      },
+    },
+  },
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
       <RudiRating value={3.5} size="sm" />
@@ -52,9 +78,18 @@ export const Sizes: Story = {
   ),
 }
 
-export const Interactive: Story = {
+export const InteractiveRating: Story = {
+  name: 'Interactive rating',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Pass `onChange` only when users should set the rating. It becomes a radio group with one tab stop, and the arrow keys change the value.',
+      },
+    },
+  },
   render: () => {
     const [value, setValue] = useState(0)
-    return <RudiRating value={value} onChange={setValue} showValue />
+    return <RudiRating value={value} onChange={setValue} label="Your rating" showValue />
   },
 }

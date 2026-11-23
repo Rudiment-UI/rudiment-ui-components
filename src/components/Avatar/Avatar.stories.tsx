@@ -16,12 +16,6 @@ const meta = {
   args: {
     name: 'John Doe',
     size: 'md',
-    src: '',
-    alt: '',
-    status: undefined,
-    icon: undefined,
-    tint: undefined,
-    className: '',
   },
   argTypes: {
     src: {
@@ -64,55 +58,42 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const WithInitials: Story = {
-  args: {
-    name: 'John Doe',
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Initials from `name` when there is no image. Change the props in the API reference below to try every option on this example.',
+      },
+    },
   },
 }
 
-export const WithImage: Story = {
+export const Images: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Pass `src` with `alt` for a photo. Keep `name` set as well: its initials show if the image fails to load. Pair the avatar with a visible name in lists and profiles instead of relying on the image alone. An Avatar with no `alt` or `name` is treated as decorative and hidden from screen readers, so avoid an empty circle with no context.',
+      },
+    },
+  },
   args: {
     src: 'https://i.pravatar.cc/100',
-    alt: 'User avatar',
+    alt: 'John Doe',
     name: 'John Doe',
   },
 }
 
-export const SmallSize: Story = {
-  args: {
-    size: 'sm',
-    name: 'John Doe',
+export const Sizes: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `sm` in dense lists and tables, `md` in most layouts and `lg` in profile headers.',
+      },
+    },
   },
-}
-
-export const MediumSize: Story = {
-  args: {
-    size: 'md',
-    name: 'John Doe',
-  },
-}
-
-export const LargeSize: Story = {
-  args: {
-    size: 'lg',
-    name: 'John Doe',
-  },
-}
-
-export const WithStatus: Story = {
-  args: {
-    name: 'John Doe',
-    status: 'success',
-  },
-}
-
-export const SingleName: Story = {
-  args: {
-    name: 'Alice',
-  },
-}
-
-export const AllSizes: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
       <RudiAvatar name="John Doe" size="sm" />
@@ -122,27 +103,53 @@ export const AllSizes: Story = {
   ),
 }
 
-export const AllStatuses: Story = {
+export const Fallbacks: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'With no image the avatar shows up to two initials from `name`. A single word gives one initial.',
+      },
+    },
+  },
   render: () => (
     <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-      <RudiAvatar name="John Doe" status="success" />
-      <RudiAvatar name="John Doe" status="warning" />
-      <RudiAvatar name="John Doe" status="error" />
-      <RudiAvatar name="John Doe" status="info" />
+      <RudiAvatar name="John Doe" />
+      <RudiAvatar name="Alice" />
     </div>
   ),
 }
 
-export const WithIcon: Story = {
-  name: 'With icon',
-  args: {
-    name: 'Shipments',
-    icon: 'lucide:truck',
-    tint: 'var(--rudi-color-brand-primary)',
+export const StatusIndicator: Story = {
+  name: 'Status indicator',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `status` sparingly, for presence or assignment states. Pass `statusLabel` (for example "Busy") so the status is part of the accessible name and not only a colored dot.',
+      },
+    },
   },
+  render: () => (
+    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+      <RudiAvatar name="John Doe" status="success" statusLabel="Online" />
+      <RudiAvatar name="John Doe" status="warning" statusLabel="Away" />
+      <RudiAvatar name="John Doe" status="error" statusLabel="Busy" />
+      <RudiAvatar name="John Doe" status="info" statusLabel="In a meeting" />
+    </div>
+  ),
 }
 
-export const Tinted: Story = {
+export const IconTiles: Story = {
+  name: 'Icon tiles',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Combine `icon` with `tint` for entity tiles, such as a page-title icon for "Shipments". Keep `name` set so the tile has an accessible name.',
+      },
+    },
+  },
   render: () => (
     <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
       <RudiAvatar name="Shipments" icon="lucide:truck" tint="var(--rudi-color-dataviz-series-1)" size="lg" />
@@ -155,6 +162,14 @@ export const Tinted: Story = {
 
 export const AutoTint: Story = {
   name: 'Auto tint',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '`tint="auto"` picks a categorical color from `name`, so each person or organization keeps the same color everywhere it appears.',
+      },
+    },
+  },
   render: () => (
     <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
       {['Ada Lovelace', 'Grace Hopper', 'Alan Turing', 'Katherine Johnson', 'Northside Fertility', 'Coastal IVF'].map(

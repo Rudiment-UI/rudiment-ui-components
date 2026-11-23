@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { RudiStatCard } from './StatCard'
+import { RudiGrid } from '../../layouts/Grid/Grid'
 
 const meta = {
   title: 'Components/StatCard',
@@ -18,7 +19,6 @@ const meta = {
     value: '$12,450',
     delta: '+12.5%',
     trend: 'up',
-    className: '',
   },
   argTypes: {
     label: {
@@ -49,52 +49,90 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    label: 'Total Revenue',
-    value: '$12,450',
-    delta: '+12.5%',
-    trend: 'up',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Show one metric with a descriptive `label` and a prominent `value`. A number without a label ("12,450") has no meaning on its own. Change the props in the API reference below to try every option on this example.',
+      },
+    },
   },
 }
 
-export const TrendDown: Story = {
-  args: {
-    label: 'Bounce Rate',
-    value: '42.3%',
-    delta: '-3.2%',
-    trend: 'down',
+export const Trends: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Set `trend` to match `delta`. It controls the color, the icon and the screen reader text ("Increased +12.5%"). The default, `neutral`, reads as "No change". Use `trendLabel` to reword or translate that text.',
+      },
+    },
   },
+  render: (args) => (
+    <RudiGrid minCellWidth="12rem" space="content">
+      <RudiStatCard
+        {...args}
+        label="Revenue"
+        value="$12,450"
+        delta="+12.5%"
+        trend="up"
+      />
+      <RudiStatCard
+        {...args}
+        label="Bounce rate"
+        value="42.3%"
+        delta="-3.2%"
+        trend="down"
+      />
+      <RudiStatCard
+        {...args}
+        label="Active users"
+        value="1,024"
+        delta="0%"
+        trend="neutral"
+      />
+    </RudiGrid>
+  ),
 }
 
-export const TrendNeutral: Story = {
-  args: {
-    label: 'Active Users',
-    value: '1,024',
-    delta: '0%',
-    trend: 'neutral',
+export const ValueOnly: Story = {
+  name: 'Value only',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Leave out `delta` when there is nothing to compare against. `value` accepts a number as well as a formatted string.',
+      },
+    },
   },
+  render: (args) => (
+    <RudiGrid minCellWidth="12rem" space="content">
+      <RudiStatCard
+        label="Total orders"
+        value="3,842"
+        className={args.className}
+      />
+      <RudiStatCard
+        label="Items in stock"
+        value={1234}
+        className={args.className}
+      />
+    </RudiGrid>
+  ),
 }
 
-export const NoDelta: Story = {
-  args: {
-    label: 'Total Orders',
-    value: '3,842',
-    delta: undefined,
+export const WithContext: Story = {
+  name: 'With context',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Pass children to add context under the value, such as the comparison period. Use StatCard for numbers and KPIs, not paragraphs.',
+      },
+    },
   },
-}
-
-export const NumericValue: Story = {
   args: {
-    label: 'Items in Stock',
-    value: 1234,
-    delta: '+58',
-    trend: 'up',
-  },
-}
-
-export const WithChildren: Story = {
-  args: {
-    label: 'Conversion Rate',
+    label: 'Conversion rate',
     value: '5.2%',
     delta: '+0.8%',
     trend: 'up',
@@ -109,20 +147,4 @@ export const WithChildren: Story = {
       </span>
     ),
   },
-}
-
-export const AllTrends: Story = {
-  render: () => (
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
-        gap: '1rem',
-      }}
-    >
-      <RudiStatCard label="Revenue" value="$12,450" delta="+12.5%" trend="up" />
-      <RudiStatCard label="Bounce Rate" value="42.3%" delta="-3.2%" trend="down" />
-      <RudiStatCard label="Active Users" value="1,024" delta="0%" trend="neutral" />
-    </div>
-  ),
 }

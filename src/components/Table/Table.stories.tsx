@@ -149,17 +149,17 @@ const meta = {
       table: { category: 'State' },
     },
     onSortChange: {
-      action: 'sortChange',
+      control: false,
       description: 'Called with the next sort descriptor when a sortable column header is pressed.',
       table: { category: 'Events' },
     },
     onSelectionChange: {
-      action: 'selectionChange',
+      control: false,
       description: 'Called with the next selection when rows are (de)selected.',
       table: { category: 'Events' },
     },
     onRowAction: {
-      action: 'rowAction',
+      control: false,
       description: 'Called with the row id when a row is clicked or Enter is pressed on it.',
       table: { category: 'Events' },
     },
@@ -170,6 +170,14 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Give every table an `aria-label` (or `aria-labelledby`) and mark one column `isRowHeader` so screen readers announce each row by name. Set `align="end"` on numeric columns so digits line up. Change the props in the API reference below to try every option on this example.',
+      },
+    },
+  },
   render: (args) => (
     <RudiTable {...args}>
       <ShipmentColumns />
@@ -184,8 +192,8 @@ export const Default: Story = {
   ),
 }
 
-export const Sortable: Story = {
-  render: function SortableStory(args) {
+export const Sorting: Story = {
+  render: function SortingStory(args) {
     const [sort, setSort] = useState<SortDescriptor>({ column: 'id', direction: 'ascending' })
     const sorted = useMemo(() => {
       const key = sort.column as keyof Shipment
@@ -198,10 +206,7 @@ export const Sortable: Story = {
       <RudiTable
         {...args}
         sortDescriptor={sort}
-        onSortChange={(d) => {
-          setSort(d)
-          args.onSortChange?.(d)
-        }}
+        onSortChange={setSort}
       >
         <ShipmentColumns sortable />
         <RudiTableBody items={sorted}>
@@ -218,15 +223,24 @@ export const Sortable: Story = {
     docs: {
       description: {
         story:
-          'Sorting is controlled: the table reports the next `sortDescriptor` and you sort the data. Columns with `allowsSorting` show an indicator and expose `aria-sort`.',
+          'Use sorting when readers compare rows by a column. Sorting is controlled: `allowsSorting` only adds the indicator and `aria-sort`, so reorder `items` in `onSortChange` yourself.',
       },
     },
   },
 }
 
-export const Selectable: Story = {
+export const Selecting: Story = {
+  name: 'Selection',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `selectionMode` when readers act on several rows at once, such as printing labels. The table adds a checkbox column and reports the chosen ids through `onSelectionChange`.',
+      },
+    },
+  },
   args: { selectionMode: 'multiple' },
-  render: function SelectableStory(args) {
+  render: function SelectionStory(args) {
     const [selected, setSelected] = useState<Selection>(new Set(['SH-1044']))
     const count = selected === 'all' ? shipments.length : selected.size
     return (
@@ -242,10 +256,7 @@ export const Selectable: Story = {
         <RudiTable
           {...args}
           selectedKeys={selected}
-          onSelectionChange={(keys) => {
-            setSelected(keys)
-            args.onSelectionChange?.(keys)
-          }}
+          onSelectionChange={setSelected}
         >
           <ShipmentColumns />
           <RudiTableBody items={shipments}>
@@ -261,9 +272,9 @@ export const Selectable: Story = {
   },
 }
 
-export const ClickableRows: Story = {
-  name: 'Clickable rows with href',
-  render: function ClickableRowsStory(args) {
+export const RowNavigation: Story = {
+  name: 'Row navigation',
+  render: function RowNavigationStory(args) {
     // Stand-in for a router: in an app, pass your router's navigate.
     const [path, setPath] = useState('/shipments')
     return (
@@ -290,7 +301,7 @@ export const ClickableRows: Story = {
     docs: {
       description: {
         story:
-          'Rows with `href` navigate on click or Enter through `RudiRouterProvider`. Use the table-level `onRowAction` instead when a row should open a dialog or run a callback.',
+          'Use row `href` to navigate on click or Enter through `RudiRouterProvider`, and table-level `onRowAction` to open a dialog or run a callback in place. Either replaces a button in every row.',
       },
     },
   },
@@ -298,6 +309,14 @@ export const ClickableRows: Story = {
 
 export const EmptyState: Story = {
   name: 'Empty state',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `renderEmptyState` on the body to say what is missing and what to do next when there are no rows. The column headers stay in place.',
+      },
+    },
+  },
   render: (args) => (
     <RudiTable {...args}>
       <ShipmentColumns />
@@ -347,8 +366,8 @@ const wideRows = shipments.map((s, i) => ({
   cost: (s.weight * 4.2).toFixed(2),
 }))
 
-export const ManyColumns: Story = {
-  name: 'Many columns (scroll)',
+export const WideTables: Story = {
+  name: 'Wide tables',
   args: { stickyHeader: true, maxHeight: '14rem' },
   render: (args) => (
     <RudiTable {...args}>
@@ -378,24 +397,41 @@ export const ManyColumns: Story = {
     docs: {
       description: {
         story:
-          'Wide tables scroll horizontally inside their own container instead of overflowing the page. With `maxHeight` and `stickyHeader` the header stays visible while the body scrolls. Columns and rows here are rendered dynamically from `columns` / `items`.',
+          'Use this when a table has more columns or rows than fit. It scrolls inside its own container instead of overflowing the page, and `maxHeight` with `stickyHeader` keeps the header visible. Columns and rows here come from `columns` and `items`.',
       },
     },
   },
 }
 
-export const Compact: Story = {
-  args: { density: 'compact', striped: true },
+export const Density: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `compact` for dense data views and `striped` to help the eye follow long rows. Regular density suits short tables that readers scan once.',
+      },
+    },
+  },
   render: (args) => (
-    <RudiTable {...args}>
-      <ShipmentColumns />
-      <RudiTableBody items={shipments}>
-        {(s) => (
-          <RudiTableRow id={s.id}>
-            <ShipmentCells shipment={s} />
-          </RudiTableRow>
-        )}
-      </RudiTableBody>
-    </RudiTable>
+    <RudiStack space="section">
+      {(['regular', 'compact'] as const).map((density) => (
+        <RudiTable
+          key={density}
+          {...args}
+          aria-label={`Shipments, ${density} density`}
+          density={density}
+          striped={density === 'compact'}
+        >
+          <ShipmentColumns />
+          <RudiTableBody items={shipments}>
+            {(s) => (
+              <RudiTableRow id={s.id}>
+                <ShipmentCells shipment={s} />
+              </RudiTableRow>
+            )}
+          </RudiTableBody>
+        </RudiTable>
+      ))}
+    </RudiStack>
   ),
 }

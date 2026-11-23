@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { RudiCard } from './Card'
+import { RudiButton } from '../Button/Button'
+import { RudiGrid } from '../../layouts/Grid/Grid'
 
 const meta = {
   title: 'Components/Card',
@@ -16,7 +18,6 @@ const meta = {
   args: {
     variant: 'outlined',
     padding: 'md',
-    className: '',
   },
   argTypes: {
     variant: {
@@ -40,8 +41,13 @@ export default meta
 type Story = StoryObj<typeof RudiCard>
 
 export const Default: Story = {
-  args: {
-    children: undefined,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Wrap related content in a card to group it on the page. Change the props in the API reference below to try every option on this example.',
+      },
+    },
   },
   render: (args) => (
     <RudiCard {...args}>
@@ -50,163 +56,82 @@ export const Default: Story = {
       </RudiCard.Body>
     </RudiCard>
   ),
-  parameters: {
-    docs: {
-      source: {
-        code: `<Card variant="outlined" padding="md">
-  <Card.Body>
-    <p>This is a basic card with body content.</p>
-  </Card.Body>
-</Card>`,
-      },
-    },
-  },
 }
 
 export const WithHeaderAndFooter: Story = {
-  args: {
-    children: undefined,
+  name: 'With header and footer',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `Card.Header` and `Card.Footer` to separate a title and actions from the body. Each part inherits the padding set on the card.',
+      },
+    },
   },
   render: (args) => (
     <RudiCard {...args}>
       <RudiCard.Header>
-        <h3>Card Title</h3>
+        <h3>Card title</h3>
       </RudiCard.Header>
       <RudiCard.Body>
-        <p>
-          This card uses all three slots: Header, Body, and Footer. Each slot
-          inherits the padding set on the parent Card.
-        </p>
+        <p>The header, body and footer share the padding of the card.</p>
       </RudiCard.Body>
       <RudiCard.Footer>
-        <button type="button">Action</button>
+        <RudiButton variant="secondary">Action</RudiButton>
       </RudiCard.Footer>
     </RudiCard>
   ),
-  parameters: {
-    docs: {
-      source: {
-        code: `<Card variant="outlined" padding="md">
-  <Card.Header>
-    <h3>Card Title</h3>
-  </Card.Header>
-  <Card.Body>
-    <p>This card uses all three slots: Header, Body, and Footer.</p>
-  </Card.Body>
-  <Card.Footer>
-    <button type="button">Action</button>
-  </Card.Footer>
-</Card>`,
-      },
-    },
-  },
 }
 
-export const Outlined: Story = {
-  args: {
-    variant: 'outlined',
-    children: undefined,
+export const Variants: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `outlined` as the default for most content containers. Reserve `elevated` for the one card that needs emphasis, since elevating every card in a dense layout flattens the hierarchy. Do not nest cards inside cards; it adds visual noise and a confusing depth hierarchy.',
+      },
+    },
   },
   render: (args) => (
-    <RudiCard {...args}>
-      <RudiCard.Body>
-        <p>An outlined card with a visible border.</p>
-      </RudiCard.Body>
-    </RudiCard>
+    <RudiGrid minCellWidth="12rem" space="content">
+      {(['default', 'outlined', 'elevated'] as const).map((variant) => (
+        <RudiCard key={variant} {...args} variant={variant}>
+          <RudiCard.Header>
+            <h3>{variant}</h3>
+          </RudiCard.Header>
+          <RudiCard.Body>
+            <p>
+              {variant === 'default'
+                ? 'Background only.'
+                : variant === 'outlined'
+                  ? 'With a border.'
+                  : 'With a shadow.'}
+            </p>
+          </RudiCard.Body>
+        </RudiCard>
+      ))}
+    </RudiGrid>
   ),
-  parameters: {
-    docs: {
-      source: {
-        code: `<Card variant="outlined">
-  <Card.Body>
-    <p>An outlined card with a visible border.</p>
-  </Card.Body>
-</Card>`,
-      },
-    },
-  },
 }
 
-export const Elevated: Story = {
-  args: {
-    variant: 'elevated',
-    children: undefined,
+export const Padding: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Set `padding="none"` for full-bleed content such as images or tables, and add your own spacing inside. The other steps scale the space around the content.',
+      },
+    },
   },
   render: (args) => (
-    <RudiCard {...args}>
-      <RudiCard.Body>
-        <p>An elevated card with a box shadow.</p>
-      </RudiCard.Body>
-    </RudiCard>
-  ),
-  parameters: {
-    docs: {
-      source: {
-        code: `<Card variant="elevated">
-  <Card.Body>
-    <p>An elevated card with a box shadow.</p>
-  </Card.Body>
-</Card>`,
-      },
-    },
-  },
-}
-
-export const NoPadding: Story = {
-  args: {
-    variant: 'outlined',
-    padding: 'none',
-    children: undefined,
-  },
-  render: (args) => (
-    <RudiCard {...args}>
-      <RudiCard.Body>
-        <p>
-          A card with no padding, useful for full-bleed content like images.
-        </p>
-      </RudiCard.Body>
-    </RudiCard>
-  ),
-  parameters: {
-    docs: {
-      source: {
-        code: `<Card variant="outlined" padding="none">
-  <Card.Body>
-    <p>A card with no padding.</p>
-  </Card.Body>
-</Card>`,
-      },
-    },
-  },
-}
-
-export const AllVariants: Story = {
-  render: ({}) => (
-    <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-      <RudiCard variant="default" padding="md">
-        <RudiCard.Header>
-          <h3>Default</h3>
-        </RudiCard.Header>
-        <RudiCard.Body>
-          <p>Background only.</p>
-        </RudiCard.Body>
-      </RudiCard>
-      <RudiCard variant="outlined" padding="md">
-        <RudiCard.Header>
-          <h3>Outlined</h3>
-        </RudiCard.Header>
-        <RudiCard.Body>
-          <p>With a border.</p>
-        </RudiCard.Body>
-      </RudiCard>
-      <RudiCard variant="elevated" padding="md">
-        <RudiCard.Header>
-          <h3>Elevated</h3>
-        </RudiCard.Header>
-        <RudiCard.Body>
-          <p>With a shadow.</p>
-        </RudiCard.Body>
-      </RudiCard>
-    </div>
+    <RudiGrid minCellWidth="12rem" space="content">
+      {(['none', 'sm', 'md', 'lg'] as const).map((padding) => (
+        <RudiCard key={padding} {...args} padding={padding}>
+          <RudiCard.Body>
+            <p>padding="{padding}"</p>
+          </RudiCard.Body>
+        </RudiCard>
+      ))}
+    </RudiGrid>
   ),
 }

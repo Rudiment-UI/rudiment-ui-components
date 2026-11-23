@@ -16,9 +16,7 @@ const meta = {
   args: {
     variant: 'default',
     size: 'md',
-    dot: false,
     children: 'Badge',
-    className: '',
   },
   argTypes: {
     children: {
@@ -50,56 +48,26 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    variant: 'default',
-    children: 'Default',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A neutral badge. Change the props in the API reference below to try every option on this example.',
+      },
+    },
   },
 }
 
-export const Success: Story = {
-  args: {
-    variant: 'success',
-    children: 'Success',
+export const Variants: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use a badge for status, counts or categories such as "New", "3" or "Beta". Keep the label to one or two short words, and pair the variant color with that text so the meaning does not rely on color alone.',
+      },
+    },
   },
-}
-
-export const Warning: Story = {
-  args: {
-    variant: 'warning',
-    children: 'Warning',
-  },
-}
-
-export const Error: Story = {
-  args: {
-    variant: 'error',
-    children: 'Error',
-  },
-}
-
-export const Info: Story = {
-  args: {
-    variant: 'info',
-    children: 'Info',
-  },
-}
-
-export const SmallSize: Story = {
-  args: {
-    size: 'sm',
-    children: 'Small',
-  },
-}
-
-export const DotIndicator: Story = {
-  args: {
-    variant: 'success',
-    dot: true,
-  },
-}
-
-export const AllVariants: Story = {
-  render: ({}) => (
+  render: () => (
     <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
       <RudiBadge variant="default">Default</RudiBadge>
       <RudiBadge variant="success">Success</RudiBadge>
@@ -108,4 +76,38 @@ export const AllVariants: Story = {
       <RudiBadge variant="info">Info</RudiBadge>
     </div>
   ),
+}
+
+export const Sizes: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `sm` inside dense rows and table cells, and `md` elsewhere.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+      <RudiBadge size="sm">Small</RudiBadge>
+      <RudiBadge size="md">Medium</RudiBadge>
+    </div>
+  ),
+}
+
+export const DotIndicator: Story = {
+  name: 'Dot indicator',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Set `dot` for a minimal indicator such as unread notifications. Still pass children ("3 unread"): they are hidden visually but announced to screen readers.',
+      },
+    },
+  },
+  args: {
+    variant: 'success',
+    dot: true,
+    children: '3 unread',
+  },
 }

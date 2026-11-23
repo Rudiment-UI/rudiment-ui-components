@@ -27,6 +27,10 @@ const meta = {
       table: { category: 'Layout' },
     },
     space: spaceArgType,
+    fillRow: {
+      control: 'boolean',
+      table: { category: 'Layout' },
+    },
   },
 } satisfies Meta<typeof RudiGrid>
 
@@ -105,6 +109,19 @@ export const LooseGap: Story = {
       <Placeholder label="Item 4" />
       <Placeholder label="Item 5" />
       <Placeholder label="Item 6" />
+    </RudiGrid>
+  ),
+}
+
+/** Four items in a container wide enough for more columns. Toggle `fillRow` to compare: off keeps the empty columns at the end of the row, on widens the four items to fill it. */
+export const FillRow: Story = {
+  args: { minCellWidth: '10rem', space: 'content', fillRow: true },
+  render: (args) => (
+    <RudiGrid {...args}>
+      <Placeholder label="Revenue" />
+      <Placeholder label="Orders" />
+      <Placeholder label="Refunds" />
+      <Placeholder label="Customers" />
     </RudiGrid>
   ),
 }

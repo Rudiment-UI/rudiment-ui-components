@@ -147,8 +147,9 @@ describe('PortfolioDashboard recipe', () => {
     const main = screen.getByRole('main')
     expect(main).toHaveClass('portfolio-app')
     expect(main.style.getPropertyValue('--box-padding')).toBe('var(--rudi-space-gutter)')
-    const stats = container.querySelector('.rudi-switcher') as HTMLElement
-    expect(stats.style.getPropertyValue('--switcher-space')).toBe('var(--rudi-space-group)')
+    const stats = container.querySelector('.rudi-grid') as HTMLElement
+    expect(stats).toHaveClass('rudi-grid--fill-row')
+    expect(stats.style.getPropertyValue('--grid-space')).toBe('var(--rudi-space-group)')
     expect(screen.getByRole('grid', { name: 'Top positions' })).toBeInTheDocument()
   })
 

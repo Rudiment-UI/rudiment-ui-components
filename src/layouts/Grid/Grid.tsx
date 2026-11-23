@@ -9,6 +9,12 @@ export interface RudiGridProps extends React.HTMLAttributes<HTMLElement> {
   /** Gap between rows and columns: a step of the spacing scale (`"inline"`, `"content"`, `"group"`, `"section"`, `"gutter"`, or a fixed step: `0`, `1`, `2`, `3`, `4`, `6`, `8`, `12`) or any CSS length. Falls back to the `--rudi-layout-grid-space` token (`group`). */
   space?: RudiSpace
   /**
+   * Widens the items to fill the row when there are fewer of them than the columns that fit. By default the grid keeps those empty columns, so every item has the same width as in a full row; that suits galleries and lists that grow. Set `fillRow` for a fixed set, such as four stat cards across a dashboard, so the row has no empty space at the end. Items on a wrapped last row keep the column width either way.
+   *
+   * @default false
+   */
+  fillRow?: boolean
+  /**
    * Element or component to render as the root. Use `"ul"` or `"ol"` for a list; bullets and indent are removed.
    *
    * @default 'div'
@@ -32,6 +38,7 @@ export const RudiGrid = forwardRef<HTMLElement, RudiGridProps>(function RudiGrid
   {
     minCellWidth,
     space,
+    fillRow = false,
     as: Element = 'div',
     className,
     style,
@@ -48,7 +55,7 @@ export const RudiGrid = forwardRef<HTMLElement, RudiGridProps>(function RudiGrid
   return (
     <Element
       ref={ref}
-      className={cn('rudi-grid', className)}
+      className={cn('rudi-grid', fillRow && 'rudi-grid--fill-row', className)}
       style={{ ...customProperties, ...style } as React.CSSProperties}
       {...props}
     >

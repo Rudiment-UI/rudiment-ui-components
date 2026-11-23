@@ -9,6 +9,15 @@
   gap: var(--grid-space);
 }
 
+/* fillRow: auto-fit collapses the empty tracks a short row would leave, so the
+   items share the full width. auto-fill (above) keeps them. */
+.rudi-grid--fill-row {
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(var(--grid-min-cell), 100%), 1fr)
+  );
+}
+
 /* Rendered as a list (as="ul" / "ol"): keep list semantics, drop browser bullets and indent. */
 .rudi-grid:is(ul, ol) {
   list-style: none;

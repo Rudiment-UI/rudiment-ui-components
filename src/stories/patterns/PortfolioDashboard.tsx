@@ -5,13 +5,13 @@ import {
   RudiCard,
   RudiCenter,
   RudiCluster,
+  RudiGrid,
   RudiPageHeader,
   RudiSectionHeader,
   RudiSidebar,
   RudiSparkline,
   RudiStack,
   RudiStatCard,
-  RudiSwitcher,
   RudiTable,
   RudiTableBody,
   RudiTableCell,
@@ -64,7 +64,7 @@ export function PortfolioDashboard() {
             }
           />
 
-          <RudiSwitcher as="ul" threshold="40rem" space="group" aria-label="Key figures">
+          <RudiGrid as="ul" minCellWidth="15rem" space="group" fillRow aria-label="Key figures">
             {stats.map((s) => (
               <li key={s.label}>
                 <RudiStatCard label={s.label} value={s.value} delta={s.delta} trend={s.trend}>
@@ -76,7 +76,7 @@ export function PortfolioDashboard() {
                 </RudiStatCard>
               </li>
             ))}
-          </RudiSwitcher>
+          </RudiGrid>
 
           <RudiSidebar side="right" sideWidth="18rem" contentMin="60%" space="group" noStretch>
             <RudiStack as="section" space="content" aria-labelledby="positions-title">

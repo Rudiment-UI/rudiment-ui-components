@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 npm run dev              # Storybook on :6006 — the primary dev environment
 npm run build:tokens     # Regenerate tokens/build/*.css from the token JSON (8 separate style-dictionary runs)
 npm run build            # Vite library build → dist/ (run build:tokens first if tokens changed)
-npm run build-storybook  # Static Storybook
+npm run build-storybook  # Static Storybook, then the full-text search index (needs Playwright Chromium)
 npm run test             # Both vitest projects: unit + storybook
 ```
 
@@ -54,6 +54,10 @@ Class names are BEM: `rudi-button`, `rudi-button--primary`, `rudi-button__icon`.
 ### Library build
 
 `vite.config.ts` externalizes every bare specifier (only relative and `@/` imports stay bundled), so consumers resolve their own React Aria copy — duplicates break React Aria's context. Output is a single ES file with a `'use client'` banner so the package drops into a Next.js App Router Server Component without a re-export barrel. `vite-plugin-dts` emits types from `src`, excluding tests, stories, and `src/stories/**`.
+
+### Docs search
+
+Storybook renders docs pages in the browser, so the static build holds no page text. `npm run build-storybook` runs `scripts/search-index.mjs` after `storybook build`: it renders every docs entry from `index.json` in headless Chromium, drops the rendered examples, their code and form controls, and writes a Pagefind index to `storybook-static/pagefind/`. It fails the build if a page doesn't render. Mark text that repeats on every page with `data-pagefind-ignore` (as `ComponentTokens.tsx` does) so it doesn't drown out results. The manager side is `.storybook/search/`: a toolbar button and the `/` shortcut (⌘K stays with Storybook's title filter) open a dialog that queries the index, and the preview scrolls to the chosen heading (`scrollToHit.ts`). Both entry points are called explicitly from `manager.ts` and `preview.tsx`, because the package's `sideEffects` field lets the bundler drop a bare import. In `npm run dev`, search uses the index from the last build if one exists.
 
 ### Agent-facing API reference
 

@@ -9,6 +9,9 @@ import { AutodocsPage } from './docs/AutodocsPage'
 import { VIEWPORTS } from './viewports'
 import { stripActionStubs } from './docs/sourceTransform'
 import { withDevicePreview } from './docs/withDevicePreview'
+import { listenForSearchScroll } from './search/scrollToHit'
+
+listenForSearchScroll()
 
 // Light docs theme so the "Show code" Source block renders the dark-on-light
 // `lightSyntaxColors` palette. Without it the block falls back to the dark

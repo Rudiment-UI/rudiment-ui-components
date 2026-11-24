@@ -2,6 +2,7 @@ import { createElement, type CSSProperties } from 'react'
 import { addons } from 'storybook/manager-api'
 import { create } from 'storybook/theming/create'
 import { brand, fonts, lockupHtml } from './brand/brand'
+import { registerSearch } from './search/register'
 
 const light = create({
   base: 'light',
@@ -66,6 +67,8 @@ const dark = create({
   booleanBg: brand.night,
   booleanSelectedBg: brand.nightLine,
 })
+
+registerSearch()
 
 // Sidebar badges for components whose stories meta carries `tags: ['new']` or
 // `tags: ['beta']`. `new` marks components added in the latest minor release

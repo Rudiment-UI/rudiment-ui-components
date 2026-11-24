@@ -1,5 +1,7 @@
 import type { StorybookConfig } from '@storybook/react-vite'
 import type { InlineConfig, Plugin } from 'vite'
+import { createReadStream, existsSync } from 'node:fs'
+import path from 'node:path'
 import remarkGfm from 'remark-gfm'
 
 const config: StorybookConfig = {
@@ -42,7 +44,7 @@ const config: StorybookConfig = {
   async viteFinal(config: InlineConfig) {
     return {
       ...config,
-      plugins: [...(config.plugins ?? []), agentDocs()],
+      plugins: [...(config.plugins ?? []), agentDocs(), devSearchIndex()],
       server: {
         ...config.server,
         headers: {
@@ -99,6 +101,36 @@ function agentDocs(): Plugin {
       }
     },
   }
+}
+
+/**
+ * In `storybook dev`, serves the search index from the last
+ * `npm run build-storybook` (storybook-static/pagefind/) at /pagefind/, so the
+ * search dialog works in dev once a build exists. Without one, the dialog says
+ * how to build it. The static build writes the index itself
+ * (scripts/search-index.mjs).
+ */
+function devSearchIndex(): Plugin {
+  const dir = path.resolve('storybook-static/pagefind')
+  return {
+    name: 'rudiment-dev-search-index',
+    apply: 'serve',
+    configureServer(server) {
+      server.middlewares.use('/pagefind', (req, res, next) => {
+        const file = path.join(dir, decodeURIComponent((req.url ?? '/').split('?')[0]))
+        if (!file.startsWith(dir + path.sep) || !existsSync(file)) return next()
+        const type = SEARCH_TYPES[path.extname(file)]
+        if (type) res.setHeader('Content-Type', type)
+        createReadStream(file).pipe(res)
+      })
+    },
+  }
+}
+
+const SEARCH_TYPES: Record<string, string> = {
+  '.js': 'text/javascript',
+  '.css': 'text/css',
+  '.json': 'application/json',
 }
 
 function socialMeta() {

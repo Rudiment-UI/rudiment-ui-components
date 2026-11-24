@@ -17,9 +17,11 @@ export function ComponentTokens({
   prefixes: string[]
 }) {
   const count = tokensFor(prefixes).length
+  // The prose and snippet repeat on every component page, so they're kept out
+  // of the search index (data-pagefind-ignore); the token names stay in.
   return (
     <>
-      <p>
+      <p data-pagefind-ignore>
         {name} reads its colors, spacing and sizes from {count} component
         tokens. Override one in your own stylesheet to restyle every {name}{' '}
         without touching other components. Pick a theme to see what each token
@@ -30,7 +32,7 @@ export function ComponentTokens({
         prefixes={prefixes}
         searchable={count > 12}
       />
-      <p>
+      <p data-pagefind-ignore>
         Put overrides in a stylesheet that loads after{' '}
         <code>rudiment-ui/styles</code>. Target <code>[data-theme]</code> as
         well as <code>:root</code>: a theme block has the same specificity as{' '}
@@ -39,7 +41,9 @@ export function ComponentTokens({
         <AnchorMdx href="?path=/docs/getting-started-theming--docs">Theming</AnchorMdx> for
         brand-wide changes.
       </p>
-      <Source code={overrideSnippet(prefixes)} language="css" dark={false} />
+      <div data-pagefind-ignore>
+        <Source code={overrideSnippet(prefixes)} language="css" dark={false} />
+      </div>
     </>
   )
 }

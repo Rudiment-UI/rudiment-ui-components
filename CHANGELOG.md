@@ -7,13 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-11-24
+
 ### Changed
 
 - **Breaking (package layout):** `dist/` now holds one ES module per source file (`dist/index.js`, `dist/components/Button/Button.js`, …) instead of a single `dist/index.js`. Import paths don't change: keep importing from `'rudiment-ui'` and `'rudiment-ui/styles'`. Anything that read `dist/index.js` as a self-contained file, such as a deep import or a copied bundle, has to follow the new layout. This fixes tree-shaking in Vite, Rollup and esbuild apps: importing one component used to pull in the whole library and its dependencies (dnd-kit, the date pickers, the tables). Next.js apps were already tree-shaking the old file and see no change.
 
   What a consumer ships for each import, measured by `npm run size` (minified, gzipped, with dependencies, React excluded):
 
-  | Import | 0.9.0 | Now | Change |
+  | Import | 0.9.0 | 0.10.0 | Change |
   | --- | --- | --- | --- |
   | `{ RudiStack, RudiText }` | 149.5 kB | 8.8 kB | −94% |
   | `{ RudiButton }` | 149.5 kB | 24.5 kB | −84% |
@@ -24,7 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
   Measured in real app builds: a Vite 7 production build of a page importing `RudiStack` and `RudiText` went from 182.5 kB to 13.8 kB gzipped (Vite library mode, unminified). A Next.js 15 App Router page's JS was 9.6 kB with either build.
 
-  The Now column includes the bundled icon data (see Added), which adds 1.1 kB to imports that render an icon.
+  The 0.10.0 column includes the bundled icon data (see Added), which adds 1.1 kB to imports that render an icon.
 
   Package JS adds up to 56.8 kB gzipped across 93 files, up from 24.8 kB in one file, because small files compress less well on their own. That's the size of the package download, not of what an app ships.
 

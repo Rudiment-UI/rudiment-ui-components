@@ -52,6 +52,14 @@ function Placeholder({ label }: { label: string }) {
 }
 
 export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Wrap a page or article in a column that stays centered and never grows past a maximum width. This wrapper is driven by its args, so the controls in the API reference below change it.',
+      },
+    },
+  },
   render: (args) => (
     <RudiCenter {...args}>
       <Placeholder label="Centered content" />
@@ -59,34 +67,58 @@ export const Default: Story = {
   ),
 }
 
-export const NarrowMaxWidth: Story = {
-  args: { maxWidth: '30rem' },
-  render: (args) => (
-    <RudiCenter {...args}>
-      <Placeholder label="Narrow centered content" />
-    </RudiCenter>
+export const CenteredText: Story = {
+  name: 'Centered text',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Cap `maxWidth` near 40 to 45rem for reading text, since long lines are hard to follow. Wider caps suit dashboards and page-width wrappers.',
+      },
+    },
+  },
+  render: () => (
+    <div className="flex flex-col gap-6">
+      {['30rem', '90rem'].map((width) => (
+        <RudiCenter key={width} maxWidth={width}>
+          <Placeholder label={`maxWidth="${width}"`} />
+        </RudiCenter>
+      ))}
+    </div>
   ),
 }
 
-export const WideMaxWidth: Story = {
-  args: { maxWidth: '90rem' },
-  render: (args) => (
-    <RudiCenter {...args}>
-      <Placeholder label="Wide centered content" />
-    </RudiCenter>
+export const EdgeGutters: Story = {
+  name: 'Edge gutters',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '`gutters` is padding that keeps content off the viewport edge when the screen is narrower than `maxWidth`. It is added to the maximum width, because the box uses `content-box` sizing.',
+      },
+    },
+  },
+  render: () => (
+    <div className="flex flex-col gap-6">
+      {([2, 12] as const).map((gutters) => (
+        <RudiCenter key={gutters} maxWidth="30rem" gutters={gutters}>
+          <Placeholder label={`gutters={${gutters}}`} />
+        </RudiCenter>
+      ))}
+    </div>
   ),
 }
 
-export const WithGutters: Story = {
-  args: { gutters: 12 },
-  render: (args) => (
-    <RudiCenter {...args}>
-      <Placeholder label="Content with large gutters" />
-    </RudiCenter>
-  ),
-}
-
-export const Intrinsic: Story = {
+export const CenteredChildren: Story = {
+  name: 'Centered children',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Set `intrinsic` for hero copy or a call to action, where each child should be centered at its own content width instead of stretching to the column.',
+      },
+    },
+  },
   args: { intrinsic: true },
   render: (args) => (
     <RudiCenter {...args}>
@@ -97,10 +129,37 @@ export const Intrinsic: Story = {
   ),
 }
 
-export const AsSection: Story = {
+export const AsASection: Story = {
+  name: 'As a section',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `as` to give the wrapper the right landmark or element, such as `section`, `main` or `article`, instead of nesting an extra element.',
+      },
+    },
+  },
   render: () => (
-    <RudiCenter as="section" maxWidth="40rem">
+    <RudiCenter as="section" maxWidth="40rem" aria-label="Introduction">
       <Placeholder label="Inside a section element" />
     </RudiCenter>
+  ),
+}
+
+export const Responsive: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'The column shrinks with its container once it is narrower than `maxWidth`, and the default `gutters` is the `gutter` step, which widens at the `md` (48rem) and `lg` (64rem) breakpoints. See [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs).',
+      },
+    },
+  },
+  render: () => (
+    <div className="w-full max-w-full resize-x overflow-auto rounded-md border border-dashed border-border-default p-2">
+      <RudiCenter maxWidth="40rem" gutters="gutter">
+        <Placeholder label="Drag the corner to narrow the frame; gutters keep the content off the edge" />
+      </RudiCenter>
+    </div>
   ),
 }

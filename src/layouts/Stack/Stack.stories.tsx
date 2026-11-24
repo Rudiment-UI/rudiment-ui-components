@@ -49,6 +49,14 @@ function Placeholder({ label }: { label: string }) {
 }
 
 export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Children stack vertically with the `group` step between them by default. Set `space` to change the gap.',
+      },
+    },
+  },
   render: (args) => (
     <RudiStack {...args}>
       <Placeholder label="First child" />
@@ -58,39 +66,47 @@ export const Default: Story = {
   ),
 }
 
-export const Dense: Story = {
-  args: { space: 'inline' },
-  render: (args) => (
-    <RudiStack {...args}>
-      <Placeholder label="First" />
-      <Placeholder label="Second" />
-      <Placeholder label="Third" />
+export const Spacing: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Pick the step that matches how related the items are: `inline` for tightly coupled items, `content` for fields and paragraphs, `section` for page sections. Each stack below carries its `space` value as a label.',
+      },
+    },
+  },
+  render: () => (
+    <RudiStack space="section">
+      {(['inline', 'content', 'section'] as const).map((space) => (
+        <RudiStack key={space} space={space}>
+          <Placeholder label={`space="${space}", first`} />
+          <Placeholder label={`space="${space}", second`} />
+          <Placeholder label={`space="${space}", third`} />
+        </RudiStack>
+      ))}
     </RudiStack>
   ),
 }
 
-export const Loose: Story = {
-  args: { space: 'section' },
-  render: (args) => (
-    <RudiStack {...args}>
-      <Placeholder label="First" />
-      <Placeholder label="Second" />
-      <Placeholder label="Third" />
-    </RudiStack>
-  ),
-}
-
-export const SplitAfterSecond: Story = {
-  args: { splitAfter: 2 },
+export const PushItemsApart: Story = {
+  name: 'Push items apart',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Set `splitAfter` to the 1-based index of the last item that should stay at the top. The following items move to the bottom of the stack. The stack needs a taller container to have room to push, here a fixed height.',
+      },
+    },
+  },
   decorators: [
     (Story) => (
-      <div style={{ height: '400px', border: '1px dashed #ccc' }}>
+      <div className="border border-dashed border-border-default" style={{ height: '400px' }}>
         <Story />
       </div>
     ),
   ],
   render: (args) => (
-    <RudiStack {...args} style={{ height: '100%' }}>
+    <RudiStack {...args} splitAfter={2} style={{ height: '100%' }}>
       <Placeholder label="Top item 1" />
       <Placeholder label="Top item 2" />
       <Placeholder label="Pushed to bottom" />
@@ -98,7 +114,16 @@ export const SplitAfterSecond: Story = {
   ),
 }
 
-export const AsUnorderedList: Story = {
+export const SemanticList: Story = {
+  name: 'Semantic list',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Render the stack as a `ul` or `ol` when the items are a list. Bullets and indent are removed, and `role="list"` keeps the list announced by VoiceOver, which drops list semantics when markers are hidden.',
+      },
+    },
+  },
   render: () => (
     <RudiStack as="ul" space={3} role="list">
       <li>First item</li>
@@ -108,7 +133,15 @@ export const AsUnorderedList: Story = {
   ),
 }
 
-export const Nested: Story = {
+export const Nesting: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Nest stacks to give each level its own rhythm: a wide `section` gap between groups and a tight `content` gap inside each one. Each stack sets its own `space`, so the inner gaps do not follow the outer one. Set `recursive` instead to apply one gap through every nested element.',
+      },
+    },
+  },
   render: () => (
     <RudiStack space="section">
       <RudiStack space="content">
@@ -120,6 +153,24 @@ export const Nested: Story = {
         <Placeholder label="Group 2, item 1" />
         <Placeholder label="Group 2, item 2" />
       </RudiStack>
+    </RudiStack>
+  ),
+}
+
+export const Responsive: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Named steps re-resolve per breakpoint. `section` is 2rem on small screens and 3rem from the `md` breakpoint (48rem), while `content` stays 1rem, so the page gets airier on wider screens with no media queries. Resize the viewport to watch it. See [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs) for the full scale and how to override it.',
+      },
+    },
+  },
+  render: () => (
+    <RudiStack space="section">
+      <Placeholder label='space="section" between these blocks: 2rem, then 3rem at md' />
+      <Placeholder label="Second section" />
+      <Placeholder label="Third section" />
     </RudiStack>
   ),
 }

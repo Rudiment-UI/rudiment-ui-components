@@ -22,14 +22,6 @@ const modules = import.meta.glob<StoryModule>(
 
 /** Pages still to migrate. Delete each title as its page is rewritten. */
 const UNMIGRATED = new Set<string>([
-  'Layouts/Box',
-  'Layouts/Center',
-  'Layouts/Cluster',
-  'Layouts/Cover',
-  'Layouts/Grid',
-  'Layouts/Sidebar',
-  'Layouts/Stack',
-  'Layouts/Switcher',
   'Typography/Heading',
   'Typography/Prose',
   'Typography/Text',

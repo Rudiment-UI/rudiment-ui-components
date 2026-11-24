@@ -151,10 +151,11 @@ export const SemanticList: Story = {
 
 export const Responsive: Story = {
   parameters: {
+    devicePreview: { height: 240 },
     docs: {
       description: {
         story:
-          'Named steps re-resolve per breakpoint. `section` is 2rem on small screens and 3rem from the `md` breakpoint (48rem), so this cluster spreads out on wider screens with no media queries. Most clusters want `inline` or `content`, which stay constant. Resize the viewport to watch it. See [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs) for the full scale and how to override it.',
+          'Named steps re-resolve per breakpoint. `section` is 2rem on small screens and 3rem from the `md` breakpoint (48rem), so this cluster spreads out on wider screens with no media queries. Most clusters want `inline` or `content`, which stay constant. Pick a device above the example to see it change. See [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs) for the full scale and how to override it.',
       },
     },
   },

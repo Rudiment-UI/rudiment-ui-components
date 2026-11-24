@@ -148,18 +148,17 @@ export const AsASection: Story = {
 
 export const Responsive: Story = {
   parameters: {
+    devicePreview: { height: 200 },
     docs: {
       description: {
         story:
-          'The column shrinks with its container once it is narrower than `maxWidth`, and the default `gutters` is the `gutter` step, which widens at the `md` (48rem) and `lg` (64rem) breakpoints. See [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs).',
+          'The column shrinks with the screen once it is narrower than `maxWidth`, and the default `gutters` is the `gutter` step: 1rem on small screens, 1.5rem from `md` (48rem) and 2rem from `lg` (64rem). Pick a device above the example to see it change. See [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs).',
       },
     },
   },
   render: () => (
-    <div className="w-full max-w-full resize-x overflow-auto rounded-md border border-dashed border-border-default p-2">
-      <RudiCenter maxWidth="40rem" gutters="gutter">
-        <Placeholder label="Drag the corner to narrow the frame; gutters keep the content off the edge" />
-      </RudiCenter>
-    </div>
+    <RudiCenter maxWidth="40rem" gutters="gutter">
+      <Placeholder label="Gutters keep the content off the screen edge" />
+    </RudiCenter>
   ),
 }

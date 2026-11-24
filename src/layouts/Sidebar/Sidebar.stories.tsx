@@ -172,25 +172,18 @@ export const SpacingBetweenPanels: Story = {
 
 export const Responsive: Story = {
   parameters: {
+    devicePreview: { height: 360 },
     docs: {
       description: {
         story:
-          'The panels wrap into a column when the content would be narrower than `contentMin` (50% by default), measured against the sidebar\'s own container, so drag the corner of the frame to see it stack. The gap re-resolves by breakpoint when it names a step such as `section`; see [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs).',
+          'The panels stack when the content would be narrower than `contentMin` (50% by default), measured against the sidebar\'s own container, so no breakpoint is needed. The gap is the `section` step, which is 2rem on small screens and 3rem from `md` (48rem). Pick a device above the example to see it change. See [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs).',
       },
     },
   },
   render: () => (
-    <div className="flex flex-col gap-6">
-      <div className="w-full max-w-full resize-x overflow-auto rounded-md border border-dashed border-border-default p-2">
-        <RudiSidebar sideWidth="12rem" space="group">
-          <SidebarPane label="Sidebar" />
-          <ContentPane label="Drag the corner to narrow this frame until the panels stack" />
-        </RudiSidebar>
-      </div>
-      <RudiSidebar space="section">
-        <SidebarPane label='space="section": 2rem below md (48rem), 3rem above' />
-        <ContentPane label="Main content" />
-      </RudiSidebar>
-    </div>
+    <RudiSidebar sideWidth="12rem" space="section">
+      <SidebarPane label="Sidebar" />
+      <ContentPane label="Main content" />
+    </RudiSidebar>
   ),
 }

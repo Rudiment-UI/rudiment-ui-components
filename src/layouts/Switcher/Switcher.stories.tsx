@@ -132,25 +132,18 @@ export const SpacingBetweenItems: Story = {
 
 export const Responsive: Story = {
   args: { threshold: '30rem', space: 'group' },
-  parameters: doc(
-    'The switcher flips from row to column when its own width drops below `threshold`: the same three children stack in a 20rem container and stay in a row in a 42rem one. The gap uses a named step, so it also follows your breakpoint rules for spacing. See [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs).',
-  ),
+  parameters: {
+    devicePreview: { height: 360 },
+    ...doc(
+      'The switcher flips from row to column when its own width drops below `threshold` (30rem here), so the same three children stack on a phone and sit in a row on a tablet. The gap is the `group` step. Pick a device above the example to see it change. See [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs).',
+    ),
+  },
   render: (args) => (
-    <div className="grid gap-6">
-      {[
-        ['max-w-xs', '20rem container: stacked'],
-        ['max-w-2xl', '42rem container: row'],
-      ].map(([width, caption]) => (
-        <div key={width} className={width}>
-          <Caption>{caption}</Caption>
-          <RudiSwitcher {...args}>
-            <Placeholder label="First" />
-            <Placeholder label="Second" />
-            <Placeholder label="Third" />
-          </RudiSwitcher>
-        </div>
-      ))}
-    </div>
+    <RudiSwitcher {...args}>
+      <Placeholder label="First" />
+      <Placeholder label="Second" />
+      <Placeholder label="Third" />
+    </RudiSwitcher>
   ),
 }
 

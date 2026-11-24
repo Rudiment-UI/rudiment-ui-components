@@ -56,6 +56,7 @@ Each docs page is built from the story file by `.storybook/docs/AutodocsPage.tsx
 3. **Compare side by side**: show the related options in one story (all four button variants in a row) rather than one story each. The storybook test project still renders every story with an a11y check, so a combined story must be valid markup and give each control an accessible name.
 4. **Put guidance next to its example**: when a do/don't from `src/docs/guidelines/<Name>.mdx` applies to one example, move it into that story's description. Leave only page-wide guidance in the guidelines file.
 5. **Keep the shown code clean**: code is shown by default, so leave empty-string defaults (`className: ''`) out of `meta.args`, and when a story sets `source.code` by hand, use the `Rudi`-prefixed names.
+6. **Make responsive examples previewable**: the docs page has no viewport tool, so a story whose behavior depends on screen width sets `parameters.devicePreview` (`{ height: 360 }`). On the docs page it then renders in a device-width frame with preset buttons, so its media queries respond (`.storybook/docs/withDevicePreview.tsx`). Story view renders it as usual.
 
 ### Documenting the Public API
 

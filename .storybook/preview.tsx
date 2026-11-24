@@ -8,6 +8,7 @@ import { THEMES } from './docs/themes'
 import { AutodocsPage } from './docs/AutodocsPage'
 import { VIEWPORTS } from './viewports'
 import { stripActionStubs } from './docs/sourceTransform'
+import { withDevicePreview } from './docs/withDevicePreview'
 
 // Light docs theme so the "Show code" Source block renders the dark-on-light
 // `lightSyntaxColors` palette. Without it the block falls back to the dark
@@ -112,6 +113,8 @@ const preview: Preview = {
     theme: 'light',
   },
   decorators: [
+    // Responsive examples opt in with `parameters.devicePreview`.
+    withDevicePreview,
     (Story, context) => {
       const theme = context.globals.theme || 'light'
       useEffect(() => {

@@ -26,11 +26,14 @@ function usePageTheme() {
 export function DevicePreview({
   storyId,
   initialDevice = 'phone',
+  height: fixedHeight,
 }: {
   /** Story to render, e.g. `patterns-product-landing--default`. */
   storyId: string
   /** Key of a preset in `.storybook/viewports.ts`. */
   initialDevice?: string
+  /** Frame height in px, in place of the device's own height. For short demos. */
+  height?: number
 }) {
   const [device, setDevice] = useState(initialDevice)
   const [available, setAvailable] = useState(0)
@@ -47,7 +50,7 @@ export function DevicePreview({
 
   const { name, styles } = VIEWPORTS[device]
   const width = px(styles.width)
-  const height = px(styles.height)
+  const height = fixedHeight ?? px(styles.height)
   const scale = available ? Math.min(1, available / width) : 1
 
   return (

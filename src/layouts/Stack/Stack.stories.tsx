@@ -159,16 +159,17 @@ export const Nesting: Story = {
 
 export const Responsive: Story = {
   parameters: {
+    devicePreview: { height: 300 },
     docs: {
       description: {
         story:
-          'Named steps re-resolve per breakpoint. `section` is 2rem on small screens and 3rem from the `md` breakpoint (48rem), while `content` stays 1rem, so the page gets airier on wider screens with no media queries. Resize the viewport to watch it. See [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs) for the full scale and how to override it.',
+          'Named steps re-resolve per breakpoint. `section` is 2rem on small screens and 3rem from the `md` breakpoint (48rem), while `content` stays 1rem, so the page gets airier on wider screens with no media queries. Pick a device above the example to see it change. See [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs) for the full scale and how to override it.',
       },
     },
   },
   render: () => (
     <RudiStack space="section">
-      <Placeholder label='space="section" between these blocks: 2rem, then 3rem at md' />
+      <Placeholder label="First section" />
       <Placeholder label="Second section" />
       <Placeholder label="Third section" />
     </RudiStack>

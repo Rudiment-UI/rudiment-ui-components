@@ -183,31 +183,19 @@ export const AsAList: Story = {
 
 export const Responsive: Story = {
   parameters: {
+    devicePreview: { height: 560 },
     docs: {
       description: {
         story:
-          'The column count follows the width of the grid, not the viewport, so drag the corner of the frame to see columns drop out with no breakpoints. Spacing steps such as `section` are the part that does change by breakpoint; see [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs).',
+          'Columns drop out as the grid narrows, with no breakpoints: the count follows the grid\'s own width, so it works the same inside a sidebar or a card. The gap is the `section` step, which is 2rem on small screens and 3rem from `md` (48rem). Pick a device above the example to see it change. See [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs).',
       },
     },
   },
   render: () => (
-    <div className="flex flex-col gap-6">
-      <Labeled label="Drag the corner to resize">
-        <div className="w-full max-w-full resize-x overflow-auto rounded-md border border-dashed border-border-default p-2">
-          <RudiGrid minCellWidth="10rem" space="group">
-            {six.map((item) => (
-              <Placeholder key={item} label={item} />
-            ))}
-          </RudiGrid>
-        </div>
-      </Labeled>
-      <Labeled label='space="section" is 2rem below the md breakpoint (48rem) and 3rem from there up'>
-        <RudiGrid minCellWidth="10rem" space="section">
-          {six.slice(0, 4).map((item) => (
-            <Placeholder key={item} label={item} />
-          ))}
-        </RudiGrid>
-      </Labeled>
-    </div>
+    <RudiGrid minCellWidth="10rem" space="section">
+      {six.map((item) => (
+        <Placeholder key={item} label={item} />
+      ))}
+    </RudiGrid>
   ),
 }

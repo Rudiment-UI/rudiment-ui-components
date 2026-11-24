@@ -149,16 +149,17 @@ export const Semantic: Story = {
 
 export const Responsive: Story = {
   parameters: {
+    devicePreview: { height: 200 },
     docs: {
       description: {
         story:
-          'Named steps change with the screen. `gutter` is 1rem on small screens, 1.5rem from the `md` breakpoint (48rem) and 2rem from `lg` (64rem), so a page-edge box needs no media queries. Resize the viewport to watch it. See [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs) for the full scale and how to override it.',
+          'Named steps change with the screen. `gutter` is 1rem on small screens, 1.5rem from the `md` breakpoint (48rem) and 2rem from `lg` (64rem), so a page-edge box needs no media queries. Pick a device above the example to see it change. See [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs) for the full scale and how to override it.',
       },
     },
   },
   render: () => (
     <RudiBox bordered padding="gutter">
-      padding=&quot;gutter&quot;: 1rem, then 1.5rem at md, then 2rem at lg
+      Page-edge content
     </RudiBox>
   ),
 }

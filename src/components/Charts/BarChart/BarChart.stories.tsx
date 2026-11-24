@@ -65,9 +65,27 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {}
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Compare one value across categories, such as sales per month. This chart is driven by its args, so the controls in the API reference below change it.',
+      },
+    },
+  },
+}
 
 export const MultipleSeries: Story = {
+  name: 'Multiple series',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'List several keys in `dataKeys` to compare measures side by side for each category. Keep it to a handful of series so the bars stay readable.',
+      },
+    },
+  },
   args: {
     dataKeys: ['sales', 'returns'],
     label: 'Sales vs returns',
@@ -75,6 +93,14 @@ export const MultipleSeries: Story = {
 }
 
 export const Stacked: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Set `stacked` when the series add up to a meaningful total per category. Use grouped bars instead when readers need to compare the series with each other.',
+      },
+    },
+  },
   args: {
     dataKeys: ['sales', 'returns'],
     stacked: true,
@@ -82,16 +108,33 @@ export const Stacked: Story = {
   },
 }
 
-export const Horizontal: Story = {
+export const LongCategoryNames: Story = {
+  name: 'Long category names',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `layout="horizontal"` when category names are long or there are many of them. The names then read left to right beside each bar instead of crowding the x-axis.',
+      },
+    },
+  },
   args: {
     layout: 'horizontal',
-    label: 'Horizontal bar chart',
+    label: 'Sales by month, horizontal layout',
   },
 }
 
-export const NoGrid: Story = {
+export const Minimal: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Turn off `showGrid` for a lighter chart when exact values matter less than the shape, such as in a dashboard tile.',
+      },
+    },
+  },
   args: {
     showGrid: false,
-    label: 'Bar chart without grid',
+    label: 'Sales without grid lines',
   },
 }

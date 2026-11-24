@@ -22,10 +22,6 @@ const modules = import.meta.glob<StoryModule>(
 
 /** Pages still to migrate. Delete each title as its page is rewritten. */
 const UNMIGRATED = new Set<string>([
-  'Components/Charts/BarChart',
-  'Components/Charts/DonutChart',
-  'Components/Charts/LineChart',
-  'Components/Charts/Sparkline',
   'Layouts/Box',
   'Layouts/Center',
   'Layouts/Cluster',

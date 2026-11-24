@@ -70,39 +70,67 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {}
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Show how one value changes over time. This chart is driven by its args, so the controls in the API reference below change it.',
+      },
+    },
+  },
+}
 
 export const MultipleSeries: Story = {
+  name: 'Multiple series',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'List several keys in `dataKeys` to compare related measures on one time axis. Keep the series to 8 or fewer so each keeps a distinct token color.',
+      },
+    },
+  },
   args: {
     dataKeys: ['revenue', 'profit', 'expenses'],
     label: 'Financial overview',
   },
 }
 
-export const LinearInterpolation: Story = {
-  args: {
-    curved: false,
-    label: 'Revenue (linear)',
+export const LineStyles: Story = {
+  name: 'Line styles',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Compare the options for how the line is drawn. Use straight segments (`curved={false}`) when readers should not infer values between readings, and drop the dots with `showDots={false}` for dense data. Strip the grid, legend and dots for a bare trend.',
+      },
+    },
   },
+  render: (args) => (
+    <div style={{ display: 'grid', gap: '1.5rem' }}>
+      <RudiLineChart {...args} curved={false} label="Revenue with straight segments" />
+      <RudiLineChart {...args} showDots={false} label="Revenue without dots" />
+      <RudiLineChart
+        {...args}
+        showGrid={false}
+        showLegend={false}
+        showDots={false}
+        label="Revenue, minimal"
+      />
+    </div>
+  ),
 }
 
-export const NoDots: Story = {
-  args: {
-    showDots: false,
-    label: 'Revenue trend',
+export const Thresholds: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Mark a set-point or target with `referenceLines`, and set `yDomain` so the line stays in view. Without it the axis may scale to the data and push the threshold off the chart. Use `unit` to label values.',
+      },
+    },
   },
-}
-
-export const Minimal: Story = {
-  args: {
-    showGrid: false,
-    showLegend: false,
-    showDots: false,
-    label: 'Minimal line chart',
-  },
-}
-
-export const WithReferenceLine: Story = {
   args: {
     data: [
       { time: '00:00', probe: -191.2 },

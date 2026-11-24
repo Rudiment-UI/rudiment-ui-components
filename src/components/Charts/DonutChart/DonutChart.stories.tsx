@@ -55,30 +55,67 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {}
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Show how a whole divides into a few parts, such as traffic by device. This chart is driven by its args, so the controls in the API reference below change it.',
+      },
+    },
+  },
+}
 
 export const WithLabels: Story = {
+  name: 'With labels',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Set `showLabels` to print values on the segments when readers need numbers and not only proportions.',
+      },
+    },
+  },
   args: {
     showLabels: true,
-    label: 'Traffic with labels',
+    label: 'Traffic by device with labels',
   },
 }
 
-export const ThinRing: Story = {
-  args: {
-    innerRadius: 80,
-    label: 'Thin donut ring',
+export const RingThickness: Story = {
+  name: 'Ring thickness',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Compare `innerRadius` values: a thicker ring (lower value) makes segments easier to see, a thinner one (higher value) looks lighter and leaves room for a center figure.',
+      },
+    },
   },
-}
-
-export const ThickRing: Story = {
-  args: {
-    innerRadius: 30,
-    label: 'Thick donut ring',
-  },
+  render: (args) => (
+    <div
+      style={{
+        display: 'grid',
+        gap: '1.5rem',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(16rem, 1fr))',
+      }}
+    >
+      <RudiDonutChart {...args} innerRadius={30} label="Traffic, thick ring" />
+      <RudiDonutChart {...args} innerRadius={80} label="Traffic, thin ring" />
+    </div>
+  ),
 }
 
 export const ManySegments: Story = {
+  name: 'Many segments',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A donut supports up to 8 segments before colors repeat. With this many, consider grouping the smallest into "Other" or using a bar chart so values can be compared.',
+      },
+    },
+  },
   args: {
     data: [
       { name: 'Chrome', value: 6200 },

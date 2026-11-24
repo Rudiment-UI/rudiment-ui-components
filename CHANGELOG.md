@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-11-23
+
 ### Added
 
 - **Responsive spacing scale:** five named steps, `inline`, `content`, `group`, `section`, and `gutter`, as `--rudi-space-*` tokens. Each can take a different value at the new `sm`, `md`, `lg`, and `xl` breakpoints (40, 48, 64, and 80rem, also emitted as `--rudi-breakpoint-*`). Override a step on `:root, [data-theme]` in your own CSS to set it per breakpoint for the whole app. The steps reference the `spacing.*` primitives, so the `compressed` and `roomy` themes still scale them. Source: `tokens/responsive.json`, built to `tokens/build/tokens-responsive.css`. A new Getting Started page, Responsive Spacing, covers the scale and the override rules.

@@ -86,11 +86,27 @@ function DemoShell({ defaultSidebarOpen }: { defaultSidebarOpen?: boolean }) {
 }
 
 export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A sidebar, a top bar and a main region. Resize the preview below 900px to see the sidebar collapse into a drawer. The controls below change the shell itself.',
+      },
+    },
+  },
   render: () => <DemoShell />,
 }
 
-/** Below 900px the sidebar is a drawer. This story opens it on a phone-sized viewport. */
 export const MobileDrawer: Story = {
+  name: 'Mobile drawer',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Below 900px the sidebar becomes a drawer. Put `RudiAppShell.MenuButton` in the top bar: it only shows at this width, opens the drawer and reports `aria-expanded`. Control the drawer with `isSidebarOpen` and `onSidebarOpenChange` when you need to close it after navigation; this example opens it on a phone-sized viewport with `defaultSidebarOpen`.',
+      },
+    },
+  },
   globals: { viewport: { value: 'mobile1', isRotated: false } },
   render: () => <DemoShell defaultSidebarOpen />,
 }

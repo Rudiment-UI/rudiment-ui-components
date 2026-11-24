@@ -159,10 +159,27 @@ export default meta
 type Story = StoryObj<typeof RudiKanbanBoard>
 
 export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A four-column board you can reorder by pointer or keyboard (Space to grab, arrow keys to move, Space to drop, Escape to cancel). Apply `onCardMove` exactly as documented: remove the card at `fromIndex`, then insert it at `toIndex`, which matches the dashed drop slot shown during the drag. Pass `getCardLabel` (and `label` on each card) so drag announcements name the card instead of its id.',
+      },
+    },
+  },
   render: ({}) => <InteractiveBoard />,
 }
 
 export const EmptyColumns: Story = {
+  name: 'Empty columns',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use this for a new project or a cleared board. Empty columns stay as drop targets, so cards can still be dragged in.',
+      },
+    },
+  },
   render: ({}) => {
     const emptyColumns: RudiKanbanColumnData[] = [
       { id: 'todo', title: 'To Do', items: [] },
@@ -185,6 +202,15 @@ export const EmptyColumns: Story = {
 }
 
 export const SimpleCards: Story = {
+  name: 'Simple cards',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Cards should be scannable at a glance, so a title is often enough. Avoid dialogs or forms inside a card, and keep to 3-7 columns so the board does not scroll horizontally.',
+      },
+    },
+  },
   render: ({}) => {
     const simpleColumns: RudiKanbanColumnData[] = [
       {

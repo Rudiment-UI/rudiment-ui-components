@@ -31,9 +31,27 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {}
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A section title. Change the props in the API reference below to try every option on this example.',
+      },
+    },
+  },
+}
 
 export const WithAction: Story = {
+  name: 'With description and action',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Add a description and a trailing action such as a "See all" link to a dashboard region. The title renders an `h2` by default; set `headingLevel` so the page outline stays correct when the section is nested deeper.',
+      },
+    },
+  },
   args: {
     description: 'Across all projects, last 30 days.',
     action: (

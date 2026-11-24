@@ -22,16 +22,10 @@ const modules = import.meta.glob<StoryModule>(
 
 /** Pages still to migrate. Delete each title as its page is rewritten. */
 const UNMIGRATED = new Set<string>([
-  'Components/AppShell',
-  'Components/Brand',
   'Components/Charts/BarChart',
   'Components/Charts/DonutChart',
   'Components/Charts/LineChart',
   'Components/Charts/Sparkline',
-  'Components/KanbanBoard',
-  'Components/PageHeader',
-  'Components/SectionHeader',
-  'Components/TopBar',
   'Layouts/Box',
   'Layouts/Center',
   'Layouts/Cluster',

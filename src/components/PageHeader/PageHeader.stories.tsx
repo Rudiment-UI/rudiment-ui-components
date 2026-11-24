@@ -43,9 +43,27 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {}
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A page title with a subtitle. Change the props in the API reference below to try every option on this example.',
+      },
+    },
+  },
+}
 
 export const WithActions: Story = {
+  name: 'With actions',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Put the primary page actions in `actions` so they sit opposite the title and wrap beneath it on narrow screens. Keep one primary button and let the rest be secondary.',
+      },
+    },
+  },
   args: {
     actions: (
       <RudiCluster space="inline">
@@ -57,10 +75,28 @@ export const WithActions: Story = {
 }
 
 export const TitleOnly: Story = {
+  name: 'Title only',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Omit the subtitle when the title says everything the reader needs.',
+      },
+    },
+  },
   args: { subtitle: undefined },
 }
 
 export const WithEyebrowAndMeta: Story = {
+  name: 'With breadcrumbs and status',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `eyebrow` for breadcrumbs above the title and `meta` for status badges beside it on detail pages. Use one `RudiPageHeader` per page: it renders the page `h1`, so use `RudiSectionHeader` for regions within it.',
+      },
+    },
+  },
   args: {
     title: 'REF-1042',
     subtitle: 'Denver, CO to Austin, TX',

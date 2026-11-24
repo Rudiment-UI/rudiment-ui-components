@@ -18,7 +18,6 @@ const meta = {
   args: {
     name: 'Helexa',
     size: 'md',
-    hideName: false,
     mark: <RudiIcon icon="lucide:dna" />,
   },
   argTypes: {
@@ -38,11 +37,39 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {}
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A mark with the product name. Change the props in the API reference below to try every option on this example.',
+      },
+    },
+  },
+}
 
-export const AsHomeLink: Story = { args: { href: '/' } }
+export const AsHomeLink: Story = {
+  name: 'As home link',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Pass `href` (usually `/`) in the app header so the logo links home. Do not put a visible text heading next to a brand that already shows the name.',
+      },
+    },
+  },
+  args: { href: '/' },
+}
 
 export const Sizes: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `sm` in dense or mobile headers, `md` in the standard app bar and `lg` on sign-in and marketing screens.',
+      },
+    },
+  },
   render: (args) => (
     <RudiStack space="content">
       <RudiBrand {...args} size="sm" />

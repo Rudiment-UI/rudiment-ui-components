@@ -34,6 +34,15 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const AppHeader: Story = {
+  name: 'App header',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Inside an application, put page-level titles or navigation in `children` and global actions in `end`. Keep `end` to a few actions and move the rest into a `RudiMenu`. The controls below change this example.',
+      },
+    },
+  },
   render: (args) => (
     <RudiTopBar
       {...args}
@@ -54,6 +63,15 @@ export const AppHeader: Story = {
 }
 
 export const MarketingHeader: Story = {
+  name: 'Marketing header',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'For a public site, use `start` for the brand (or the menu button in an app), `end` for search and account actions, and `announcement` for a short site-wide notice above the bar.',
+      },
+    },
+  },
   render: (args) => (
     <RudiTopBar
       {...args}

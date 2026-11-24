@@ -1,0 +1,139 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Getting Started/Installation/Next.js" />
+
+# Install with Next.js
+
+Set up Rudiment UI in a Next.js App Router app. For an existing app, start at step 2.
+
+## 1. Create the app
+
+```bash
+npx create-next-app@latest my-app --typescript --app
+cd my-app
+```
+
+## 2. Install Rudiment UI
+
+`react` and `react-dom` 19 are peer dependencies, and Next.js 15 and later already install them. No `transpilePackages` entry is needed.
+
+```bash
+npm install rudiment-ui
+```
+
+## 3. Import the stylesheet
+
+Import `rudiment-ui/styles` once, in the root layout. It holds every component's styles and the design tokens for all themes. The components don't import their own CSS, so nothing renders styled without this line.
+
+Rudiment ships no reset and no Tailwind, so it works next to Tailwind or your own `globals.css`.
+
+```tsx
+// app/layout.tsx
+import 'rudiment-ui/styles'
+import './globals.css'
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  )
+}
+```
+
+## 4. Use a component
+
+Every export is a Client Component: the package starts with a `'use client'` directive. You can import components straight into a Server Component and pass them serializable props such as strings and numbers.
+
+```tsx
+// app/page.tsx (a Server Component)
+import { RudiCenter, RudiHeading, RudiLink } from 'rudiment-ui'
+
+export default function Page() {
+  return (
+    <RudiCenter maxWidth="40rem">
+      <RudiHeading level={1}>Dashboard</RudiHeading>
+      <RudiLink href="/settings">Settings</RudiLink>
+    </RudiCenter>
+  )
+}
+```
+
+Event handlers such as `onPress` and `onChange` are functions, which a Server Component can't pass. Put the interactive part in its own file that starts with `'use client'`:
+
+```tsx
+// app/greeting.tsx
+'use client'
+
+import { useState } from 'react'
+import { RudiButton, RudiInput, RudiStack } from 'rudiment-ui'
+
+export function Greeting() {
+  const [name, setName] = useState('')
+
+  return (
+    <RudiStack>
+      <RudiInput label="Your name" value={name} onChange={setName} />
+      <RudiButton onPress={() => alert(`Hello, ${name || 'there'}`)}>Say hello</RudiButton>
+    </RudiStack>
+  )
+}
+```
+
+## 5. Pick a theme (optional)
+
+With no attribute, the app uses the default light theme. Set `data-theme` on `<html>` in the root layout to use another one. `auto` follows the operating system's light or dark preference in CSS alone, so the server and client render the same markup and there's no hydration mismatch.
+
+```tsx
+<html lang="en" data-theme="auto">
+```
+
+See [Theming](?path=/docs/getting-started-theming--docs) for the full list and for scoping a theme to part of the page.
+
+## 6. Connect the router (optional)
+
+`RudiLink`, `RudiNavItem` and `RudiBreadcrumb` render ordinary links, so each click reloads the page. To navigate client-side, pass the App Router's `router.push` to `RudiRouterProvider` in a small Client Component:
+
+```tsx
+// app/providers.tsx
+'use client'
+
+import { useRouter } from 'next/navigation'
+import { RudiRouterProvider } from 'rudiment-ui'
+
+export function Providers({ children }: { children: React.ReactNode }) {
+  const router = useRouter()
+  return <RudiRouterProvider navigate={router.push}>{children}</RudiRouterProvider>
+}
+```
+
+Then wrap the app with it in the root layout:
+
+```tsx
+// app/layout.tsx
+import 'rudiment-ui/styles'
+import './globals.css'
+import { Providers } from './providers'
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        <Providers>{children}</Providers>
+      </body>
+    </html>
+  )
+}
+```
+
+The pages it wraps can stay Server Components.
+
+## Icons
+
+Components take Iconify names such as `icon="mdi:close"`, and Iconify downloads each icon set from `api.iconify.design` in the browser the first time it's used. If your app sets a Content Security Policy, allow that host in `connect-src`. To bundle icons instead, see [Iconify's offline usage guide](https://iconify.design/docs/icon-components/react/#offline).
+
+## Next steps
+
+- [Vite](?path=/docs/getting-started-installation-vite--docs): the Vite setup
+- [Theming](?path=/docs/getting-started-theming--docs): brand colors and your own themes
+- [Layout Primitives](?path=/docs/getting-started-layout-primitives--docs): building pages from Stack, Grid, Sidebar and the rest

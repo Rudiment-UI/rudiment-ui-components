@@ -7,6 +7,7 @@ const config: StorybookConfig = {
     // Top level only: src/docs/guidelines/*.mdx are snippets imported by
     // pages, not pages themselves.
     '../src/docs/*.mdx',
+    '../src/docs/installation/*.mdx',
     '../src/**/*.stories.@(ts|tsx)',
     // Live blocks for the Getting Started pages (token browser, theme matrix).
     './docs/*.stories.@(ts|tsx)',

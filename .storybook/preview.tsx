@@ -61,6 +61,8 @@ const preview: Preview = {
           'Getting Started',
           [
             'Introduction',
+            'Installation',
+            ['Vite', 'Next.js'],
             'Accessibility',
             'Token Architecture',
             'Layout Primitives',

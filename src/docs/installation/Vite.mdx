@@ -1,0 +1,107 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Getting Started/Installation/Vite" />
+
+# Install with Vite
+
+Set up Rudiment UI in a new Vite and React 19 app. For an existing app, start at step 2.
+
+## 1. Create the app
+
+```bash
+npm create vite@latest my-app -- --template react-ts
+cd my-app
+```
+
+## 2. Install Rudiment UI
+
+`react` and `react-dom` 19 are peer dependencies, and the Vite template already installs them.
+
+```bash
+npm install rudiment-ui
+```
+
+## 3. Import the stylesheet
+
+Import `rudiment-ui/styles` once, in `src/main.tsx`. It holds every component's styles and the design tokens for all themes. The components don't import their own CSS, so nothing renders styled without this line.
+
+Remove the template's `import './index.css'` too. It fixes the width of `#root`, centers its text, and styles bare `h1`, `h2`, `p` and `code` elements, which leaks into the components. Rudiment ships no reset, so keep your own base styles if you have them.
+
+```tsx
+// src/main.tsx
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import 'rudiment-ui/styles'
+import App from './App.tsx'
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
+```
+
+## 4. Use a component
+
+Replace `src/App.tsx`, and delete `src/App.css`. There's no provider to mount.
+
+```tsx
+// src/App.tsx
+import { useState } from 'react'
+import { RudiButton, RudiCenter, RudiInput, RudiStack } from 'rudiment-ui'
+
+export default function App() {
+  const [name, setName] = useState('')
+
+  return (
+    <RudiCenter maxWidth="30rem">
+      <RudiStack>
+        <RudiInput label="Your name" value={name} onChange={setName} />
+        <RudiButton onPress={() => alert(`Hello, ${name || 'there'}`)}>Say hello</RudiButton>
+      </RudiStack>
+    </RudiCenter>
+  )
+}
+```
+
+Run `npm run dev` and open the URL Vite prints.
+
+## 5. Pick a theme (optional)
+
+With no attribute, the app uses the default light theme. Set `data-theme` on `<html>` in `index.html` to use another one. `auto` follows the operating system's light or dark preference.
+
+```html
+<html lang="en" data-theme="auto">
+```
+
+See [Theming](?path=/docs/getting-started-theming--docs) for the full list and for scoping a theme to part of the page.
+
+## 6. Connect your router (optional)
+
+`RudiLink`, `RudiNavItem` and `RudiBreadcrumb` render ordinary links, so each click reloads the page. To navigate client-side, mount `RudiRouterProvider` once inside your router. With React Router:
+
+```tsx
+import { Outlet, useHref, useNavigate } from 'react-router'
+import { RudiRouterProvider } from 'rudiment-ui'
+
+export function Root() {
+  const navigate = useNavigate()
+  return (
+    <RudiRouterProvider navigate={navigate} useHref={useHref}>
+      <Outlet />
+    </RudiRouterProvider>
+  )
+}
+```
+
+`useHref` is only needed when the app runs under a base path.
+
+## Icons
+
+Components take Iconify names such as `icon="mdi:close"`, and Iconify downloads each icon set from `api.iconify.design` the first time it's used. If your app sets a Content Security Policy, allow that host in `connect-src`. To bundle icons instead, see [Iconify's offline usage guide](https://iconify.design/docs/icon-components/react/#offline).
+
+## Next steps
+
+- [Next.js](?path=/docs/getting-started-installation-next-js--docs): the App Router setup
+- [Theming](?path=/docs/getting-started-theming--docs): brand colors and your own themes
+- [Layout Primitives](?path=/docs/getting-started-layout-primitives--docs): building pages from Stack, Grid, Sidebar and the rest

@@ -20,7 +20,7 @@ export default defineConfig({
     tailwindcss(),
     dts({
       include: ['src'],
-      exclude: ['src/**/*.test.{ts,tsx}', 'src/**/*.stories.{ts,tsx}', 'src/test-setup.ts', 'src/stories/**'],
+      exclude: ['src/**/*.test.{ts,tsx}', 'src/**/*.stories.{ts,tsx}', 'src/test-setup.ts', 'src/test-global-setup.ts', 'src/test-icons.d.ts', 'src/stories/**'],
     }),
   ],
   resolve: {
@@ -62,6 +62,7 @@ export default defineConfig({
           name: 'unit',
           globals: true,
           environment: 'jsdom',
+          globalSetup: ['src/test-global-setup.ts'],
           setupFiles: ['src/test-setup.ts'],
           include: ['src/**/*.test.{ts,tsx}', '.storybook/**/*.test.{ts,tsx}', 'scripts/**/*.test.mjs', 'mcp/**/*.test.mjs', 'cli/**/*.test.mjs'],
           // jsdom tests share CPU with the Storybook browser project in a full run;

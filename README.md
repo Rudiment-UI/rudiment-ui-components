@@ -46,7 +46,7 @@ Every export is marked `"use client"`, so the package can be imported directly i
 
 ```bash
 # Clone the template
-git clone https://github.com/Rudiment-UI/rudiment-ui.git my-design-system
+git clone https://github.com/Rudiment-UI/rudiment-ui-components.git my-design-system
 cd my-design-system
 
 # Install dependencies

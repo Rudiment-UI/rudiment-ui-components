@@ -4,7 +4,7 @@ import { RudiIcon } from '../Icon/Icon'
 import { RudiStack } from '../../layouts/Stack/Stack'
 
 const meta = {
-  title: 'Components/Brand',
+  title: 'Components/App Layout/Brand',
   component: RudiBrand,
   tags: ['autodocs'],
   parameters: {

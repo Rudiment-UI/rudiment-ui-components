@@ -3,7 +3,7 @@ import { RudiSectionHeader } from './SectionHeader'
 import { RudiButton } from '@/components/Button/Button'
 
 const meta = {
-  title: 'Components/SectionHeader',
+  title: 'Components/App Layout/SectionHeader',
   component: RudiSectionHeader,
   tags: ['autodocs'],
   parameters: {

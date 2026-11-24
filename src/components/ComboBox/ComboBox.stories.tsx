@@ -25,7 +25,7 @@ const clinics: Clinic[] = [
 type ComboBoxStoryArgs = Omit<RudiComboBoxProps<Clinic>, 'children'>
 
 const meta: Meta<ComboBoxStoryArgs> = {
-  title: 'Components/ComboBox',
+  title: 'Components/Forms/ComboBox',
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   component: RudiComboBox as any,
   tags: ['autodocs'],
@@ -45,7 +45,7 @@ const meta: Meta<ComboBoxStoryArgs> = {
     docs: {
       description: {
         component:
-          'A searchable select: type to filter a list of options, then pick one with the mouse or the arrow keys and Enter. Options are `RudiOption` elements, as in [`RudiSelect`](?path=/docs/components-select--docs). Filtering is a case-insensitive "contains" match on each option\'s text. Use it instead of `RudiSelect` once a list is long enough that scrolling it is tedious, roughly ten options or more.',
+          'A searchable select: type to filter a list of options, then pick one with the mouse or the arrow keys and Enter. Options are `RudiOption` elements, as in [`RudiSelect`](?path=/docs/components-forms-select--docs). Filtering is a case-insensitive "contains" match on each option\'s text. Use it instead of `RudiSelect` once a list is long enough that scrolling it is tedious, roughly ten options or more.',
       },
     },
   },

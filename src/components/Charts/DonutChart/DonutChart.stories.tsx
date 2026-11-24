@@ -9,7 +9,7 @@ const sampleData = [
 ]
 
 const meta = {
-  title: 'Components/Charts/DonutChart',
+  title: 'Components/Data/Charts/DonutChart',
   component: RudiDonutChart,
   tags: ['autodocs'],
   parameters: {

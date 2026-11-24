@@ -20,7 +20,7 @@ src/components/ComponentName/
 - **Component files**: PascalCase (`Button.tsx`, `RadioGroup.tsx`)
 - **Directory names**: PascalCase matching the component (`Button/`, `RadioGroup/`)
 - **Props interface**: `RudiComponentNameProps` (e.g., `RudiButtonProps`, `RudiRadioGroupProps`). Every export carries the `Rudi` prefix
-- **Story title**: `Components/ComponentName` for UI, `Typography/ComponentName` for text, `Layouts/ComponentName` for layout primitives
+- **Story title**: `Components/<Category>/ComponentName` for UI, `Typography/ComponentName` for text, `Layouts/ComponentName` for layout primitives. The categories are Elements, Forms, Data (charts under `Data/Charts`), Feedback, Navigation, Overlays, and App Layout. Also add the component to its category in `src/docs/ComponentsOverview.mdx`. `.storybook/docs/docLinks.test.ts` fails if a component has no category, is missing from the overview, or if any `?path=` link points at a page that doesn't exist.
 
 ### Component Requirements
 

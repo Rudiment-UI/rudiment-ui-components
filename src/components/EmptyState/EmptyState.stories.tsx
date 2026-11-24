@@ -8,7 +8,7 @@ const illustrationSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16
 const illustration = `data:image/svg+xml,${encodeURIComponent(illustrationSvg)}`
 
 const meta = {
-  title: 'Components/EmptyState',
+  title: 'Components/Data/EmptyState',
   component: RudiEmptyState,
   tags: ['autodocs'],
   parameters: {

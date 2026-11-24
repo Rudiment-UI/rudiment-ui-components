@@ -87,8 +87,8 @@ export type { RudiBadgeProps } from './components/Badge/Badge'
 export { RudiTag } from './components/Tag/Tag'
 export type { RudiTagProps } from './components/Tag/Tag'
 
-export { RudiIcon } from './components/Icon/Icon'
-export type { RudiIconProps } from './components/Icon/Icon'
+export { RudiIcon, registerRudiIcons } from './components/Icon/Icon'
+export type { RudiIconProps, RudiIconData } from './components/Icon/Icon'
 
 export { RudiCard } from './components/Card/Card'
 export type {

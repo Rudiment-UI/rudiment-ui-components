@@ -6,7 +6,7 @@ const PHOTO =
   'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=800&q=80'
 
 const meta = {
-  title: 'Components/Image',
+  title: 'Components/Elements/Image',
   component: RudiImage,
   tags: ['autodocs'],
   parameters: {

@@ -116,7 +116,7 @@ export const Responsive: Story = {
   parameters: {
     devicePreview: { height: 420 },
     ...doc(
-      'Name a step of the spacing scale instead of a length and the gaps follow your breakpoint rules: with the default theme, `section` is 2rem on small screens and 3rem from `md` (48rem) up. Pick a device above the example to see it change. See [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs) for the steps and how to set your own values. The cover itself needs no breakpoint props.',
+      'Name a step of the spacing scale instead of a length and the gaps follow your breakpoint rules: with the default theme, `section` is 2rem on small screens and 3rem from `md` (48rem) up. Pick a device above the example to see it change. See [Responsive Spacing](?path=/docs/getting-started-theme-responsive-spacing--docs) for the steps and how to set your own values. The cover itself needs no breakpoint props.',
     ),
   },
   render: (args) => (

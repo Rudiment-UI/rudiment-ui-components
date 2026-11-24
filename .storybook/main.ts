@@ -10,6 +10,7 @@ const config: StorybookConfig = {
     // pages, not pages themselves.
     '../src/docs/*.mdx',
     '../src/docs/installation/*.mdx',
+    '../src/docs/ai/*.mdx',
     '../src/**/*.stories.@(ts|tsx)',
     // Live blocks for the Getting Started pages (token browser, theme matrix).
     './docs/*.stories.@(ts|tsx)',

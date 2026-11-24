@@ -4,7 +4,7 @@ import { RudiButton } from '../Button/Button'
 import { RudiGrid } from '../../layouts/Grid/Grid'
 
 const meta = {
-  title: 'Components/Card',
+  title: 'Components/Elements/Card',
   component: RudiCard,
   tags: ['autodocs'],
   parameters: {

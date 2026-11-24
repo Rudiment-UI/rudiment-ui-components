@@ -10,7 +10,7 @@ import { RudiIcon } from '@/components/Icon/Icon'
 import { RudiCluster } from '@/layouts/Cluster/Cluster'
 
 const meta: Meta<RudiMenuTriggerProps> = {
-  title: 'Components/Menu',
+  title: 'Components/Navigation/Menu',
   component: RudiMenuTrigger,
   tags: ['autodocs'],
   parameters: {

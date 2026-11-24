@@ -135,7 +135,7 @@ export const Responsive: Story = {
   parameters: {
     devicePreview: { height: 360 },
     ...doc(
-      'The switcher flips from row to column when its own width drops below `threshold` (30rem here), so the same three children stack on a phone and sit in a row on a tablet. The gap is the `group` step. Pick a device above the example to see it change. See [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs).',
+      'The switcher flips from row to column when its own width drops below `threshold` (30rem here), so the same three children stack on a phone and sit in a row on a tablet. The gap is the `group` step. Pick a device above the example to see it change. See [Responsive Spacing](?path=/docs/getting-started-theme-responsive-spacing--docs).',
     ),
   },
   render: (args) => (

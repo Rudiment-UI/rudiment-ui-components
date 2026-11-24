@@ -6,7 +6,7 @@ import { RudiBreadcrumb } from '@/components/Breadcrumb/Breadcrumb'
 import { RudiCluster } from '@/layouts/Cluster/Cluster'
 
 const meta = {
-  title: 'Components/PageHeader',
+  title: 'Components/App Layout/PageHeader',
   component: RudiPageHeader,
   tags: ['autodocs'],
   parameters: {

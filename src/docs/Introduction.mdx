@@ -82,7 +82,7 @@ Switch themes with the theme picker in the Storybook toolbar, or set `data-theme
 - **Built-in themes:** `dark`, `roomy`, `roomy-dark`, `soft`, `soft-dark`, `compressed` and `compressed-dark`.
 - **`auto`:** follows the operating system's light or dark preference.
 
-See [Theming](?path=/docs/getting-started-theming--docs).
+See [Theming](?path=/docs/getting-started-theme-theming--docs).
 
 ## Conventions worth knowing
 
@@ -90,19 +90,20 @@ See [Theming](?path=/docs/getting-started-theming--docs).
 - **`onChange` receives a value**, not an event. For example, `RudiInput` passes a `string` and `RudiCheckbox` passes a `boolean`.
 - **`label` is a required prop** on form fields, progress indicators and charts. It becomes the accessible name.
 - **Icons are Iconify name strings**, such as `icon="mdi:close"`. You don't import icon components.
-- **Layout spacing takes a named step**, such as `space="group"`. You set each step's value per breakpoint once, in CSS. A fixed step (`space={4}`) or any CSS length also works. See [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs).
+- **Layout spacing takes a named step**, such as `space="group"`. You set each step's value per breakpoint once, in CSS. A fixed step (`space={4}`) or any CSS length also works. See [Responsive Spacing](?path=/docs/getting-started-theme-responsive-spacing--docs).
 
 ## Library contents
 
 | Category | Count | Exports |
 | -------- | ----- | ------- |
-| Form fields | 13 | RudiInput, RudiTextarea, RudiNumberField, RudiSelect (+ RudiOption), RudiComboBox, RudiCheckbox, RudiCheckboxGroup, RudiRadioGroup (+ RudiRadio), RudiSwitch, RudiDatePicker, RudiDateRangePicker, RudiRating, RudiForm |
-| Actions and navigation | 9 | RudiButton, RudiIconButton, RudiLink, RudiNavItem, RudiBreadcrumb, RudiPagination, RudiTabs (+ RudiTabList, RudiTab, RudiTabPanel), RudiStepper, RudiRouterProvider |
-| Overlays and menus | 3 | RudiDialog, RudiMenuTrigger (+ RudiMenu, RudiMenuItem, RudiMenuSection, RudiMenuSeparator, RudiSubmenuTrigger, RudiKeyboard), RudiTooltipTrigger (+ RudiTooltip) |
-| Feedback and status | 8 | RudiAlert, RudiToastRegion (+ `rudiToast`), RudiBadge, RudiTag, RudiDot, RudiProgressBar, RudiCircularProgress, RudiEmptyState |
-| Content and data | 10 | RudiCard, RudiStatCard, RudiAvatar, RudiIcon, RudiImage, RudiDivider, RudiSeparator, RudiDescriptionList, RudiTable (+ header, column, body, row and cell parts), RudiKanbanBoard (+ RudiKanbanColumn, RudiKanbanCard) |
-| App chrome | 5 | RudiAppShell, RudiTopBar, RudiPageHeader, RudiSectionHeader, RudiBrand |
+| Elements | 11 | RudiButton, RudiIconButton, RudiCard, RudiAvatar, RudiBadge, RudiTag, RudiDot, RudiIcon, RudiImage, RudiDivider, RudiSeparator |
+| Forms | 13 | RudiInput, RudiTextarea, RudiNumberField, RudiSelect (+ RudiOption), RudiComboBox, RudiCheckbox, RudiCheckboxGroup, RudiRadioGroup (+ RudiRadio), RudiSwitch, RudiDatePicker, RudiDateRangePicker, RudiRating, RudiForm |
+| Data | 5 | RudiTable (+ header, column, body, row and cell parts), RudiDescriptionList, RudiStatCard, RudiEmptyState, RudiKanbanBoard (+ RudiKanbanColumn, RudiKanbanCard) |
 | Charts | 4 | RudiBarChart, RudiLineChart, RudiDonutChart, RudiSparkline |
+| Feedback | 4 | RudiAlert, RudiToastRegion (+ `rudiToast`), RudiProgressBar, RudiCircularProgress |
+| Navigation | 8 | RudiLink, RudiNavItem, RudiBreadcrumb, RudiPagination, RudiTabs (+ RudiTabList, RudiTab, RudiTabPanel), RudiStepper, RudiMenuTrigger (+ RudiMenu, RudiMenuItem, RudiMenuSection, RudiMenuSeparator, RudiSubmenuTrigger, RudiKeyboard), RudiRouterProvider |
+| Overlays | 3 | RudiDialog, RudiDrawer, RudiTooltipTrigger (+ RudiTooltip) |
+| App layout | 5 | RudiAppShell, RudiTopBar, RudiPageHeader, RudiSectionHeader, RudiBrand |
 | Typography | 3 | RudiHeading, RudiText, RudiProse |
 | Layout primitives | 8 | RudiBox, RudiStack, RudiCluster, RudiGrid, RudiSidebar, RudiCenter, RudiCover, RudiSwitcher |
 | Hooks and utilities | 4 | useLoadingButton, useChartTheme, `rudiToast`, `cn` |
@@ -110,38 +111,21 @@ See [Theming](?path=/docs/getting-started-theming--docs).
 | Themes | 8 built-in | Default plus the Roomy, Soft and Compressed modifier themes, each in light and dark, plus `auto` |
 | Tests | Per component | Unit tests with accessibility checks, plus every story rendered and audited in a real browser |
 
-## For AI coding agents
+## AI coding agents
 
-The package ships an API reference generated from the TypeScript source and JSDoc, so it always matches the installed version. This site serves the same files for the current source, so an agent can read them before you install anything: <a href="./llms.txt" target="_blank">llms.txt</a>, <a href="./llms-full.txt" target="_blank">llms-full.txt</a> and <a href="./components.json" target="_blank">components.json</a>.
-
-In the package:
-
-| Resource | What it is |
-| -------- | ---------- |
-| `node_modules/rudiment-ui/dist/llms.txt` | Conventions plus a one-line index of every component. Read this first. |
-| `node_modules/rudiment-ui/dist/llms-full.txt` | Every component's props, defaults, examples and compound parts |
-| `node_modules/rudiment-ui/dist/components.json` | The same data as JSON |
-| `rudiment-ui-mcp` | An MCP server with four tools: `get_conventions`, `list_components`, `get_component` and `search` |
-| `.d.ts` files | JSDoc on every component and prop, shown in editor hovers |
-
-To connect the MCP server in Claude Code, run this from your project root:
-
-```bash
-claude mcp add rudiment-ui -- npx --no rudiment-ui-mcp
-```
-
-Setup for Cursor, VS Code, Codex and Claude Desktop is in `mcp/README.md` in the package.
+The package ships an API reference generated from its TypeScript source and JSDoc, so it matches the installed version. Agents can query it through the [MCP server](?path=/docs/getting-started-ai-mcp-server--docs) or read it as [LLMs.txt](?path=/docs/getting-started-ai-llms-txt--docs) files.
 
 ## Related documentation
 
 - [Install with Vite](?path=/docs/getting-started-installation-vite--docs) and [Install with Next.js](?path=/docs/getting-started-installation-next-js--docs): step-by-step setup for a new app
-- [Token Architecture](?path=/docs/getting-started-token-architecture--docs): how the design token system works
-- [Theming](?path=/docs/getting-started-theming--docs): customizing brand colors, dark mode, and creating additional themes
-- [Accessibility](?path=/docs/getting-started-accessibility--docs): keyboard, screen reader, and focus support
-- [Layout Primitives](?path=/docs/getting-started-layout-primitives--docs): composition-based layout system
-- [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs): the spacing scale and setting its values per breakpoint
-- [Component Guidelines](?path=/docs/getting-started-component-guidelines--docs): do/don't guidance for each component
-- [Typography](?path=/docs/getting-started-typography--docs): Heading, Text, and Prose components
-- [Vitrea](?path=/docs/getting-started-vitrea--docs): a demo app built entirely with Rudiment UI, with a live demo
+- [Token Architecture](?path=/docs/getting-started-theme-token-architecture--docs): how the design token system works
+- [Theming](?path=/docs/getting-started-theme-theming--docs): customizing brand colors, dark mode, and creating additional themes
+- [Responsive Spacing](?path=/docs/getting-started-theme-responsive-spacing--docs): the spacing scale and setting its values per breakpoint
+- [Accessibility](?path=/docs/getting-started-guides-accessibility--docs): keyboard, screen reader, and focus support
+- [Performance](?path=/docs/getting-started-guides-performance--docs): bundle size per import, the stylesheet, icon loading, and Next.js client components
+- [MCP Server](?path=/docs/getting-started-ai-mcp-server--docs) and [LLMs.txt](?path=/docs/getting-started-ai-llms-txt--docs): the API reference for coding agents
+- [Components](?path=/docs/components-overview--docs): every component by category, and the [usage guidelines](?path=/docs/components-guidelines--docs) for each
+- [Layouts](?path=/docs/layouts-overview--docs): composition-based layout primitives
+- [Typography](?path=/docs/typography-overview--docs): Heading, Text, and Prose components
 - [Patterns](?path=/docs/patterns-validated-form--docs): copyable recipes for forms, filterable tables, loading and error states, confirmations, settings pages, and responsive spacing (a fintech dashboard, a marketing landing page, and a patient summary)
-- [Changelog](?path=/docs/getting-started-changelog--docs): what changed in each release
+- [Showcase](?path=/docs/showcase-vitrea--docs): demo apps built entirely with Rudiment UI, starting with Vitrea, a cold-chain shipping app with a live demo

@@ -11,7 +11,7 @@ const sampleData = [
 ]
 
 const meta = {
-  title: 'Components/Charts/BarChart',
+  title: 'Components/Data/Charts/BarChart',
   component: RudiBarChart,
   tags: ['autodocs'],
   parameters: {

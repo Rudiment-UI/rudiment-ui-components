@@ -29,7 +29,7 @@ type SelectStoryArgs = Omit<RudiSelectProps<SelectItem>, 'children'>
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const meta: Meta<SelectStoryArgs> = {
-  title: 'Components/Select',
+  title: 'Components/Forms/Select',
   component: RudiSelect as any,
   tags: ['autodocs'],
   decorators: [
@@ -48,7 +48,7 @@ const meta: Meta<SelectStoryArgs> = {
     docs: {
       description: {
         component:
-          'A dropdown for choosing one option from a list. Pass `items` and a render function that returns a `RudiOption` for each. For a short list that people should compare at a glance, use [`RudiRadioGroup`](?path=/docs/components-radiogroup--docs). For a long list people need to search, use [`RudiComboBox`](?path=/docs/components-combobox--docs).',
+          'A dropdown for choosing one option from a list. Pass `items` and a render function that returns a `RudiOption` for each. For a short list that people should compare at a glance, use [`RudiRadioGroup`](?path=/docs/components-forms-radiogroup--docs). For a long list people need to search, use [`RudiComboBox`](?path=/docs/components-forms-combobox--docs).',
       },
     },
   },

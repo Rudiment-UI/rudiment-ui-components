@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # `prepare` runs build:tokens and build, so dist/ exists after this step.
+      - run: npm ci
+
+      - name: Generated token CSS is committed
+        run: git diff --exit-code -- tokens/build
+
+      - name: Type check
+        run: npx tsc --noEmit
+
+      - name: Install Chromium for the storybook tests
+        run: npx playwright install --with-deps chromium
+
+      # Separate steps so the jsdom and browser projects don't compete for the CPU.
+      - name: Unit tests
+        run: npx vitest run --project unit
+
+      - name: Storybook tests (every story in Chromium, with a11y checks)
+        run: npx vitest run --project storybook
+
+      - name: Size budgets and tree-shaking
+        run: npm run size

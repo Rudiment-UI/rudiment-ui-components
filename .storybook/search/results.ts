@@ -25,7 +25,7 @@ export type PagefindData = {
 export type SearchHit = {
   /** Unique within a result list; used as the option id. */
   key: string
-  /** Storybook docs entry id, e.g. `components-button--docs`. */
+  /** Storybook docs entry id, e.g. `components-elements-button--docs`. */
   docsId: string
   /** Heading id to scroll to, or undefined for the top of the page. */
   anchor?: string

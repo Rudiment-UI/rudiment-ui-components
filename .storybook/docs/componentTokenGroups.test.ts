@@ -41,8 +41,8 @@ describe('component tokens on docs pages', () => {
   })
 
   it('kebab-cases multi-word names and honours explicit groups', () => {
-    expect(componentTokenPrefixes('Components/IconButton')).toEqual(['component.icon-button'])
-    expect(componentTokenPrefixes('Components/RadioGroup')).toEqual(['component.radio'])
+    expect(componentTokenPrefixes('Components/Elements/IconButton')).toEqual(['component.icon-button'])
+    expect(componentTokenPrefixes('Components/Forms/RadioGroup')).toEqual(['component.radio'])
   })
 
   it('does not pull a neighbouring group in by prefix', () => {

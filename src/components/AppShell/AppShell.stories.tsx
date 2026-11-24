@@ -8,7 +8,7 @@ import { RudiButton } from '@/components/Button/Button'
 import { RudiStack } from '@/layouts/Stack/Stack'
 
 const meta = {
-  title: 'Components/AppShell',
+  title: 'Components/App Layout/AppShell',
   component: RudiAppShell,
   tags: ['autodocs'],
   parameters: {

@@ -7,6 +7,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **Breaking (package layout):** `dist/` now holds one ES module per source file (`dist/index.js`, `dist/components/Button/Button.js`, …) instead of a single `dist/index.js`. Import paths don't change: keep importing from `'rudiment-ui'` and `'rudiment-ui/styles'`. Anything that read `dist/index.js` as a self-contained file, such as a deep import or a copied bundle, has to follow the new layout. This fixes tree-shaking in Vite, Rollup and esbuild apps: importing one component used to pull in the whole library and its dependencies (dnd-kit, the date pickers, the tables). Next.js apps were already tree-shaking the old file and see no change.
+
+  What a consumer ships for each import, measured by `npm run size` (minified, gzipped, with dependencies, React excluded):
+
+  | Import | 0.9.0 | Now | Change |
+  | --- | --- | --- | --- |
+  | `{ RudiStack, RudiText }` | 149.5 kB | 8.8 kB | −94% |
+  | `{ RudiButton }` | 149.5 kB | 24.5 kB | −84% |
+  | `{ RudiKanbanBoard }` | 149.5 kB | 23.5 kB | −84% |
+  | `{ RudiLineChart }` | 252.7 kB | 112.1 kB | −56% |
+  | `*` (everything) | 302.6 kB | 304.5 kB | +0.6% |
+  | `rudiment-ui/styles` (CSS, all themes) | 72.7 kB | 72.7 kB | none |
+
+  Measured in real app builds: a Vite 7 production build of a page importing `RudiStack` and `RudiText` went from 182.5 kB to 13.8 kB gzipped (Vite library mode, unminified). A Next.js 15 App Router page's JS was 9.6 kB with either build.
+
+  The Now column includes the bundled icon data (see Added), which adds 1.1 kB to imports that render an icon.
+
+  Package JS adds up to 56.8 kB gzipped across 93 files, up from 24.8 kB in one file, because small files compress less well on their own. That's the size of the package download, not of what an app ships.
+
+- **Docs sidebar:** components are grouped into Elements, Forms, Data, Feedback, Navigation, Overlays, and App Layout, alphabetical within each. Getting Started has Installation, Theme, Guides, and AI groups. Vitrea moved to a new Showcase section for demo apps built with the library. The Layout Primitives and Typography pages open their own sections as Overview pages, and Component Guidelines moved under Components. Every moved page has a new URL. Links inside the docs are updated, and a test fails on any link to a page that doesn't exist.
+
+### Added
+
+- **Docs pages:** Components Overview, which lists every component by category, and an AI group with MCP Server and LLMs.txt pages. They replace the agent section of the Introduction.
+- **Bundled icons:** the icons the components render themselves (close buttons, chevrons, calendar, sort arrows, Toast, StatCard, and Rating icons) ship in the package. They render on the first render and in server HTML, with no request to `api.iconify.design`.
+- **`registerRudiIcons`** registers Iconify icon data so `RudiIcon` renders those icons immediately, including during server rendering. It takes one icon set, a list, or sets keyed by prefix (exported type `RudiIconData`).
+- **`rudiment-ui-icons` CLI:** `npx rudiment-ui-icons [dirs] [--out file] [--check]` scans the app's source for icon names, takes those icons from the installed `@iconify-json/*` sets, and writes them to a JSON file for `registerRudiIcons`. `--check` exits 1 when the file is out of date. The Vite and Next.js guides cover the setup.
+- **Performance docs page** (Getting Started/Guides/Performance): what each import adds to a bundle, lazy-loading charts, the stylesheet's cost, bundling icons with `rudiment-ui-icons` to avoid runtime requests to the Iconify API, and client components in Next.js.
+- **Bundle size checks:** `npm run size`, run after `npm run build`, checks size budgets for the package and for common single-component imports (`.size-limit.json`, using size-limit), and fails if importing one component pulls in another's dependencies (`scripts/check-tree-shaking.mjs`).
+
+### Fixed
+
+- **Icons in server HTML:** `RudiIcon` renders registered icons during server rendering. It used to render an empty `span` on the server and fill it in after hydration.
+- **Next.js guide:** documents that a Server Component can't render compound parts such as `RudiCard.Header`. Use them inside a `'use client'` file.
+
 ## [0.9.0] - 2026-11-23
 
 ### Added

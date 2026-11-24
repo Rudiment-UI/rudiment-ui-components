@@ -5,7 +5,7 @@ import { RudiCheckboxGroup } from './CheckboxGroup'
 import { RudiStack } from '@/layouts/Stack/Stack'
 
 const meta = {
-  title: 'Components/Checkbox',
+  title: 'Components/Forms/Checkbox',
   component: RudiCheckbox,
   tags: ['autodocs'],
   parameters: {
@@ -249,7 +249,7 @@ export const CheckboxOrSwitch: Story = {
     docs: {
       description: {
         story:
-          'Use a checkbox for a choice that takes effect when the form is submitted, such as agreeing to terms. For a setting that applies the moment it changes, use [`RudiSwitch`](?path=/docs/components-switch--docs).',
+          'Use a checkbox for a choice that takes effect when the form is submitted, such as agreeing to terms. For a setting that applies the moment it changes, use [`RudiSwitch`](?path=/docs/components-forms-switch--docs).',
       },
     },
   },

@@ -5,7 +5,7 @@ import { RudiRadio } from './Radio'
 import { RudiStack } from '@/layouts/Stack/Stack'
 
 const meta = {
-  title: 'Components/RadioGroup',
+  title: 'Components/Forms/RadioGroup',
   component: RudiRadioGroup,
   tags: ['autodocs'],
   parameters: {

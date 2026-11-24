@@ -163,7 +163,7 @@ export const Responsive: Story = {
     docs: {
       description: {
         story:
-          'Named steps re-resolve per breakpoint. `section` is 2rem on small screens and 3rem from the `md` breakpoint (48rem), while `content` stays 1rem, so the page gets airier on wider screens with no media queries. Pick a device above the example to see it change. See [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs) for the full scale and how to override it.',
+          'Named steps re-resolve per breakpoint. `section` is 2rem on small screens and 3rem from the `md` breakpoint (48rem), while `content` stays 1rem, so the page gets airier on wider screens with no media queries. Pick a device above the example to see it change. See [Responsive Spacing](?path=/docs/getting-started-theme-responsive-spacing--docs) for the full scale and how to override it.',
       },
     },
   },

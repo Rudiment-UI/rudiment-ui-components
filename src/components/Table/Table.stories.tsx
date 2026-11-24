@@ -83,7 +83,7 @@ function ShipmentCells({ shipment }: { shipment: Shipment }) {
 }
 
 const meta = {
-  title: 'Components/Table',
+  title: 'Components/Data/Table',
   component: RudiTable,
   tags: ['autodocs'],
   parameters: {

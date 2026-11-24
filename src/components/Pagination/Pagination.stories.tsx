@@ -4,7 +4,7 @@ import { RudiPagination } from './Pagination'
 import { RudiStack } from '@/layouts/Stack/Stack'
 
 const meta = {
-  title: 'Components/Pagination',
+  title: 'Components/Navigation/Pagination',
   component: RudiPagination,
   tags: ['autodocs'],
   parameters: {

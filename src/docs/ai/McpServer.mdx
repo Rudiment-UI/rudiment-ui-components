@@ -1,0 +1,108 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Getting Started/AI/MCP Server" />
+
+# MCP Server
+
+The `rudiment-ui` package includes an [MCP](https://modelcontextprotocol.io) server, `rudiment-ui-mcp`. It gives coding agents such as Claude Code, Cursor, VS Code Copilot, and Codex the library's API: every component, prop, default, compound part, and convention.
+
+The server reads `dist/components.json`, which the build generates from the TypeScript source and JSDoc. Its answers match the version installed in `node_modules`. It needs no network access, no account, and no extra package.
+
+## Setup
+
+Install the library, then register the server from the project root. In Claude Code:
+
+```bash
+npm install rudiment-ui
+claude mcp add rudiment-ui -- npx --no rudiment-ui-mcp
+```
+
+Restart the agent, or run `/mcp` in Claude Code, and check that `rudiment-ui` is listed as connected. Then ask for UI as usual, for example "build a settings form with rudiment-ui". The server tells the agent to read the conventions before it writes code.
+
+The `--no` flag stops npx from downloading a package when it can't find the binary. `rudiment-ui-mcp` is a binary inside `rudiment-ui` and has no npm package of its own.
+
+## Client configuration
+
+Every client runs the same command, `npx --no rudiment-ui-mcp`, from the project root.
+
+**Claude Code**, shared with everyone on the project. This writes `.mcp.json`, which you commit.
+
+```bash
+claude mcp add --scope project rudiment-ui -- npx --no rudiment-ui-mcp
+```
+
+**Cursor** (`.cursor/mcp.json`) and most other clients use the `mcpServers` shape. Claude Code's `.mcp.json` uses it too.
+
+```json
+{
+  "mcpServers": {
+    "rudiment-ui": { "command": "npx", "args": ["--no", "rudiment-ui-mcp"] }
+  }
+}
+```
+
+**VS Code** (`.vscode/mcp.json`):
+
+```json
+{
+  "servers": {
+    "rudiment-ui": { "type": "stdio", "command": "npx", "args": ["--no", "rudiment-ui-mcp"] }
+  }
+}
+```
+
+**Codex** (`~/.codex/config.toml`):
+
+```toml
+[mcp_servers.rudiment-ui]
+command = "npx"
+args = ["--no", "rudiment-ui-mcp"]
+```
+
+**Claude Desktop**, and any client that doesn't start in the project folder, runs the server file with `node` and an absolute path.
+
+```json
+{
+  "mcpServers": {
+    "rudiment-ui": {
+      "command": "node",
+      "args": ["/absolute/path/to/your-app/node_modules/rudiment-ui/mcp/server.mjs"]
+    }
+  }
+}
+```
+
+## Tools
+
+| Tool | Arguments | Returns |
+| ---- | --------- | ------- |
+| `get_conventions` | None | Library-wide rules: setup, `onPress`, `onChange` values, required `label`, icons, layout primitives, theming, and tokens. Agents call it once before writing UI code. |
+| `list_components` | `category`: `component`, `layout`, `typography`, or `chart`. `query`: a substring. Both optional. | Every component and compound part with a one-line summary |
+| `get_component` | `name`, such as `"RudiSelect"`, `"Select"`, `"card.header"`, or `"rudiToast"`. `includeInherited`: optional boolean. | Summary, examples, props table, parts, `ref` target, inherited React Aria props, and the import line. An unknown name returns close matches. |
+| `search` | `query`: keywords that must all match. `limit`: optional. | Components, props, functions, and types whose name or description matches, such as `"sticky header"` or `"dismiss"` |
+
+The server also exposes two resources for clients that attach resources directly: `rudiment-ui://conventions` (Markdown) and `rudiment-ui://components.json` (the full manifest).
+
+## Manual testing
+
+Send JSON-RPC messages to the server on standard input:
+
+```bash
+printf '%s\n' \
+  '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{}}}' \
+  '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"get_component","arguments":{"name":"Button"}}}' \
+  | npx --no rudiment-ui-mcp
+```
+
+The MCP Inspector shows the same tools in a browser: `npx @modelcontextprotocol/inspector npx --no rudiment-ui-mcp`.
+
+## Troubleshooting
+
+| Symptom | Fix |
+| ------- | --- |
+| `npx: … could not determine executable to run` | `rudiment-ui` isn't installed in the folder the client started in. Install it there, or use the absolute-path configuration. |
+| Tool calls return "manifest not found" | The package is missing `dist/`. Reinstall it. |
+| Answers describe an older version | The server reads the installed version. Upgrade `rudiment-ui` and restart the agent. |
+| The manifest lives somewhere else | Set `RUDIMENT_UI_MANIFEST=/path/to/components.json` in the server's environment. |
+
+Agents without MCP support can read the same data from files. See [LLMs.txt](?path=/docs/getting-started-ai-llms-txt--docs).

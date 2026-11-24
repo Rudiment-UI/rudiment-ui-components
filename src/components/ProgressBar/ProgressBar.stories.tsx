@@ -3,7 +3,7 @@ import { RudiProgressBar } from './ProgressBar'
 import { RudiStack } from '@/layouts/Stack/Stack'
 
 const meta = {
-  title: 'Components/ProgressBar',
+  title: 'Components/Feedback/ProgressBar',
   component: RudiProgressBar,
   tags: ['autodocs'],
   parameters: {

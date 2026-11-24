@@ -12,7 +12,7 @@ import { RudiOption } from '../Select/Option'
 import { RudiComboBox } from '../ComboBox/ComboBox'
 
 const meta = {
-  title: 'Components/Form',
+  title: 'Components/Forms/Form',
   component: RudiForm,
   tags: ['autodocs'],
   parameters: {

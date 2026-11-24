@@ -38,7 +38,7 @@ export function ComponentTokens({
         well as <code>:root</code>: a theme block has the same specificity as{' '}
         <code>:root</code> and loads later, so a bare <code>:root</code> rule
         loses inside any themed subtree. See{' '}
-        <AnchorMdx href="?path=/docs/getting-started-theming--docs">Theming</AnchorMdx> for
+        <AnchorMdx href="?path=/docs/getting-started-theme-theming--docs">Theming</AnchorMdx> for
         brand-wide changes.
       </p>
       <div data-pagefind-ignore>

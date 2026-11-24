@@ -42,8 +42,14 @@ export default defineConfig({
       external: (id) =>
         !id.startsWith('.') && !id.startsWith('@/') && !path.isAbsolute(id),
       output: {
-        // Single ES output, so one directive at the top marks every export as a
-        // client component for the Next.js App Router.
+        // One file per source module, so a consumer's bundler drops whole files it
+        // doesn't use. In a single file, top-level calls a bundler can't prove pure
+        // (forwardRef, Object.assign, createContext) kept every component alive.
+        // `npm run size` (scripts/check-tree-shaking.mjs) guards this.
+        preserveModules: true,
+        preserveModulesRoot: 'src',
+        entryFileNames: '[name].js',
+        // Every module is a client module for the Next.js App Router.
         banner: "'use client';",
       },
     },
@@ -57,7 +63,7 @@ export default defineConfig({
           globals: true,
           environment: 'jsdom',
           setupFiles: ['src/test-setup.ts'],
-          include: ['src/**/*.test.{ts,tsx}', '.storybook/**/*.test.{ts,tsx}', 'scripts/**/*.test.mjs', 'mcp/**/*.test.mjs'],
+          include: ['src/**/*.test.{ts,tsx}', '.storybook/**/*.test.{ts,tsx}', 'scripts/**/*.test.mjs', 'mcp/**/*.test.mjs', 'cli/**/*.test.mjs'],
           // jsdom tests share CPU with the Storybook browser project in a full run;
           // the 5s default timed out cold first tests (Radio, DateRangePicker).
           testTimeout: 15_000,
@@ -74,6 +80,10 @@ export default defineConfig({
         ],
         test: {
           name: 'storybook',
+          // A file's first story loads the story module in the browser. In a full run it
+          // shares the CPU with the unit project and timed out at the 15s browser default
+          // (RadioGroup, Link, NavItem), though every story passes when run alone.
+          testTimeout: 30_000,
           browser: {
             enabled: true,
             headless: true,

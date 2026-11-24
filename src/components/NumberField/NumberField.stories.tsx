@@ -4,7 +4,7 @@ import { RudiNumberField } from './NumberField'
 import { RudiStack } from '@/layouts/Stack/Stack'
 
 const meta = {
-  title: 'Components/NumberField',
+  title: 'Components/Forms/NumberField',
   component: RudiNumberField,
   tags: ['autodocs'],
   parameters: {

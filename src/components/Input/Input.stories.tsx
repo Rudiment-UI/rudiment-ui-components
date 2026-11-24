@@ -4,7 +4,7 @@ import { RudiInput } from './Input'
 import { RudiStack } from '@/layouts/Stack/Stack'
 
 const meta = {
-  title: 'Components/Input',
+  title: 'Components/Forms/Input',
   component: RudiInput,
   tags: ['autodocs'],
   parameters: {
@@ -87,7 +87,7 @@ export const Types: Story = {
     docs: {
       description: {
         story:
-          'Set `type` to get the right on-screen keyboard, browser validation and autofill. Use `password` to mask the value. For numbers, use [`RudiNumberField`](?path=/docs/components-numberfield--docs) instead of `type="number"`.',
+          'Set `type` to get the right on-screen keyboard, browser validation and autofill. Use `password` to mask the value. For numbers, use [`RudiNumberField`](?path=/docs/components-forms-numberfield--docs) instead of `type="number"`.',
       },
     },
   },

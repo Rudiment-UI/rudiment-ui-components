@@ -14,7 +14,7 @@ import { RudiButton, RudiInput, RudiStack } from 'rudiment-ui'
 ```
 
 - No provider is required. `RudiDialog` portals itself. Mount `RudiToastRegion` once if you use `rudiToast`. Wrap the app in `RudiRouterProvider` for client-side routing with links.
-- Every export is marked `'use client'`, so you can import it directly from a Next.js App Router Server Component.
+- Every export is marked `'use client'`, so you can import it directly from a Next.js App Router Server Component. Compound parts (`RudiCard.Header`, `RudiDialog.Footer`, …) are the exception: use them only inside a `'use client'` file.
 - The stylesheet has no CSS reset and no bare-element selectors, so it won't change your app's own styles.
 
 ## Conventions (read before writing code)
@@ -24,7 +24,7 @@ import { RudiButton, RudiInput, RudiStack } from 'rudiment-ui'
 - **`onChange` receives a value, not an event**: `RudiInput` passes a `string`, `RudiCheckbox` a `boolean`, `RudiCheckboxGroup` a `string[]`, `RudiNumberField` a `number | null`, and `RudiDatePicker` an ISO `string | null`.
 - **State props use React Aria names**: `isDisabled`, `isRequired`, `isReadOnly`, `isSelected`, `isOpen`, `selectedKey`, `onSelectionChange`. Don't use the HTML `disabled`/`checked` attributes.
 - **`label` is a required string prop**, not children, on the form fields (`RudiInput`, `RudiTextarea`, `RudiSelect`, `RudiComboBox`, `RudiRadioGroup`, `RudiCheckboxGroup`, `RudiNumberField`, the date pickers), on progress indicators and on charts. It is the accessible name. Validation text goes in `errorMessage`, which also sets the invalid state.
-- **Icons are Iconify name strings**: `icon="mdi:close"` or `iconBefore="lucide:plus"`. Never import icon components.
+- **Icons are Iconify name strings**: `icon="mdi:close"` or `iconBefore="lucide:plus"`. Never import icon components. Icons the components use themselves are bundled. To bundle the app's own icons, install `@iconify-json/<prefix>`, run `npx rudiment-ui-icons` (writes `src/rudiment-icons.json`), and pass that file to `registerRudiIcons` at module scope (in Next.js, inside a `'use client'` file rendered by the root layout). Unregistered icons load from api.iconify.design at runtime.
 - **`className` is merged** with the component's own classes (`clsx` + `tailwind-merge`), never replaced. To change how something looks, override tokens instead of piling on classes.
 - **Compound components use dot parts**: `RudiCard.Header`, `RudiDialog.Footer`, `RudiAppShell.Sidebar`, `RudiCover.Centered`.
 - **Collections use React Aria's pattern**: `items` plus a render function that returns `RudiOption`, `RudiMenuItem` or `RudiTableRow`, or static children with `id`s.

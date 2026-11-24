@@ -3,7 +3,7 @@ import { RudiLink } from './Link'
 import { RudiCluster } from '@/layouts/Cluster/Cluster'
 
 const meta = {
-  title: 'Components/Link',
+  title: 'Components/Navigation/Link',
   component: RudiLink,
   tags: ['autodocs'],
   parameters: {

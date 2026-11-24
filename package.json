@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "storybook dev -p 6006",
     "build": "vite build && node scripts/component-docs.mjs",
+    "build:icons": "node scripts/build-icons.mjs",
     "build:docs": "node scripts/component-docs.mjs",
+    "size": "size-limit && node scripts/check-tree-shaking.mjs",
     "build:social-card": "node scripts/social-card.mjs",
     "prepare": "npm run build:tokens && npm run build",
     "prepublishOnly": "npm run build:tokens && npm run build",
@@ -19,7 +21,8 @@
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "rudiment-ui-mcp": "mcp/server.mjs"
+    "rudiment-ui-mcp": "mcp/server.mjs",
+    "rudiment-ui-icons": "cli/icons.mjs"
   },
   "exports": {
     ".": {
@@ -40,6 +43,7 @@
     "mcp/server.mjs",
     "mcp/render.mjs",
     "mcp/README.md",
+    "cli/icons.mjs",
     "styles.d.ts"
   ],
   "peerDependencies": {
@@ -88,6 +92,9 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.0.1",
+    "@iconify-json/lucide": "^1.2.159",
+    "@iconify-json/mdi": "^1.2.3",
+    "@size-limit/preset-small-lib": "^14.3.0",
     "@storybook/addon-a11y": "^10.2.19",
     "@storybook/addon-docs": "^10.2.19",
     "@storybook/addon-vitest": "^10.2.19",
@@ -101,12 +108,14 @@
     "@vitejs/plugin-react": "^5.2.0",
     "@vitest/browser-playwright": "^4.1.0",
     "@vitest/coverage-v8": "^4.1.0",
+    "esbuild": "^0.27.7",
     "jsdom": "^29.0.0",
     "pagefind": "^1.6.0",
     "playwright": "^1.58.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "remark-gfm": "^4.0.1",
+    "size-limit": "^14.3.0",
     "storybook": "^10.2.19",
     "style-dictionary": "^4.4.0",
     "tailwindcss": "^4.2.1",

@@ -1,0 +1,37 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Getting Started/AI/LLMs.txt" />
+
+# LLMs.txt
+
+The package ships its API reference as plain files that a coding agent can read. The build generates them from the TypeScript source and JSDoc, so they match the installed version. The [MCP server](?path=/docs/getting-started-ai-mcp-server--docs) serves the same data. These files cover agents without MCP support.
+
+## Files
+
+| File | Contents |
+| ---- | -------- |
+| `llms.txt` | Setup, library conventions, and a one-line index of every component. Agents read this first. |
+| `llms-full.txt` | Everything in `llms.txt`, plus each component's props, defaults, compound parts, and examples |
+| `components.json` | The same data as JSON, plus types and descriptions for props inherited from React Aria |
+
+In an app, the files are in `node_modules/rudiment-ui/dist/`. They are also exported as `rudiment-ui/llms.txt`, `rudiment-ui/llms-full.txt`, and `rudiment-ui/components.json`.
+
+This site serves the same files, generated from the current source, so an agent can read them before the package is installed: <a href="./llms.txt" target="_blank">llms.txt</a>, <a href="./llms-full.txt" target="_blank">llms-full.txt</a>, and <a href="./components.json" target="_blank">components.json</a>.
+
+## Agent instructions
+
+Most agents read a project instruction file, such as `CLAUDE.md` for Claude Code or `AGENTS.md` for Codex and Cursor. Point it at the installed file so the agent reads the conventions before it writes UI code.
+
+```md
+## UI components
+
+This app uses rudiment-ui. Before writing UI code, read
+node_modules/rudiment-ui/dist/llms.txt for its conventions and component index.
+Read node_modules/rudiment-ui/dist/llms-full.txt for a component's props.
+```
+
+The conventions are the rules where Rudiment UI differs from other React libraries. Interactive components take `onPress`, and `onChange` receives a value. Form fields take a required `label` prop. Icons are Iconify name strings.
+
+## Editor types
+
+The package's `.d.ts` files carry the same JSDoc as `llms-full.txt`. Editors show each component's summary, example, and prop descriptions on hover. Agents that read type definitions get the same text.

@@ -6,7 +6,7 @@ import { RudiIcon } from '@/components/Icon/Icon'
 import { RudiCluster } from '@/layouts/Cluster/Cluster'
 
 const meta = {
-  title: 'Components/Button',
+  title: 'Components/Elements/Button',
   component: RudiButton,
   tags: ['autodocs'],
   parameters: {
@@ -172,7 +172,7 @@ export const IconOnly: Story = {
     docs: {
       description: {
         story:
-          '`RudiButton` always has a visible label. For an icon with no text, such as a toolbar or a close control, use [`RudiIconButton`](?path=/docs/components-iconbutton--docs), which requires an `aria-label`.',
+          '`RudiButton` always has a visible label. For an icon with no text, such as a toolbar or a close control, use [`RudiIconButton`](?path=/docs/components-elements-iconbutton--docs), which requires an `aria-label`.',
       },
     },
   },

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { RudiDivider } from './Divider'
 
 const meta = {
-  title: 'Components/Divider',
+  title: 'Components/Elements/Divider',
   component: RudiDivider,
   tags: ['autodocs'],
   parameters: {

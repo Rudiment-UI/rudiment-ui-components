@@ -18,7 +18,7 @@ Install it as a package, or clone it, swap the tokens, and ship your own design 
 
 Also included: a three-tier design token architecture, eight built-in themes (Default plus the Roomy, Soft, and Compressed modifier themes, each in light and dark variants), motion tokens, a data visualization palette, surface tokens, a Vitest test suite with accessibility checks, and interactive Storybook documentation.
 
-See it in a real app: [Vitrea](https://vitrea-rudiment.netlify.app), a demo cold-chain shipping app built entirely with Rudiment UI. Storybook's **Getting Started → Vitrea** page walks through it.
+See it in a real app: [Vitrea](https://vitrea-rudiment.netlify.app), a demo cold-chain shipping app built entirely with Rudiment UI. Storybook's **Showcase → Vitrea** page walks through it.
 
 ## Quick start
 
@@ -221,7 +221,7 @@ function LoginForm() {
 - **`onPress`, not `onClick`.** `RudiButton`, `RudiIconButton`, `RudiTag`, and `RudiNavItem` are built on React Aria and take `onPress`. React Aria handles pointer, touch, and keyboard activation in one event.
 - **`onChange` gives you a value, not an event.** `RudiInput` calls `onChange(value: string)`, `RudiCheckbox` calls `onChange(isSelected: boolean)`, `RudiCheckboxGroup` calls `onChange(value: string[])`.
 - **Labels are required props, not children.** `RudiInput`, `RudiSelect`, `RudiRadioGroup`, `RudiCheckboxGroup`, `RudiProgressBar`, and the charts all take `label` as a string — it wires up the accessible name for you.
-- **Icons are Iconify names.** Any prop typed as an icon takes a `"collection:name"` string, e.g. `icon="mdi:close"`. No icon imports needed.
+- **Icons are Iconify names.** Any prop typed as an icon takes a `"collection:name"` string, e.g. `icon="mdi:close"`. No icon imports needed. Run `npx rudiment-ui-icons` and pass its output to `registerRudiIcons` to bundle your icons instead of loading them from the Iconify API.
 - **`className` is merged, not replaced** — every component runs it through `clsx` + `tailwind-merge`. `cn` is exported if you want the same helper.
 - **Layout primitives are polymorphic and spread props**; components are not. `RudiStack`, `RudiBox`, `RudiText` etc. accept `as` plus any DOM attribute. `RudiButton`, `RudiCard`, `RudiAlert` have closed prop interfaces.
 

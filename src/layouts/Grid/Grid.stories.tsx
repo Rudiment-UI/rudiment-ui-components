@@ -187,7 +187,7 @@ export const Responsive: Story = {
     docs: {
       description: {
         story:
-          'Columns drop out as the grid narrows, with no breakpoints: the count follows the grid\'s own width, so it works the same inside a sidebar or a card. The gap is the `section` step, which is 2rem on small screens and 3rem from `md` (48rem). Pick a device above the example to see it change. See [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs).',
+          'Columns drop out as the grid narrows, with no breakpoints: the count follows the grid\'s own width, so it works the same inside a sidebar or a card. The gap is the `section` step, which is 2rem on small screens and 3rem from `md` (48rem). Pick a device above the example to see it change. See [Responsive Spacing](?path=/docs/getting-started-theme-responsive-spacing--docs).',
       },
     },
   },

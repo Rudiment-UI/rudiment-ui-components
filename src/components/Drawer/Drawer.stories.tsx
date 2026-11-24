@@ -11,7 +11,7 @@ type DrawerStoryArgs = Omit<RudiDrawerProps, 'isOpen' | 'onClose' | 'children'>
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const meta: Meta<DrawerStoryArgs> = {
-  title: 'Components/Drawer',
+  title: 'Components/Overlays/Drawer',
   component: RudiDrawer as any,
   tags: ['autodocs', 'new'],
   parameters: {

@@ -11,7 +11,7 @@ const sampleData = [
 ]
 
 const meta = {
-  title: 'Components/Charts/LineChart',
+  title: 'Components/Data/Charts/LineChart',
   component: RudiLineChart,
   tags: ['autodocs'],
   parameters: {

@@ -176,7 +176,7 @@ export const Responsive: Story = {
     docs: {
       description: {
         story:
-          'The panels stack when the content would be narrower than `contentMin` (50% by default), measured against the sidebar\'s own container, so no breakpoint is needed. The gap is the `section` step, which is 2rem on small screens and 3rem from `md` (48rem). Pick a device above the example to see it change. See [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs).',
+          'The panels stack when the content would be narrower than `contentMin` (50% by default), measured against the sidebar\'s own container, so no breakpoint is needed. The gap is the `section` step, which is 2rem on small screens and 3rem from `md` (48rem). Pick a device above the example to see it change. See [Responsive Spacing](?path=/docs/getting-started-theme-responsive-spacing--docs).',
       },
     },
   },

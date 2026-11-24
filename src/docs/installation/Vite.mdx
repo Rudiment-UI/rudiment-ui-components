@@ -74,7 +74,7 @@ With no attribute, the app uses the default light theme. Set `data-theme` on `<h
 <html lang="en" data-theme="auto">
 ```
 
-See [Theming](?path=/docs/getting-started-theming--docs) for the full list and for scoping a theme to part of the page.
+See [Theming](?path=/docs/getting-started-theme-theming--docs) for the full list and for scoping a theme to part of the page.
 
 ## 6. Connect your router (optional)
 
@@ -98,10 +98,29 @@ export function Root() {
 
 ## Icons
 
-Components take Iconify names such as `icon="mdi:close"`, and Iconify downloads each icon set from `api.iconify.design` the first time it's used. If your app sets a Content Security Policy, allow that host in `connect-src`. To bundle icons instead, see [Iconify's offline usage guide](https://iconify.design/docs/icon-components/react/#offline).
+Components take Iconify names such as `icon="mdi:close"`. The icons the components use themselves are part of the package. Iconify downloads any other icon from `api.iconify.design` the first time it renders.
+
+To bundle the app's icons, install the icon set for each prefix, then write the icons the app uses to a JSON file.
+
+```bash
+npm install -D @iconify-json/mdi
+npx rudiment-ui-icons
+```
+
+The command scans `src` and writes `src/rudiment-icons.json`. Register the file in `src/main.tsx`, before `createRoot`.
+
+```tsx
+// src/main.tsx
+import { registerRudiIcons } from 'rudiment-ui'
+import icons from './rudiment-icons.json'
+
+registerRudiIcons(icons)
+```
+
+Run `rudiment-ui-icons` again after adding an icon. If your app sets a Content Security Policy and some icons still load from the API, allow `api.iconify.design` in `connect-src`. The [Performance](?path=/docs/getting-started-guides-performance--docs) page covers the command's options.
 
 ## Next steps
 
 - [Next.js](?path=/docs/getting-started-installation-next-js--docs): the App Router setup
-- [Theming](?path=/docs/getting-started-theming--docs): brand colors and your own themes
-- [Layout Primitives](?path=/docs/getting-started-layout-primitives--docs): building pages from Stack, Grid, Sidebar and the rest
+- [Theming](?path=/docs/getting-started-theme-theming--docs): brand colors and your own themes
+- [Layout Primitives](?path=/docs/layouts-overview--docs): building pages from Stack, Grid, Sidebar and the rest

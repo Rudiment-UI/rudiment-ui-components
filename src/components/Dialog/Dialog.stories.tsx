@@ -7,7 +7,7 @@ type DialogStoryArgs = Omit<RudiDialogProps, 'isOpen' | 'onClose' | 'children'>
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const meta: Meta<DialogStoryArgs> = {
-  title: 'Components/Dialog',
+  title: 'Components/Overlays/Dialog',
   component: RudiDialog as any,
   tags: ['autodocs'],
   parameters: {

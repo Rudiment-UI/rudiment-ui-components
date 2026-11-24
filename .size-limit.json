@@ -1,0 +1,9 @@
+[
+  { "name": "Library JS, all modules (dependencies external)", "path": "dist/**/*.js", "rolldown": false, "gzip": true, "limit": "61 kB" },
+  { "name": "Library CSS (all themes)", "path": "dist/index.css", "rolldown": false, "gzip": true, "limit": "80 kB" },
+  { "name": "import { RudiStack, RudiText }", "path": "dist/index.js", "import": "{ RudiStack, RudiText }", "gzip": true, "limit": "10 kB" },
+  { "name": "import { RudiButton }", "path": "dist/index.js", "import": "{ RudiButton }", "gzip": true, "limit": "26 kB" },
+  { "name": "import { RudiLineChart }", "path": "dist/index.js", "import": "{ RudiLineChart }", "gzip": true, "limit": "124 kB" },
+  { "name": "import { RudiKanbanBoard }", "path": "dist/index.js", "import": "{ RudiKanbanBoard }", "gzip": true, "limit": "26 kB" },
+  { "name": "import * (everything)", "path": "dist/index.js", "import": "*", "gzip": true, "limit": "335 kB" }
+]

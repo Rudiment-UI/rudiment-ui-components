@@ -12,7 +12,7 @@ const items = [
 ]
 
 const meta = {
-  title: 'Components/DescriptionList',
+  title: 'Components/Data/DescriptionList',
   component: RudiDescriptionList,
   tags: ['autodocs'],
   parameters: {

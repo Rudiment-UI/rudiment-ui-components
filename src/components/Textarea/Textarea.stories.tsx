@@ -4,14 +4,14 @@ import { RudiTextarea } from './Textarea'
 import { RudiStack } from '@/layouts/Stack/Stack'
 
 const meta = {
-  title: 'Components/Textarea',
+  title: 'Components/Forms/Textarea',
   component: RudiTextarea,
   tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
         component:
-          'A multi-line text field for free text such as comments, descriptions and notes. It takes the same label, description and error props as `RudiInput`. Use [`RudiInput`](?path=/docs/components-input--docs) for short single-line values.',
+          'A multi-line text field for free text such as comments, descriptions and notes. It takes the same label, description and error props as `RudiInput`. Use [`RudiInput`](?path=/docs/components-forms-input--docs) for short single-line values.',
       },
     },
   },

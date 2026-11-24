@@ -4,7 +4,7 @@ import { RudiBadge } from '@/components/Badge/Badge'
 import { RudiStack } from '@/layouts/Stack/Stack'
 
 const meta = {
-  title: 'Components/NavItem',
+  title: 'Components/Navigation/NavItem',
   component: RudiNavItem,
   tags: ['autodocs'],
   parameters: {

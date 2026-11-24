@@ -153,7 +153,7 @@ export const Responsive: Story = {
     docs: {
       description: {
         story:
-          'Named steps change with the screen. `gutter` is 1rem on small screens, 1.5rem from the `md` breakpoint (48rem) and 2rem from `lg` (64rem), so a page-edge box needs no media queries. Pick a device above the example to see it change. See [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs) for the full scale and how to override it.',
+          'Named steps change with the screen. `gutter` is 1rem on small screens, 1.5rem from the `md` breakpoint (48rem) and 2rem from `lg` (64rem), so a page-edge box needs no media queries. Pick a device above the example to see it change. See [Responsive Spacing](?path=/docs/getting-started-theme-responsive-spacing--docs) for the full scale and how to override it.',
       },
     },
   },

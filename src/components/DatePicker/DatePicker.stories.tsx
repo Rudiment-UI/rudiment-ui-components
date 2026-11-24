@@ -23,7 +23,7 @@ const isWeekendOrHoliday = (iso: string) => {
 }
 
 const meta = {
-  title: 'Components/DatePicker',
+  title: 'Components/Forms/DatePicker',
   component: RudiDatePicker,
   tags: ['autodocs'],
   parameters: {

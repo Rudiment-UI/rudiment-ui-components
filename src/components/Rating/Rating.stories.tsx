@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { RudiRating } from './Rating'
 
 const meta = {
-  title: 'Components/Rating',
+  title: 'Components/Forms/Rating',
   component: RudiRating,
   tags: ['autodocs'],
   parameters: {

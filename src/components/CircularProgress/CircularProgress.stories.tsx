@@ -4,7 +4,7 @@ import { RudiIcon } from '../Icon/Icon'
 import { RudiCluster } from '@/layouts/Cluster/Cluster'
 
 const meta = {
-  title: 'Components/CircularProgress',
+  title: 'Components/Feedback/CircularProgress',
   component: RudiCircularProgress,
   tags: ['autodocs'],
   parameters: {

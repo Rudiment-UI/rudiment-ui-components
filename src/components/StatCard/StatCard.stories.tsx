@@ -3,7 +3,7 @@ import { RudiStatCard } from './StatCard'
 import { RudiGrid } from '../../layouts/Grid/Grid'
 
 const meta = {
-  title: 'Components/StatCard',
+  title: 'Components/Data/StatCard',
   component: RudiStatCard,
   tags: ['autodocs'],
   parameters: {

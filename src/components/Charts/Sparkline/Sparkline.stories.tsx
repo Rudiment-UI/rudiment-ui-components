@@ -4,7 +4,7 @@ import { RudiSparkline } from './Sparkline'
 const data = [4.2, 4.6, 5.1, 4.8, 5.9, 6.4, 6.1, 7.2, 6.8, 7.5]
 
 const meta = {
-  title: 'Components/Charts/Sparkline',
+  title: 'Components/Data/Charts/Sparkline',
   component: RudiSparkline,
   tags: ['autodocs'],
   parameters: {

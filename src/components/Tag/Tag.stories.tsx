@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { RudiTag } from './Tag'
 
 const meta = {
-  title: 'Components/Tag',
+  title: 'Components/Elements/Tag',
   component: RudiTag,
   tags: ['autodocs'],
   parameters: {

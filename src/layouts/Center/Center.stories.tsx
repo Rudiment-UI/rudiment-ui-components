@@ -152,7 +152,7 @@ export const Responsive: Story = {
     docs: {
       description: {
         story:
-          'The column shrinks with the screen once it is narrower than `maxWidth`, and the default `gutters` is the `gutter` step: 1rem on small screens, 1.5rem from `md` (48rem) and 2rem from `lg` (64rem). Pick a device above the example to see it change. See [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs).',
+          'The column shrinks with the screen once it is narrower than `maxWidth`, and the default `gutters` is the `gutter` step: 1rem on small screens, 1.5rem from `md` (48rem) and 2rem from `lg` (64rem). Pick a device above the example to see it change. See [Responsive Spacing](?path=/docs/getting-started-theme-responsive-spacing--docs).',
       },
     },
   },

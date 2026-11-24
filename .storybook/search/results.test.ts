@@ -9,22 +9,22 @@ import {
 
 describe('parseDocsUrl', () => {
   it('splits the docs id and anchor', () => {
-    expect(parseDocsUrl('/docs/components-button--docs#loading-state')).toEqual({
-      docsId: 'components-button--docs',
+    expect(parseDocsUrl('/docs/components-elements-button--docs#loading-state')).toEqual({
+      docsId: 'components-elements-button--docs',
       anchor: 'loading-state',
     })
   })
 
   it('returns no anchor for the page itself', () => {
-    expect(parseDocsUrl('/docs/getting-started-theming--docs')).toEqual({
-      docsId: 'getting-started-theming--docs',
+    expect(parseDocsUrl('/docs/getting-started-theme-theming--docs')).toEqual({
+      docsId: 'getting-started-theme-theming--docs',
     })
   })
 })
 
 describe('toHits', () => {
   const page: PagefindData = {
-    url: '/docs/components-button--docs',
+    url: '/docs/components-elements-button--docs',
     excerpt: 'A <mark>button</mark> for actions',
     meta: { title: 'Button', section: 'Components' },
   }
@@ -33,8 +33,8 @@ describe('toHits', () => {
     const hits = toHits({
       ...page,
       sub_results: [
-        { title: 'Loading state', url: '/docs/components-button--docs#loading-state', excerpt: 'x' },
-        { title: 'Variants', url: '/docs/components-button--docs#variants', excerpt: 'y' },
+        { title: 'Loading state', url: '/docs/components-elements-button--docs#loading-state', excerpt: 'x' },
+        { title: 'Variants', url: '/docs/components-elements-button--docs#variants', excerpt: 'y' },
       ],
     })
     expect(hits.map((h) => [h.title, h.anchor, h.page, h.section])).toEqual([
@@ -47,8 +47,8 @@ describe('toHits', () => {
   it('falls back to the page when no section matched', () => {
     expect(toHits(page)).toEqual([
       {
-        key: 'components-button--docs#',
-        docsId: 'components-button--docs',
+        key: 'components-elements-button--docs#',
+        docsId: 'components-elements-button--docs',
         anchor: undefined,
         title: 'Button',
         page: 'Button',
@@ -61,7 +61,7 @@ describe('toHits', () => {
   it('labels a section without an anchor with the page title', () => {
     const [hit] = toHits({
       ...page,
-      sub_results: [{ title: 'Ignored', url: '/docs/components-button--docs', excerpt: 'z' }],
+      sub_results: [{ title: 'Ignored', url: '/docs/components-elements-button--docs', excerpt: 'z' }],
     })
     expect(hit.title).toBe('Button')
   })
@@ -69,7 +69,7 @@ describe('toHits', () => {
   it('puts the best-matching section first', () => {
     const at = (title: string, scores: number[]) => ({
       title,
-      url: `/docs/components-button--docs#${title.toLowerCase()}`,
+      url: `/docs/components-elements-button--docs#${title.toLowerCase()}`,
       excerpt: '',
       weighted_locations: scores.map((balanced_score) => ({ balanced_score })),
     })
@@ -83,7 +83,7 @@ describe('toHits', () => {
   it('caps the sections per page', () => {
     const sub_results = Array.from({ length: 5 }, (_, i) => ({
       title: `S${i}`,
-      url: `/docs/components-button--docs#s${i}`,
+      url: `/docs/components-elements-button--docs#s${i}`,
       excerpt: '',
     }))
     expect(toHits({ ...page, sub_results }, 2)).toHaveLength(2)

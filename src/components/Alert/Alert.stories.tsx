@@ -3,7 +3,7 @@ import { RudiAlert } from './Alert'
 import { RudiButton } from '@/components/Button/Button'
 
 const meta = {
-  title: 'Components/Alert',
+  title: 'Components/Feedback/Alert',
   component: RudiAlert,
   tags: ['autodocs'],
   parameters: {

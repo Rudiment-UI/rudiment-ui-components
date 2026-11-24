@@ -32,7 +32,7 @@ export function BrandHero() {
           <HeroLink href="#use-it-as-a-package" primary>
             Get started
           </HeroLink>
-          <HeroLink href="?path=/docs/components-button--docs">Browse components</HeroLink>
+          <HeroLink href="?path=/docs/components-elements-button--docs">Browse components</HeroLink>
         </div>
         <dl className="sbb-facts" style={stagger(4)}>
           <div>

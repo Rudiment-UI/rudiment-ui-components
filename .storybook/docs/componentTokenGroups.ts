@@ -3,15 +3,15 @@
 // componentTokenGroups.test.ts checks that every mapped group exists.
 import { TOKENS } from './tokenData'
 
-// Pages whose token group isn't the kebab-cased last title segment.
+// Components whose token group isn't their kebab-cased name (the last title segment).
 const GROUPS: Record<string, string[]> = {
-  'Components/RadioGroup': ['radio'],
-  'Components/ProgressBar': ['progress'],
-  'Components/KanbanBoard': ['kanban'],
-  'Components/Charts/BarChart': ['chart'],
-  'Components/Charts/LineChart': ['chart'],
-  'Components/Charts/DonutChart': ['chart'],
-  'Components/Charts/Sparkline': ['sparkline', 'chart'],
+  RadioGroup: ['radio'],
+  ProgressBar: ['progress'],
+  KanbanBoard: ['kanban'],
+  BarChart: ['chart'],
+  LineChart: ['chart'],
+  DonutChart: ['chart'],
+  Sparkline: ['sparkline', 'chart'],
 }
 
 const kebab = (s: string) => s.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()
@@ -19,7 +19,8 @@ const kebab = (s: string) => s.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCas
 /** Token paths (`component.<group>`) for a `Components/*` story title, or [] when it has none. */
 export function componentTokenPrefixes(title: string): string[] {
   if (!title.startsWith('Components/')) return []
-  const groups = GROUPS[title] ?? [kebab(title.split('/').pop()!)]
+  const name = title.split('/').pop()!
+  const groups = GROUPS[name] ?? [kebab(name)]
   return groups
     .map((g) => `component.${g}`)
     .filter((p) => TOKENS.some((t) => t.path.startsWith(`${p}.`)))

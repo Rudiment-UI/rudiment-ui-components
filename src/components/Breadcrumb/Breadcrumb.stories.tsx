@@ -3,7 +3,7 @@ import { RudiBreadcrumb } from './Breadcrumb'
 import { RudiStack } from '@/layouts/Stack/Stack'
 
 const meta = {
-  title: 'Components/Breadcrumb',
+  title: 'Components/Navigation/Breadcrumb',
   component: RudiBreadcrumb,
   tags: ['autodocs'],
   parameters: {

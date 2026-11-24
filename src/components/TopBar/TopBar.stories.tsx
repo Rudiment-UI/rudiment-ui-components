@@ -7,7 +7,7 @@ import { RudiText } from '@/typography/Text/Text'
 import { RudiCluster } from '@/layouts/Cluster/Cluster'
 
 const meta = {
-  title: 'Components/TopBar',
+  title: 'Components/App Layout/TopBar',
   component: RudiTopBar,
   tags: ['autodocs'],
   parameters: {

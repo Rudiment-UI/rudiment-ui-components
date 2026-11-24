@@ -1,7 +1,39 @@
 import { forwardRef } from 'react'
-import { Icon as IconifyIcon } from '@iconify/react'
+import { addCollection, Icon as IconifyIcon, type IconifyJSON } from '@iconify/react'
 import { cn } from '@/utils/cn'
+import { bundledIcons } from './bundledIcons'
 import './icon.css'
+
+/**
+ * Registers Iconify icon data so `RudiIcon` renders those icons on the first render, in
+ * server-rendered HTML, and with no request to the Iconify API. Pass the file written by the
+ * `rudiment-ui-icons` CLI. Call it once, at module scope in a file that runs on both the server
+ * and the client, before anything renders. The icons the library's own components use are
+ * already registered.
+ * @example
+ * ```tsx
+ * import { registerRudiIcons } from 'rudiment-ui'
+ * import icons from './rudiment-icons.json'
+ *
+ * registerRudiIcons(icons)
+ * ```
+ */
+export function registerRudiIcons(icons: RudiIconData): void {
+  const collections = isCollection(icons) ? [icons] : Array.isArray(icons) ? icons : Object.values(icons)
+  for (const collection of collections) addCollection(collection)
+}
+
+/**
+ * Iconify icon data accepted by `registerRudiIcons`: one icon set, a list of sets, or an object
+ * of sets keyed by prefix (the format the `rudiment-ui-icons` CLI writes).
+ */
+export type RudiIconData = IconifyJSON | IconifyJSON[] | Record<string, IconifyJSON>
+
+function isCollection(icons: RudiIconData): icons is IconifyJSON {
+  return typeof (icons as IconifyJSON).prefix === 'string' && typeof (icons as IconifyJSON).icons === 'object'
+}
+
+registerRudiIcons(bundledIcons)
 
 /** Props for `RudiIcon`. */
 export interface RudiIconProps {
@@ -22,6 +54,7 @@ export interface RudiIconProps {
 
 /**
  * Renders an Iconify icon by name (for example `"mdi:close"`). Icons are always passed as name strings, never imported components.
+ * Icons registered with `registerRudiIcons` render immediately, including in server HTML. Any other icon is downloaded from the Iconify API when it first renders.
  * Decorative by default (`aria-hidden`). Pass `label` to expose it as an image with an accessible name. Forwards its ref to the wrapping `span`.
  * @example
  * ```tsx
@@ -47,7 +80,7 @@ export const RudiIcon = forwardRef<HTMLSpanElement, RudiIconProps>(
         aria-hidden={label ? undefined : true}
         style={inlineStyle}
       >
-        <IconifyIcon icon={icon} />
+        <IconifyIcon icon={icon} ssr />
       </span>
     )
   },

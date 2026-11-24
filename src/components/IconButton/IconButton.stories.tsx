@@ -4,7 +4,7 @@ import { RudiIcon } from '@/components/Icon/Icon'
 import { RudiCluster } from '@/layouts/Cluster/Cluster'
 
 const meta = {
-  title: 'Components/IconButton',
+  title: 'Components/Elements/IconButton',
   component: RudiIconButton,
   tags: ['autodocs'],
   parameters: {
@@ -139,7 +139,7 @@ export const Labelling: Story = {
     docs: {
       description: {
         story:
-          'The `aria-label` is the only name a screen reader announces, so describe the result of the action ("Close dialog"), not the icon. Use an icon alone only when its meaning is universally understood, such as close, search, or menu. For anything less obvious, use a [`RudiButton`](?path=/docs/components-button--docs) with a visible label.',
+          'The `aria-label` is the only name a screen reader announces, so describe the result of the action ("Close dialog"), not the icon. Use an icon alone only when its meaning is universally understood, such as close, search, or menu. For anything less obvious, use a [`RudiButton`](?path=/docs/components-elements-button--docs) with a visible label.',
       },
     },
   },

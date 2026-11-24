@@ -141,7 +141,7 @@ function InteractiveBoard() {
 }
 
 const meta = {
-  title: 'Components/KanbanBoard',
+  title: 'Components/Data/KanbanBoard',
   component: RudiKanbanBoard,
   tags: ['autodocs'],
   parameters: {

@@ -11,7 +11,7 @@ import { RudiStack } from '../../layouts/Stack/Stack'
 import { RudiText } from '../../typography/Text/Text'
 
 const meta = {
-  title: 'Components/Tabs',
+  title: 'Components/Navigation/Tabs',
   component: RudiTabs,
   tags: ['autodocs'],
   parameters: {

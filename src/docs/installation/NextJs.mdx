@@ -59,6 +59,8 @@ export default function Page() {
 }
 ```
 
+A Server Component can render a component but can't reach a part through it, so `<RudiCard.Header>` in a Server Component fails the build with "Element type is invalid". This applies to every component with parts: `RudiCard`, `RudiDialog`, `RudiDrawer`, `RudiAppShell`, `RudiFooter`, `RudiCover`, and `RudiKanbanBoard`. Render these in a `'use client'` file, as below.
+
 Event handlers such as `onPress` and `onChange` are functions, which a Server Component can't pass. Put the interactive part in its own file that starts with `'use client'`:
 
 ```tsx
@@ -88,7 +90,7 @@ With no attribute, the app uses the default light theme. Set `data-theme` on `<h
 <html lang="en" data-theme="auto">
 ```
 
-See [Theming](?path=/docs/getting-started-theming--docs) for the full list and for scoping a theme to part of the page.
+See [Theming](?path=/docs/getting-started-theme-theming--docs) for the full list and for scoping a theme to part of the page.
 
 ## 6. Connect the router (optional)
 
@@ -130,10 +132,52 @@ The pages it wraps can stay Server Components.
 
 ## Icons
 
-Components take Iconify names such as `icon="mdi:close"`, and Iconify downloads each icon set from `api.iconify.design` in the browser the first time it's used. If your app sets a Content Security Policy, allow that host in `connect-src`. To bundle icons instead, see [Iconify's offline usage guide](https://iconify.design/docs/icon-components/react/#offline).
+Components take Iconify names such as `icon="mdi:close"`. The icons the components use themselves are part of the package. Iconify downloads any other icon from `api.iconify.design` in the browser the first time it renders, and the server HTML holds an empty `span` in its place.
+
+To bundle the app's icons, install the icon set for each prefix, then write the icons the app uses to a JSON file.
+
+```bash
+npm install -D @iconify-json/mdi
+npx rudiment-ui-icons app --out app/rudiment-icons.json
+```
+
+`registerRudiIcons` comes from a `'use client'` module, so a Server Component can't call it. Call it in a client file and render that file's component in the root layout. The module then runs on the server and in the browser before any page renders.
+
+```tsx
+// app/icons.tsx
+'use client'
+import { registerRudiIcons } from 'rudiment-ui'
+import icons from './rudiment-icons.json'
+
+registerRudiIcons(icons)
+
+export function RudiIcons() {
+  return null
+}
+```
+
+```tsx
+// app/layout.tsx
+import { RudiIcons } from './icons'
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        <RudiIcons />
+        {children}
+      </body>
+    </html>
+  )
+}
+```
+
+If the app has `app/providers.tsx` from step 6, call `registerRudiIcons(icons)` at the top of that file instead. It's already a client file that the root layout renders.
+
+Run `rudiment-ui-icons` again after adding an icon. If your app sets a Content Security Policy and some icons still load from the API, allow `api.iconify.design` in `connect-src`. The [Performance](?path=/docs/getting-started-guides-performance--docs) page covers the command's options.
 
 ## Next steps
 
 - [Vite](?path=/docs/getting-started-installation-vite--docs): the Vite setup
-- [Theming](?path=/docs/getting-started-theming--docs): brand colors and your own themes
-- [Layout Primitives](?path=/docs/getting-started-layout-primitives--docs): building pages from Stack, Grid, Sidebar and the rest
+- [Theming](?path=/docs/getting-started-theme-theming--docs): brand colors and your own themes
+- [Layout Primitives](?path=/docs/layouts-overview--docs): building pages from Stack, Grid, Sidebar and the rest

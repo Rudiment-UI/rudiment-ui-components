@@ -5,6 +5,7 @@ import { describe, it, expect, vi } from 'vitest'
 import { RudiNavItem } from './NavItem'
 
 vi.mock('@iconify/react', () => ({
+  addCollection: vi.fn(),
   Icon: (props: Record<string, unknown>) => (
     <svg data-testid="iconify-icon" data-icon={props.icon} />
   ),

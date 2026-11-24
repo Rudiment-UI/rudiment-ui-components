@@ -1,0 +1,121 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Getting Started/Guides/Performance" />
+
+# Performance
+
+Rudiment UI affects an app's performance in four places: the JavaScript each import adds to the bundle, the stylesheet, the icon data fetched at runtime, and the client components in a Next.js app. This page lists what each one costs today and the settings an app can change.
+
+Render performance, such as memoization and list virtualization, is left to the app.
+
+## JavaScript per import
+
+The package publishes one ES module per source file. A production bundler such as Vite, Next.js, Rollup, or esbuild keeps only the files an app imports, along with their dependencies. Always import from the package root. The bundler removes the rest.
+
+```tsx
+import { RudiButton, RudiStack } from 'rudiment-ui'
+```
+
+The table lists what an app ships for common imports. Sizes are minified and gzipped, include dependencies, and exclude React.
+
+| Import | Size |
+| --- | --- |
+| `{ RudiStack, RudiText }` | 8.8 kB |
+| `{ RudiButton }` | 24.5 kB |
+| `{ RudiKanbanBoard }` | 23.5 kB |
+| `{ RudiLineChart }` | 112.1 kB |
+| `{ RudiButton, RudiInput }` | 27.6 kB |
+| `{ RudiButton, RudiInput, RudiSelect, RudiCheckbox, RudiDialog }` | 56.6 kB |
+| Every export | 304.5 kB |
+
+Interactive components share React Aria code, so components imported together cost less than the sum of their sizes alone. Three dependencies load only with the components that need them.
+
+| Dependency | Loaded by |
+| --- | --- |
+| `recharts` | `RudiLineChart`, `RudiBarChart`, `RudiDonutChart` |
+| `@dnd-kit` | `RudiKanbanBoard` |
+| `@internationalized/date` | `RudiDatePicker` |
+
+To keep charts out of the first page load, import the chart from a separate file and load that file with `React.lazy` or Next.js `dynamic()`.
+
+```tsx
+// RevenueChart.tsx renders RudiLineChart.
+const RevenueChart = lazy(() => import('./RevenueChart'))
+```
+
+## Stylesheet
+
+`rudiment-ui/styles` is one stylesheet. It is 72.7 kB gzipped and holds every component's styles and the design tokens for all eight themes. Each theme's tokens are about 7 kB gzipped. Import the stylesheet once, at the app's entry point, so the browser downloads it once and caches it.
+
+The stylesheet can't be split by theme or by component yet. An app that uses only the default theme still downloads the tokens for the other seven.
+
+## Icons
+
+`RudiIcon` renders icons with Iconify. An icon renders immediately, including in server-rendered HTML, when its data is registered. The icons the components use themselves, such as close buttons, chevrons, and status icons, are registered by the package. They add about 1 kB gzipped to any import that renders an icon.
+
+Iconify downloads any other icon from `api.iconify.design` the first time it renders. This has three costs:
+
+- Each page load makes requests to a third-party server.
+- Icons appear after the request finishes, and server-rendered HTML holds an empty `span` in their place.
+- A Content Security Policy that blocks `api.iconify.design` stops those icons from loading.
+
+### Bundled app icons
+
+The `rudiment-ui-icons` command bundles the icons an app uses. It scans the app's source for icon names, looks each one up in the installed Iconify icon sets, and writes only those icons to a JSON file.
+
+Install the icon set package for each prefix the app uses, such as `@iconify-json/mdi` for `mdi:` icons. A full set is large (the `mdi` set is 2.9 MB of JSON), but only the icons the app uses reach the bundle.
+
+```bash
+npm install -D @iconify-json/mdi
+npx rudiment-ui-icons
+```
+
+The command scans `src` and writes `src/rudiment-icons.json`. Pass other directories as arguments and a different output path with `--out`.
+
+```bash
+npx rudiment-ui-icons app components --out app/rudiment-icons.json
+```
+
+Register the file with `registerRudiIcons` once, at module scope, before the app renders.
+
+```tsx
+// src/main.tsx
+import { registerRudiIcons } from 'rudiment-ui'
+import icons from './rudiment-icons.json'
+
+registerRudiIcons(icons)
+```
+
+In a Next.js App Router app, `registerRudiIcons` must run in a client file, and that file must render in the root layout. The [Next.js guide](?path=/docs/getting-started-installation-next-js--docs) has the setup.
+
+Run the command again after adding an icon. An icon missing from the file still loads from the API. The command reports names it can't find in an installed set, and it lists prefixes with no installed set. To fail a CI build when the file is out of date, run it with `--check`.
+
+```bash
+npx rudiment-ui-icons --check
+```
+
+The command finds icon names written as string literals, such as `icon="mdi:close"`. It skips comments. It can't find a name built at runtime, such as `` `mdi:${name}` ``.
+
+### Self-hosted API
+
+To keep Iconify's on-demand loading without the third-party request, run your own Iconify API server and point the default provider at it.
+
+```tsx
+import { addAPIProvider } from '@iconify/react'
+
+addAPIProvider('', { resources: ['https://icons.example.com'] })
+```
+
+### Layout while icons load
+
+The `sm`, `md`, and `lg` sizes set an icon's width and height, so the surrounding layout doesn't shift when an icon loads from the API. A numeric `size` reserves space the same way.
+
+## Next.js client components
+
+Every module in the package starts with `'use client'`, so any export can be imported directly from a Server Component. Layout primitives and typography still render to HTML on the server. Their JavaScript is also sent to the browser and hydrated, which adds about 9 kB gzipped for `RudiStack` and `RudiText`.
+
+A Server Component can't render a compound part such as `RudiCard.Header`. The [Next.js guide](?path=/docs/getting-started-installation-next-js--docs) covers the workaround.
+
+## Size checks
+
+The sizes on this page come from `npm run size` in the Rudiment UI repository. It enforces a size budget for the package and for each import in the first table. It also checks that importing one component doesn't pull in another component's dependencies, such as `recharts` for a button. CI runs it on every pull request, so a change that breaks tree-shaking or exceeds a budget fails before release.

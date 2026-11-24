@@ -1,7 +1,7 @@
 import { Meta, Canvas } from '@storybook/addon-docs/blocks'
 import * as DocBlocks from '../../.storybook/docs/DocBlocks.stories'
 
-<Meta title="Getting Started/Token Architecture" />
+<Meta title="Getting Started/Theme/Token Architecture" />
 
 # Token Architecture
 
@@ -177,7 +177,7 @@ All tokens become CSS custom properties following this pattern:
 
 **Generated CSS (do not edit)**
 
-`tokens/responsive.json` builds to `tokens-responsive.css`. It declares the named spacing steps on `:root, [data-theme]` with one `@media (min-width)` block per breakpoint. See [Responsive Spacing](?path=/docs/getting-started-responsive-spacing--docs).
+`tokens/responsive.json` builds to `tokens-responsive.css`. It declares the named spacing steps on `:root, [data-theme]` with one `@media (min-width)` block per breakpoint. See [Responsive Spacing](?path=/docs/getting-started-theme-responsive-spacing--docs).
 
 Each source theme builds to a file in `tokens/build/`. Eight theme files are generated: `tokens.css` (light/base, `:root`) plus one per theme — `tokens-dark.css`, `tokens-roomy.css`, `tokens-roomy-dark.css`, `tokens-soft.css`, `tokens-soft-dark.css`, `tokens-compressed.css`, and `tokens-compressed-dark.css` — each scoped to its `[data-theme="…"]` selector.
 

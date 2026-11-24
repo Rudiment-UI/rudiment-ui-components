@@ -4,14 +4,14 @@ import { RudiSwitch } from './Switch'
 import { RudiStack } from '@/layouts/Stack/Stack'
 
 const meta = {
-  title: 'Components/Switch',
+  title: 'Components/Forms/Switch',
   component: RudiSwitch,
   tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
         component:
-          'A toggle for an on/off setting that takes effect immediately. For a choice that is applied when a form is submitted, use [`RudiCheckbox`](?path=/docs/components-checkbox--docs).',
+          'A toggle for an on/off setting that takes effect immediately. For a choice that is applied when a form is submitted, use [`RudiCheckbox`](?path=/docs/components-forms-checkbox--docs).',
       },
     },
   },
@@ -156,7 +156,7 @@ export const CheckboxOrSwitch: Story = {
     docs: {
       description: {
         story:
-          'Use a switch for a setting that takes effect immediately. For a choice that is submitted with a form, such as "I agree to the terms", use [`RudiCheckbox`](?path=/docs/components-checkbox--docs).',
+          'Use a switch for a setting that takes effect immediately. For a choice that is submitted with a form, such as "I agree to the terms", use [`RudiCheckbox`](?path=/docs/components-forms-checkbox--docs).',
       },
     },
   },

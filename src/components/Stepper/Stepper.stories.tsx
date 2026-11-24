@@ -7,7 +7,7 @@ import { RudiCluster } from '@/layouts/Cluster/Cluster'
 import { RudiStack } from '@/layouts/Stack/Stack'
 
 const meta = {
-  title: 'Components/Stepper',
+  title: 'Components/Navigation/Stepper',
   component: RudiStepper,
   tags: ['autodocs'],
   parameters: {

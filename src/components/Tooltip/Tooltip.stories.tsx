@@ -25,7 +25,7 @@ type TooltipStoryArgs = Omit<RudiTooltipTriggerProps, 'children'>
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const meta: Meta<TooltipStoryArgs> = {
-  title: 'Components/Tooltip',
+  title: 'Components/Overlays/Tooltip',
   component: RudiTooltipTrigger as any,
   tags: ['autodocs'],
   parameters: {

@@ -67,7 +67,7 @@ function VariantButtons() {
 }
 
 const meta = {
-  title: 'Components/Toast',
+  title: 'Components/Feedback/Toast',
   component: RudiToastRegion,
   tags: ['autodocs'],
   render: (args) => (

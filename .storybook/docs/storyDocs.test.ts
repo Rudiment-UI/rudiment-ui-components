@@ -1,7 +1,6 @@
 // Every example on a component, layout or typography docs page needs a line
 // of prose saying when and why to use it (CONTRIBUTING.md → "Writing
-// component docs"). Pages not yet migrated to that convention are listed in
-// UNMIGRATED, which shrinks as each batch lands (plans/tailwind-grade-docs.md).
+// component docs").
 
 type StoryLike = {
   tags?: string[]
@@ -19,13 +18,6 @@ const modules = import.meta.glob<StoryModule>(
   ],
   { eager: true },
 )
-
-/** Pages still to migrate. Delete each title as its page is rewritten. */
-const UNMIGRATED = new Set<string>([
-  'Typography/Heading',
-  'Typography/Prose',
-  'Typography/Text',
-])
 
 const isStory = (value: unknown): value is StoryLike =>
   typeof value === 'object' || typeof value === 'function'
@@ -52,7 +44,7 @@ describe('component docs examples', () => {
     expect(pages.length).toBeGreaterThan(50)
   })
 
-  it.each(pages.filter((p) => !UNMIGRATED.has(p.title)).map((p) => [p.title, p]))(
+  it.each(pages.map((p) => [p.title, p]))(
     '%s describes every example',
     (_title, page) => {
       expect(page.count).toBeGreaterThan(0)
@@ -62,16 +54,4 @@ describe('component docs examples', () => {
       ).toEqual([])
     },
   )
-
-  it('lists only pages that exist and still need migrating', () => {
-    const byTitle = new Map(pages.map((p) => [p.title, p]))
-    for (const title of UNMIGRATED) {
-      const page = byTitle.get(title)
-      expect(page, `${title} is not a docs page`).toBeDefined()
-      expect(
-        page!.missing.length,
-        `${title} is fully described; remove it from UNMIGRATED`,
-      ).toBeGreaterThan(0)
-    }
-  })
 })

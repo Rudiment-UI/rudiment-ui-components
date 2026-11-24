@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Component docs pages in Storybook:** every component, layout and typography page now has the same shape: a summary, the first example with its API reference right below it (the controls drive that example), on component pages a Customizing section listing the component's `--rudi-component-*` tokens with a copyable override snippet, usage guidelines, then the remaining examples and previous/next links. Examples are named after the task they show ("Variants", "Loading state", "Responsive") rather than a prop value, compare related options side by side, show their code by default, and each carry a sentence or two on when and why to use them, with the matching do/don't beside them. An "On this page" outline sits beside every page, and each layout's Responsive example renders at device widths.
 - **Layout defaults point at the named steps:** Stack, Grid, Sidebar, Switcher, and Cover default to `group`, and Cluster and Box to `content`. These have the same values as before. Center's `gutters` default is now `gutter`, which is 1rem as before and widens to 1.5rem at `md` and 2rem at `lg`.
 
 ### Fixed

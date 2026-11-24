@@ -9,7 +9,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'A semantic heading element (h1 through h6) with independent visual sizing. Allows you to maintain a correct document outline while matching any visual hierarchy.',
+          'A semantic heading, `h1` to `h6`, whose visual size is set separately from its level, so the document outline stays correct while the look follows the design. Use `RudiText` for body text.',
       },
     },
   },
@@ -63,7 +63,7 @@ const meta = {
   },
   args: {
     level: 2,
-    children: 'Section Heading',
+    children: 'Section heading',
   },
 } satisfies Meta<typeof RudiHeading>
 
@@ -71,67 +71,121 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: { level: 1, children: 'Heading Level 1' },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Pick `level` from where the heading sits in the page outline. This heading is driven by its args, so the controls in the API reference below change it.',
+      },
+    },
+  },
 }
 
-export const AllLevels: Story = {
+export const Levels: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Each level renders its own element and, by default, its own size. Keep levels in order without skipping, since screen reader users navigate by them.',
+      },
+    },
+  },
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-      <RudiHeading level={1}>Heading Level 1</RudiHeading>
-      <RudiHeading level={2}>Heading Level 2</RudiHeading>
-      <RudiHeading level={3}>Heading Level 3</RudiHeading>
-      <RudiHeading level={4}>Heading Level 4</RudiHeading>
-      <RudiHeading level={5}>Heading Level 5</RudiHeading>
-      <RudiHeading level={6}>Heading Level 6</RudiHeading>
+    <div className="flex flex-col gap-4">
+      {([1, 2, 3, 4, 5, 6] as const).map((level) => (
+        <RudiHeading key={level} level={level}>
+          Heading level {level}
+        </RudiHeading>
+      ))}
     </div>
   ),
 }
 
-export const VisualSizeOverride: Story = {
+export const SizeIndependentOfLevel: Story = {
+  name: 'Size independent of level',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'When the design calls for a smaller or larger heading than its level, set `size` instead of picking the wrong level. A card title can stay an `h3` and look like a size 5, and a page title can stay the `h1` while looking quieter.',
+      },
+    },
+  },
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-      <RudiHeading level={3} size={1}>
-        h3 element, size-1 appearance
-      </RudiHeading>
+    <div className="flex flex-col gap-4">
       <RudiHeading level={1} size={3}>
-        h1 element, size-3 appearance
+        An h1 at size 3
       </RudiHeading>
+      <RudiHeading level={3} size={5}>
+        An h3 at size 5
+      </RudiHeading>
+    </div>
+  ),
+}
+
+export const Weights: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '`weight` overrides the weight that comes with the size, for example a lighter display heading on a landing page.',
+      },
+    },
+  },
+  render: () => (
+    <div className="flex flex-col gap-3">
+      {(['regular', 'medium', 'semibold', 'bold'] as const).map((weight) => (
+        <RudiHeading key={weight} level={3} weight={weight}>
+          {weight} weight
+        </RudiHeading>
+      ))}
     </div>
   ),
 }
 
 export const Tones: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '`tone` maps to semantic color tokens, so the color follows the theme. Use `inverted` only on an inverted surface, and don\'t rely on color alone to carry meaning.',
+      },
+    },
+  },
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-      <RudiHeading level={3} tone="default">
-        default tone
-      </RudiHeading>
-      <RudiHeading level={3} tone="subtle">
-        subtle tone
-      </RudiHeading>
-      <RudiHeading level={3} tone="brand">
-        brand tone
-      </RudiHeading>
+    <div className="flex flex-col gap-3">
+      {(['default', 'subtle', 'brand', 'success', 'warning', 'error', 'info'] as const).map(
+        (tone) => (
+          <RudiHeading key={tone} level={3} tone={tone}>
+            {tone} tone
+          </RudiHeading>
+        ),
+      )}
+      <div style={{ background: 'var(--rudi-color-background-inverted)', padding: '1rem' }}>
+        <RudiHeading level={3} tone="inverted">
+          inverted tone
+        </RudiHeading>
+      </div>
     </div>
   ),
 }
 
 export const Alignment: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '`start` and `end` follow the writing direction, so they flip in right-to-left layouts. Center short headings only, such as an empty state or a hero.',
+      },
+    },
+  },
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-      <RudiHeading level={3} align="start">
-        start aligned
-      </RudiHeading>
-      <RudiHeading level={3} align="center">
-        center aligned
-      </RudiHeading>
-      <RudiHeading level={3} align="end">
-        end aligned
-      </RudiHeading>
+    <div className="flex flex-col gap-3">
+      {(['start', 'center', 'end'] as const).map((align) => (
+        <RudiHeading key={align} level={3} align={align}>
+          {align} aligned
+        </RudiHeading>
+      ))}
     </div>
   ),
-}
-
-export const CustomClassName: Story = {
-  args: { level: 2, className: 'italic', children: 'Custom class applied' },
 }

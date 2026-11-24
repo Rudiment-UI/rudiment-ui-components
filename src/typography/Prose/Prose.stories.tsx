@@ -67,7 +67,7 @@ export const Default: Story = {
       <h2>Getting started</h2>
       <p>
         Prose handles the vertical rhythm between its children, so you{' '}
-        <strong>don\'t manage spacing by hand</strong>. Links such as{' '}
+        <strong>don't manage spacing by hand</strong>. Links such as{' '}
         <a href="#prose">this one</a> and <code>inline code</code> are styled
         too.
       </p>

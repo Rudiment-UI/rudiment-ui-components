@@ -1,7 +1,8 @@
-import type { ComponentType } from 'react'
+import { useContext, type ComponentType } from 'react'
 import {
   Controls,
   Description,
+  DocsContext,
   Heading,
   Primary,
   Stories,
@@ -40,8 +41,12 @@ const GUIDELINES = Object.fromEntries(
  * Default story, since Storybook hides the toolbar's viewport tool on docs pages.
  */
 export function AutodocsPage() {
-  const { preparedMeta, csfFile } = useOf('meta', ['meta'])
-  const primary = Object.values(csfFile.stories)[0]
+  const { preparedMeta } = useOf('meta', ['meta'])
+  // The story <Primary /> renders: the first autodocs story in file order.
+  // (csfFile.stories is keyed alphabetically, so it can't be used for this.)
+  const primary = useContext(DocsContext)
+    .componentStories()
+    .find((story) => story.tags.includes('autodocs'))
   const key = guidelineKey(preparedMeta.title)
   const Guidelines = key ? GUIDELINES[key] : undefined
   const isRecipe = preparedMeta.title.startsWith('Patterns/')
